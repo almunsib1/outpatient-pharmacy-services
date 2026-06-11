@@ -1,0 +1,264 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f8f5;
+  --surface: #ffffff;
+  --text: #17221d;
+  --muted: #637068;
+  --border: #dce3dc;
+  --primary: #0f766e;
+  --primary-dark: #115e59;
+  --accent: #b42318;
+  --success: #157347;
+  --shadow: 0 14px 36px rgba(23, 34, 29, 0.10);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Tahoma, Arial, sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(100%, 720px);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.view {
+  min-height: calc(100vh - 40px);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.auth-view {
+  display: grid;
+  align-content: center;
+  gap: 22px;
+}
+
+.brand-block h1 {
+  margin: 0 0 8px;
+  font-size: clamp(28px, 8vw, 42px);
+  line-height: 1.15;
+}
+
+.brand-block p,
+.muted,
+.hint {
+  color: var(--muted);
+}
+
+.panel,
+.result-card,
+.upload-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.panel {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+}
+
+label,
+.label {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #fff;
+  color: var(--text);
+}
+
+input:focus {
+  border-color: var(--primary);
+  outline: 3px solid rgba(15, 118, 110, 0.16);
+}
+
+button {
+  min-height: 48px;
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.primary-btn,
+.secondary-btn {
+  background: var(--primary);
+  color: #fff;
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+  background: var(--primary-dark);
+}
+
+.ghost-btn {
+  background: transparent;
+  color: var(--primary-dark);
+  border: 1px solid var(--border);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0 18px;
+}
+
+.topbar div {
+  display: grid;
+  gap: 4px;
+}
+
+.scanner-area {
+  display: grid;
+  gap: 12px;
+}
+
+#reader {
+  overflow: hidden;
+  min-height: 300px;
+  background: #0d1412;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.scan-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.manual-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.manual-form button {
+  background: #23352e;
+  color: #fff;
+}
+
+.message {
+  min-height: 22px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.message.error,
+.prepared-message {
+  color: var(--accent);
+}
+
+.message.success {
+  color: var(--success);
+}
+
+.result-card {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 18px;
+}
+
+.result-card div {
+  display: grid;
+  gap: 4px;
+}
+
+.result-card strong {
+  font-size: 24px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.prepared-message {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.7;
+}
+
+.done-btn {
+  min-height: 74px;
+  margin-top: 4px;
+  background: var(--success);
+  color: #fff;
+  font-size: 28px;
+}
+
+.done-btn:hover {
+  background: #0f5f38;
+}
+
+.upload-box {
+  margin-top: 18px;
+  padding: 16px;
+}
+
+.upload-box summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.upload-box form {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+@media (max-width: 480px) {
+  .app-shell {
+    padding: 14px;
+  }
+
+  .view {
+    min-height: calc(100vh - 28px);
+  }
+
+  #reader {
+    min-height: 260px;
+  }
+
+  .scan-actions,
+  .manual-form {
+    grid-template-columns: 1fr;
+  }
+
+  .done-btn {
+    font-size: 25px;
+  }
+}
