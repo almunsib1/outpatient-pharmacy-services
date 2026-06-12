@@ -49,7 +49,7 @@ function dashboardLogin(event) {
   const username = els.adminUsername.value.trim();
   const pin = els.adminPin.value.trim();
 
-  if (username !== "Admin" || pin !== "1234") {
+  if (username.toLowerCase() !== "admin" || pin !== "3414") {
     setLoginMessage("بيانات الأدمن غير صحيحة.", "error");
     return;
   }
@@ -80,8 +80,8 @@ function dashboardLogout() {
 }
 
 function hasDashboardSession() {
-  return sessionStorage.getItem("dashboardAdminUsername") === "Admin" &&
-    sessionStorage.getItem("dashboardAdminPin") === "1234";
+  return String(sessionStorage.getItem("dashboardAdminUsername") || "").toLowerCase() === "admin" &&
+    sessionStorage.getItem("dashboardAdminPin") === "3414";
 }
 
 function renderDate(extraText = "") {

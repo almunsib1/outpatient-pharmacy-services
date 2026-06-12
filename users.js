@@ -33,13 +33,12 @@ function initUsers() {
   els.cancelEditBtn.addEventListener("click", resetForm);
 }
 
-async function adminLogin(event) {
+function adminLogin(event) {
   event.preventDefault();
   const adminUsername = els.adminUsername.value.trim();
   const adminPin = els.adminPin.value.trim();
 
-  setAdminLoginMessage("جاري تسجيل الدخول...");
-  if (adminUsername !== "Admin" || adminPin !== "1234") {
+  if (adminUsername.toLowerCase() !== "admin" || adminPin !== "3414") {
     setAdminLoginMessage("بيانات الأدمن غير صحيحة.", "error");
     return;
   }
@@ -63,11 +62,12 @@ function adminLogout() {
   els.adminLoginForm.reset();
   setAdminLoginMessage("");
   setMessage("");
+  resetForm();
 }
 
 function hasAdminSession() {
-  return sessionStorage.getItem("adminUsername") === "Admin" &&
-    sessionStorage.getItem("adminPin") === "1234";
+  return String(sessionStorage.getItem("adminUsername") || "").toLowerCase() === "admin" &&
+    sessionStorage.getItem("adminPin") === "3414";
 }
 
 function renderDate() {
