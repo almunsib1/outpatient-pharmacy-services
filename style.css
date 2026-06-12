@@ -214,10 +214,10 @@ input {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(22, 143, 179, 0.10);
+  background: transparent;
   color: #168fb3;
-  border: 1px solid rgba(22, 143, 179, 0.20);
-  border-radius: 8px;
+  border: 0;
+  border-radius: 0;
   font-size: 22px;
   font-weight: 700;
   line-height: 1;
@@ -241,34 +241,34 @@ input {
 .portal-card.upload::before,
 .portal-card.upload .portal-icon {
   color: #0f766e;
-  border-color: rgba(15, 118, 110, 0.22);
-  background: rgba(15, 118, 110, 0.10);
+  border-color: transparent;
+  background: transparent;
 }
 
 .portal-card.upload::before {
-  background: #0f766e;
+  background: #168fb3;
 }
 
 .portal-card.dashboard::before,
 .portal-card.dashboard .portal-icon {
   color: #2563eb;
-  border-color: rgba(37, 99, 235, 0.22);
-  background: rgba(37, 99, 235, 0.10);
+  border-color: transparent;
+  background: transparent;
 }
 
 .portal-card.dashboard::before {
-  background: #2563eb;
+  background: #168fb3;
 }
 
 .portal-card.users::before,
 .portal-card.users .portal-icon {
   color: #7c3aed;
-  border-color: rgba(124, 58, 237, 0.22);
-  background: rgba(124, 58, 237, 0.10);
+  border-color: transparent;
+  background: transparent;
 }
 
 .portal-card.users::before {
-  background: #7c3aed;
+  background: #168fb3;
 }
 
 .employee-shell .view {

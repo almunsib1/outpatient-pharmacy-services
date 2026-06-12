@@ -24,14 +24,16 @@ const els = {
 let scanner;
 let selectedPrescription = null;
 let isScanning = false;
+let inactivityTimer = null;
+const INACTIVITY_LIMIT_MS = 30 * 60 * 1000;
 
 document.addEventListener("DOMContentLoaded", init);
-window.addEventListener("pagehide", clearAuthSession);
 
 function init() {
   renderDate();
-  const savedUser = localStorage.getItem("preparerUsername");
-  const savedName = localStorage.getItem("preparerDisplayName") || savedUser;
+  startInactivityWatcher();
+  const savedUser = sessionStorage.getItem("preparerUsername");
+  const savedName = sessionStorage.getItem("preparerDisplayName") || savedUser;
   if (savedUser) {
     showPrep(savedName);
   }
@@ -67,8 +69,9 @@ async function handleLogin(event) {
   try {
     const response = await api("login", { username, pin });
     if (!response.ok) throw new Error(response.message || "بيانات الدخول غير صحيحة.");
-    localStorage.setItem("preparerUsername", username);
-    localStorage.setItem("preparerDisplayName", response.displayName || username);
+    sessionStorage.setItem("preparerUsername", username);
+    sessionStorage.setItem("preparerDisplayName", response.displayName || username);
+    resetInactivityTimer();
     showPrep(response.displayName || username);
   } catch (error) {
     setMessage(els.loginMessage, error.message, "error");
@@ -93,8 +96,22 @@ function logout() {
 }
 
 function clearAuthSession() {
-  localStorage.removeItem("preparerUsername");
-  localStorage.removeItem("preparerDisplayName");
+  sessionStorage.removeItem("preparerUsername");
+  sessionStorage.removeItem("preparerDisplayName");
+}
+
+function startInactivityWatcher() {
+  ["click", "keydown", "touchstart", "mousemove", "scan-activity"].forEach(eventName => {
+    window.addEventListener(eventName, resetInactivityTimer, { passive: true });
+  });
+  resetInactivityTimer();
+}
+
+function resetInactivityTimer() {
+  window.clearTimeout(inactivityTimer);
+  inactivityTimer = window.setTimeout(() => {
+    if (sessionStorage.getItem("preparerUsername")) logout();
+  }, INACTIVITY_LIMIT_MS);
 }
 
 async function startCamera() {
@@ -156,6 +173,7 @@ function updateCameraButton() {
 }
 
 async function handleScanSuccess(decodedText) {
+  resetInactivityTimer();
   const fileNumber = normalizeFileNumber(decodedText);
   if (!fileNumber) return;
   if (scanner && isScanning) scanner.pause(true);
@@ -164,6 +182,7 @@ async function handleScanSuccess(decodedText) {
 
 async function handleManualSearch(event) {
   event.preventDefault();
+  resetInactivityTimer();
   const fileNumber = normalizeFileNumber(els.manualFileNumber.value);
   if (!fileNumber) {
     setMessage(els.scanMessage, "أدخل رقم الملف.", "error");
@@ -173,6 +192,7 @@ async function handleManualSearch(event) {
 }
 
 async function lookupPrescription(fileNumber) {
+  resetInactivityTimer();
   clearResult();
   setMessage(els.scanMessage, "جاري البحث عن رقم الملف...");
 
@@ -205,7 +225,8 @@ async function lookupPrescription(fileNumber) {
 
 async function markPrepared() {
   if (!selectedPrescription) return;
-  const preparedBy = localStorage.getItem("preparerDisplayName") || localStorage.getItem("preparerUsername");
+  resetInactivityTimer();
+  const preparedBy = sessionStorage.getItem("preparerDisplayName") || sessionStorage.getItem("preparerUsername");
 
   els.markPreparedBtn.disabled = true;
   setMessage(els.scanMessage, "جاري تسجيل التحضير...");
