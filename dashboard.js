@@ -20,6 +20,7 @@ const els = {
   printPreparedCount: document.getElementById("printPreparedCount"),
   printUserBody: document.getElementById("printUserBody"),
   fileSearchInput: document.getElementById("fileSearchInput"),
+  fileSearchBtn: document.getElementById("fileSearchBtn"),
   dailyListBody: document.getElementById("dailyListBody"),
   supervisorMessage: document.getElementById("supervisorMessage"),
   filterButtons: document.querySelectorAll(".filter-btn")
@@ -28,6 +29,7 @@ const els = {
 let dailyRows = [];
 let activeFilter = "all";
 let refreshTimer = null;
+let isLoadingSupervisorData = false;
 
 document.addEventListener("DOMContentLoaded", initDashboard);
 
@@ -41,6 +43,7 @@ function initDashboard() {
     button.addEventListener("click", () => setStatusFilter(button.dataset.filter));
   });
   els.fileSearchInput.addEventListener("input", () => renderDailyRows(getFilteredRows()));
+  els.fileSearchBtn.addEventListener("click", applyFileSearch);
   renderDate();
 }
 
@@ -97,6 +100,10 @@ function renderDate(extraText = "") {
 }
 
 async function loadSupervisorData() {
+  if (isLoadingSupervisorData) return;
+  isLoadingSupervisorData = true;
+  els.refreshSupervisorBtn.disabled = true;
+  els.refreshSupervisorBtn.classList.add("is-loading");
   setMessage(els.supervisorMessage, "");
 
   try {
@@ -111,7 +118,16 @@ async function loadSupervisorData() {
     setMessage(els.supervisorMessage, "");
   } catch (error) {
     setMessage(els.supervisorMessage, error.message, "error");
+  } finally {
+    isLoadingSupervisorData = false;
+    els.refreshSupervisorBtn.disabled = false;
+    els.refreshSupervisorBtn.classList.remove("is-loading");
   }
+}
+
+function applyFileSearch() {
+  renderDailyRows(getFilteredRows());
+  els.fileSearchInput.focus();
 }
 
 function setStatusFilter(filter) {

@@ -724,14 +724,14 @@ button:disabled {
 }
 
 .dashboard-icon-btn {
-  width: 32px;
-  min-width: 32px;
-  min-height: 32px;
+  width: 38px;
+  min-width: 38px;
+  min-height: 38px;
   padding: 0;
   border: 0;
   background: transparent;
   color: #168fb3;
-  font-size: 20px;
+  font-size: 25px;
   line-height: 1;
   display: inline-flex;
   align-items: center;
@@ -741,6 +741,11 @@ button:disabled {
 .dashboard-icon-btn:hover {
   background: transparent;
   transform: scale(1.08);
+}
+
+.dashboard-icon-btn.is-loading {
+  opacity: 0.7;
+  transform: rotate(20deg);
 }
 
 .summary-grid {
@@ -860,16 +865,38 @@ button:disabled {
 
 .dashboard-search {
   display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 6px;
 }
 
 .dashboard-search input {
-  width: 150px;
-  min-height: 34px;
-  padding: 6px 10px;
+  width: 116px;
+  min-height: 32px;
+  padding: 5px 8px;
   direction: ltr;
   text-align: center;
   font-size: 13px;
+}
+
+.dashboard-search-btn {
+  width: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+  background: transparent;
+  color: #168fb3;
+  border: 0;
+  font-size: 22px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-search-btn:hover {
+  background: transparent;
+  transform: scale(1.08);
 }
 
 .daily-table {
