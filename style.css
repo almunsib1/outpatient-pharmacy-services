@@ -347,7 +347,8 @@ input {
   gap: 8px;
 }
 
-.logout-icon {
+.logout-icon,
+.pin-icon {
   width: 28px;
   height: 28px;
   min-height: 28px;
@@ -362,7 +363,12 @@ input {
   justify-content: center;
 }
 
-.logout-icon:hover {
+.pin-icon {
+  font-size: 18px;
+}
+
+.logout-icon:hover,
+.pin-icon:hover {
   background: transparent;
   transform: scale(1.08);
 }

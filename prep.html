@@ -6,7 +6,7 @@
   <title>تتبع تحضير وصفات الصيدلية</title>
   <link rel="stylesheet" href="style.css?v=20260612-portal">
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js" defer></script>
-  <script src="script.js?v=20260612-camera-off" defer></script>
+  <script src="script.js?v=20260612-pin" defer></script>
 </head>
 <body>
   <main class="app-shell employee-shell">
@@ -44,6 +44,7 @@
       <header class="topbar employee-toolbar">
         <div class="user-chip">
           <strong id="currentUser"></strong>
+          <button id="changePinBtn" class="pin-icon" type="button" title="تغيير PIN" aria-label="تغيير PIN">🔑</button>
           <button id="logoutBtn" class="logout-icon" type="button" title="خروج" aria-label="خروج">↪</button>
         </div>
       </header>

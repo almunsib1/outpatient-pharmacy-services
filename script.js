@@ -8,6 +8,7 @@ const els = {
   pin: document.getElementById("pin"),
   loginMessage: document.getElementById("loginMessage"),
   currentUser: document.getElementById("currentUser"),
+  changePinBtn: document.getElementById("changePinBtn"),
   logoutBtn: document.getElementById("logoutBtn"),
   startCameraBtn: document.getElementById("startCameraBtn"),
   manualForm: document.getElementById("manualForm"),
@@ -38,6 +39,7 @@ function init() {
   }
 
   els.loginForm.addEventListener("submit", handleLogin);
+  els.changePinBtn.addEventListener("click", changePin);
   els.logoutBtn.addEventListener("click", logout);
   els.startCameraBtn.addEventListener("click", toggleCamera);
   els.manualForm.addEventListener("submit", handleManualSearch);
@@ -242,6 +244,31 @@ async function markPrepared() {
     setTimeout(() => {
       window.location.reload();
     }, 1500);
+  } catch (error) {
+    setMessage(els.scanMessage, error.message, "error");
+  }
+}
+
+async function changePin() {
+  resetInactivityTimer();
+  const username = sessionStorage.getItem("preparerUsername");
+  if (!username) return;
+
+  const currentPin = window.prompt("أدخل PIN الحالي:");
+  if (!currentPin) return;
+  const newPin = window.prompt("أدخل PIN الجديد:");
+  if (!newPin) return;
+  const confirmPin = window.prompt("أعد إدخال PIN الجديد:");
+  if (newPin !== confirmPin) {
+    setMessage(els.scanMessage, "PIN الجديد غير متطابق.", "error");
+    return;
+  }
+
+  setMessage(els.scanMessage, "جاري تغيير PIN...");
+  try {
+    const response = await api("changePin", { username, currentPin, newPin });
+    if (!response.ok) throw new Error(response.message || "تعذر تغيير PIN.");
+    setMessage(els.scanMessage, response.message || "تم تغيير PIN بنجاح.", "success");
   } catch (error) {
     setMessage(els.scanMessage, error.message, "error");
   }

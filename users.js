@@ -8,6 +8,7 @@ const els = {
   adminUsername: document.getElementById("adminUsername"),
   adminPin: document.getElementById("adminPin"),
   adminLoginMessage: document.getElementById("adminLoginMessage"),
+  adminChangePinBtn: document.getElementById("adminChangePinBtn"),
   adminLogoutBtn: document.getElementById("adminLogoutBtn"),
   userForm: document.getElementById("userForm"),
   nameInput: document.getElementById("nameInput"),
@@ -31,25 +32,29 @@ function initUsers() {
   startInactivityWatcher();
   if (hasAdminSession()) showUsersView();
   els.adminLoginForm.addEventListener("submit", adminLogin);
+  els.adminChangePinBtn.addEventListener("click", changeAdminPin);
   els.adminLogoutBtn.addEventListener("click", adminLogout);
   els.userForm.addEventListener("submit", saveUser);
   els.cancelEditBtn.addEventListener("click", resetForm);
 }
 
-function adminLogin(event) {
+async function adminLogin(event) {
   event.preventDefault();
   const adminUsername = els.adminUsername.value.trim();
   const adminPin = els.adminPin.value.trim();
 
-  if (adminUsername.toLowerCase() !== "admin" || adminPin !== "3414") {
-    setAdminLoginMessage("بيانات الأدمن غير صحيحة.", "error");
-    return;
+  setAdminLoginMessage("جاري تسجيل الدخول...");
+  try {
+    const response = await api("adminLogin", { username: adminUsername, pin: adminPin });
+    if (!response.ok) throw new Error(response.message || "بيانات الأدمن غير صحيحة.");
+    sessionStorage.setItem("adminUsername", "Admin");
+    sessionStorage.setItem("adminPin", adminPin);
+    resetInactivityTimer();
+    setAdminLoginMessage("");
+    showUsersView();
+  } catch (error) {
+    setAdminLoginMessage(error.message, "error");
   }
-
-  sessionStorage.setItem("adminUsername", adminUsername);
-  sessionStorage.setItem("adminPin", adminPin);
-  resetInactivityTimer();
-  showUsersView();
 }
 
 function showUsersView() {
@@ -89,7 +94,38 @@ function resetInactivityTimer() {
 
 function hasAdminSession() {
   return String(sessionStorage.getItem("adminUsername") || "").toLowerCase() === "admin" &&
-    sessionStorage.getItem("adminPin") === "3414";
+    Boolean(sessionStorage.getItem("adminPin"));
+}
+
+async function changeAdminPin() {
+  resetInactivityTimer();
+  const currentPin = sessionStorage.getItem("adminPin");
+  if (!currentPin) return;
+
+  const enteredCurrentPin = window.prompt("أدخل PIN الحالي:");
+  if (!enteredCurrentPin) return;
+  if (enteredCurrentPin !== currentPin) {
+    setMessage("PIN الحالي غير صحيح.", "error");
+    return;
+  }
+
+  const newPin = window.prompt("أدخل PIN الجديد:");
+  if (!newPin) return;
+  const confirmPin = window.prompt("أعد إدخال PIN الجديد:");
+  if (newPin !== confirmPin) {
+    setMessage("PIN الجديد غير متطابق.", "error");
+    return;
+  }
+
+  setMessage("جاري تغيير PIN...");
+  try {
+    const response = await api("changeAdminPin", { newPin });
+    if (!response.ok) throw new Error(response.message || "تعذر تغيير PIN.");
+    sessionStorage.setItem("adminPin", newPin);
+    setMessage(response.message || "تم تغيير PIN بنجاح.", "success");
+  } catch (error) {
+    setMessage(error.message, "error");
+  }
 }
 
 function renderDate() {
@@ -248,13 +284,6 @@ async function api(action, payload = {}) {
 }
 
 function adminPayload() {
-  if (hasAdminSession()) {
-    return {
-      adminUsername: "Admin",
-      adminPin: "3414"
-    };
-  }
-
   return {
     adminUsername: sessionStorage.getItem("adminUsername") || "",
     adminPin: sessionStorage.getItem("adminPin") || ""
