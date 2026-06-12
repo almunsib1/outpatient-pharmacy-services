@@ -8,7 +8,7 @@ const els = {
   adminUsername: document.getElementById("adminUsername"),
   adminPin: document.getElementById("adminPin"),
   adminLoginMessage: document.getElementById("adminLoginMessage"),
-  adminChangePinBtn: document.getElementById("adminChangePinBtn"),
+  adminChangePinLoginBtn: document.getElementById("adminChangePinLoginBtn"),
   adminLogoutBtn: document.getElementById("adminLogoutBtn"),
   userForm: document.getElementById("userForm"),
   nameInput: document.getElementById("nameInput"),
@@ -32,7 +32,7 @@ function initUsers() {
   startInactivityWatcher();
   if (hasAdminSession()) showUsersView();
   els.adminLoginForm.addEventListener("submit", adminLogin);
-  els.adminChangePinBtn.addEventListener("click", changeAdminPin);
+  els.adminChangePinLoginBtn.addEventListener("click", changeLoginPin);
   els.adminLogoutBtn.addEventListener("click", adminLogout);
   els.userForm.addEventListener("submit", saveUser);
   els.cancelEditBtn.addEventListener("click", resetForm);
@@ -97,34 +97,27 @@ function hasAdminSession() {
     Boolean(sessionStorage.getItem("adminPin"));
 }
 
-async function changeAdminPin() {
-  resetInactivityTimer();
-  const currentPin = sessionStorage.getItem("adminPin");
+async function changeLoginPin() {
+  const username = els.adminUsername.value.trim() || window.prompt("أدخل اسم المستخدم:");
+  if (!username) return;
+  const currentPin = window.prompt("أدخل PIN الحالي:");
   if (!currentPin) return;
-
-  const enteredCurrentPin = window.prompt("أدخل PIN الحالي:");
-  if (!enteredCurrentPin) return;
-  if (enteredCurrentPin !== currentPin) {
-    setMessage("PIN الحالي غير صحيح.", "error");
-    return;
-  }
-
   const newPin = window.prompt("أدخل PIN الجديد:");
   if (!newPin) return;
   const confirmPin = window.prompt("أعد إدخال PIN الجديد:");
   if (newPin !== confirmPin) {
-    setMessage("PIN الجديد غير متطابق.", "error");
+    setAdminLoginMessage("PIN الجديد غير متطابق.", "error");
     return;
   }
 
-  setMessage("جاري تغيير PIN...");
+  setAdminLoginMessage("جاري تغيير مفتاح الدخول...");
   try {
-    const response = await api("changeAdminPin", { newPin });
-    if (!response.ok) throw new Error(response.message || "تعذر تغيير PIN.");
-    sessionStorage.setItem("adminPin", newPin);
-    setMessage(response.message || "تم تغيير PIN بنجاح.", "success");
+    const response = await api("changeLoginPin", { username, currentPin, newPin });
+    if (!response.ok) throw new Error(response.message || "تعذر تغيير مفتاح الدخول.");
+    setAdminLoginMessage("تم تغيير مفتاح الدخول بنجاح.", "success");
+    setTimeout(() => window.location.reload(), 1200);
   } catch (error) {
-    setMessage(error.message, "error");
+    setAdminLoginMessage(error.message, "error");
   }
 }
 

@@ -298,6 +298,13 @@ input {
   justify-self: center;
 }
 
+.login-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
 .employee-shell label,
 .employee-shell .label {
   color: #111827;
@@ -347,8 +354,7 @@ input {
   gap: 8px;
 }
 
-.logout-icon,
-.pin-icon {
+.logout-icon {
   width: 28px;
   height: 28px;
   min-height: 28px;
@@ -363,12 +369,7 @@ input {
   justify-content: center;
 }
 
-.pin-icon {
-  font-size: 18px;
-}
-
-.logout-icon:hover,
-.pin-icon:hover {
+.logout-icon:hover {
   background: transparent;
   transform: scale(1.08);
 }

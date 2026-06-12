@@ -7,8 +7,8 @@ const els = {
   adminUsername: document.getElementById("adminUsername"),
   adminPin: document.getElementById("adminPin"),
   dashboardLoginMessage: document.getElementById("dashboardLoginMessage"),
+  dashboardChangePinLoginBtn: document.getElementById("dashboardChangePinLoginBtn"),
   dashboardLogoutBtn: document.getElementById("dashboardLogoutBtn"),
-  dashboardChangePinBtn: document.getElementById("dashboardChangePinBtn"),
   refreshSupervisorBtn: document.getElementById("refreshSupervisorBtn"),
   printReportBtn: document.getElementById("printReportBtn"),
   dateBox: document.getElementById("dateBox"),
@@ -40,8 +40,8 @@ function initDashboard() {
   startInactivityWatcher();
   if (hasDashboardSession()) showDashboard();
   els.dashboardLoginForm.addEventListener("submit", dashboardLogin);
+  els.dashboardChangePinLoginBtn.addEventListener("click", changeLoginPin);
   els.dashboardLogoutBtn.addEventListener("click", dashboardLogout);
-  els.dashboardChangePinBtn.addEventListener("click", changeAdminPin);
   els.refreshSupervisorBtn.addEventListener("click", loadSupervisorData);
   els.printReportBtn.addEventListener("click", () => window.print());
   els.filterButtons.forEach(button => {
@@ -114,34 +114,27 @@ function hasDashboardSession() {
     Boolean(sessionStorage.getItem("dashboardAdminPin"));
 }
 
-async function changeAdminPin() {
-  resetInactivityTimer();
-  const currentPin = sessionStorage.getItem("dashboardAdminPin");
+async function changeLoginPin() {
+  const username = els.adminUsername.value.trim() || window.prompt("أدخل اسم المستخدم:");
+  if (!username) return;
+  const currentPin = window.prompt("أدخل PIN الحالي:");
   if (!currentPin) return;
-
-  const enteredCurrentPin = window.prompt("أدخل PIN الحالي:");
-  if (!enteredCurrentPin) return;
-  if (enteredCurrentPin !== currentPin) {
-    setMessage(els.supervisorMessage, "PIN الحالي غير صحيح.", "error");
-    return;
-  }
-
   const newPin = window.prompt("أدخل PIN الجديد:");
   if (!newPin) return;
   const confirmPin = window.prompt("أعد إدخال PIN الجديد:");
   if (newPin !== confirmPin) {
-    setMessage(els.supervisorMessage, "PIN الجديد غير متطابق.", "error");
+    setLoginMessage("PIN الجديد غير متطابق.", "error");
     return;
   }
 
-  setMessage(els.supervisorMessage, "جاري تغيير PIN...");
+  setLoginMessage("جاري تغيير مفتاح الدخول...");
   try {
-    const response = await api("changeAdminPin", adminPayload({ newPin }));
-    if (!response.ok) throw new Error(response.message || "تعذر تغيير PIN.");
-    sessionStorage.setItem("dashboardAdminPin", newPin);
-    setMessage(els.supervisorMessage, response.message || "تم تغيير PIN بنجاح.", "success");
+    const response = await api("changeLoginPin", { username, currentPin, newPin });
+    if (!response.ok) throw new Error(response.message || "تعذر تغيير مفتاح الدخول.");
+    setLoginMessage("تم تغيير مفتاح الدخول بنجاح.", "success");
+    setTimeout(() => window.location.reload(), 1200);
   } catch (error) {
-    setMessage(els.supervisorMessage, error.message, "error");
+    setLoginMessage(error.message, "error");
   }
 }
 
@@ -295,14 +288,6 @@ function escapeHtml(value) {
 
 function normalizeSearch(value) {
   return String(value || "").trim().replace(/\s+/g, "");
-}
-
-function adminPayload(payload = {}) {
-  return {
-    adminUsername: sessionStorage.getItem("dashboardAdminUsername") || "",
-    adminPin: sessionStorage.getItem("dashboardAdminPin") || "",
-    ...payload
-  };
 }
 
 async function api(action, payload = {}) {

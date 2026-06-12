@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>إدارة مستخدمي وصفات البريد</title>
   <link rel="stylesheet" href="style.css?v=20260612-portal">
-  <script src="users.js?v=20260612-pin" defer></script>
+  <script src="users.js?v=20260612-login-pin" defer></script>
 </head>
 <body>
   <main class="app-shell employee-shell">
@@ -34,7 +34,10 @@
         <label for="adminPin">PIN</label>
         <input id="adminPin" type="password" inputmode="numeric" autocomplete="current-password" required>
 
-        <button class="primary-btn icon-action" type="submit" title="دخول" aria-label="دخول">↵</button>
+        <div class="login-actions">
+          <button class="primary-btn icon-action" type="submit" title="دخول" aria-label="دخول">↵</button>
+          <button id="adminChangePinLoginBtn" class="ghost-btn icon-action" type="button" title="تغيير PIN" aria-label="تغيير PIN">🔑</button>
+        </div>
         <p id="adminLoginMessage" class="message" role="status"></p>
       </form>
     </section>
@@ -43,7 +46,6 @@
       <header class="topbar employee-toolbar upload-toolbar">
         <div class="user-chip">
           <strong>Admin</strong>
-          <button id="adminChangePinBtn" class="pin-icon" type="button" title="تغيير PIN" aria-label="تغيير PIN">🔑</button>
           <button id="adminLogoutBtn" class="logout-icon" type="button" title="خروج" aria-label="خروج">↪</button>
         </div>
       </header>

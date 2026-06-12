@@ -7,8 +7,8 @@ const els = {
   username: document.getElementById("username"),
   pin: document.getElementById("pin"),
   loginMessage: document.getElementById("loginMessage"),
+  changePinLoginBtn: document.getElementById("changePinLoginBtn"),
   currentUser: document.getElementById("currentUser"),
-  changePinBtn: document.getElementById("changePinBtn"),
   logoutBtn: document.getElementById("logoutBtn"),
   uploadForm: document.getElementById("uploadForm"),
   fileInput: document.getElementById("fileInput"),
@@ -27,7 +27,7 @@ function initUpload() {
   const savedName = sessionStorage.getItem("preparerDisplayName") || savedUser;
   if (savedUser) showUpload(savedName);
   els.uploadLoginForm.addEventListener("submit", handleLogin);
-  els.changePinBtn.addEventListener("click", changePin);
+  els.changePinLoginBtn.addEventListener("click", changeLoginPin);
   els.logoutBtn.addEventListener("click", logout);
   els.uploadForm.addEventListener("submit", uploadFile);
 }
@@ -45,6 +45,30 @@ async function handleLogin(event) {
     sessionStorage.setItem("preparerDisplayName", response.displayName || username);
     resetInactivityTimer();
     showUpload(response.displayName || username);
+  } catch (error) {
+    setMessage(els.loginMessage, error.message, "error");
+  }
+}
+
+async function changeLoginPin() {
+  const username = els.username.value.trim() || window.prompt("أدخل اسم المستخدم:");
+  if (!username) return;
+  const currentPin = window.prompt("أدخل PIN الحالي:");
+  if (!currentPin) return;
+  const newPin = window.prompt("أدخل PIN الجديد:");
+  if (!newPin) return;
+  const confirmPin = window.prompt("أعد إدخال PIN الجديد:");
+  if (newPin !== confirmPin) {
+    setMessage(els.loginMessage, "PIN الجديد غير متطابق.", "error");
+    return;
+  }
+
+  setMessage(els.loginMessage, "جاري تغيير مفتاح الدخول...");
+  try {
+    const response = await api("changeLoginPin", { username, currentPin, newPin });
+    if (!response.ok) throw new Error(response.message || "تعذر تغيير مفتاح الدخول.");
+    setMessage(els.loginMessage, "تم تغيير مفتاح الدخول بنجاح.", "success");
+    setTimeout(() => window.location.reload(), 1200);
   } catch (error) {
     setMessage(els.loginMessage, error.message, "error");
   }
@@ -116,31 +140,6 @@ async function uploadFile(event) {
 
     els.uploadForm.reset();
     setMessage(els.uploadMessage, `تم رفع ${response.count} وصفة لقائمة اليوم.`, "success");
-  } catch (error) {
-    setMessage(els.uploadMessage, error.message, "error");
-  }
-}
-
-async function changePin() {
-  resetInactivityTimer();
-  const username = sessionStorage.getItem("preparerUsername");
-  if (!username) return;
-
-  const currentPin = window.prompt("أدخل PIN الحالي:");
-  if (!currentPin) return;
-  const newPin = window.prompt("أدخل PIN الجديد:");
-  if (!newPin) return;
-  const confirmPin = window.prompt("أعد إدخال PIN الجديد:");
-  if (newPin !== confirmPin) {
-    setMessage(els.uploadMessage, "PIN الجديد غير متطابق.", "error");
-    return;
-  }
-
-  setMessage(els.uploadMessage, "جاري تغيير PIN...");
-  try {
-    const response = await api("changePin", { username, currentPin, newPin });
-    if (!response.ok) throw new Error(response.message || "تعذر تغيير PIN.");
-    setMessage(els.uploadMessage, response.message || "تم تغيير PIN بنجاح.", "success");
   } catch (error) {
     setMessage(els.uploadMessage, error.message, "error");
   }

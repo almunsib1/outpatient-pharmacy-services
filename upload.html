@@ -6,7 +6,7 @@
   <title>رفع قائمة وصفات اليوم</title>
   <link rel="stylesheet" href="style.css?v=20260612-portal">
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
-  <script src="upload.js?v=20260612-pin" defer></script>
+  <script src="upload.js?v=20260612-login-pin" defer></script>
 </head>
 <body>
   <main class="app-shell employee-shell">
@@ -35,7 +35,10 @@
         <label for="pin">PIN</label>
         <input id="pin" name="pin" type="password" inputmode="numeric" autocomplete="current-password" required>
 
-        <button class="primary-btn icon-action" type="submit" title="دخول" aria-label="دخول">↵</button>
+        <div class="login-actions">
+          <button class="primary-btn icon-action" type="submit" title="دخول" aria-label="دخول">↵</button>
+          <button id="changePinLoginBtn" class="ghost-btn icon-action" type="button" title="تغيير PIN" aria-label="تغيير PIN">🔑</button>
+        </div>
         <p id="loginMessage" class="message" role="status"></p>
       </form>
     </section>
@@ -44,7 +47,6 @@
       <header class="topbar employee-toolbar upload-toolbar">
         <div class="user-chip">
           <strong id="currentUser"></strong>
-          <button id="changePinBtn" class="pin-icon" type="button" title="تغيير PIN" aria-label="تغيير PIN">🔑</button>
           <button id="logoutBtn" class="logout-icon" type="button" title="خروج" aria-label="خروج">↪</button>
         </div>
       </header>
