@@ -1514,8 +1514,8 @@ button:disabled {
 
 @media print {
   @page {
-    size: A4;
-    margin: 12mm;
+    size: A4 landscape;
+    margin: 10mm;
   }
 
   body {
@@ -1553,8 +1553,8 @@ button:disabled {
 
   .print-report {
     display: grid;
-    gap: 11px;
-    max-width: 178mm;
+    gap: 9px;
+    max-width: 267mm;
     margin: 0 auto;
     color: #111827;
     font-family: "Segoe UI", Tahoma, Arial, sans-serif;
@@ -1564,14 +1564,14 @@ button:disabled {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    padding-bottom: 7px;
-    border-bottom: 2px solid #168fb3;
+    gap: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1.5px solid #168fb3;
   }
 
   .print-report-head img {
-    width: 58px;
-    height: 58px;
+    width: 44px;
+    height: 44px;
     object-fit: contain;
   }
 
@@ -1579,26 +1579,26 @@ button:disabled {
     text-align: right;
     color: #168fb3;
     font-weight: 700;
-    line-height: 1.35;
+    line-height: 1.25;
   }
 
   .print-report-head p {
     margin: 0;
-    font-size: 10.5px;
+    font-size: 9px;
   }
 
   .print-title-block {
     display: grid;
     justify-items: center;
-    gap: 5px;
-    padding: 7px 0 2px;
+    gap: 3px;
+    padding: 5px 0 1px;
   }
 
   .print-report h2 {
     margin: 0;
     text-align: center;
     color: #168fb3;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 700;
     line-height: 1.25;
   }
