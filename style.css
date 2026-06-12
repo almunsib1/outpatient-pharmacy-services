@@ -644,9 +644,24 @@ button:disabled {
   font-size: 13px;
 }
 
-.print-btn {
-  background: #23352e;
-  color: #fff;
+.dashboard-icon-btn {
+  width: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #168fb3;
+  font-size: 20px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-icon-btn:hover {
+  background: transparent;
+  transform: scale(1.08);
 }
 
 .summary-grid {
@@ -764,6 +779,20 @@ button:disabled {
   border-color: #168fb3;
 }
 
+.dashboard-search {
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard-search input {
+  width: 150px;
+  min-height: 34px;
+  padding: 6px 10px;
+  direction: ltr;
+  text-align: center;
+  font-size: 13px;
+}
+
 .daily-table {
   width: 100%;
   border-collapse: collapse;
@@ -814,6 +843,10 @@ button:disabled {
 .empty-cell {
   color: var(--muted);
   text-align: center !important;
+}
+
+.print-report {
+  display: none;
 }
 
 @media (max-width: 480px) {
@@ -936,6 +969,10 @@ button:disabled {
 
   .topbar,
   .supervisor-actions,
+  .summary-grid,
+  .status-filter,
+  .dashboard-search,
+  .table-wrap,
   #supervisorMessage {
     display: none !important;
   }
@@ -945,19 +982,63 @@ button:disabled {
   }
 
   .supervisor-head,
-  .summary-grid,
-  .table-wrap,
   .user-summary-panel,
   .summary-card {
     box-shadow: none;
   }
 
-  .summary-grid {
-    justify-content: center;
+  .print-report {
+    display: grid;
+    gap: 12px;
+    max-width: 720px;
+    margin: 18px auto 0;
+    color: #000;
   }
 
-  .daily-table {
-    min-width: 0;
-    font-size: 12px;
+  .print-report h2 {
+    margin: 0;
+    text-align: center;
+    font-size: 22px;
+  }
+
+  .print-report-date {
+    margin: 0;
+    text-align: center;
+    font-size: 13px;
+  }
+
+  .print-summary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .print-summary div {
+    border: 1px solid #000;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .print-summary span {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .print-summary strong {
+    font-size: 26px;
+  }
+
+  .print-user-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .print-user-table th,
+  .print-user-table td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: center;
   }
 }

@@ -5,9 +5,14 @@ const els = {
   printReportBtn: document.getElementById("printReportBtn"),
   dateBox: document.getElementById("dateBox"),
   reportDate: document.getElementById("reportDate"),
+  printReportDate: document.getElementById("printReportDate"),
   totalCount: document.getElementById("totalCount"),
   preparedCount: document.getElementById("preparedCount"),
   pendingCount: document.getElementById("pendingCount"),
+  printTotalCount: document.getElementById("printTotalCount"),
+  printPreparedCount: document.getElementById("printPreparedCount"),
+  printUserBody: document.getElementById("printUserBody"),
+  fileSearchInput: document.getElementById("fileSearchInput"),
   dailyListBody: document.getElementById("dailyListBody"),
   supervisorMessage: document.getElementById("supervisorMessage"),
   filterButtons: document.querySelectorAll(".filter-btn")
@@ -25,6 +30,7 @@ function initDashboard() {
   els.filterButtons.forEach(button => {
     button.addEventListener("click", () => setStatusFilter(button.dataset.filter));
   });
+  els.fileSearchInput.addEventListener("input", () => renderDailyRows(getFilteredRows()));
   renderDate();
   loadSupervisorData();
   refreshTimer = setInterval(loadSupervisorData, 30000);
@@ -43,17 +49,18 @@ function renderDate(extraText = "") {
 }
 
 async function loadSupervisorData() {
-  setMessage(els.supervisorMessage, "جاري تحميل قائمة اليوم...");
+  setMessage(els.supervisorMessage, "");
 
   try {
     const response = await api("getDailyStatus");
     if (!response.ok) throw new Error(response.message || "تعذر تحميل قائمة اليوم.");
 
     renderSupervisorSummary(response.summary);
+    renderPrintReport(response.summary);
     dailyRows = response.rows || [];
     renderDailyRows(getFilteredRows());
     renderDate("آخر تحديث: " + (response.dateText || formatDateTime(new Date())));
-    setMessage(els.supervisorMessage, "تم تحديث لوحة المشرف.", "success");
+    setMessage(els.supervisorMessage, "");
   } catch (error) {
     setMessage(els.supervisorMessage, error.message, "error");
   }
@@ -68,14 +75,45 @@ function setStatusFilter(filter) {
 }
 
 function getFilteredRows() {
-  if (activeFilter === "all") return dailyRows;
-  return dailyRows.filter(item => item.status === activeFilter);
+  const searchValue = normalizeSearch(els.fileSearchInput.value);
+  return dailyRows.filter(item => {
+    const matchesStatus = activeFilter === "all" || item.status === activeFilter;
+    const matchesSearch = !searchValue || normalizeSearch(item.fileNumber).includes(searchValue);
+    return matchesStatus && matchesSearch;
+  });
 }
 
 function renderSupervisorSummary(summary = {}) {
   els.totalCount.textContent = summary.total || 0;
   els.preparedCount.textContent = summary.prepared || 0;
   els.pendingCount.textContent = summary.pending || 0;
+}
+
+function renderPrintReport(summary = {}) {
+  els.printReportDate.textContent = els.dateBox.textContent;
+  els.printTotalCount.textContent = summary.total || 0;
+  els.printPreparedCount.textContent = summary.prepared || 0;
+  renderPrintUsers(summary.preparedByUser || []);
+}
+
+function renderPrintUsers(users) {
+  els.printUserBody.innerHTML = "";
+
+  if (!users.length) {
+    const row = document.createElement("tr");
+    row.innerHTML = `<td colspan="2">لا توجد وصفات جاهزة للإرسال.</td>`;
+    els.printUserBody.appendChild(row);
+    return;
+  }
+
+  users.forEach(user => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${escapeHtml(user.name)}</td>
+      <td>${user.count || 0}</td>
+    `;
+    els.printUserBody.appendChild(row);
+  });
 }
 
 function renderDailyRows(rows) {
@@ -126,6 +164,10 @@ function escapeHtml(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+function normalizeSearch(value) {
+  return String(value || "").trim().replace(/\s+/g, "");
 }
 
 async function api(action, payload = {}) {

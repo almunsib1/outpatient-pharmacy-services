@@ -32,8 +32,8 @@
     <section id="supervisorPanel" class="view supervisor-panel">
       <header class="supervisor-head">
         <div class="supervisor-actions">
-          <button id="refreshSupervisorBtn" class="secondary-btn" type="button">تحديث</button>
-          <button id="printReportBtn" class="print-btn" type="button">طباعة التقرير</button>
+          <button id="refreshSupervisorBtn" class="dashboard-icon-btn" type="button" title="تحديث" aria-label="تحديث">↻</button>
+          <button id="printReportBtn" class="dashboard-icon-btn" type="button" title="طباعة التقرير" aria-label="طباعة التقرير">🖨</button>
         </div>
       </header>
 
@@ -58,6 +58,10 @@
         <button class="filter-btn" type="button" data-filter="pending">تحت المعالجة</button>
       </div>
 
+      <div class="dashboard-search">
+        <input id="fileSearchInput" type="search" inputmode="numeric" placeholder="MRN">
+      </div>
+
       <div class="table-wrap">
         <table class="daily-table">
           <thead>
@@ -73,6 +77,30 @@
         </table>
       </div>
       <p id="supervisorMessage" class="message" role="status"></p>
+
+      <section class="print-report" aria-label="التقرير اليومي">
+        <h2>تقرير وصفات البريد اليومي</h2>
+        <p id="printReportDate" class="print-report-date"></p>
+        <div class="print-summary">
+          <div>
+            <span>إجمالي القائمة</span>
+            <strong id="printTotalCount">0</strong>
+          </div>
+          <div>
+            <span>جاهزة للإرسال</span>
+            <strong id="printPreparedCount">0</strong>
+          </div>
+        </div>
+        <table class="print-user-table">
+          <thead>
+            <tr>
+              <th>معالجة بواسطة</th>
+              <th>العدد</th>
+            </tr>
+          </thead>
+          <tbody id="printUserBody"></tbody>
+        </table>
+      </section>
     </section>
   </main>
 </body>
