@@ -1,8 +1,15 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbw0jSrbe1SM596Kyv0EpB6VTKEXT81c2Cn8Wlc2lEQ_RzbrS9b6w-k4gyrflwPBTgpKSQ/exec";
 
 const els = {
+  uploadLoginView: document.getElementById("uploadLoginView"),
+  uploadView: document.getElementById("uploadView"),
+  uploadLoginForm: document.getElementById("uploadLoginForm"),
+  username: document.getElementById("username"),
+  pin: document.getElementById("pin"),
+  loginMessage: document.getElementById("loginMessage"),
+  currentUser: document.getElementById("currentUser"),
+  logoutBtn: document.getElementById("logoutBtn"),
   uploadForm: document.getElementById("uploadForm"),
-  uploadedBy: document.getElementById("uploadedBy"),
   fileInput: document.getElementById("fileInput"),
   uploadMessage: document.getElementById("uploadMessage")
 };
@@ -12,8 +19,43 @@ document.addEventListener("DOMContentLoaded", initUpload);
 function initUpload() {
   renderDate();
   const savedUser = localStorage.getItem("preparerUsername");
-  if (savedUser) els.uploadedBy.value = savedUser;
+  const savedName = localStorage.getItem("preparerDisplayName") || savedUser;
+  if (savedUser) showUpload(savedName);
+  els.uploadLoginForm.addEventListener("submit", handleLogin);
+  els.logoutBtn.addEventListener("click", logout);
   els.uploadForm.addEventListener("submit", uploadFile);
+}
+
+async function handleLogin(event) {
+  event.preventDefault();
+  const username = els.username.value.trim();
+  const pin = els.pin.value.trim();
+
+  setMessage(els.loginMessage, "جاري تسجيل الدخول...");
+  try {
+    const response = await api("login", { username, pin });
+    if (!response.ok) throw new Error(response.message || "بيانات الدخول غير صحيحة.");
+    localStorage.setItem("preparerUsername", username);
+    localStorage.setItem("preparerDisplayName", response.displayName || username);
+    showUpload(response.displayName || username);
+  } catch (error) {
+    setMessage(els.loginMessage, error.message, "error");
+  }
+}
+
+function showUpload(username) {
+  els.currentUser.textContent = username;
+  els.uploadLoginView.classList.add("hidden");
+  els.uploadView.classList.remove("hidden");
+}
+
+function logout() {
+  localStorage.removeItem("preparerUsername");
+  localStorage.removeItem("preparerDisplayName");
+  els.uploadView.classList.add("hidden");
+  els.uploadLoginView.classList.remove("hidden");
+  els.uploadLoginForm.reset();
+  setMessage(els.loginMessage, "");
 }
 
 function renderDate() {
@@ -41,7 +83,8 @@ async function uploadFile(event) {
     const rows = await readPrescriptionFile(file);
     if (!rows.length) throw new Error("لم يتم العثور على بيانات صالحة.");
 
-    const uploadedBy = els.uploadedBy.value.trim();
+    const uploadedBy = localStorage.getItem("preparerDisplayName") || localStorage.getItem("preparerUsername");
+    if (!uploadedBy) throw new Error("سجّل الدخول أولاً.");
     const response = await api("uploadPrescriptions", { rows, uploadedBy });
     if (!response.ok) throw new Error(response.message || "فشل رفع البيانات.");
 
