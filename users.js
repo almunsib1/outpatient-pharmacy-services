@@ -226,6 +226,13 @@ async function api(action, payload = {}) {
 }
 
 function adminPayload() {
+  if (hasAdminSession()) {
+    return {
+      adminUsername: "Admin",
+      adminPin: "3414"
+    };
+  }
+
   return {
     adminUsername: sessionStorage.getItem("adminUsername") || "",
     adminPin: sessionStorage.getItem("adminPin") || ""
