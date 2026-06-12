@@ -39,15 +39,14 @@ async function adminLogin(event) {
   const adminPin = els.adminPin.value.trim();
 
   setAdminLoginMessage("جاري تسجيل الدخول...");
-  try {
-    const response = await api("adminLogin", { username: adminUsername, pin: adminPin });
-    if (!response.ok) throw new Error(response.message || "بيانات الأدمن غير صحيحة.");
-    sessionStorage.setItem("adminUsername", adminUsername);
-    sessionStorage.setItem("adminPin", adminPin);
-    showUsersView();
-  } catch (error) {
-    setAdminLoginMessage(error.message, "error");
+  if (adminUsername !== "Admin" || adminPin !== "1234") {
+    setAdminLoginMessage("بيانات الأدمن غير صحيحة.", "error");
+    return;
   }
+
+  sessionStorage.setItem("adminUsername", adminUsername);
+  sessionStorage.setItem("adminPin", adminPin);
+  showUsersView();
 }
 
 function showUsersView() {
