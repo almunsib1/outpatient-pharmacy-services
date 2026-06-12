@@ -35,32 +35,30 @@
         <label for="pin">PIN</label>
         <input id="pin" name="pin" type="password" inputmode="numeric" autocomplete="current-password" required>
 
-        <button class="primary-btn" type="submit">دخول</button>
+        <button class="primary-btn icon-action" type="submit" title="دخول" aria-label="دخول">↵</button>
         <p id="loginMessage" class="message" role="status"></p>
       </form>
     </section>
 
     <section id="prepView" class="view prep-view hidden">
       <header class="topbar employee-toolbar">
-        <div>
-          <span class="muted">المحضّر</span>
+        <div class="user-chip">
           <strong id="currentUser"></strong>
+          <button id="logoutBtn" class="logout-icon" type="button" title="خروج" aria-label="خروج">↪</button>
         </div>
-        <button id="logoutBtn" class="ghost-btn" type="button">خروج</button>
       </header>
 
       <section class="scanner-area">
         <div id="reader"></div>
         <div class="scan-actions">
-          <button id="startCameraBtn" class="camera-toggle" type="button" aria-pressed="false">
-            <span class="camera-status-dot" aria-hidden="true"></span>
-            <span id="cameraButtonText">تشغيل الكاميرا</span>
+          <button id="startCameraBtn" class="camera-toggle icon-action" type="button" aria-pressed="false" title="إلتقاط" aria-label="إلتقاط">
+            <span id="cameraButtonText" aria-hidden="true">📷</span>
           </button>
-          <button id="manualBtn" class="ghost-btn" type="button">إدخال يدوي</button>
+          <button id="manualBtn" class="ghost-btn icon-action" type="button" title="إدخال يدوي" aria-label="إدخال يدوي">⌨</button>
         </div>
         <form id="manualForm" class="manual-form hidden">
-          <input id="manualFileNumber" inputmode="numeric" placeholder="رقم الملف">
-          <button type="submit">بحث</button>
+          <input id="manualFileNumber" inputmode="numeric" placeholder="MRN">
+          <button class="icon-action" type="submit" title="بحث" aria-label="بحث">⌕</button>
         </form>
         <p id="scanMessage" class="message" role="status"></p>
       </section>
@@ -75,7 +73,7 @@
           <strong id="patientNameText"></strong>
         </div>
         <p id="preparedMessage" class="prepared-message hidden"></p>
-        <button id="markPreparedBtn" class="done-btn" type="button">تم التحضير</button>
+        <button id="markPreparedBtn" class="done-btn icon-action" type="button" title="إرسال" aria-label="إرسال">✉</button>
       </section>
     </section>
   </main>
