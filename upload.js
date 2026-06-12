@@ -124,12 +124,15 @@ function extractPrescriptionRows(data) {
   if (nonEmptyRows.length < 2) return [];
 
   const headers = nonEmptyRows[0].map(normalizeHeader);
-  let fileIndex = headers.findIndex(header => ["رقمالملف", "filenumber", "file", "mrn"].includes(header));
-  let nameIndex = headers.findIndex(header => ["اسمالمريض", "patientname", "patient"].includes(header));
+  const fileIndex = headers.findIndex(isFileNumberHeader);
+  const nameIndex = headers.findIndex(isPatientNameHeader);
 
-  if (fileIndex === -1 || nameIndex === -1) {
-    fileIndex = 0;
-    nameIndex = 1;
+  if (fileIndex === -1) {
+    throw new Error("لم يتم العثور على عمود رقم الملف. يجب أن يكون عنوان العمود: رقم الملف أو File Number أو MRN.");
+  }
+
+  if (nameIndex === -1) {
+    throw new Error("لم يتم العثور على عمود اسم المريض. يجب أن يكون عنوان العمود: اسم المريض أو Patient Name.");
   }
 
   return nonEmptyRows.slice(1)
@@ -144,8 +147,37 @@ function normalizeHeader(value) {
   return String(value || "")
     .trim()
     .toLowerCase()
+    .replace(/[()\[\]{}:؛،,._\/-]/g, "")
     .replace(/\s+/g, "")
-    .replace(/_/g, "");
+    .replace(/أ|إ|آ/g, "ا")
+    .replace(/ى/g, "ي")
+    .replace(/ة/g, "ه");
+}
+
+function isFileNumberHeader(header) {
+  return [
+    "رقمالملف",
+    "رقمالمريض",
+    "ملف",
+    "mrn",
+    "medicalrecordnumber",
+    "filenumber",
+    "fileno",
+    "file",
+    "patientid",
+    "patientnumber"
+  ].includes(header);
+}
+
+function isPatientNameHeader(header) {
+  return [
+    "اسمالمريض",
+    "المريض",
+    "patientname",
+    "patient",
+    "name",
+    "fullname"
+  ].includes(header);
 }
 
 function normalizeFileNumber(value) {
