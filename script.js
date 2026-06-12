@@ -82,7 +82,8 @@ function showPrep(username) {
   els.currentUser.textContent = username;
   els.loginView.classList.add("hidden");
   els.prepView.classList.remove("hidden");
-  startCamera();
+  updateCameraButton();
+  setMessage(els.scanMessage, "الكاميرا متوقفة. اضغط زر الالتقاط لتشغيلها.");
 }
 
 function logout() {

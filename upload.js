@@ -15,12 +15,15 @@ const els = {
 };
 
 document.addEventListener("DOMContentLoaded", initUpload);
-window.addEventListener("pagehide", clearAuthSession);
+
+let inactivityTimer = null;
+const INACTIVITY_LIMIT_MS = 30 * 60 * 1000;
 
 function initUpload() {
   renderDate();
-  const savedUser = localStorage.getItem("preparerUsername");
-  const savedName = localStorage.getItem("preparerDisplayName") || savedUser;
+  startInactivityWatcher();
+  const savedUser = sessionStorage.getItem("preparerUsername");
+  const savedName = sessionStorage.getItem("preparerDisplayName") || savedUser;
   if (savedUser) showUpload(savedName);
   els.uploadLoginForm.addEventListener("submit", handleLogin);
   els.logoutBtn.addEventListener("click", logout);
@@ -36,8 +39,9 @@ async function handleLogin(event) {
   try {
     const response = await api("login", { username, pin });
     if (!response.ok) throw new Error(response.message || "بيانات الدخول غير صحيحة.");
-    localStorage.setItem("preparerUsername", username);
-    localStorage.setItem("preparerDisplayName", response.displayName || username);
+    sessionStorage.setItem("preparerUsername", username);
+    sessionStorage.setItem("preparerDisplayName", response.displayName || username);
+    resetInactivityTimer();
     showUpload(response.displayName || username);
   } catch (error) {
     setMessage(els.loginMessage, error.message, "error");
@@ -59,8 +63,22 @@ function logout() {
 }
 
 function clearAuthSession() {
-  localStorage.removeItem("preparerUsername");
-  localStorage.removeItem("preparerDisplayName");
+  sessionStorage.removeItem("preparerUsername");
+  sessionStorage.removeItem("preparerDisplayName");
+}
+
+function startInactivityWatcher() {
+  ["click", "keydown", "touchstart", "mousemove"].forEach(eventName => {
+    window.addEventListener(eventName, resetInactivityTimer, { passive: true });
+  });
+  resetInactivityTimer();
+}
+
+function resetInactivityTimer() {
+  window.clearTimeout(inactivityTimer);
+  inactivityTimer = window.setTimeout(() => {
+    if (sessionStorage.getItem("preparerUsername")) logout();
+  }, INACTIVITY_LIMIT_MS);
 }
 
 function renderDate() {
@@ -88,7 +106,8 @@ async function uploadFile(event) {
     const rows = await readPrescriptionFile(file);
     if (!rows.length) throw new Error("لم يتم العثور على بيانات صالحة.");
 
-    const uploadedBy = localStorage.getItem("preparerDisplayName") || localStorage.getItem("preparerUsername");
+    resetInactivityTimer();
+    const uploadedBy = sessionStorage.getItem("preparerDisplayName") || sessionStorage.getItem("preparerUsername");
     if (!uploadedBy) throw new Error("سجّل الدخول أولاً.");
     const response = await api("uploadPrescriptions", { rows, uploadedBy });
     if (!response.ok) throw new Error(response.message || "فشل رفع البيانات.");

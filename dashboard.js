@@ -30,11 +30,13 @@ let dailyRows = [];
 let activeFilter = "all";
 let refreshTimer = null;
 let isLoadingSupervisorData = false;
+let inactivityTimer = null;
+const INACTIVITY_LIMIT_MS = 30 * 60 * 1000;
 
 document.addEventListener("DOMContentLoaded", initDashboard);
-window.addEventListener("pagehide", clearDashboardSession);
 
 function initDashboard() {
+  startInactivityWatcher();
   if (hasDashboardSession()) showDashboard();
   els.dashboardLoginForm.addEventListener("submit", dashboardLogin);
   els.dashboardLogoutBtn.addEventListener("click", dashboardLogout);
@@ -60,6 +62,7 @@ function dashboardLogin(event) {
 
   sessionStorage.setItem("dashboardAdminUsername", username);
   sessionStorage.setItem("dashboardAdminPin", pin);
+  resetInactivityTimer();
   showDashboard();
 }
 
@@ -85,6 +88,20 @@ function dashboardLogout() {
 function clearDashboardSession() {
   sessionStorage.removeItem("dashboardAdminUsername");
   sessionStorage.removeItem("dashboardAdminPin");
+}
+
+function startInactivityWatcher() {
+  ["click", "keydown", "touchstart", "mousemove"].forEach(eventName => {
+    window.addEventListener(eventName, resetInactivityTimer, { passive: true });
+  });
+  resetInactivityTimer();
+}
+
+function resetInactivityTimer() {
+  window.clearTimeout(inactivityTimer);
+  inactivityTimer = window.setTimeout(() => {
+    if (hasDashboardSession()) dashboardLogout();
+  }, INACTIVITY_LIMIT_MS);
 }
 
 function hasDashboardSession() {

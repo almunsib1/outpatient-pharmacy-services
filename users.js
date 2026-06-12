@@ -21,12 +21,14 @@ const els = {
 };
 
 let editingUsername = "";
+let inactivityTimer = null;
+const INACTIVITY_LIMIT_MS = 30 * 60 * 1000;
 
 document.addEventListener("DOMContentLoaded", initUsers);
-window.addEventListener("pagehide", clearAdminSession);
 
 function initUsers() {
   renderDate();
+  startInactivityWatcher();
   if (hasAdminSession()) showUsersView();
   els.adminLoginForm.addEventListener("submit", adminLogin);
   els.adminLogoutBtn.addEventListener("click", adminLogout);
@@ -46,6 +48,7 @@ function adminLogin(event) {
 
   sessionStorage.setItem("adminUsername", adminUsername);
   sessionStorage.setItem("adminPin", adminPin);
+  resetInactivityTimer();
   showUsersView();
 }
 
@@ -68,6 +71,20 @@ function adminLogout() {
 function clearAdminSession() {
   sessionStorage.removeItem("adminUsername");
   sessionStorage.removeItem("adminPin");
+}
+
+function startInactivityWatcher() {
+  ["click", "keydown", "touchstart", "mousemove"].forEach(eventName => {
+    window.addEventListener(eventName, resetInactivityTimer, { passive: true });
+  });
+  resetInactivityTimer();
+}
+
+function resetInactivityTimer() {
+  window.clearTimeout(inactivityTimer);
+  inactivityTimer = window.setTimeout(() => {
+    if (hasAdminSession()) adminLogout();
+  }, INACTIVITY_LIMIT_MS);
 }
 
 function hasAdminSession() {
