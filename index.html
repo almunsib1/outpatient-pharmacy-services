@@ -3,13 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>تتبع تحضير وصفات الصيدلية</title>
+  <title>بوابة وصفات البريد</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js" defer></script>
-  <script src="script.js" defer></script>
 </head>
 <body>
-  <main class="app-shell employee-shell">
+  <main class="app-shell employee-shell portal-shell">
     <header class="official-top">
       <div class="official-header">
         <h2>تجمع المدينة المنورة الصحي</h2>
@@ -21,61 +19,44 @@
 
     <hr class="official-divider">
 
-    <div class="employee-meta">
-      <div class="date-box" id="dateBox"></div>
-    </div>
-
-    <h1 class="employee-page-title">تحضير وصفات البريد</h1>
-
-    <section id="loginView" class="view auth-view">
-      <form id="loginForm" class="panel employee-login-card">
-        <label for="username">اسم المستخدم</label>
-        <input id="username" name="username" autocomplete="username" required>
-
-        <label for="pin">PIN</label>
-        <input id="pin" name="pin" type="password" inputmode="numeric" autocomplete="current-password" required>
-
-        <button class="primary-btn icon-action" type="submit" title="دخول" aria-label="دخول">↵</button>
-        <p id="loginMessage" class="message" role="status"></p>
-      </form>
+    <section class="portal-hero" aria-label="بوابة وصفات البريد">
+      <p class="portal-kicker">بوابة العمل اليومية</p>
+      <h1>وصفات البريد</h1>
     </section>
 
-    <section id="prepView" class="view prep-view hidden">
-      <header class="topbar employee-toolbar">
-        <div class="user-chip">
-          <strong id="currentUser"></strong>
-          <button id="logoutBtn" class="logout-icon" type="button" title="خروج" aria-label="خروج">↪</button>
-        </div>
-      </header>
+    <nav class="portal-grid" aria-label="روابط صفحات النظام">
+      <a class="portal-card primary" href="prep.html">
+        <span class="portal-icon" aria-hidden="true">⌁</span>
+        <span>
+          <strong>تحضير وصفات البريد</strong>
+          <small>قراءة MRN وإرسال الوصفة بعد المعالجة</small>
+        </span>
+      </a>
 
-      <section class="scanner-area">
-        <div id="reader"></div>
-        <div class="scan-actions">
-          <button id="startCameraBtn" class="camera-toggle icon-action" type="button" aria-pressed="false" title="إلتقاط" aria-label="إلتقاط">
-            <span id="cameraButtonText" aria-hidden="true">📷</span>
-          </button>
-          <button id="manualBtn" class="ghost-btn icon-action" type="button" title="إدخال يدوي" aria-label="إدخال يدوي">⌨</button>
-        </div>
-        <form id="manualForm" class="manual-form hidden">
-          <input id="manualFileNumber" inputmode="numeric" placeholder="MRN">
-          <button class="icon-action" type="submit" title="بحث" aria-label="بحث">⌕</button>
-        </form>
-        <p id="scanMessage" class="message" role="status"></p>
-      </section>
+      <a class="portal-card upload" href="upload.html">
+        <span class="portal-icon" aria-hidden="true">⇧</span>
+        <span>
+          <strong>إرسال القائمة اليومية</strong>
+          <small>رفع ملف Excel أو CSV لقائمة اليوم</small>
+        </span>
+      </a>
 
-      <section id="resultCard" class="result-card hidden" aria-live="polite">
-        <div>
-          <span class="label">رقم الملف</span>
-          <strong id="fileNumberText"></strong>
-        </div>
-        <div>
-          <span class="label">اسم المريض</span>
-          <strong id="patientNameText"></strong>
-        </div>
-        <p id="preparedMessage" class="prepared-message hidden"></p>
-        <button id="markPreparedBtn" class="done-btn icon-action" type="button" title="إرسال" aria-label="إرسال">✉</button>
-      </section>
-    </section>
+      <a class="portal-card dashboard" href="dashboard.html">
+        <span class="portal-icon" aria-hidden="true">◫</span>
+        <span>
+          <strong>مؤشر وصفات البريد اليومي</strong>
+          <small>متابعة الحالات والتقرير اليومي</small>
+        </span>
+      </a>
+
+      <a class="portal-card users" href="users.html">
+        <span class="portal-icon" aria-hidden="true">＋</span>
+        <span>
+          <strong>إدارة المستخدمين</strong>
+          <small>إضافة وتعديل وحذف الموظفين</small>
+        </span>
+      </a>
+    </nav>
   </main>
 </body>
 </html>
