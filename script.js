@@ -18,10 +18,7 @@ const els = {
   fileNumberText: document.getElementById("fileNumberText"),
   patientNameText: document.getElementById("patientNameText"),
   preparedMessage: document.getElementById("preparedMessage"),
-  markPreparedBtn: document.getElementById("markPreparedBtn"),
-  uploadForm: document.getElementById("uploadForm"),
-  fileInput: document.getElementById("fileInput"),
-  uploadMessage: document.getElementById("uploadMessage")
+  markPreparedBtn: document.getElementById("markPreparedBtn")
 };
 
 let scanner;
@@ -31,6 +28,7 @@ let isScanning = false;
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
+  renderDate();
   const savedUser = localStorage.getItem("preparerUsername");
   if (savedUser) {
     showPrep(savedUser);
@@ -38,11 +36,24 @@ function init() {
 
   els.loginForm.addEventListener("submit", handleLogin);
   els.logoutBtn.addEventListener("click", logout);
-  els.startCameraBtn.addEventListener("click", startCamera);
+  els.startCameraBtn.addEventListener("click", toggleCamera);
   els.manualBtn.addEventListener("click", () => els.manualForm.classList.toggle("hidden"));
   els.manualForm.addEventListener("submit", handleManualSearch);
   els.markPreparedBtn.addEventListener("click", markPrepared);
-  els.uploadForm.addEventListener("submit", uploadFile);
+}
+
+function renderDate() {
+  const dateBox = document.getElementById("dateBox");
+  if (!dateBox) return;
+
+  const now = new Date();
+  const date = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Riyadh" }).format(now);
+  const dayName = new Intl.DateTimeFormat("ar-SA", {
+    timeZone: "Asia/Riyadh",
+    weekday: "long"
+  }).format(now);
+
+  dateBox.textContent = `${dayName} - ${date}`;
 }
 
 async function handleLogin(event) {
@@ -95,21 +106,43 @@ async function startCamera() {
       handleScanSuccess
     );
     isScanning = true;
+    updateCameraButton();
     setMessage(els.scanMessage, "وجّه الكاميرا نحو الباركود أو QR.");
   } catch (error) {
+    updateCameraButton();
     setMessage(els.scanMessage, "تعذر تشغيل الكاميرا. تأكد من صلاحية الكاميرا أو استخدم الإدخال اليدوي.", "error");
   }
 }
 
 async function stopCamera() {
-  if (!scanner || !isScanning) return;
+  if (!scanner || !isScanning) {
+    updateCameraButton();
+    return;
+  }
   try {
     await scanner.stop();
   } catch (error) {
     console.warn(error);
   } finally {
     isScanning = false;
+    updateCameraButton();
+    setMessage(els.scanMessage, "تم إيقاف الكاميرا.");
   }
+}
+
+async function toggleCamera() {
+  if (isScanning) {
+    await stopCamera();
+  } else {
+    await startCamera();
+  }
+}
+
+function updateCameraButton() {
+  const text = document.getElementById("cameraButtonText");
+  els.startCameraBtn.classList.toggle("is-on", isScanning);
+  els.startCameraBtn.setAttribute("aria-pressed", String(isScanning));
+  if (text) text.textContent = isScanning ? "إيقاف الكاميرا" : "تشغيل الكاميرا";
 }
 
 async function handleScanSuccess(decodedText) {
@@ -148,12 +181,10 @@ async function lookupPrescription(fileNumber) {
 
     if (response.prepared) {
       const timeText = formatDateTime(response.preparedAt);
-      els.preparedMessage.textContent = `تم تحضيرها مسبقاً بواسطة ${response.preparedBy} الساعة ${timeText}.`;
+      els.preparedMessage.textContent = `تم تحضيرها سابقاً بواسطة ${response.preparedBy} الساعة ${timeText}. يمكنك تسجيل تحضير جديد.`;
       els.preparedMessage.classList.remove("hidden");
-      els.markPreparedBtn.disabled = true;
-    } else {
-      els.markPreparedBtn.disabled = false;
     }
+    els.markPreparedBtn.disabled = false;
 
     setMessage(els.scanMessage, "تمت قراءة رقم الملف.", "success");
   } catch (error) {
@@ -175,14 +206,7 @@ async function markPrepared() {
       preparedBy
     });
 
-    if (!response.ok) {
-      if (response.prepared) {
-        const timeText = formatDateTime(response.preparedAt);
-        els.preparedMessage.textContent = `تم تحضيرها مسبقاً بواسطة ${response.preparedBy} الساعة ${timeText}.`;
-        els.preparedMessage.classList.remove("hidden");
-      }
-      throw new Error(response.message || "لم يتم تسجيل التحضير.");
-    }
+    if (!response.ok) throw new Error(response.message || "لم يتم تسجيل التحضير.");
 
     setMessage(els.scanMessage, "تم تسجيل التحضير بنجاح.", "success");
     setTimeout(() => {
@@ -192,75 +216,6 @@ async function markPrepared() {
   } catch (error) {
     setMessage(els.scanMessage, error.message, "error");
   }
-}
-
-async function uploadFile(event) {
-  event.preventDefault();
-  const file = els.fileInput.files[0];
-  if (!file) return;
-
-  setMessage(els.uploadMessage, "جاري قراءة الملف...");
-
-  try {
-    const rows = await readPrescriptionFile(file);
-    if (!rows.length) throw new Error("لم يتم العثور على بيانات صالحة.");
-
-    const uploadedBy = localStorage.getItem("preparerUsername");
-    const response = await api("uploadPrescriptions", { rows, uploadedBy });
-    if (!response.ok) throw new Error(response.message || "فشل رفع البيانات.");
-
-    els.uploadForm.reset();
-    setMessage(els.uploadMessage, `تم رفع ${response.count} وصفة.`, "success");
-  } catch (error) {
-    setMessage(els.uploadMessage, error.message, "error");
-  }
-}
-
-function readPrescriptionFile(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      try {
-        const workbook = XLSX.read(reader.result, { type: "array" });
-        const sheet = workbook.Sheets[workbook.SheetNames[0]];
-        const data = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: "" });
-        resolve(extractPrescriptionRows(data));
-      } catch (error) {
-        reject(error);
-      }
-    };
-    reader.onerror = () => reject(new Error("تعذر قراءة الملف."));
-    reader.readAsArrayBuffer(file);
-  });
-}
-
-function extractPrescriptionRows(data) {
-  const nonEmptyRows = data.filter(row => row.some(cell => String(cell).trim() !== ""));
-  if (nonEmptyRows.length < 2) return [];
-
-  const headers = nonEmptyRows[0].map(normalizeHeader);
-  let fileIndex = headers.findIndex(header => ["رقمالملف", "filenumber", "file", "mrn"].includes(header));
-  let nameIndex = headers.findIndex(header => ["اسمالمريض", "patientname", "patient"].includes(header));
-
-  if (fileIndex === -1 || nameIndex === -1) {
-    fileIndex = 0;
-    nameIndex = 1;
-  }
-
-  return nonEmptyRows.slice(1)
-    .map(row => ({
-      fileNumber: normalizeFileNumber(row[fileIndex]),
-      patientName: String(row[nameIndex] || "").trim()
-    }))
-    .filter(row => row.fileNumber && row.patientName);
-}
-
-function normalizeHeader(value) {
-  return String(value || "")
-    .trim()
-    .toLowerCase()
-    .replace(/\s+/g, "")
-    .replace(/_/g, "");
 }
 
 function normalizeFileNumber(value) {

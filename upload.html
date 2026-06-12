@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>رفع قائمة وصفات اليوم</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
+  <script src="upload.js" defer></script>
+</head>
+<body>
+  <main class="app-shell employee-shell">
+    <header class="official-top">
+      <div class="official-header">
+        <h2>تجمع المدينة المنورة الصحي</h2>
+        <h3>مستشفى الملك فهد بالمدينة المنورة</h3>
+        <h3>إدارة الرعاية الصيدلانية</h3>
+      </div>
+      <img class="official-logo" src="logo.png" alt="Logo">
+    </header>
+
+    <hr class="official-divider">
+
+    <div class="employee-meta">
+      <div class="date-box" id="dateBox"></div>
+    </div>
+
+    <h1 class="employee-page-title">رفع قائمة وصفات البريد</h1>
+
+    <section class="view upload-page">
+      <section class="upload-box upload-standalone">
+        <p class="muted upload-intro">ارفع ملف Excel أو CSV من فريق الطباعة.</p>
+        <form id="uploadForm">
+          <label for="uploadedBy">اسم الرافع</label>
+          <input id="uploadedBy" autocomplete="name" placeholder="مثال: فريق الطباعة" required>
+
+          <label for="fileInput">ملف القائمة</label>
+          <input id="fileInput" type="file" accept=".xlsx,.xls,.csv" required>
+
+          <button class="done-btn upload-submit" type="submit">رفع قائمة اليوم</button>
+        </form>
+        <p class="hint">سيتم حفظ عمودي رقم الملف واسم المريض فقط. عند رفع قائمة جديدة يتم استبدال قائمة اليوم الحالية.</p>
+        <p id="uploadMessage" class="message" role="status"></p>
+      </section>
+    </section>
+  </main>
+</body>
+</html>

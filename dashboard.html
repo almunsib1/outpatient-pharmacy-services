@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>لوحة مشرف تحضير الوصفات</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="dashboard.js" defer></script>
+</head>
+<body>
+  <main class="app-shell employee-shell dashboard-shell">
+    <header class="official-top">
+      <div class="official-header">
+        <h2>تجمع المدينة المنورة الصحي</h2>
+        <h3>مستشفى الملك فهد بالمدينة المنورة</h3>
+        <h3>إدارة الرعاية الصيدلانية</h3>
+      </div>
+      <img class="official-logo" src="logo.png" alt="Logo">
+    </header>
+
+    <hr class="official-divider">
+
+    <div class="employee-meta">
+      <div class="date-box" id="reportDate"></div>
+    </div>
+
+    <h1 class="employee-page-title">لوحة مشرف وصفات البريد</h1>
+
+    <section id="supervisorPanel" class="view supervisor-panel">
+      <header class="supervisor-head">
+        <div class="supervisor-actions">
+          <button id="refreshSupervisorBtn" class="secondary-btn" type="button">تحديث</button>
+          <button id="printReportBtn" class="print-btn" type="button">طباعة التقرير</button>
+        </div>
+      </header>
+
+      <div class="summary-grid">
+        <div class="summary-card">
+          <span>إجمالي القائمة</span>
+          <strong id="totalCount">0</strong>
+        </div>
+        <div class="summary-card done">
+          <span>تم التحضير</span>
+          <strong id="preparedCount">0</strong>
+        </div>
+        <div class="summary-card pending">
+          <span>تحت التحضير</span>
+          <strong id="pendingCount">0</strong>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="daily-table">
+          <thead>
+            <tr>
+              <th>رقم الملف</th>
+              <th>اسم المريض</th>
+              <th>الحالة</th>
+              <th>اسم المحضّر</th>
+              <th>الوقت</th>
+            </tr>
+          </thead>
+          <tbody id="dailyListBody"></tbody>
+        </table>
+      </div>
+      <p id="supervisorMessage" class="message" role="status"></p>
+    </section>
+  </main>
+</body>
+</html>
