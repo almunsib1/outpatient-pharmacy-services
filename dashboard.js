@@ -3,21 +3,31 @@ const API_URL = "https://script.google.com/macros/s/AKfycbw0jSrbe1SM596Kyv0EpB6V
 const els = {
   refreshSupervisorBtn: document.getElementById("refreshSupervisorBtn"),
   printReportBtn: document.getElementById("printReportBtn"),
+  dateBox: document.getElementById("dateBox"),
   reportDate: document.getElementById("reportDate"),
   totalCount: document.getElementById("totalCount"),
   preparedCount: document.getElementById("preparedCount"),
   pendingCount: document.getElementById("pendingCount"),
   dailyListBody: document.getElementById("dailyListBody"),
-  supervisorMessage: document.getElementById("supervisorMessage")
+  supervisorMessage: document.getElementById("supervisorMessage"),
+  filterButtons: document.querySelectorAll(".filter-btn")
 };
+
+let dailyRows = [];
+let activeFilter = "all";
+let refreshTimer = null;
 
 document.addEventListener("DOMContentLoaded", initDashboard);
 
 function initDashboard() {
   els.refreshSupervisorBtn.addEventListener("click", loadSupervisorData);
   els.printReportBtn.addEventListener("click", () => window.print());
+  els.filterButtons.forEach(button => {
+    button.addEventListener("click", () => setStatusFilter(button.dataset.filter));
+  });
   renderDate();
   loadSupervisorData();
+  refreshTimer = setInterval(loadSupervisorData, 30000);
 }
 
 function renderDate(extraText = "") {
@@ -28,7 +38,8 @@ function renderDate(extraText = "") {
     weekday: "long"
   }).format(now);
 
-  els.reportDate.textContent = `${dayName} - ${date}${extraText}`;
+  els.dateBox.textContent = `${dayName} - ${date}`;
+  els.reportDate.textContent = extraText ? extraText.replace(/^ \| /, "") : "";
 }
 
 async function loadSupervisorData() {
@@ -39,12 +50,26 @@ async function loadSupervisorData() {
     if (!response.ok) throw new Error(response.message || "تعذر تحميل قائمة اليوم.");
 
     renderSupervisorSummary(response.summary);
-    renderDailyRows(response.rows || []);
-    renderDate(" | آخر تحديث: " + (response.dateText || formatDateTime(new Date())));
+    dailyRows = response.rows || [];
+    renderDailyRows(getFilteredRows());
+    renderDate("آخر تحديث: " + (response.dateText || formatDateTime(new Date())));
     setMessage(els.supervisorMessage, "تم تحديث لوحة المشرف.", "success");
   } catch (error) {
     setMessage(els.supervisorMessage, error.message, "error");
   }
+}
+
+function setStatusFilter(filter) {
+  activeFilter = filter || "all";
+  els.filterButtons.forEach(button => {
+    button.classList.toggle("active-filter", button.dataset.filter === activeFilter);
+  });
+  renderDailyRows(getFilteredRows());
+}
+
+function getFilteredRows() {
+  if (activeFilter === "all") return dailyRows;
+  return dailyRows.filter(item => item.status === activeFilter);
 }
 
 function renderSupervisorSummary(summary = {}) {
@@ -70,7 +95,7 @@ function renderDailyRows(rows) {
       <td data-label="رقم الملف">${escapeHtml(item.fileNumber)}</td>
       <td data-label="اسم المريض">${escapeHtml(item.patientName)}</td>
       <td data-label="الحالة"><span class="status-pill ${item.status === "prepared" ? "prepared" : "pending"}">${item.statusText}</span></td>
-      <td data-label="اسم المحضّر">${escapeHtml(item.preparedBy || "-")}</td>
+      <td data-label="معالجة بواسطة">${escapeHtml(item.preparedBy || "-")}</td>
       <td data-label="الوقت">${item.preparedAt ? formatDateTime(item.preparedAt) : "-"}</td>
     `;
     els.dailyListBody.appendChild(row);
