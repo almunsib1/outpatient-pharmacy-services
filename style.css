@@ -303,6 +303,13 @@ input {
   justify-content: center;
   align-items: center;
   gap: 8px;
+  width: fit-content;
+  justify-self: center;
+  margin-top: 2px;
+}
+
+.login-actions .icon-action {
+  flex: 0 0 auto;
 }
 
 .employee-shell label,
