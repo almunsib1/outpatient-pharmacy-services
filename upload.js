@@ -123,7 +123,16 @@ function extractPrescriptionRows(data) {
   const nonEmptyRows = data.filter(row => row.some(cell => String(cell).trim() !== ""));
   if (nonEmptyRows.length < 2) return [];
 
-  const headers = nonEmptyRows[0].map(normalizeHeader);
+  const headerRowIndex = nonEmptyRows.findIndex(row => {
+    const normalized = row.map(normalizeHeader);
+    return normalized.some(isFileNumberHeader) && normalized.some(isPatientNameHeader);
+  });
+
+  if (headerRowIndex === -1) {
+    throw new Error("لم يتم العثور على صف العناوين. يجب أن يحتوي على عمود رقم الملف أو File Number أو MRN، وعمود اسم المريض.");
+  }
+
+  const headers = nonEmptyRows[headerRowIndex].map(normalizeHeader);
   const fileIndex = headers.findIndex(isFileNumberHeader);
   const nameIndex = headers.findIndex(isPatientNameHeader);
 
@@ -135,11 +144,14 @@ function extractPrescriptionRows(data) {
     throw new Error("لم يتم العثور على عمود اسم المريض. يجب أن يكون عنوان العمود: اسم المريض أو Patient Name.");
   }
 
-  return nonEmptyRows.slice(1)
-    .map(row => ({
-      fileNumber: normalizeFileNumber(row[fileIndex]),
-      patientName: String(row[nameIndex] || "").trim()
-    }))
+  return nonEmptyRows.slice(headerRowIndex + 1)
+    .map(row => {
+      const fileNumber = normalizeFileNumber(row[fileIndex]);
+      return {
+        fileNumber,
+        patientName: String(row[nameIndex] || "").trim()
+      };
+    })
     .filter(row => row.fileNumber && row.patientName);
 }
 
@@ -147,7 +159,7 @@ function normalizeHeader(value) {
   return String(value || "")
     .trim()
     .toLowerCase()
-    .replace(/[()\[\]{}:؛،,._\/-]/g, "")
+    .replace(/[()\[\]{}:؛،,.#_\/-]/g, "")
     .replace(/\s+/g, "")
     .replace(/أ|إ|آ/g, "ا")
     .replace(/ى/g, "ي")
@@ -155,7 +167,7 @@ function normalizeHeader(value) {
 }
 
 function isFileNumberHeader(header) {
-  return [
+  const exactMatches = [
     "رقمالملف",
     "رقمالمريض",
     "ملف",
@@ -166,24 +178,46 @@ function isFileNumberHeader(header) {
     "file",
     "patientid",
     "patientnumber"
-  ].includes(header);
+  ];
+
+  return exactMatches.includes(header) ||
+    header.includes("رقمالملف") ||
+    header.includes("رقمالمريض") ||
+    header.includes("mrn") ||
+    header.includes("filenumber") ||
+    header.includes("medicalrecordnumber");
 }
 
 function isPatientNameHeader(header) {
-  return [
+  const exactMatches = [
     "اسمالمريض",
     "المريض",
     "patientname",
     "patient",
     "name",
     "fullname"
-  ].includes(header);
+  ];
+
+  return exactMatches.includes(header) ||
+    header.includes("اسمالمريض") ||
+    header.includes("patientname");
 }
 
 function normalizeFileNumber(value) {
-  return String(value || "")
+  if (value instanceof Date) return "";
+
+  const fileNumber = String(value || "")
     .trim()
     .replace(/\s+/g, "");
+
+  if (isDateOrTimeLike(fileNumber)) return "";
+  return fileNumber;
+}
+
+function isDateOrTimeLike(value) {
+  return /^\d{1,2}:\d{2}(:\d{2})?$/.test(value) ||
+    /^\d{4}[-/]\d{1,2}[-/]\d{1,2}/.test(value) ||
+    /^\d{1,2}[-/]\d{1,2}[-/]\d{2,4}/.test(value);
 }
 
 function getFileExtension(fileName) {
