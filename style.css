@@ -1515,17 +1515,36 @@ button:disabled {
 @media print {
   @page {
     size: A4 portrait;
-    margin: 6mm;
+    margin: 0;
+  }
+
+  html,
+  body {
+    background: #fff;
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    overflow: hidden;
   }
 
   body {
-    background: #fff;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .app-shell {
-    width: 100%;
+  .app-shell,
+  .employee-shell {
+    width: 210mm;
+    height: 297mm;
+    min-height: 0;
+    margin: 0;
     padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .topbar,
@@ -1543,7 +1562,14 @@ button:disabled {
   }
 
   #supervisorPanel {
-    display: grid !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
   }
 
   .supervisor-head,
@@ -1554,13 +1580,19 @@ button:disabled {
 
   .print-report {
     display: grid;
-    gap: 6px;
-    width: 100%;
-    max-width: none;
+    gap: 7px;
+    box-sizing: border-box;
+    width: 176mm;
+    max-width: 176mm;
+    max-height: 260mm;
     min-height: 0;
-    margin: 0 auto;
+    margin: 0;
+    padding: 8mm;
+    overflow: hidden;
     color: #111827;
     font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    border: 1px solid #dbe7ea;
+    border-radius: 8px;
     page-break-inside: avoid;
     break-inside: avoid;
   }
@@ -1575,8 +1607,8 @@ button:disabled {
   }
 
   .print-report-head img {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
     object-fit: contain;
   }
 
@@ -1589,7 +1621,7 @@ button:disabled {
 
   .print-report-head p {
     margin: 0;
-    font-size: 8.5px;
+    font-size: 8px;
   }
 
   .print-title-block {
@@ -1603,7 +1635,7 @@ button:disabled {
     margin: 0;
     text-align: center;
     color: #168fb3;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
     line-height: 1.25;
   }
@@ -1612,7 +1644,7 @@ button:disabled {
     margin: 0;
     text-align: center;
     color: #475569;
-    font-size: 9.5px;
+    font-size: 9px;
     font-weight: 600;
   }
 
@@ -1626,9 +1658,9 @@ button:disabled {
 
   .print-summary div {
     border: 1px solid #cbd5e1;
-    border-top: 4px solid #168fb3;
+    border-top: 3px solid #168fb3;
     border-radius: 8px;
-    padding: 5px 5px;
+    padding: 5px 4px;
     text-align: center;
     background: #f8fafc;
   }
@@ -1643,7 +1675,7 @@ button:disabled {
 
   .print-summary strong {
     color: #0f172a;
-    font-size: 21px;
+    font-size: 19px;
     line-height: 1;
   }
 
@@ -1660,7 +1692,7 @@ button:disabled {
     overflow: hidden;
     border: 1px solid #cbd5e1;
     border-radius: 8px;
-    font-size: 9.5px;
+    font-size: 9px;
     page-break-inside: avoid;
     break-inside: avoid;
   }
@@ -1668,7 +1700,7 @@ button:disabled {
   .print-user-table th,
   .print-user-table td {
     border-bottom: 1px solid #e2e8f0;
-    padding: 4px 6px;
+    padding: 3.5px 5px;
     text-align: center;
   }
 
