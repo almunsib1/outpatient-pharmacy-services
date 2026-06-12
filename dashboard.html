@@ -20,11 +20,14 @@
 
     <hr class="official-divider">
 
-    <div class="employee-meta">
-      <div class="date-box" id="reportDate"></div>
+    <div class="employee-meta dashboard-meta">
+      <div class="dashboard-date-stack">
+        <div class="date-box" id="dateBox"></div>
+        <div class="update-box" id="reportDate"></div>
+      </div>
     </div>
 
-    <h1 class="employee-page-title">لوحة مشرف وصفات البريد</h1>
+    <h1 class="employee-page-title">مؤشر وصفات البريد اليومي</h1>
 
     <section id="supervisorPanel" class="view supervisor-panel">
       <header class="supervisor-head">
@@ -40,13 +43,19 @@
           <strong id="totalCount">0</strong>
         </div>
         <div class="summary-card done">
-          <span>تم التحضير</span>
+          <span>جاهزة للإرسال</span>
           <strong id="preparedCount">0</strong>
         </div>
         <div class="summary-card pending">
-          <span>تحت التحضير</span>
+          <span>تحت المعالجة</span>
           <strong id="pendingCount">0</strong>
         </div>
+      </div>
+
+      <div class="status-filter" role="group" aria-label="فلترة حالة الوصفات">
+        <button class="filter-btn active-filter" type="button" data-filter="all">الكل</button>
+        <button class="filter-btn" type="button" data-filter="prepared">جاهزة للإرسال</button>
+        <button class="filter-btn" type="button" data-filter="pending">تحت المعالجة</button>
       </div>
 
       <div class="table-wrap">
@@ -56,7 +65,7 @@
               <th>رقم الملف</th>
               <th>اسم المريض</th>
               <th>الحالة</th>
-              <th>اسم المحضّر</th>
+              <th>معالجة بواسطة</th>
               <th>الوقت</th>
             </tr>
           </thead>
