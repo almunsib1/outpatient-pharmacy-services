@@ -29,7 +29,27 @@
 
     <h1 class="employee-page-title">مؤشر وصفات البريد اليومي</h1>
 
-    <section id="supervisorPanel" class="view supervisor-panel">
+    <section id="dashboardLoginView" class="view auth-view">
+      <form id="dashboardLoginForm" class="panel employee-login-card">
+        <label for="adminUsername">اسم المستخدم</label>
+        <input id="adminUsername" autocomplete="username" required>
+
+        <label for="adminPin">PIN</label>
+        <input id="adminPin" type="password" inputmode="numeric" autocomplete="current-password" required>
+
+        <button class="primary-btn icon-action" type="submit" title="دخول" aria-label="دخول">↵</button>
+        <p id="dashboardLoginMessage" class="message" role="status"></p>
+      </form>
+    </section>
+
+    <section id="supervisorPanel" class="view supervisor-panel hidden">
+      <header class="topbar employee-toolbar upload-toolbar">
+        <div class="user-chip">
+          <strong>Admin</strong>
+          <button id="dashboardLogoutBtn" class="logout-icon" type="button" title="خروج" aria-label="خروج">↪</button>
+        </div>
+      </header>
+
       <header class="supervisor-head">
         <div class="supervisor-actions">
           <button id="refreshSupervisorBtn" class="dashboard-icon-btn" type="button" title="تحديث" aria-label="تحديث">↻</button>

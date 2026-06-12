@@ -1,6 +1,13 @@
 const API_URL = "https://script.google.com/macros/s/AKfycbw0jSrbe1SM596Kyv0EpB6VTKEXT81c2Cn8Wlc2lEQ_RzbrS9b6w-k4gyrflwPBTgpKSQ/exec";
 
 const els = {
+  dashboardLoginView: document.getElementById("dashboardLoginView"),
+  supervisorPanel: document.getElementById("supervisorPanel"),
+  dashboardLoginForm: document.getElementById("dashboardLoginForm"),
+  adminUsername: document.getElementById("adminUsername"),
+  adminPin: document.getElementById("adminPin"),
+  dashboardLoginMessage: document.getElementById("dashboardLoginMessage"),
+  dashboardLogoutBtn: document.getElementById("dashboardLogoutBtn"),
   refreshSupervisorBtn: document.getElementById("refreshSupervisorBtn"),
   printReportBtn: document.getElementById("printReportBtn"),
   dateBox: document.getElementById("dateBox"),
@@ -25,6 +32,9 @@ let refreshTimer = null;
 document.addEventListener("DOMContentLoaded", initDashboard);
 
 function initDashboard() {
+  if (hasDashboardSession()) showDashboard();
+  els.dashboardLoginForm.addEventListener("submit", dashboardLogin);
+  els.dashboardLogoutBtn.addEventListener("click", dashboardLogout);
   els.refreshSupervisorBtn.addEventListener("click", loadSupervisorData);
   els.printReportBtn.addEventListener("click", () => window.print());
   els.filterButtons.forEach(button => {
@@ -32,8 +42,46 @@ function initDashboard() {
   });
   els.fileSearchInput.addEventListener("input", () => renderDailyRows(getFilteredRows()));
   renderDate();
+}
+
+function dashboardLogin(event) {
+  event.preventDefault();
+  const username = els.adminUsername.value.trim();
+  const pin = els.adminPin.value.trim();
+
+  if (username !== "Admin" || pin !== "1234") {
+    setLoginMessage("بيانات الأدمن غير صحيحة.", "error");
+    return;
+  }
+
+  sessionStorage.setItem("dashboardAdminUsername", username);
+  sessionStorage.setItem("dashboardAdminPin", pin);
+  showDashboard();
+}
+
+function showDashboard() {
+  els.dashboardLoginView.classList.add("hidden");
+  els.supervisorPanel.classList.remove("hidden");
   loadSupervisorData();
-  refreshTimer = setInterval(loadSupervisorData, 30000);
+  if (!refreshTimer) refreshTimer = setInterval(loadSupervisorData, 30000);
+}
+
+function dashboardLogout() {
+  sessionStorage.removeItem("dashboardAdminUsername");
+  sessionStorage.removeItem("dashboardAdminPin");
+  if (refreshTimer) {
+    clearInterval(refreshTimer);
+    refreshTimer = null;
+  }
+  els.supervisorPanel.classList.add("hidden");
+  els.dashboardLoginView.classList.remove("hidden");
+  els.dashboardLoginForm.reset();
+  setLoginMessage("");
+}
+
+function hasDashboardSession() {
+  return sessionStorage.getItem("dashboardAdminUsername") === "Admin" &&
+    sessionStorage.getItem("dashboardAdminPin") === "1234";
 }
 
 function renderDate(extraText = "") {
@@ -155,6 +203,11 @@ function formatDateTime(value) {
 function setMessage(element, text, type = "") {
   element.textContent = text;
   element.className = `message ${type}`.trim();
+}
+
+function setLoginMessage(text, type = "") {
+  els.dashboardLoginMessage.textContent = text;
+  els.dashboardLoginMessage.className = `message ${type}`.trim();
 }
 
 function escapeHtml(value) {
