@@ -187,7 +187,7 @@ function renderPrintUsers(users) {
 
   if (!users.length) {
     const row = document.createElement("tr");
-    row.innerHTML = `<td colspan="2">لا توجد وصفات جاهزة للإرسال.</td>`;
+    row.innerHTML = `<td colspan="2">لا توجد وصفات جاهزة للتسليم.</td>`;
     els.printUserBody.appendChild(row);
     return;
   }
