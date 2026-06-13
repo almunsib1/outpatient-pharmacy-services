@@ -1981,7 +1981,7 @@ button:disabled {
 
   body {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
   }
 
@@ -1995,7 +1995,7 @@ button:disabled {
     border-radius: 0;
     box-shadow: none;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
   }
 
@@ -2016,7 +2016,7 @@ button:disabled {
 
   #supervisorPanel {
     display: flex !important;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     width: 210mm;
     height: 297mm;
@@ -2039,7 +2039,7 @@ button:disabled {
     max-width: 196mm;
     max-height: 274mm;
     min-height: 80mm;
-    margin: 6mm auto 0;
+    margin: 0 auto;
     padding: 7mm 7mm 4mm;
     overflow: hidden;
     color: #111827;
@@ -3024,7 +3024,7 @@ button:disabled {
 
   body {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
   }
 
@@ -3039,7 +3039,7 @@ button:disabled {
     border-radius: 0;
     box-shadow: none;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     overflow: hidden;
   }
@@ -3050,7 +3050,7 @@ button:disabled {
     max-width: 196mm;
     max-height: 274mm;
     min-height: 80mm;
-    margin: 6mm auto 0;
+    margin: 0 auto;
     padding: 7mm 7mm 4mm;
     overflow: hidden;
     color: #111827;
