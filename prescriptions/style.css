@@ -3009,34 +3009,38 @@ button:disabled {
 @media print {
   @page {
     size: A4 portrait;
-    margin: 6mm;
+    margin: 0;
   }
 
   html,
   body {
-    width: auto;
-    height: auto;
-    overflow: visible;
+    width: 210mm;
+    height: 297mm;
+    overflow: hidden;
   }
 
   body {
-    display: block;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
   }
 
   .app-shell,
   .employee-shell,
   #supervisorPanel {
-    width: 100%;
-    height: auto;
-    display: block;
+    width: 210mm;
+    height: 297mm;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
   }
 
   .print-report {
-    width: 100%;
-    max-width: none;
-    max-height: none;
-    margin: 0;
-    padding: 8mm 7mm 6mm;
+    width: 184mm;
+    max-width: 184mm;
+    max-height: 274mm;
+    margin: 8mm auto 0;
+    padding: 7mm 7mm 4mm;
     border-radius: 8px;
     gap: 8px;
   }
