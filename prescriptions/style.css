@@ -531,6 +531,17 @@ input {
   flex: 0 0 auto;
 }
 
+.login-svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .employee-shell label,
 .employee-shell .label {
   color: #111827;
@@ -593,6 +604,17 @@ input {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.power-svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .logout-icon:hover {
@@ -1502,6 +1524,30 @@ button:disabled {
     font-size: 18px;
   }
 
+  .login-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: fit-content;
+    margin: 8px auto 0;
+  }
+
+  .login-actions .icon-action {
+    width: 42px !important;
+    min-width: 42px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1;
+    writing-mode: horizontal-tb;
+  }
+
   .dashboard-icon-btn {
     width: 48px;
     min-width: 48px;
@@ -2271,6 +2317,156 @@ button:disabled {
   }
 }
 
+/* Mobile dashboard table: keep it as a real table with clean horizontal scrolling. */
+@media (max-width: 720px) {
+  .prescription-dashboard-body .summary-grid {
+    gap: 8px;
+  }
+
+  .prescription-dashboard-body .summary-card {
+    min-height: 64px;
+    padding: 8px 6px;
+  }
+
+  .prescription-dashboard-body .summary-card span {
+    font-size: 11px;
+    line-height: 1.35;
+    white-space: normal;
+  }
+
+  .prescription-dashboard-body .summary-card strong {
+    font-size: 18px;
+  }
+
+  .prescription-dashboard-body .status-filter {
+    gap: 7px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding-bottom: 2px;
+  }
+
+  .prescription-dashboard-body .filter-btn {
+    flex: 0 0 auto;
+    padding: 8px 12px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .prescription-dashboard-body .dashboard-search {
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .prescription-dashboard-body .dashboard-search input {
+    width: min(100%, 150px);
+    height: 38px;
+    text-align: center;
+  }
+
+  .prescription-dashboard-body .table-wrap,
+  .dashboard-shell .table-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    border: 1px solid #dbe3ea;
+    border-radius: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .prescription-dashboard-body .daily-table,
+  .dashboard-shell .daily-table {
+    display: table;
+    table-layout: fixed;
+    width: 640px;
+    min-width: 640px;
+    border-collapse: collapse;
+  }
+
+  .prescription-dashboard-body .daily-table thead,
+  .dashboard-shell .daily-table thead {
+    display: table-header-group;
+  }
+
+  .prescription-dashboard-body .daily-table tbody,
+  .dashboard-shell .daily-table tbody {
+    display: table-row-group;
+  }
+
+  .prescription-dashboard-body .daily-table tr,
+  .dashboard-shell .daily-table tr {
+    display: table-row;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .prescription-dashboard-body .daily-table th,
+  .prescription-dashboard-body .daily-table td,
+  .dashboard-shell .daily-table th,
+  .dashboard-shell .daily-table td {
+    display: table-cell;
+    padding: 7px 6px;
+    font-size: 11px;
+    line-height: 1.35;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+
+  .prescription-dashboard-body .daily-table td::before,
+  .dashboard-shell .daily-table td::before {
+    content: none;
+  }
+
+  .prescription-dashboard-body .daily-table th:nth-child(1),
+  .prescription-dashboard-body .daily-table td:nth-child(1),
+  .dashboard-shell .daily-table th:nth-child(1),
+  .dashboard-shell .daily-table td:nth-child(1) {
+    width: 100px;
+  }
+
+  .prescription-dashboard-body .daily-table th:nth-child(2),
+  .prescription-dashboard-body .daily-table td:nth-child(2),
+  .dashboard-shell .daily-table th:nth-child(2),
+  .dashboard-shell .daily-table td:nth-child(2) {
+    width: 170px;
+    text-align: right;
+  }
+
+  .prescription-dashboard-body .daily-table th:nth-child(3),
+  .prescription-dashboard-body .daily-table td:nth-child(3),
+  .dashboard-shell .daily-table th:nth-child(3),
+  .dashboard-shell .daily-table td:nth-child(3) {
+    width: 130px;
+  }
+
+  .prescription-dashboard-body .daily-table th:nth-child(4),
+  .prescription-dashboard-body .daily-table td:nth-child(4),
+  .dashboard-shell .daily-table th:nth-child(4),
+  .dashboard-shell .daily-table td:nth-child(4) {
+    width: 145px;
+  }
+
+  .prescription-dashboard-body .daily-table th:nth-child(5),
+  .prescription-dashboard-body .daily-table td:nth-child(5),
+  .dashboard-shell .daily-table th:nth-child(5),
+  .dashboard-shell .daily-table td:nth-child(5) {
+    width: 95px;
+  }
+
+  .prescription-dashboard-body .status-pill,
+  .dashboard-shell .status-pill {
+    white-space: nowrap;
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+}
+
 /* Prep page override: match the merged home page visual style. */
 .prep-body {
   margin: 0;
@@ -2806,5 +3002,109 @@ button:disabled {
   .prescription-dashboard-body .daily-table td {
     padding: 6px 5px;
     font-size: 11px;
+  }
+}
+
+/* Print report final sizing: wider, balanced, and aligned with the main identity header. */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 6mm;
+  }
+
+  html,
+  body {
+    width: auto;
+    height: auto;
+    overflow: visible;
+  }
+
+  body {
+    display: block;
+  }
+
+  .app-shell,
+  .employee-shell,
+  #supervisorPanel {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .print-report {
+    width: 196mm;
+    max-width: 196mm;
+    max-height: none;
+    margin: 0 auto;
+    padding: 8mm 9mm 6mm;
+    border-radius: 8px;
+    gap: 8px;
+  }
+
+  .print-report-head {
+    direction: ltr;
+    flex-direction: row;
+    align-items: flex-start;
+    padding-bottom: 6px;
+  }
+
+  .print-report-head img {
+    order: 1;
+    width: 62px;
+    height: 62px;
+  }
+
+  .print-report-head div {
+    order: 2;
+    text-align: right;
+    direction: rtl;
+    border-left: 4px solid #168fb3;
+    padding-left: 8px;
+    min-height: 54px;
+    display: grid;
+    align-content: center;
+  }
+
+  .print-report-head p {
+    font-size: 9.5px;
+    line-height: 1.25;
+  }
+
+  .print-report h2 {
+    font-size: 15px;
+  }
+
+  .print-report-date {
+    font-size: 10px;
+  }
+
+  .print-summary {
+    gap: 7px;
+  }
+
+  .print-summary div {
+    padding: 5px 6px 4px;
+  }
+
+  .print-summary span {
+    font-size: 9px;
+  }
+
+  .print-summary strong {
+    font-size: 16px;
+  }
+
+  .print-section-title {
+    font-size: 12px;
+    margin-top: 2px;
+  }
+
+  .print-user-table {
+    font-size: 10px;
+  }
+
+  .print-user-table th,
+  .print-user-table td {
+    padding: 4px 6px;
   }
 }

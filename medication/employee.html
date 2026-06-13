@@ -33,6 +33,7 @@ input,select{width:100%;height:36px;padding:7px 10px;margin-top:5px;margin-botto
 .login-actions{display:flex;align-items:center;justify-content:center;gap:8px;width:fit-content;margin:2px auto 0}
 .login-actions .primary-btn,.login-actions .secondary-btn{width:36px;height:36px;margin:0;padding:0;display:inline-flex;align-items:center;justify-content:center;font-size:18px;line-height:1;text-align:center;vertical-align:middle}
 .login-actions .secondary-btn{font-size:17px;padding-top:1px}
+.login-svg{width:20px;height:20px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .primary-btn:disabled,.action-btn:disabled{background:#94a3b8;color:#fff;cursor:not-allowed}
 .toolbar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .toolbar > div{min-width:0}
@@ -42,6 +43,7 @@ input,select{width:100%;height:36px;padding:7px 10px;margin-top:5px;margin-botto
 .employee-tools{flex:0 0 auto;display:flex;align-items:center;justify-content:flex-end;gap:8px;text-align:end;min-height:38px}
 .employee-line{display:flex;align-items:center;justify-content:flex-end;gap:6px;min-height:38px}
 .logout-icon{width:28px;height:28px;padding:0;border:none;background:transparent;color:#168fb3;font-size:22px;line-height:1;display:inline-flex;align-items:center;justify-content:center}
+.power-svg{width:22px;height:22px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .logout-icon:hover{background:transparent;transform:scale(1.08)}
 .table-wrap{overflow-x:auto;margin-top:16px}
 table{width:100%;border-collapse:collapse;min-width:980px}
@@ -99,6 +101,8 @@ body{padding:10px;background:#fff}
 .logout-icon{width:28px}
 .login-card{max-width:280px;padding:12px}
 .login-card .primary-btn{width:auto}
+.login-actions{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:10px;width:fit-content;margin:8px auto 0}
+.login-actions .primary-btn,.login-actions .secondary-btn{width:42px!important;min-width:42px!important;height:42px!important;min-height:42px!important;margin:0!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:20px;line-height:1;writing-mode:horizontal-tb}
 .table-wrap{margin-top:12px}
 table{min-width:720px}
 th,td{padding:5px 4px;font-size:11px}
@@ -301,7 +305,7 @@ function setLanguage(lang) {
   document.getElementById("pageTitle").innerText = text[lang].pageTitle;
   document.getElementById("usernameLabel").innerText = text[lang].username;
   document.getElementById("passwordLabel").innerText = text[lang].password;
-  document.getElementById("loginBtn").innerText = "↵";
+  document.getElementById("loginBtn").innerHTML = loginIcon();
   document.getElementById("loginBtn").title = text[lang].login;
   document.getElementById("loginBtn").setAttribute("aria-label", text[lang].login);
   document.getElementById("togglePasswordBtn").innerText = "🔑";
@@ -311,7 +315,7 @@ function setLanguage(lang) {
   document.getElementById("oldPasswordLabel").innerText = text[lang].oldPassword;
   document.getElementById("newPasswordLabel").innerText = text[lang].newPassword;
   document.getElementById("changePasswordBtn").innerText = text[lang].changePassword;
-  document.getElementById("logoutBtn").innerText = "⏻";
+  document.getElementById("logoutBtn").innerHTML = powerIcon();
   document.getElementById("logoutBtn").title = text[lang].logout;
   document.getElementById("logoutBtn").setAttribute("aria-label", text[lang].logout);
   document.getElementById("pharmacyFilterLabel").innerText = text[lang].pharmacyFilter;
@@ -331,6 +335,10 @@ function setLanguage(lang) {
 
 function toggleLanguage() {
   setLanguage(currentLang === "ar" ? "en" : "ar");
+}
+
+function loginIcon() {
+  return '<svg class="login-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path><path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path></svg>';
 }
 
 function renderDate() {
@@ -446,6 +454,10 @@ function showEmployeeView() {
   loadBookings();
   startAutoRefresh();
   startEmployeeInactivityWatcher();
+}
+
+function powerIcon() {
+  return '<svg class="power-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9"></path><path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path></svg>';
 }
 
 function startEmployeeInactivityWatcher() {

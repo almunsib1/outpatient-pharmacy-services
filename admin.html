@@ -34,9 +34,11 @@ input{width:100%;height:36px;padding:7px 10px;margin-top:5px;margin-bottom:10px;
 .primary-btn:disabled{background:#94a3b8;cursor:not-allowed}
 .login-actions{display:flex;align-items:center;justify-content:center;gap:8px;width:fit-content;margin:2px auto 0}
 .login-actions .primary-btn,.login-actions .secondary-btn{width:36px;height:36px;margin:0;padding:0;display:inline-flex;align-items:center;justify-content:center;font-size:18px;line-height:1}
+.login-svg{width:20px;height:20px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .admin-top{display:flex;align-items:center;justify-content:flex-start;gap:8px;border:none;background:transparent;padding:0;margin-top:10px}
 .admin-name{font-weight:bold;color:#168fb3}
-.logout-btn{border:none;background:transparent;color:#168fb3;font-size:22px;cursor:pointer;padding:4px}
+.logout-btn{border:none;background:transparent;color:#168fb3;font-size:22px;cursor:pointer;padding:4px;display:inline-flex;align-items:center;justify-content:center}
+.power-svg{width:22px;height:22px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .form-grid{display:grid;grid-template-columns:180px 140px 220px;gap:10px;align-items:end;justify-content:center;max-width:620px;margin:0 auto}
 .permissions-row{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:4px auto 10px}
 .check-pill{height:36px;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:#111827;font-size:13px;padding:0 12px}
@@ -75,6 +77,8 @@ body{padding:10px;background:#fff}
 .form-grid{grid-template-columns:1fr;max-width:320px}
 .form-actions{flex-wrap:wrap}
 .login-card{max-width:280px;padding:12px}
+.login-actions{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:10px;width:fit-content;margin:8px auto 0}
+.login-actions .primary-btn,.login-actions .secondary-btn{width:42px!important;min-width:42px!important;height:42px!important;min-height:42px!important;margin:0!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:20px;line-height:1;writing-mode:horizontal-tb}
 .admin-top{justify-content:center}
 .table-wrap{margin-top:12px}
 table{min-width:680px}
@@ -262,11 +266,11 @@ function setLanguage(lang) {
   document.getElementById("officialLine3").innerText = text[lang].officialLine3;
   document.getElementById("pageTitle").innerText = text[lang].pageTitle;
   document.getElementById("adminUsernameLabel").innerText = text[lang].username;
-  document.getElementById("loginBtn").innerText = "↵";
+  document.getElementById("loginBtn").innerHTML = loginIcon();
   document.getElementById("loginBtn").title = text[lang].login;
   document.getElementById("loginBtn").setAttribute("aria-label", text[lang].login);
   document.getElementById("changePinBtn").title = "PIN";
-  document.getElementById("logoutBtn").innerText = "⏻";
+  document.getElementById("logoutBtn").innerHTML = powerIcon();
   document.getElementById("logoutBtn").title = text[lang].logout;
   document.getElementById("logoutBtn").setAttribute("aria-label", text[lang].logout);
   document.getElementById("usernameLabel").innerText = text[lang].username;
@@ -291,6 +295,10 @@ function setLanguage(lang) {
 
 function toggleLanguage() {
   setLanguage(currentLang === "ar" ? "en" : "ar");
+}
+
+function loginIcon() {
+  return '<svg class="login-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path><path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path></svg>';
 }
 
 function renderDate() {
@@ -444,9 +452,10 @@ function mergeUsers(medUsers, mailUsers) {
 
   mailUsers.forEach(user => {
     const key = user.username.toLowerCase();
-    map[key] = map[key] || { username: user.username, name: user.name, pin: "", med: null, mail: null };
+    map[key] = map[key] || { username: user.username, name: user.name, pin: user.pin || "", med: null, mail: null };
     map[key].username = map[key].username || user.username;
     map[key].name = map[key].name || user.name || user.username;
+    map[key].pin = user.pin || map[key].pin;
     map[key].mail = { active: user.active !== false };
   });
 
@@ -691,6 +700,10 @@ function escapeHtml(value) {
 
 function escapeAttribute(value) {
   return String(value ?? "").replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+}
+
+function powerIcon() {
+  return '<svg class="power-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9"></path><path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path></svg>';
 }
 
 setLanguage("ar");

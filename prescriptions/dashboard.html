@@ -1,10 +1,10 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>مؤشر وصفات البريد اليومي</title>
-  <link rel="stylesheet" href="style.css?v=20260612-login-actions">
+  <link rel="stylesheet" href="style.css?v=20260613-login-mobile">
   <script src="dashboard.js?v=20260612-login-pin" defer></script>
 </head>
 <body class="prescription-dashboard-body">
@@ -39,7 +39,7 @@
         <input id="adminPin" type="password" inputmode="numeric" autocomplete="current-password" required>
 
         <div class="login-actions">
-          <button id="loginBtn" class="primary-btn icon-action" type="submit" title="دخول" aria-label="دخول">↵</button>
+          <button id="loginBtn" class="primary-btn icon-action" type="submit" title="دخول" aria-label="دخول"><svg class="login-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path><path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path></svg></button>
           <button id="dashboardChangePinLoginBtn" class="ghost-btn icon-action" type="button" title="تغيير PIN" aria-label="تغيير PIN">🔑</button>
         </div>
         <p id="dashboardLoginMessage" class="message" role="status"></p>
@@ -50,7 +50,7 @@
       <header class="topbar employee-toolbar upload-toolbar">
         <div class="user-chip">
           <strong>Admin</strong>
-          <button id="dashboardLogoutBtn" class="logout-icon" type="button" title="خروج" aria-label="خروج">⏻</button>
+          <button id="dashboardLogoutBtn" class="logout-icon" type="button" title="خروج" aria-label="خروج"><svg class="power-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9"></path><path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path></svg></button>
         </div>
       </header>
 
@@ -146,3 +146,4 @@
   </main>
 </body>
 </html>
+
