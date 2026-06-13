@@ -335,15 +335,18 @@ async function changeLoginPin() {
 }
 
 function renderDate(extraText = "") {
+  els.dateBox.textContent = getTodayLabel();
+  els.reportDate.textContent = extraText ? extraText.replace(/^ \| /, "") : "";
+}
+
+function getTodayLabel() {
   const now = new Date();
   const date = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Riyadh" }).format(now);
   const dayName = new Intl.DateTimeFormat(currentLang === "ar" ? "ar-SA" : "en-US", {
     timeZone: "Asia/Riyadh",
     weekday: "long"
   }).format(now);
-
-  els.dateBox.textContent = `${dayName} - ${date}`;
-  els.reportDate.textContent = extraText ? extraText.replace(/^ \| /, "") : "";
+  return `${dayName} - ${date}`;
 }
 
 async function loadSupervisorData() {
@@ -402,7 +405,7 @@ function renderSupervisorSummary(summary = {}) {
 }
 
 function renderPrintReport(summary = {}) {
-  els.printReportDate.textContent = els.dateBox.textContent;
+  els.printReportDate.textContent = getTodayLabel();
   els.printTotalCount.textContent = summary.total || 0;
   els.printPreparedCount.textContent = summary.prepared || 0;
   els.printPendingCount.textContent = summary.pending || 0;
