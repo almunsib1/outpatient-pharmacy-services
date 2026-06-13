@@ -66,7 +66,7 @@ body{padding:10px;background:#fff}
   <p class="subtitle">بوابة موحدة لتقديم الخدمات الصيدلانية في العيادات الخارجية.</p>
 
   <div class="portal-grid">
-    <a class="portal-card" href="prescriptions/index.html">
+    <a class="portal-card" href="prescriptions/index.html" target="_blank" rel="noopener">
       <div class="card-text">
         <p class="card-title">البريد الدوائي</p>
         <p class="card-desc">الدخول إلى خدمات رفع ومتابعة وتحضير وصفات البريد.</p>
@@ -83,11 +83,11 @@ body{padding:10px;background:#fff}
         <div class="card-icon">💊</div>
       </div>
       <div class="card-actions">
-        <a class="mini-link" href="medication/index.html">رابط الحجز</a>
+        <a class="mini-link" href="medication/index.html" target="_blank" rel="noopener">رابط الحجز</a>
       </div>
     </div>
 
-    <a class="portal-card" href="admin.html">
+    <a class="portal-card" href="admin.html" target="_blank" rel="noopener">
       <div class="card-text">
         <p class="card-title">إدارة المستخدمين</p>
         <p class="card-desc">إدارة المستخدمين والصلاحيات للمشروعين من صفحة واحدة.</p>
@@ -108,12 +108,12 @@ function renderDate() {
 const medPortal = document.getElementById("medPortal");
 medPortal.addEventListener("click", function(event) {
   if (event.target.closest("a")) return;
-  window.location.href = "medication/portal.html";
+  window.open("medication/portal.html", "_blank", "noopener");
 });
 medPortal.addEventListener("keydown", function(event) {
   if (event.key === "Enter" || event.key === " ") {
     event.preventDefault();
-    window.location.href = "medication/portal.html";
+    window.open("medication/portal.html", "_blank", "noopener");
   }
 });
 renderDate();
