@@ -55,6 +55,11 @@ input {
   color: #0f7592;
 }
 
+/* Temporarily hide the main-menu return icon across the mail portal pages. */
+.main-home-link {
+  display: none !important;
+}
+
 .employee-shell {
   width: min(100%, 1100px);
   min-height: auto;
