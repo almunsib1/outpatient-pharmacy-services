@@ -54,7 +54,6 @@
       </a>
 
     </nav>
-    <a class="main-home-link" id="homeLink" href="../home.html" title="العودة إلى القائمة الرئيسية" aria-label="العودة إلى القائمة الرئيسية">&#8962;</a>
   </main>
   <script>
     let currentLang = "ar";
@@ -72,8 +71,7 @@
         uploadTitle: "إرسال القائمة اليومية",
         uploadDesc: "رفع ملف Excel أو CSV لقائمة اليوم",
         dashboardTitle: "المؤشر اليومي للبريد الدوائي",
-        dashboardDesc: "متابعة الحالات والتقرير اليومي",
-        home: "العودة إلى القائمة الرئيسية"
+        dashboardDesc: "متابعة الحالات والتقرير اليومي"
       },
       en: {
         documentTitle: "Prescription Mail Portal",
@@ -88,8 +86,7 @@
         uploadTitle: "Submit Daily List",
         uploadDesc: "Upload an Excel or CSV file for today's list",
         dashboardTitle: "Mail Pharmacy Dashboard",
-        dashboardDesc: "Monitor cases and the daily report",
-        home: "Back to Main Menu"
+        dashboardDesc: "Monitor cases and the daily report"
       }
     };
 
@@ -110,8 +107,6 @@
       document.getElementById("uploadDesc").textContent = text[lang].uploadDesc;
       document.getElementById("dashboardTitle").textContent = text[lang].dashboardTitle;
       document.getElementById("dashboardDesc").textContent = text[lang].dashboardDesc;
-      document.getElementById("homeLink").title = text[lang].home;
-      document.getElementById("homeLink").setAttribute("aria-label", text[lang].home);
       document.getElementById("languageToggle").textContent = "🌐 ع | E";
       renderDate();
     }
