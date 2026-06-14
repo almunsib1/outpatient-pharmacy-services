@@ -402,7 +402,7 @@ async function lookupPrescription(fileNumber) {
     els.patientNameText.textContent = response.patientName;
     els.resultCard.classList.remove("hidden");
 
-    if (response.prepared) {
+    if (response.prepared && isTodayRiyadh(response.preparedAt)) {
       const timeText = formatDateTime(response.preparedAt);
       els.preparedMessage.textContent = t("alreadyPrepared", response.preparedBy, timeText);
       els.preparedMessage.classList.remove("hidden");
@@ -472,6 +472,13 @@ function formatDateTime(value) {
     hour: "2-digit",
     minute: "2-digit"
   });
+}
+
+function isTodayRiyadh(value) {
+  const date = value ? new Date(value) : null;
+  if (!date || Number.isNaN(date.getTime())) return false;
+  const formatter = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Riyadh" });
+  return formatter.format(date) === formatter.format(new Date());
 }
 
 async function api(action, payload = {}) {
