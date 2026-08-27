@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مراقبة تواريخ صلاحية الأدوية</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
+.container{max-width:980px;margin:auto;background:#fff;padding:22px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,.1);min-height:calc(100vh - 32px)}
+.top-bar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px;direction:ltr}
+.logo{width:120px;height:120px;object-fit:contain}
+.official-header{width:fit-content;max-width:100%;text-align:right;transform:translateY(14px);padding-left:8px;border-left:4px solid #168fb3;direction:rtl}
+.official-header h2,.official-header h3{margin:2px 0;font-size:13px;line-height:1.4;color:#168fb3}
+hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
+.meta-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;direction:ltr}
+.date-box{color:#168fb3;padding:4px 0;font-size:13px;font-weight:bold;text-align:center}
+.language-chip{color:#168fb3;font-size:13px;font-weight:bold;padding:4px 0;white-space:nowrap;background:transparent;border:0;cursor:pointer;font-family:inherit}
+.page-title{text-align:center;font-size:24px;font-weight:bold;margin:18px 0 8px;color:#168fb3}
+.subtitle{text-align:center;color:#334155;font-size:15px;line-height:1.7;margin:0 auto 22px;max-width:620px}
+.portal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;max-width:620px;margin:0 auto}
+.portal-card{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:18px;text-decoration:none;color:#111827;display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:108px;transition:.15s ease}
+a.portal-card:hover{border-color:#168fb3;transform:translateY(-1px);box-shadow:0 8px 18px rgba(22,143,179,.12)}
+.card-text{text-align:start;min-width:0}
+.card-title{font-size:16px;font-weight:bold;color:#168fb3;margin:0 0 5px}
+.card-desc{font-size:12px;color:#475569;line-height:1.55;margin:0}
+.card-icon{width:38px;height:38px;border-radius:8px;background:#e0f2fe;color:#168fb3;display:flex;align-items:center;justify-content:center;font-size:21px;flex:0 0 auto}
+.main-home-link{display:flex;align-items:center;justify-content:center;width:fit-content;margin:22px auto 0;color:#168fb3;text-decoration:none;font-size:28px;line-height:1;background:transparent;border:none;padding:4px}
+.main-home-link:hover{color:#0f7592}
+@media (max-width:700px){body{padding:10px;background:#fff}.container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}.logo{width:84px;height:84px}.official-header{transform:translateY(10px)}.official-header h2,.official-header h3{font-size:12px}.page-title{font-size:20px}.portal-grid{grid-template-columns:1fr;max-width:360px}.portal-card{min-height:92px;padding:12px}.card-title{font-size:15px}.card-desc{font-size:12px}.card-icon{width:34px;height:34px;font-size:19px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="top-bar">
+    <img class="logo" src="../logo.png" alt="Logo">
+    <div class="official-header">
+      <h2 id="officialLine1">تجمع المدينة المنورة الصحي</h2>
+      <h3 id="officialLine2">مستشفى الملك فهد بالمدينة المنورة</h3>
+      <h3 id="officialLine3">إدارة الرعاية الصيدلانية</h3>
+    </div>
+  </div>
+  <hr>
+  <div class="meta-row">
+    <div class="date-box" id="dateBox"></div>
+    <button type="button" class="language-chip" id="languageToggle" onclick="toggleLanguage()">🌐 ع | E</button>
+  </div>
+  <h1 class="page-title" id="pageTitle">مراقبة تواريخ صلاحية الأدوية</h1>
+  <p class="subtitle" id="subtitle">اختر الصيدلية لمتابعة تواريخ صلاحية الأدوية.</p>
+  <div class="portal-grid">
+    <a class="portal-card" href="kidney/index.html" target="_blank" rel="noopener">
+      <div class="card-text">
+        <p class="card-title" id="kidneyTitle">صيدلية مركز الكلى</p>
+        <p class="card-desc" id="kidneyDesc">متابعة تواريخ صلاحية أدوية صيدلية مركز الكلى.</p>
+      </div>
+      <div class="card-icon">💊</div>
+    </a>
+  </div>
+  <a class="main-home-link" href="../home.html" title="العودة إلى القائمة الرئيسية" aria-label="العودة إلى القائمة الرئيسية">⌂</a>
+</div>
+<script>
+let currentLang = "ar";
+const text = {
+  ar: {title:"مراقبة تواريخ صلاحية الأدوية",officialLine1:"تجمع المدينة المنورة الصحي",officialLine2:"مستشفى الملك فهد بالمدينة المنورة",officialLine3:"إدارة الرعاية الصيدلانية",subtitle:"اختر الصيدلية لمتابعة تواريخ صلاحية الأدوية.",kidneyTitle:"صيدلية مركز الكلى",kidneyDesc:"متابعة تواريخ صلاحية أدوية صيدلية مركز الكلى."},
+  en: {title:"Medication Expiry Monitoring",officialLine1:"Madinah Health Cluster",officialLine2:"King Fahad Hospital - Madinah",officialLine3:"Pharmaceutical Care Administration",subtitle:"Select a pharmacy to monitor medication expiry dates.",kidneyTitle:"Kidney Center Pharmacy",kidneyDesc:"Monitor medication expiry dates for the Kidney Center Pharmacy."}
+};
+function setLanguage(lang){currentLang=lang;document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";document.title=text[lang].title;document.getElementById("officialLine1").innerText=text[lang].officialLine1;document.getElementById("officialLine2").innerText=text[lang].officialLine2;document.getElementById("officialLine3").innerText=text[lang].officialLine3;document.getElementById("pageTitle").innerText=text[lang].title;document.getElementById("subtitle").innerText=text[lang].subtitle;document.getElementById("kidneyTitle").innerText=text[lang].kidneyTitle;document.getElementById("kidneyDesc").innerText=text[lang].kidneyDesc;document.getElementById("languageToggle").innerText="🌐 ع | E";renderDate()}
+function toggleLanguage(){setLanguage(currentLang==="ar"?"en":"ar")}
+function renderDate(){const now=new Date();const date=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(now);const dayName=new Intl.DateTimeFormat(currentLang==="ar"?"ar-SA":"en-US",{timeZone:"Asia/Riyadh",weekday:"long"}).format(now);document.getElementById("dateBox").innerText=`${dayName} - ${date}`}
+setLanguage("ar");
+</script>
+</body>
+</html>
