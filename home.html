@@ -22,7 +22,7 @@ hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
 .language-chip{color:#168fb3;font-size:13px;font-weight:bold;padding:4px 0;white-space:nowrap;background:transparent;border:0;cursor:pointer;font-family:inherit}
 .page-title{text-align:center;font-size:24px;font-weight:bold;margin:18px 0 8px;color:#168fb3}
 .subtitle{text-align:center;color:#334155;font-size:15px;line-height:1.7;margin:0 auto 22px;max-width:620px}
-.portal-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:920px;margin:0 auto}
+.portal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;max-width:920px;margin:0 auto}
 .portal-card{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:18px;text-decoration:none;color:#111827;display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:132px;transition:.15s ease}
 a.portal-card:hover,.portal-card.has-actions:hover{border-color:#168fb3;transform:translateY(-1px);box-shadow:0 8px 18px rgba(22,143,179,.12)}
 .has-actions{align-items:flex-start;flex-direction:column;cursor:pointer}
@@ -108,7 +108,13 @@ body{padding:10px;background:#fff}
       </div>
       <div class="card-icon">⚙</div>
     </a>
-  </div>
+    <a class="portal-card" href="expiry/index.html" target="_blank" rel="noopener">
+      <div class="card-text">
+        <p class="card-title" id="expiryTitle">مراقبة تواريخ صلاحية الأدوية</p>
+        <p class="card-desc" id="expiryDesc">متابعة تواريخ انتهاء الأدوية والتنبيه قبل قرب انتهاء الصلاحية.</p>
+      </div>
+      <div class="card-icon">⏳</div>
+    </a>  </div>
 </div>
 
 <script>
@@ -127,7 +133,9 @@ const text = {
     medDesc: "بوابة خدمة حجز ومتابعة مواعيد صرف الأدوية الشهرية.",
     bookingLink: "رابط الحجز",
     adminTitle: "إدارة المستخدمين",
-    adminDesc: "إدارة المستخدمين والصلاحيات للمشروعين من صفحة واحدة."
+    adminDesc: "إدارة المستخدمين والصلاحيات للمشروعين من صفحة واحدة.",
+    expiryTitle: "مراقبة تواريخ صلاحية الأدوية",
+    expiryDesc: "متابعة تواريخ انتهاء الأدوية والتنبيه قبل قرب انتهاء الصلاحية."
   },
   en: {
     title: "Pharmaceutical Care Services Portal",
@@ -141,7 +149,9 @@ const text = {
     medDesc: "A portal for booking and managing monthly medication pickup appointments.",
     bookingLink: "Booking Link",
     adminTitle: "User Management",
-    adminDesc: "Manage users and permissions for both services from one page."
+    adminDesc: "Manage users and permissions for both services from one page.",
+    expiryTitle: "Medication Expiry Monitoring",
+    expiryDesc: "Track medication expiry dates and highlight items before they expire."
   }
 };
 
@@ -162,6 +172,8 @@ function setLanguage(lang) {
   document.getElementById("bookingLink").innerText = text[lang].bookingLink;
   document.getElementById("adminTitle").innerText = text[lang].adminTitle;
   document.getElementById("adminDesc").innerText = text[lang].adminDesc;
+  document.getElementById("expiryTitle").innerText = text[lang].expiryTitle;
+  document.getElementById("expiryDesc").innerText = text[lang].expiryDesc;
   document.getElementById("medPortal").setAttribute("aria-label", text[lang].medTitle);
   renderDate();
 }
