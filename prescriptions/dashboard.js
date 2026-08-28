@@ -55,7 +55,8 @@ const els = {
   fileSearchBtn: document.getElementById("fileSearchBtn"),
   dailyListBody: document.getElementById("dailyListBody"),
   supervisorMessage: document.getElementById("supervisorMessage"),
-  filterButtons: document.querySelectorAll(".filter-btn")
+  filterButtons: document.querySelectorAll(".filter-btn"),
+  summaryCards: document.querySelectorAll(".summary-card[data-filter]")
 };
 
 let dailyRows = [];
@@ -172,6 +173,15 @@ function initDashboard() {
   els.printReportBtn.addEventListener("click", () => window.print());
   els.filterButtons.forEach(button => {
     button.addEventListener("click", () => setStatusFilter(button.dataset.filter));
+  });
+  els.summaryCards.forEach(card => {
+    card.addEventListener("click", () => setStatusFilter(card.dataset.filter));
+    card.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        setStatusFilter(card.dataset.filter);
+      }
+    });
   });
   els.fileSearchInput.addEventListener("input", () => renderDailyRows(getFilteredRows()));
   els.fileSearchBtn.addEventListener("click", applyFileSearch);
@@ -386,6 +396,11 @@ function setStatusFilter(filter) {
   els.filterButtons.forEach(button => {
     button.classList.toggle("active-filter", button.dataset.filter === activeFilter);
   });
+  els.summaryCards.forEach(card => {
+    const isActive = card.dataset.filter === activeFilter;
+    card.classList.toggle("active-filter", isActive);
+    card.setAttribute("aria-pressed", isActive ? "true" : "false");
+  });
   renderDailyRows(getFilteredRows());
 }
 
@@ -501,3 +516,7 @@ async function api(action, payload = {}) {
   if (!response.ok) throw new Error(t("serverFailed"));
   return response.json();
 }
+
+
+
+

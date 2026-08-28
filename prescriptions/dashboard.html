@@ -62,15 +62,15 @@
       </header>
 
       <div class="summary-grid">
-        <div class="summary-card">
+        <div class="summary-card active-filter" data-filter="all" role="button" tabindex="0" aria-pressed="true">
           <span id="totalLabel">إجمالي القائمة</span>
           <strong id="totalCount">0</strong>
         </div>
-        <div class="summary-card done">
+        <div class="summary-card done" data-filter="prepared" role="button" tabindex="0" aria-pressed="false">
           <span id="preparedLabel">جاهزة للتسليم</span>
           <strong id="preparedCount">0</strong>
         </div>
-        <div class="summary-card pending">
+        <div class="summary-card pending" data-filter="pending" role="button" tabindex="0" aria-pressed="false">
           <span id="pendingLabel">تحت المعالجة</span>
           <strong id="pendingCount">0</strong>
         </div>
@@ -145,6 +145,7 @@
 </main>
 </body>
 </html>
+
 
 
 

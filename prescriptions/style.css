@@ -3229,3 +3229,37 @@ button:disabled {
   box-shadow: 0 18px 36px rgba(15, 23, 42, 0.18);
   filter: brightness(1.05);
 }
+
+.prescription-dashboard-body .summary-card[data-filter] {
+  cursor: pointer;
+  user-select: none;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.prescription-dashboard-body .summary-card[data-filter]:hover,
+.prescription-dashboard-body .summary-card[data-filter]:focus-visible {
+  transform: translateY(-1px);
+  border-color: #168fb3;
+  box-shadow: 0 8px 18px rgba(22,143,179,.12);
+  outline: none;
+}
+
+.prescription-dashboard-body .summary-card.active-filter {
+  border-color: #168fb3;
+  background: #e6f2f5;
+  box-shadow: 0 8px 18px rgba(22,143,179,.14);
+}
+
+.prescription-dashboard-body .summary-card.done.active-filter {
+  background: #ecfdf5;
+  border-color: #16a34a;
+}
+
+.prescription-dashboard-body .summary-card.pending.active-filter {
+  background: #fff7ed;
+  border-color: #d97706;
+}
+
+.prescription-dashboard-body .status-filter {
+  display: none !important;
+}
