@@ -135,7 +135,7 @@ const text = {
     officialLine1:"Madinah Health Cluster",
     officialLine2:"King Fahad Hospital - Madinah",
     officialLine3:"Pharmaceutical Care Administration",
-    labelExpired:"Expired",
+    labelExpired:"This Month",
     labelSoon:"Within 3 Months",
     labelOk:"Within Safe Range",
     colName:"Medication Name",
@@ -204,11 +204,28 @@ function pillClass(daysLeft){
 let lastItems = [];
 let activeFilter = null;
 
-function matchesFilter(daysLeft){
-  if (activeFilter === "expired") return daysLeft < 0;
-  if (activeFilter === "soon") return daysLeft >= 0 && daysLeft <= 90;
-  if (activeFilter === "ok") return daysLeft > 90;
-  return true;
+function getTodayParts(){
+  const today = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(new Date());
+  const parts = today.split("-");
+  return { year: parts[0], month: parts[1] };
+}
+
+function isThisMonth(expiry){
+  const parts = String(expiry || "").split("-");
+  if (parts.length < 2) return false;
+  const today = getTodayParts();
+  return parts[0] === today.year && parts[1] === today.month;
+}
+
+function itemBucket(item){
+  if (isThisMonth(item.expiry)) return "expired";
+  if (item.daysLeft >= 0 && item.daysLeft <= 90) return "soon";
+  return "ok";
+}
+
+function matchesFilter(item){
+  if (!activeFilter) return true;
+  return itemBucket(item) === activeFilter;
 }
 
 function setFilter(status){
@@ -229,7 +246,7 @@ function renderTable(){
   const tbody = document.getElementById("tableBody");
   const emptyNote = document.getElementById("emptyNote");
   tbody.innerHTML = "";
-  const filtered = lastItems.filter(function(m){ return matchesFilter(m.daysLeft); });
+  const filtered = lastItems.filter(function(m){ return matchesFilter(m); });
   filtered.forEach(function(m){
     const tr = document.createElement("tr");
     tr.className = rowClass(m.daysLeft);
@@ -248,8 +265,9 @@ function renderRows(items){
   lastItems = items || [];
   let expired = 0, soon = 0, ok = 0;
   lastItems.forEach(function(m){
-    if (m.daysLeft < 0) expired++;
-    else if (m.daysLeft <= 90) soon++;
+    const bucket = itemBucket(m);
+    if (bucket === "expired") expired++;
+    else if (bucket === "soon") soon++;
     else ok++;
   });
   document.getElementById("countExpired").textContent = expired;
@@ -288,5 +306,6 @@ setInterval(loadData, 10000);
 </script>
 </body>
 </html>
+
 
 
