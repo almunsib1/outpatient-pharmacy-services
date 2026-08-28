@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مراقبة تواريخ صلاحية الأدوية</title>
+<title>متابعة تواريخ صلاحية الأدوية</title>
 <style>
 *{box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
@@ -45,7 +45,7 @@ a.portal-card:hover{border-color:#168fb3;transform:translateY(-1px);box-shadow:0
     <div class="date-box" id="dateBox"></div>
     <button type="button" class="language-chip" id="languageToggle" onclick="toggleLanguage()">🌐 ع | E</button>
   </div>
-  <h1 class="page-title" id="pageTitle">مراقبة تواريخ صلاحية الأدوية</h1>
+  <h1 class="page-title" id="pageTitle">متابعة تواريخ صلاحية الأدوية</h1>
   <p class="subtitle" id="subtitle">اختر الصيدلية لمتابعة تواريخ صلاحية الأدوية.</p>
   <div class="portal-grid">
     <a class="portal-card" href="kidney/index.html" target="_blank" rel="noopener">
@@ -61,7 +61,7 @@ a.portal-card:hover{border-color:#168fb3;transform:translateY(-1px);box-shadow:0
 <script>
 let currentLang = "ar";
 const text = {
-  ar: {title:"مراقبة تواريخ صلاحية الأدوية",officialLine1:"تجمع المدينة المنورة الصحي",officialLine2:"مستشفى الملك فهد بالمدينة المنورة",officialLine3:"إدارة الرعاية الصيدلانية",subtitle:"اختر الصيدلية لمتابعة تواريخ صلاحية الأدوية.",kidneyTitle:"صيدلية مركز الكلى",kidneyDesc:"متابعة تواريخ صلاحية أدوية صيدلية مركز الكلى."},
+  ar: {title:"متابعة تواريخ صلاحية الأدوية",officialLine1:"تجمع المدينة المنورة الصحي",officialLine2:"مستشفى الملك فهد بالمدينة المنورة",officialLine3:"إدارة الرعاية الصيدلانية",subtitle:"اختر الصيدلية لمتابعة تواريخ صلاحية الأدوية.",kidneyTitle:"صيدلية مركز الكلى",kidneyDesc:"متابعة تواريخ صلاحية أدوية صيدلية مركز الكلى."},
   en: {title:"Medication Expiry Monitoring",officialLine1:"Madinah Health Cluster",officialLine2:"King Fahad Hospital - Madinah",officialLine3:"Pharmaceutical Care Administration",subtitle:"Select a pharmacy to monitor medication expiry dates.",kidneyTitle:"Kidney Center Pharmacy",kidneyDesc:"Monitor medication expiry dates for the Kidney Center Pharmacy."}
 };
 function setLanguage(lang){currentLang=lang;document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";document.title=text[lang].title;document.getElementById("officialLine1").innerText=text[lang].officialLine1;document.getElementById("officialLine2").innerText=text[lang].officialLine2;document.getElementById("officialLine3").innerText=text[lang].officialLine3;document.getElementById("pageTitle").innerText=text[lang].title;document.getElementById("subtitle").innerText=text[lang].subtitle;document.getElementById("kidneyTitle").innerText=text[lang].kidneyTitle;document.getElementById("kidneyDesc").innerText=text[lang].kidneyDesc;document.getElementById("languageToggle").innerText="🌐 ع | E";renderDate()}
