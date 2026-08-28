@@ -29,12 +29,17 @@ input{width:100%;height:38px;padding:7px 10px;margin-top:5px;margin-bottom:12px;
 .login-actions .primary-btn,.login-actions .secondary-btn{width:40px;height:40px;margin:0;padding:0;display:inline-flex;align-items:center;justify-content:center;font-size:18px;line-height:1}
 .login-svg{width:20px;height:20px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .change-password-panel{display:none;border-top:1px solid #e5e7eb;margin-top:14px;padding-top:14px}
-.employee-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;margin-bottom:18px}
+.employee-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;margin-bottom:12px}
 .employee-name{font-weight:bold;color:#168fb3;font-size:14px}
 .logout-icon{width:30px;height:30px;padding:0;border:none;background:transparent;color:#168fb3;font-size:22px;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
 .logout-icon:hover{transform:scale(1.08)}
 .power-svg{width:20px;height:20px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .form-panel{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:18px}
+.combo-wrap{position:relative}
+.combo-options{position:absolute;top:100%;right:0;left:0;background:#fff;border:1px solid #cbd5e1;border-radius:8px;margin-top:-8px;max-height:190px;overflow-y:auto;box-shadow:0 10px 20px rgba(0,0,0,.1);z-index:20;display:none}
+.combo-option{padding:9px 12px;font-size:14px;cursor:pointer}
+.combo-option:hover,.combo-option.active{background:#e0f2fe}
+.combo-empty{padding:9px 12px;font-size:12px;color:#94a3b8}
 .form-actions{display:flex;justify-content:center;margin-top:6px}
 .conflict-box{display:none;background:#fff6e0;border:1px solid #eab308;border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:#7c5a00}
 .conflict-box ul{margin:8px 0;padding-inline-start:18px}
@@ -105,7 +110,10 @@ input{width:100%;height:38px;padding:7px 10px;margin-top:5px;margin-bottom:12px;
 
     <div class="form-panel">
       <label id="medNameLabel" for="medName">اسم الدواء</label>
-      <input type="text" id="medName" autocomplete="off">
+      <div class="combo-wrap">
+        <input type="text" id="medName" autocomplete="off">
+        <div class="combo-options" id="medNameOptions"></div>
+      </div>
       <label id="medExpiryLabel" for="medExpiry">تاريخ الانتهاء</label>
       <input type="date" id="medExpiry">
       <div class="form-actions">
@@ -122,7 +130,11 @@ input{width:100%;height:38px;padding:7px 10px;margin-top:5px;margin-bottom:12px;
 <script>
 // TODO: ضع رابط Google Apps Script Web App هنا بعد النشر (ينتهي بـ /exec)
 // نفس الرابط يُستخدم في dashboard.html وadmin.html لهذا المشروع.
-const KIDNEY_API_URL = "";
+const KIDNEY_API_URL = "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wCZnp6OPiKVurOOL8YG_Ma1mPMhgmzWFadYGxWV4CDejgcIw/exec";
+
+// TODO: أرسل لي قائمة أسماء الأدوية وسأضيفها هنا، مثال:
+// const MEDICATIONS = ["أموكسيسيلين 500مج", "إيبوبروفين 400مج", "..."];
+const MEDICATIONS = [];
 
 let currentLang = "ar";
 let currentEmployeeName = sessionStorage.getItem("kidneyEmployeeName") || "";
@@ -149,6 +161,7 @@ const text = {
     logout:"تسجيل الخروج",
     invalidLogin:"اسم المستخدم أو PIN غير صحيح.",
     notConfigured:"لم يتم ربط مصدر البيانات بعد.",
+    noMatches:"لا يوجد دواء مطابق في القائمة.",
     medName:"اسم الدواء",
     medExpiry:"تاريخ الانتهاء",
     submit:"تسجيل",
@@ -177,6 +190,7 @@ const text = {
     logout:"Logout",
     invalidLogin:"Incorrect username or PIN.",
     notConfigured:"Data source is not connected yet.",
+    noMatches:"No matching medication in the list.",
     medName:"Medication Name",
     medExpiry:"Expiry Date",
     submit:"Register",
@@ -315,6 +329,33 @@ function resetInactivityTimer(){
   }, INACTIVITY_LIMIT_MS);
 }
 
+function renderMedOptions(filterText){
+  const box = document.getElementById("medNameOptions");
+  if (!MEDICATIONS.length){ box.style.display = "none"; return; }
+  const q = (filterText || "").trim().toLowerCase();
+  const matches = q ? MEDICATIONS.filter(function(m){ return m.toLowerCase().indexOf(q) !== -1; }) : MEDICATIONS;
+  box.innerHTML = "";
+  if (!matches.length){
+    const empty = document.createElement("div");
+    empty.className = "combo-empty";
+    empty.innerText = text[currentLang].noMatches;
+    box.appendChild(empty);
+  } else {
+    matches.slice(0, 50).forEach(function(name){
+      const opt = document.createElement("div");
+      opt.className = "combo-option";
+      opt.innerText = name;
+      opt.onmousedown = function(e){ e.preventDefault(); selectMedication(name); };
+      box.appendChild(opt);
+    });
+  }
+  box.style.display = "block";
+}
+function selectMedication(name){
+  document.getElementById("medName").value = name;
+  document.getElementById("medNameOptions").style.display = "none";
+}
+
 async function submitMedication(){
   clearResult();
   const name = document.getElementById("medName").value.trim();
@@ -405,6 +446,14 @@ function clearLoginResult(){
   result.innerText = "";
 }
 
+document.getElementById("medName").addEventListener("input", function(){ renderMedOptions(this.value); });
+document.getElementById("medName").addEventListener("focus", function(){ renderMedOptions(this.value); });
+document.addEventListener("click", function(e){
+  if (!e.target.closest(".combo-wrap")) {
+    document.getElementById("medNameOptions").style.display = "none";
+  }
+});
+
 setLanguage("ar");
 if (currentEmployeeName) {
   showEmployeeView();
@@ -412,3 +461,4 @@ if (currentEmployeeName) {
 </script>
 </body>
 </html>
+

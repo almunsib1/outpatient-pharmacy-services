@@ -96,7 +96,7 @@ tr:last-child td{border-bottom:0}
     </table>
   </div>
   <div class="empty-note" id="emptyNote" style="display:none">لا توجد بيانات لعرضها حالياً.</div>
-  <div class="refresh-note" id="refreshNote">يتحدث تلقائياً كل 60 ثانية</div>
+  <div class="refresh-note" id="refreshNote">يتحدث تلقائياً كل 10 ثواني</div>
 
   <a class="main-home-link" href="index.html" title="العودة إلى صيدلية مركز الكلى" aria-label="العودة إلى صيدلية مركز الكلى">⌂</a>
 </div>
@@ -104,7 +104,7 @@ tr:last-child td{border-bottom:0}
 <script>
 // TODO: ضع رابط Google Apps Script Web App هنا بعد النشر (ينتهي بـ /exec)
 // نفس الرابط المستخدم في form.html وadmin.html لهذا المشروع.
-const API_URL = "";
+const API_URL = "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wCZnp6OPiKVurOOL8YG_Ma1mPMhgmzWFadYGxWV4CDejgcIw/exec";
 
 let currentLang = "ar";
 const text = {
@@ -122,7 +122,7 @@ const text = {
     colEmployee:"اسم الموظف",
     printBtnText:"طباعة",
     refreshBtnText:"تحديث",
-    refreshNote:"يتحدث تلقائياً كل 60 ثانية",
+    refreshNote:"يتحدث تلقائياً كل 10 ثواني",
     emptyNote:"لا توجد بيانات لعرضها حالياً.",
     notConfigured:"لم يتم ربط مصدر البيانات بعد.",
     loadError:"تعذر تحميل البيانات، حاول لاحقاً.",
@@ -144,7 +144,7 @@ const text = {
     colEmployee:"Employee Name",
     printBtnText:"Print",
     refreshBtnText:"Refresh",
-    refreshNote:"Auto-refreshes every 60 seconds",
+    refreshNote:"Auto-refreshes every 10 seconds",
     emptyNote:"No data to display yet.",
     notConfigured:"Data source is not connected yet.",
     loadError:"Could not load data, try again later.",
@@ -284,7 +284,9 @@ function loadData(){
 
 setLanguage("ar");
 loadData();
-setInterval(loadData, 60000);
+setInterval(loadData, 10000);
 </script>
 </body>
 </html>
+
+
