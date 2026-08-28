@@ -3189,3 +3189,43 @@ button:disabled {
     font-weight: 700;
   }
 }
+
+/* Unified brand-colored portal cards across the site */
+.portal-card,
+.portal-shell .portal-card {
+  background: #168fb3 !important;
+  border-color: #168fb3 !important;
+  color: #fff !important;
+}
+
+.portal-card::before,
+.portal-shell .portal-card::before {
+  display: none !important;
+}
+
+.portal-card .portal-icon,
+.portal-shell .portal-icon,
+.portal-card.upload .portal-icon,
+.portal-card.dashboard .portal-icon,
+.portal-card.users .portal-icon,
+.portal-shell .portal-card.upload .portal-icon,
+.portal-shell .portal-card.dashboard .portal-icon,
+.portal-shell .portal-card.users .portal-icon {
+  color: #fff !important;
+}
+
+.portal-card strong,
+.portal-shell .portal-card strong {
+  color: #fff !important;
+}
+
+.portal-card small,
+.portal-shell .portal-card small {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.portal-card:hover,
+.portal-shell .portal-card:hover {
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.18);
+  filter: brightness(1.05);
+}

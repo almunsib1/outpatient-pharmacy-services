@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مؤشر صلاحية الأدوية</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
+.container{max-width:980px;margin:auto;background:#fff;padding:22px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,.1);min-height:calc(100vh - 32px)}
+.top-bar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px;direction:ltr}
+.logo{width:120px;height:120px;object-fit:contain}
+.official-header{width:fit-content;max-width:100%;text-align:right;transform:translateY(14px);padding-left:8px;border-left:4px solid #168fb3;direction:rtl}
+.official-header h2,.official-header h3{margin:2px 0;font-size:13px;line-height:1.4;color:#168fb3}
+hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
+.meta-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;direction:ltr}
+.date-box{color:#168fb3;padding:4px 0;font-size:13px;font-weight:bold;text-align:center}
+.language-chip{color:#168fb3;font-size:13px;font-weight:bold;padding:4px 0;white-space:nowrap;background:transparent;border:0;cursor:pointer;font-family:inherit}
+.page-title{text-align:center;font-size:23px;font-weight:bold;margin:18px 0 22px;color:#168fb3}
+.stats{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;justify-content:center}
+.stat-card{display:grid;justify-items:center;gap:4px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,.04);padding:10px 18px;min-width:118px;min-height:52px;text-align:center;cursor:pointer;transition:.15s ease;user-select:none}
+.stat-card .num{font-size:20px;font-weight:bold;line-height:1}
+.stat-card .label{font-size:13px;color:#168fb3;font-weight:bold}
+.stat-card.red .num{color:#a12727}
+.stat-card.orange .num{color:#eab308}
+.stat-card.green .num{color:#0f7592}
+.stat-card:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(0,0,0,.08)}
+.stat-card.active-filter{transform:translateY(-1px);box-shadow:0 6px 14px rgba(0,0,0,.08)}
+.stat-card.red.active-filter{background:#fdeaea;border-color:#a12727}
+.stat-card.orange.active-filter{background:#fff6e0;border-color:#eab308}
+.stat-card.green.active-filter{background:#e6f2f5;border-color:#0f7592}
+.action-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;direction:ltr}
+.action-btn{width:44px;min-width:44px;min-height:44px;padding:0;border:0;border-radius:0;background:transparent;color:#168fb3;font-size:26px;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-family:inherit}
+.action-btn:hover{background:transparent;transform:scale(1.08)}
+.table-wrap{overflow-x:auto;border-radius:10px;border:1px solid #e5e7eb;box-shadow:0 4px 10px rgba(0,0,0,.04)}
+table{width:100%;border-collapse:collapse;background:#fff}
+th,td{padding:9px 10px;text-align:center;font-size:13px;white-space:nowrap;border-bottom:1px solid #e5e7eb}
+th{background:#168fb3;color:#fff;font-weight:bold;font-size:14px}
+tr:last-child td{border-bottom:0}
+.row-expired{background:#fdeaea !important}
+.row-soon{background:#fff6e0 !important}
+.date-expired{color:#a12727;font-weight:bold}
+.date-soon{color:#eab308;font-weight:bold}
+.date-ok{color:#0f7592;font-weight:bold}
+.status-pill{display:inline-flex;align-items:center;justify-content:center;min-height:24px;border-radius:999px;padding:3px 11px;font-size:12px;font-weight:bold;white-space:nowrap}
+.status-pill.expired{background:rgba(161,39,39,.12);color:#a12727}
+.status-pill.soon{background:rgba(234,179,8,.2);color:#a16207}
+.status-pill.ok{background:rgba(15,117,146,.12);color:#0f7592}
+.empty-note,.refresh-note{text-align:center;font-size:12px;color:#888;margin-top:10px}
+.main-home-link{display:flex;align-items:center;justify-content:center;width:fit-content;margin:22px auto 0;color:#168fb3;text-decoration:none;font-size:28px;line-height:1;background:transparent;border:none;padding:4px}
+.main-home-link:hover{color:#0f7592}
+@media (max-width:700px){body{padding:10px;background:#fff}.container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}.logo{width:84px;height:84px}.official-header{transform:translateY(10px)}.official-header h2,.official-header h3{font-size:12px}.page-title{font-size:20px;margin-bottom:20px}.stat-card{min-width:96px;padding:8px 12px}.stat-card .num{font-size:18px}th,td{padding:8px 8px;font-size:12px}.action-btn{width:40px;min-width:40px;min-height:40px;font-size:22px}}
+@media print{.language-chip,.main-home-link,.action-row,.refresh-note{display:none !important}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="top-bar">
+    <img class="logo" src="../../logo.png" alt="Logo">
+    <div class="official-header">
+      <h2 id="officialLine1">تجمع المدينة المنورة الصحي</h2>
+      <h3 id="officialLine2">مستشفى الملك فهد بالمدينة المنورة</h3>
+      <h3 id="officialLine3">إدارة الرعاية الصيدلانية</h3>
+    </div>
+  </div>
+  <hr>
+  <div class="meta-row">
+    <div class="date-box" id="dateBox"></div>
+    <button type="button" class="language-chip" id="languageToggle" onclick="toggleLanguage()">🌐 ع | E</button>
+  </div>
+
+  <h1 class="page-title" id="pageTitle">مؤشر صلاحية الأدوية</h1>
+
+  <div class="stats">
+    <div class="stat-card red" id="cardExpired" data-filter="expired" role="button" tabindex="0" aria-pressed="false" onclick="setFilter('expired')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('expired');}"><div class="label" id="labelExpired">هذا الشهر</div><div class="num" id="countExpired">-</div></div>
+    <div class="stat-card orange" id="cardSoon" data-filter="soon" role="button" tabindex="0" aria-pressed="false" onclick="setFilter('soon')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('soon');}"><div class="label" id="labelSoon">خلال 3 أشهر</div><div class="num" id="countSoon">-</div></div>
+    <div class="stat-card green" id="cardOk" data-filter="ok" role="button" tabindex="0" aria-pressed="false" onclick="setFilter('ok')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('ok');}"><div class="label" id="labelOk">ضمن المدة الآمنة</div><div class="num" id="countOk">-</div></div>
+  </div>
+
+  <div class="action-row">
+    <button type="button" class="action-btn" id="printBtn" onclick="window.print()" title="طباعة" aria-label="طباعة">🖨️</button>
+    <button type="button" class="action-btn" id="refreshBtn" onclick="refreshData()" title="تحديث" aria-label="تحديث">🔄</button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th id="colName">اسم الدواء</th>
+          <th id="colExpiry">تاريخ الانتهاء</th>
+          <th id="colStatus">الحالة</th>
+          <th id="colEmployee">اسم الموظف</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+  <div class="empty-note" id="emptyNote" style="display:none">لا توجد بيانات لعرضها حالياً.</div>
+  <div class="refresh-note" id="refreshNote">يتحدث تلقائياً كل 60 ثانية</div>
+
+  <a class="main-home-link" href="index.html" title="العودة إلى صيدلية مركز الكلى" aria-label="العودة إلى صيدلية مركز الكلى">⌂</a>
+</div>
+
+<script>
+// TODO: ضع رابط Google Apps Script Web App هنا بعد النشر (ينتهي بـ /exec)
+const API_URL = "";
+
+let currentLang = "ar";
+const text = {
+  ar: {
+    title:"مؤشر صلاحية الأدوية",
+    officialLine1:"تجمع المدينة المنورة الصحي",
+    officialLine2:"مستشفى الملك فهد بالمدينة المنورة",
+    officialLine3:"إدارة الرعاية الصيدلانية",
+    labelExpired:"هذا الشهر",
+    labelSoon:"خلال 3 أشهر",
+    labelOk:"ضمن المدة الآمنة",
+    colName:"اسم الدواء",
+    colExpiry:"تاريخ الانتهاء",
+    colStatus:"الحالة",
+    colEmployee:"اسم الموظف",
+    printBtnText:"طباعة",
+    refreshBtnText:"تحديث",
+    refreshNote:"يتحدث تلقائياً كل 60 ثانية",
+    emptyNote:"لا توجد بيانات لعرضها حالياً.",
+    notConfigured:"لم يتم ربط مصدر البيانات بعد.",
+    loadError:"تعذر تحميل البيانات، حاول لاحقاً.",
+    expiredSince:" يوم منتهي منذ ",
+    daysLeft:" يوم متبقي ",
+    back:"العودة إلى صيدلية مركز الكلى"
+  },
+  en: {
+    title:"Medication Expiry Indicator",
+    officialLine1:"Madinah Health Cluster",
+    officialLine2:"King Fahad Hospital - Madinah",
+    officialLine3:"Pharmaceutical Care Administration",
+    labelExpired:"Expired",
+    labelSoon:"Within 3 Months",
+    labelOk:"Within Safe Range",
+    colName:"Medication Name",
+    colExpiry:"Expiry Date",
+    colStatus:"Status",
+    colEmployee:"Employee Name",
+    printBtnText:"Print",
+    refreshBtnText:"Refresh",
+    refreshNote:"Auto-refreshes every 60 seconds",
+    emptyNote:"No data to display yet.",
+    notConfigured:"Data source is not connected yet.",
+    loadError:"Could not load data, try again later.",
+    expiredSince:" days expired",
+    daysLeft:"Days left: ",
+    back:"Back to Kidney Center Pharmacy"
+  }
+};
+
+function setLanguage(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  document.title = text[lang].title;
+  ["officialLine1","officialLine2","officialLine3","pageTitle","labelExpired","labelSoon","labelOk","colName","colExpiry","colStatus","colEmployee","refreshNote"].forEach(id=>{
+    document.getElementById(id).innerText = text[lang][id.replace("pageTitle","title")];
+  });
+  document.getElementById("printBtn").title = text[lang].printBtnText;
+  document.getElementById("printBtn").setAttribute("aria-label", text[lang].printBtnText);
+  document.getElementById("refreshBtn").title = text[lang].refreshBtnText;
+  document.getElementById("refreshBtn").setAttribute("aria-label", text[lang].refreshBtnText);
+  const homeLink = document.querySelector(".main-home-link");
+  homeLink.title = text[lang].back;
+  homeLink.setAttribute("aria-label", text[lang].back);
+  document.getElementById("languageToggle").innerText = "🌐 ع | E";
+  renderDate();
+  renderRows(lastItems);
+}
+function toggleLanguage(){ setLanguage(currentLang === "ar" ? "en" : "ar"); }
+function renderDate(){
+  const now = new Date();
+  const date = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(now);
+  const dayName = new Intl.DateTimeFormat(currentLang === "ar" ? "ar-SA" : "en-US",{timeZone:"Asia/Riyadh",weekday:"long"}).format(now);
+  document.getElementById("dateBox").innerText = `${dayName} - ${date}`;
+}
+
+function statusLabel(daysLeft){
+  if (daysLeft < 0) return Math.abs(daysLeft) + text[currentLang].expiredSince;
+  return text[currentLang].daysLeft + daysLeft;
+}
+function rowClass(daysLeft){
+  if (daysLeft < 0) return "row-expired";
+  if (daysLeft <= 90) return "row-soon";
+  return "";
+}
+function dateClass(daysLeft){
+  if (daysLeft < 0) return "date-expired";
+  if (daysLeft <= 90) return "date-soon";
+  return "date-ok";
+}
+function pillClass(daysLeft){
+  if (daysLeft < 0) return "expired";
+  if (daysLeft <= 90) return "soon";
+  return "ok";
+}
+
+let lastItems = [];
+let activeFilter = null;
+
+function matchesFilter(daysLeft){
+  if (activeFilter === "expired") return daysLeft < 0;
+  if (activeFilter === "soon") return daysLeft >= 0 && daysLeft <= 90;
+  if (activeFilter === "ok") return daysLeft > 90;
+  return true;
+}
+
+function setFilter(status){
+  activeFilter = (activeFilter === status) ? null : status;
+  updateFilterCardsUI();
+  renderTable();
+}
+
+function updateFilterCardsUI(){
+  document.querySelectorAll(".stat-card").forEach(function(card){
+    const isActive = activeFilter && card.getAttribute("data-filter") === activeFilter;
+    card.classList.toggle("active-filter", !!isActive);
+    card.setAttribute("aria-pressed", isActive ? "true" : "false");
+  });
+}
+
+function renderTable(){
+  const tbody = document.getElementById("tableBody");
+  const emptyNote = document.getElementById("emptyNote");
+  tbody.innerHTML = "";
+  const filtered = lastItems.filter(function(m){ return matchesFilter(m.daysLeft); });
+  filtered.forEach(function(m){
+    const tr = document.createElement("tr");
+    tr.className = rowClass(m.daysLeft);
+    tr.innerHTML =
+      "<td>" + m.name + "</td>" +
+      "<td class=\"" + dateClass(m.daysLeft) + "\">" + m.expiry + "</td>" +
+      "<td><span class=\"status-pill " + pillClass(m.daysLeft) + "\">" + statusLabel(m.daysLeft) + "</span></td>" +
+      "<td>" + (m.registeredBy || "-") + "</td>";
+    tbody.appendChild(tr);
+  });
+  emptyNote.style.display = filtered.length ? "none" : "block";
+  emptyNote.innerText = text[currentLang].emptyNote;
+}
+
+function renderRows(items){
+  lastItems = items || [];
+  let expired = 0, soon = 0, ok = 0;
+  lastItems.forEach(function(m){
+    if (m.daysLeft < 0) expired++;
+    else if (m.daysLeft <= 90) soon++;
+    else ok++;
+  });
+  document.getElementById("countExpired").textContent = expired;
+  document.getElementById("countSoon").textContent = soon;
+  document.getElementById("countOk").textContent = ok;
+  renderTable();
+}
+
+function refreshData(){
+  activeFilter = null;
+  updateFilterCardsUI();
+  renderTable();
+  loadData();
+}
+
+function loadData(){
+  if (!API_URL){
+    document.getElementById("emptyNote").style.display = "block";
+    document.getElementById("emptyNote").innerText = text[currentLang].notConfigured;
+    return;
+  }
+  fetch(API_URL + "?action=dashboard")
+    .then(function(res){ return res.json(); })
+    .then(function(data){
+      renderRows(data.items || data.medications || []);
+    })
+    .catch(function(){
+      document.getElementById("emptyNote").style.display = "block";
+      document.getElementById("emptyNote").innerText = text[currentLang].loadError;
+    });
+}
+
+setLanguage("ar");
+loadData();
+setInterval(loadData, 60000);
+</script>
+</body>
+</html>
