@@ -46,7 +46,7 @@ input{width:100%;height:36px;padding:7px 10px;margin-top:5px;margin-bottom:10px;
 .form-actions{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:2px}
 .form-actions .primary-btn,.form-actions .secondary-btn{height:36px;margin:0;min-width:120px}
 .table-wrap{overflow-x:auto;margin-top:16px}
-table{width:100%;border-collapse:collapse;min-width:900px;background:#fff}
+table{width:100%;border-collapse:collapse;min-width:1000px;background:#fff}
 th,td{padding:8px;border:1px solid #e5e7eb;text-align:center;color:#111827;font-size:13px}
 th{background:#168fb3;color:#fff}
 .status-pill{display:inline-block;min-width:70px;padding:4px 8px;border-radius:8px;font-weight:bold;font-size:12px}
@@ -62,7 +62,7 @@ th{background:#168fb3;color:#fff}
 #result.success,#loginResult.success{display:block;background:#ecfdf5;color:#065f46}
 .panel{padding:12px}
 .table-wrap{max-width:980px;margin:14px auto 0}
-table{min-width:760px}
+table{min-width:840px}
 th,td{padding:6px 5px;font-size:12px}
 .status-pill{min-width:58px;padding:3px 6px;font-size:11px}
 .icon-only{font-size:16px;padding:1px}
@@ -81,7 +81,7 @@ body{padding:10px;background:#fff}
 .login-actions .primary-btn,.login-actions .secondary-btn{width:42px!important;min-width:42px!important;height:42px!important;min-height:42px!important;margin:0!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:20px;line-height:1;writing-mode:horizontal-tb}
 .admin-top{justify-content:center}
 .table-wrap{margin-top:12px}
-table{min-width:680px}
+table{min-width:760px}
 th,td{padding:5px 4px;font-size:11px}
 .status-pill{font-size:10px}
 }
@@ -151,6 +151,10 @@ th,td{padding:5px 4px;font-size:11px}
         <span id="mailAccessLabel"></span>
       </label>
       <label class="check-pill">
+        <input id="kidneyAccessInput" type="checkbox">
+        <span id="kidneyAccessLabel"></span>
+      </label>
+      <label class="check-pill">
         <input id="activeInput" type="checkbox" checked>
         <span id="activeLabel"></span>
       </label>
@@ -173,6 +177,7 @@ th,td{padding:5px 4px;font-size:11px}
           <th id="pinHeader"></th>
           <th id="medHeader"></th>
           <th id="mailHeader"></th>
+          <th id="kidneyHeader"></th>
           <th id="editHeader"></th>
           <th id="deleteHeader"></th>
         </tr>
@@ -187,6 +192,9 @@ th,td{padding:5px 4px;font-size:11px}
 <script>
 const MED_API_URL = "https://script.google.com/macros/s/AKfycbw9JM87uiSHihWDP0N1gn4IskEG_8O-fWleathLZW9Wwbs915UQz8Gq5k2dIwAGImCF/exec";
 const MAIL_API_URL = "https://script.google.com/macros/s/AKfycbw0jSrbe1SM596Kyv0EpB6VTKEXT81c2Cn8Wlc2lEQ_RzbrS9b6w-k4gyrflwPBTgpKSQ/exec";
+// TODO: ضع رابط Google Apps Script Web App الخاص بموديول صيدلية الكلى هنا بعد النشر (ينتهي بـ /exec)
+// نفس الرابط المستخدم في expiry/kidney/form.html وexpiry/kidney/dashboard.html.
+const KIDNEY_API_URL = "";
 
 let currentLang = "ar";
 let adminUsername = sessionStorage.getItem("unifiedAdminUsername") || "";
@@ -210,6 +218,7 @@ const text = {
     logout: "تسجيل الخروج",
     medAccess: "حجز المواعيد",
     mailAccess: "وصفات البريد",
+    kidneyAccess: "صيدلية الكلى",
     active: "نشط",
     inactive: "غير نشط",
     noAccess: "لا يوجد",
@@ -239,6 +248,7 @@ const text = {
     logout: "Logout",
     medAccess: "Appointments",
     mailAccess: "Prescription Mail",
+    kidneyAccess: "Kidney Pharmacy",
     active: "Active",
     inactive: "Inactive",
     noAccess: "No Access",
@@ -278,6 +288,7 @@ function setLanguage(lang) {
   document.getElementById("nameLabel").innerText = text[lang].name;
   document.getElementById("medAccessLabel").innerText = text[lang].medAccess;
   document.getElementById("mailAccessLabel").innerText = text[lang].mailAccess;
+  document.getElementById("kidneyAccessLabel").innerText = text[lang].kidneyAccess;
   document.getElementById("activeLabel").innerText = text[lang].active;
   document.getElementById("saveUserBtn").innerText = editingUsername ? text[lang].update : text[lang].save;
   document.getElementById("clearFormBtn").innerText = text[lang].clear;
@@ -286,6 +297,7 @@ function setLanguage(lang) {
   document.getElementById("pinHeader").innerText = text[lang].pin;
   document.getElementById("medHeader").innerText = text[lang].medAccess;
   document.getElementById("mailHeader").innerText = text[lang].mailAccess;
+  document.getElementById("kidneyHeader").innerText = text[lang].kidneyAccess;
   document.getElementById("editHeader").innerText = text[lang].edit;
   document.getElementById("deleteHeader").innerText = text[lang].delete;
   document.getElementById("languageToggle").innerText = "🌐 ع | E";
@@ -318,12 +330,14 @@ async function loginAdmin() {
   try {
     const results = await Promise.allSettled([
       medApi({ action: "adminLogin", username, pin }),
-      mailApi("adminLogin", { username, pin })
+      mailApi("adminLogin", { username, pin }),
+      kidneyApi({ action: "adminLogin", username, pin })
     ]);
     const medOk = results[0].status === "fulfilled" && isSuccess(results[0].value);
     const mailOk = results[1].status === "fulfilled" && isSuccess(results[1].value);
+    const kidneyOk = results[2].status === "fulfilled" && isSuccess(results[2].value);
 
-    if (!medOk && !mailOk) {
+    if (!medOk && !mailOk && !kidneyOk) {
       showLoginResult("error", text[currentLang].invalidLogin);
       return;
     }
@@ -378,12 +392,14 @@ async function changeLoginPin() {
   try {
     const results = await Promise.allSettled([
       medApi({ action: "changeLoginPin", username, currentPin, newPin }),
-      mailApi("changeLoginPin", { username, currentPin, newPin })
+      mailApi("changeLoginPin", { username, currentPin, newPin }),
+      kidneyApi({ action: "changeLoginPin", username, currentPin, newPin })
     ]);
     const medOk = results[0].status === "fulfilled" && isSuccess(results[0].value);
     const mailOk = results[1].status === "fulfilled" && isSuccess(results[1].value);
+    const kidneyOk = results[2].status === "fulfilled" && isSuccess(results[2].value);
 
-    if (!medOk || !mailOk) {
+    if (!medOk && !mailOk && !kidneyOk) {
       showLoginResult("error", text[currentLang].failed);
       return;
     }
@@ -421,14 +437,17 @@ async function loadUsers() {
   try {
     const results = await Promise.allSettled([
       medApi({ action: "adminListEmployees" }),
-      mailApi("listUsers")
+      mailApi("listUsers"),
+      kidneyApi({ action: "adminListEmployees" })
     ]);
     const medUsers = results[0].status === "fulfilled" ? results[0].value : { success: false, employees: [] };
     const mailUsers = results[1].status === "fulfilled" ? results[1].value : { ok: false, users: [] };
+    const kidneyUsers = results[2].status === "fulfilled" ? results[2].value : { success: false, employees: [] };
 
     users = mergeUsers(
       medUsers.success ? medUsers.employees || [] : [],
-      mailUsers.ok ? mailUsers.users || [] : []
+      mailUsers.ok ? mailUsers.users || [] : [],
+      kidneyUsers.success ? kidneyUsers.employees || [] : []
     );
     renderUsers();
   } catch (error) {
@@ -438,12 +457,12 @@ async function loadUsers() {
   }
 }
 
-function mergeUsers(medUsers, mailUsers) {
+function mergeUsers(medUsers, mailUsers, kidneyUsers) {
   const map = {};
 
   medUsers.forEach(user => {
     const key = user.username.toLowerCase();
-    map[key] = map[key] || { username: user.username, name: user.name, pin: user.password || "", med: null, mail: null };
+    map[key] = map[key] || { username: user.username, name: user.name, pin: user.password || "", med: null, mail: null, kidney: null };
     map[key].username = user.username;
     map[key].name = user.name || map[key].name;
     map[key].pin = user.password || map[key].pin;
@@ -452,11 +471,20 @@ function mergeUsers(medUsers, mailUsers) {
 
   mailUsers.forEach(user => {
     const key = user.username.toLowerCase();
-    map[key] = map[key] || { username: user.username, name: user.name, pin: user.pin || "", med: null, mail: null };
+    map[key] = map[key] || { username: user.username, name: user.name, pin: user.pin || "", med: null, mail: null, kidney: null };
     map[key].username = map[key].username || user.username;
     map[key].name = map[key].name || user.name || user.username;
     map[key].pin = user.pin || map[key].pin;
     map[key].mail = { active: user.active !== false };
+  });
+
+  (kidneyUsers || []).forEach(user => {
+    const key = user.username.toLowerCase();
+    map[key] = map[key] || { username: user.username, name: user.name, pin: user.password || "", med: null, mail: null, kidney: null };
+    map[key].username = map[key].username || user.username;
+    map[key].name = map[key].name || user.name || user.username;
+    map[key].pin = map[key].pin || user.password || "";
+    map[key].kidney = { active: user.active !== false };
   });
 
   return Object.values(map).sort((a, b) => a.username.localeCompare(b.username));
@@ -468,15 +496,16 @@ async function saveUser() {
   const name = document.getElementById("nameInput").value.trim();
   const medAccess = document.getElementById("medAccessInput").checked;
   const mailAccess = document.getElementById("mailAccessInput").checked;
+  const kidneyAccess = document.getElementById("kidneyAccessInput").checked;
   const active = document.getElementById("activeInput").checked;
   const existing = users.find(user => user.username.toLowerCase() === (editingUsername || username).toLowerCase());
 
-  if (!username || !name || (!medAccess && !mailAccess)) {
+  if (!username || !name || (!medAccess && !mailAccess && !kidneyAccess)) {
     showResult("error", text[currentLang].failed + " (MISSING_FIELDS)");
     return;
   }
 
-  if (mailAccess && !pin && (!existing || !existing.pin)) {
+  if ((mailAccess || kidneyAccess) && !pin && (!existing || !existing.pin)) {
     showResult("error", text[currentLang].pinRequired);
     return;
   }
@@ -494,6 +523,12 @@ async function saveUser() {
     tasks.push(saveMailUser(existing, { username, pin: finalPin, name, active }));
   } else if (existing && existing.mail) {
     tasks.push(mailApi("deleteUser", { username: existing.username }));
+  }
+
+  if (kidneyAccess) {
+    tasks.push(saveKidneyUser(existing, { username, pin: finalPin, name, active }));
+  } else if (existing && existing.kidney) {
+    tasks.push(kidneyApi({ action: "adminDeleteEmployee", username: existing.username }));
   }
 
   try {
@@ -534,6 +569,27 @@ function saveMedUser(existing, user) {
   });
 }
 
+function saveKidneyUser(existing, user) {
+  if (existing && existing.kidney) {
+    return kidneyApi({
+      action: "adminUpdateEmployee",
+      originalUsername: existing.username,
+      username: user.username,
+      password: user.pin,
+      name: user.name,
+      active: user.active
+    });
+  }
+
+  return kidneyApi({
+    action: "adminAddEmployee",
+    username: user.username,
+    password: user.pin,
+    name: user.name,
+    active: user.active
+  });
+}
+
 function saveMailUser(existing, user) {
   if (existing && existing.mail) {
     return mailApi("updateUser", {
@@ -563,6 +619,7 @@ function editUser(username) {
   document.getElementById("nameInput").value = user.name || "";
   document.getElementById("medAccessInput").checked = Boolean(user.med);
   document.getElementById("mailAccessInput").checked = Boolean(user.mail);
+  document.getElementById("kidneyAccessInput").checked = Boolean(user.kidney);
   document.getElementById("activeInput").checked = getUserActive(user);
   document.getElementById("saveUserBtn").innerText = text[currentLang].update;
 }
@@ -575,6 +632,7 @@ async function deleteUser(username) {
   const tasks = [];
   if (user.med) tasks.push(medApi({ action: "adminDeleteEmployee", username }));
   if (user.mail) tasks.push(mailApi("deleteUser", { username }));
+  if (user.kidney) tasks.push(kidneyApi({ action: "adminDeleteEmployee", username }));
 
   try {
     await Promise.all(tasks);
@@ -592,6 +650,7 @@ function clearForm() {
   document.getElementById("nameInput").value = "";
   document.getElementById("medAccessInput").checked = true;
   document.getElementById("mailAccessInput").checked = false;
+  document.getElementById("kidneyAccessInput").checked = false;
   document.getElementById("activeInput").checked = true;
   document.getElementById("saveUserBtn").innerText = text[currentLang].save;
 }
@@ -622,6 +681,7 @@ function renderUsers() {
       <td>${escapeHtml(user.pin || "****")}</td>
       <td>${projectStatus(user.med)}</td>
       <td>${projectStatus(user.mail)}</td>
+      <td>${projectStatus(user.kidney)}</td>
       <td><button type="button" class="icon-only edit-btn" title="${text[currentLang].edit}" onclick="editUser('${escapeAttribute(user.username)}')">✎</button></td>
       <td><button type="button" class="icon-only delete-btn" title="${text[currentLang].delete}" onclick="deleteUser('${escapeAttribute(user.username)}')">✕</button></td>
     `;
@@ -642,11 +702,24 @@ function projectStatus(project) {
 function getUserActive(user) {
   if (user.med) return user.med.active;
   if (user.mail) return user.mail.active;
+  if (user.kidney) return user.kidney.active;
   return true;
 }
 
 async function medApi(payload) {
   const response = await fetch(MED_API_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      adminUsername,
+      adminPin,
+      ...payload
+    })
+  });
+  return response.json();
+}
+
+async function kidneyApi(payload) {
+  const response = await fetch(KIDNEY_API_URL, {
     method: "POST",
     body: JSON.stringify({
       adminUsername,

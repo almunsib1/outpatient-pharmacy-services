@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل تاريخ الانتهاء</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
+.container{max-width:640px;margin:auto;background:#fff;padding:22px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,.1);min-height:calc(100vh - 32px)}
+.top-bar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px;direction:ltr}
+.logo{width:120px;height:120px;object-fit:contain}
+.official-header{width:fit-content;max-width:100%;text-align:right;transform:translateY(14px);padding-left:8px;border-left:4px solid #168fb3;direction:rtl}
+.official-header h2,.official-header h3{margin:2px 0;font-size:13px;line-height:1.4;color:#168fb3}
+hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
+.meta-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;direction:ltr}
+.date-box{color:#168fb3;padding:4px 0;font-size:13px;font-weight:bold;text-align:center}
+.language-chip{color:#168fb3;font-size:13px;font-weight:bold;padding:4px 0;white-space:nowrap;background:transparent;border:0;cursor:pointer;font-family:inherit}
+.page-title{text-align:center;font-size:23px;font-weight:bold;margin:18px 0 22px;color:#168fb3}
+label{font-weight:bold;display:block;margin-bottom:3px;color:#111827;font-size:13px}
+input{width:100%;height:38px;padding:7px 10px;margin-top:5px;margin-bottom:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;background:#fff;text-align:start;font-family:inherit}
+.primary-btn{padding:9px 18px;background:#168fb3;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer;font-family:inherit}
+.primary-btn:hover{filter:brightness(1.05)}
+.primary-btn:disabled{background:#94a3b8;cursor:not-allowed}
+.secondary-btn{border:1px solid #cbd5e1;background:#fff;cursor:pointer;font-size:13px;font-weight:bold;color:#168fb3;padding:7px 10px;border-radius:8px;font-family:inherit}
+.secondary-btn:hover{background:#f9fafb}
+.login-card{max-width:280px;margin:16px auto 0;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:16px}
+.login-actions{display:flex;align-items:center;justify-content:center;gap:8px;width:fit-content;margin:4px auto 0}
+.login-actions .primary-btn,.login-actions .secondary-btn{width:40px;height:40px;margin:0;padding:0;display:inline-flex;align-items:center;justify-content:center;font-size:18px;line-height:1}
+.login-svg{width:20px;height:20px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.change-password-panel{display:none;border-top:1px solid #e5e7eb;margin-top:14px;padding-top:14px}
+.employee-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;margin-bottom:18px}
+.employee-name{font-weight:bold;color:#168fb3;font-size:14px}
+.logout-icon{width:30px;height:30px;padding:0;border:none;background:transparent;color:#168fb3;font-size:22px;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.logout-icon:hover{transform:scale(1.08)}
+.power-svg{width:20px;height:20px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.form-panel{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:18px}
+.form-actions{display:flex;justify-content:center;margin-top:6px}
+.conflict-box{display:none;background:#fff6e0;border:1px solid #eab308;border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:#7c5a00}
+.conflict-box ul{margin:8px 0;padding-inline-start:18px}
+.conflict-actions{display:flex;gap:10px;justify-content:center;margin-top:10px}
+.conflict-actions button{min-width:120px}
+.conflict-actions .danger-btn{background:#eab308;color:#111827;border:none;border-radius:8px;padding:8px 14px;font-weight:bold;font-size:13px;cursor:pointer;font-family:inherit}
+#result,#loginResult{display:none;margin-top:12px;padding:10px;border-radius:8px;text-align:center;font-size:13px}
+#result.error,#loginResult.error{display:block;background:#fef2f2;color:#991b1b}
+#result.success,#loginResult.success{display:block;background:#ecfdf5;color:#065f46}
+.main-home-link{display:flex;align-items:center;justify-content:center;width:fit-content;margin:22px auto 0;color:#168fb3;text-decoration:none;font-size:28px;line-height:1;background:transparent;border:none;padding:4px}
+.main-home-link:hover{color:#0f7592}
+@media (max-width:700px){body{padding:10px;background:#fff}.container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}.logo{width:84px;height:84px}.official-header{transform:translateY(10px)}.official-header h2,.official-header h3{font-size:12px}.page-title{font-size:20px;margin-bottom:20px}.login-actions .primary-btn,.login-actions .secondary-btn{width:44px!important;height:44px!important}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="top-bar">
+    <img class="logo" src="../../logo.png" alt="Logo">
+    <div class="official-header">
+      <h2 id="officialLine1">تجمع المدينة المنورة الصحي</h2>
+      <h3 id="officialLine2">مستشفى الملك فهد بالمدينة المنورة</h3>
+      <h3 id="officialLine3">إدارة الرعاية الصيدلانية</h3>
+    </div>
+  </div>
+  <hr>
+  <div class="meta-row">
+    <div class="date-box" id="dateBox"></div>
+    <button type="button" class="language-chip" id="languageToggle" onclick="toggleLanguage()">🌐 ع | E</button>
+  </div>
+
+  <h1 class="page-title" id="pageTitle">تسجيل تاريخ الانتهاء</h1>
+
+  <div id="loginView" class="login-card">
+    <label id="usernameLabel" for="username">اسم المستخدم</label>
+    <input type="text" id="username" autocomplete="username">
+    <label id="passwordLabel" for="password">PIN</label>
+    <input type="password" id="password" inputmode="numeric" autocomplete="current-password">
+    <div class="login-actions">
+      <button type="button" class="primary-btn" id="loginBtn" onclick="loginEmployee()" title="تسجيل الدخول" aria-label="تسجيل الدخول"><svg class="login-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path><path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path></svg></button>
+      <button type="button" class="secondary-btn" id="togglePasswordBtn" onclick="togglePasswordPanel()" title="تغيير PIN" aria-label="تغيير PIN">🔑</button>
+    </div>
+    <div class="change-password-panel" id="changePasswordPanel">
+      <label id="changeUsernameLabel" for="changeUsername">اسم المستخدم</label>
+      <input type="text" id="changeUsername" autocomplete="username">
+      <label id="oldPasswordLabel" for="oldPassword">PIN الحالي</label>
+      <input type="password" id="oldPassword" autocomplete="current-password">
+      <label id="newPasswordLabel" for="newPassword">PIN الجديد</label>
+      <input type="password" id="newPassword" autocomplete="new-password">
+      <button type="button" class="primary-btn" id="changePasswordBtn" onclick="changePassword()">تغيير PIN</button>
+    </div>
+    <div id="loginResult"></div>
+  </div>
+
+  <div id="employeeView" style="display:none">
+    <div class="employee-toolbar">
+      <span class="employee-name" id="employeeName"></span>
+      <button type="button" class="logout-icon" id="logoutBtn" onclick="logoutEmployee()" title="تسجيل الخروج" aria-label="تسجيل الخروج"><svg class="power-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9"></path><path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path></svg></button>
+    </div>
+
+    <div class="conflict-box" id="conflictBox">
+      <div id="conflictText"></div>
+      <ul id="conflictList"></ul>
+      <div class="conflict-actions">
+        <button type="button" class="danger-btn" id="confirmSaveBtn" onclick="confirmSave()">متابعة الحفظ رغم ذلك</button>
+        <button type="button" class="secondary-btn" id="cancelConflictBtn" onclick="cancelConflict()">إلغاء</button>
+      </div>
+    </div>
+
+    <div class="form-panel">
+      <label id="medNameLabel" for="medName">اسم الدواء</label>
+      <input type="text" id="medName" autocomplete="off">
+      <label id="medExpiryLabel" for="medExpiry">تاريخ الانتهاء</label>
+      <input type="date" id="medExpiry">
+      <div class="form-actions">
+        <button type="button" class="primary-btn" id="submitBtn" onclick="submitMedication()">تسجيل</button>
+      </div>
+    </div>
+
+    <div id="result"></div>
+  </div>
+
+  <a class="main-home-link" href="index.html" title="العودة إلى صيدلية مركز الكلى" aria-label="العودة إلى صيدلية مركز الكلى">⌂</a>
+</div>
+
+<script>
+// TODO: ضع رابط Google Apps Script Web App هنا بعد النشر (ينتهي بـ /exec)
+// نفس الرابط يُستخدم في dashboard.html وadmin.html لهذا المشروع.
+const KIDNEY_API_URL = "";
+
+let currentLang = "ar";
+let currentEmployeeName = sessionStorage.getItem("kidneyEmployeeName") || "";
+let currentEmployeeUsername = sessionStorage.getItem("kidneyEmployeeUsername") || "";
+let pendingMedication = null;
+let inactivityTimer = null;
+const INACTIVITY_LIMIT_MS = 30 * 60 * 1000;
+
+const text = {
+  ar: {
+    title:"تسجيل تاريخ الانتهاء",
+    officialLine1:"تجمع المدينة المنورة الصحي",
+    officialLine2:"مستشفى الملك فهد بالمدينة المنورة",
+    officialLine3:"إدارة الرعاية الصيدلانية",
+    username:"اسم المستخدم",
+    password:"PIN",
+    login:"تسجيل الدخول",
+    changePassword:"تغيير PIN",
+    oldPassword:"PIN الحالي",
+    newPassword:"PIN الجديد",
+    passwordChanged:"تم تغيير PIN بنجاح.",
+    passwordMismatch:"اسم المستخدم أو PIN الحالي غير صحيح.",
+    passwordTooShort:"PIN الجديد يجب ألا يكون فارغاً.",
+    logout:"تسجيل الخروج",
+    invalidLogin:"اسم المستخدم أو PIN غير صحيح.",
+    notConfigured:"لم يتم ربط مصدر البيانات بعد.",
+    medName:"اسم الدواء",
+    medExpiry:"تاريخ الانتهاء",
+    submit:"تسجيل",
+    missingFields:"الرجاء تعبئة اسم الدواء وتاريخ الانتهاء.",
+    saved:"تم تسجيل الدواء بنجاح.",
+    saveFailed:"تعذر حفظ البيانات، حاول لاحقاً.",
+    conflictTitle:"يوجد تسجيل سابق لنفس الدواء بتاريخ أقدم:",
+    confirmSave:"متابعة الحفظ رغم ذلك",
+    cancel:"إلغاء",
+    back:"العودة إلى صيدلية مركز الكلى"
+  },
+  en: {
+    title:"Register Expiry Date",
+    officialLine1:"Madinah Health Cluster",
+    officialLine2:"King Fahad Hospital - Madinah",
+    officialLine3:"Pharmaceutical Care Administration",
+    username:"Username",
+    password:"PIN",
+    login:"Login",
+    changePassword:"Change PIN",
+    oldPassword:"Current PIN",
+    newPassword:"New PIN",
+    passwordChanged:"PIN changed successfully.",
+    passwordMismatch:"Username or current PIN is incorrect.",
+    passwordTooShort:"New PIN cannot be empty.",
+    logout:"Logout",
+    invalidLogin:"Incorrect username or PIN.",
+    notConfigured:"Data source is not connected yet.",
+    medName:"Medication Name",
+    medExpiry:"Expiry Date",
+    submit:"Register",
+    missingFields:"Please fill in the medication name and expiry date.",
+    saved:"Medication registered successfully.",
+    saveFailed:"Could not save the data, try again later.",
+    conflictTitle:"An earlier expiry date is already registered for this medication:",
+    confirmSave:"Save Anyway",
+    cancel:"Cancel",
+    back:"Back to Kidney Center Pharmacy"
+  }
+};
+
+function setLanguage(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  document.title = text[lang].title;
+  document.getElementById("officialLine1").innerText = text[lang].officialLine1;
+  document.getElementById("officialLine2").innerText = text[lang].officialLine2;
+  document.getElementById("officialLine3").innerText = text[lang].officialLine3;
+  document.getElementById("pageTitle").innerText = text[lang].title;
+  document.getElementById("usernameLabel").innerText = text[lang].username;
+  document.getElementById("passwordLabel").innerText = text[lang].password;
+  document.getElementById("loginBtn").title = text[lang].login;
+  document.getElementById("loginBtn").setAttribute("aria-label", text[lang].login);
+  document.getElementById("togglePasswordBtn").title = text[lang].changePassword;
+  document.getElementById("togglePasswordBtn").setAttribute("aria-label", text[lang].changePassword);
+  document.getElementById("changeUsernameLabel").innerText = text[lang].username;
+  document.getElementById("oldPasswordLabel").innerText = text[lang].oldPassword;
+  document.getElementById("newPasswordLabel").innerText = text[lang].newPassword;
+  document.getElementById("changePasswordBtn").innerText = text[lang].changePassword;
+  document.getElementById("logoutBtn").title = text[lang].logout;
+  document.getElementById("logoutBtn").setAttribute("aria-label", text[lang].logout);
+  document.getElementById("medNameLabel").innerText = text[lang].medName;
+  document.getElementById("medExpiryLabel").innerText = text[lang].medExpiry;
+  document.getElementById("submitBtn").innerText = text[lang].submit;
+  document.getElementById("confirmSaveBtn").innerText = text[lang].confirmSave;
+  document.getElementById("cancelConflictBtn").innerText = text[lang].cancel;
+  document.getElementById("conflictText").innerText = text[lang].conflictTitle;
+  const homeLink = document.querySelector(".main-home-link");
+  homeLink.title = text[lang].back;
+  homeLink.setAttribute("aria-label", text[lang].back);
+  document.getElementById("languageToggle").innerText = "🌐 ع | E";
+  if (currentEmployeeName) document.getElementById("employeeName").innerText = currentEmployeeName;
+  renderDate();
+}
+function toggleLanguage(){ setLanguage(currentLang === "ar" ? "en" : "ar"); }
+function renderDate(){
+  const now = new Date();
+  const date = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(now);
+  const dayName = new Intl.DateTimeFormat(currentLang === "ar" ? "ar-SA" : "en-US",{timeZone:"Asia/Riyadh",weekday:"long"}).format(now);
+  document.getElementById("dateBox").innerText = `${dayName} - ${date}`;
+}
+
+async function loginEmployee(){
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+  if (!KIDNEY_API_URL){ showLoginResult("error", text[currentLang].notConfigured); return; }
+
+  try{
+    const response = await fetch(KIDNEY_API_URL, {
+      method:"POST",
+      body: JSON.stringify({ action:"employeeLogin", username, password })
+    });
+    const result = await response.json();
+    if (!result.success || !result.employee){
+      showLoginResult("error", text[currentLang].invalidLogin);
+      return;
+    }
+    currentEmployeeName = result.employee.name;
+    currentEmployeeUsername = result.employee.username;
+    sessionStorage.setItem("kidneyEmployeeName", currentEmployeeName);
+    sessionStorage.setItem("kidneyEmployeeUsername", currentEmployeeUsername);
+    showEmployeeView();
+  }catch(error){
+    showLoginResult("error", text[currentLang].invalidLogin);
+  }
+}
+
+function togglePasswordPanel(){
+  const panel = document.getElementById("changePasswordPanel");
+  panel.style.display = panel.style.display === "block" ? "none" : "block";
+  clearLoginResult();
+}
+
+async function changePassword(){
+  const username = document.getElementById("changeUsername").value.trim();
+  const oldPassword = document.getElementById("oldPassword").value.trim();
+  const newPassword = document.getElementById("newPassword").value.trim();
+  if (!newPassword){ showLoginResult("error", text[currentLang].passwordTooShort); return; }
+  if (!KIDNEY_API_URL){ showLoginResult("error", text[currentLang].notConfigured); return; }
+
+  try{
+    const response = await fetch(KIDNEY_API_URL, {
+      method:"POST",
+      body: JSON.stringify({ action:"changeEmployeePassword", username, oldPassword, newPassword })
+    });
+    const result = await response.json();
+    if (!result.success){ showLoginResult("error", text[currentLang].passwordMismatch); return; }
+    document.getElementById("oldPassword").value = "";
+    document.getElementById("newPassword").value = "";
+    showLoginResult("success", text[currentLang].passwordChanged);
+  }catch(error){
+    showLoginResult("error", text[currentLang].passwordMismatch);
+  }
+}
+
+function logoutEmployee(){
+  sessionStorage.removeItem("kidneyEmployeeName");
+  sessionStorage.removeItem("kidneyEmployeeUsername");
+  currentEmployeeName = "";
+  currentEmployeeUsername = "";
+  window.clearTimeout(inactivityTimer);
+  document.getElementById("employeeView").style.display = "none";
+  document.getElementById("loginView").style.display = "block";
+}
+
+function showEmployeeView(){
+  document.getElementById("loginView").style.display = "none";
+  document.getElementById("employeeView").style.display = "block";
+  document.getElementById("employeeName").innerText = currentEmployeeName;
+  startInactivityWatcher();
+}
+
+function startInactivityWatcher(){
+  ["click","keydown","touchstart","mousemove"].forEach(function(eventName){
+    window.addEventListener(eventName, resetInactivityTimer, { passive:true });
+  });
+  resetInactivityTimer();
+}
+function resetInactivityTimer(){
+  window.clearTimeout(inactivityTimer);
+  inactivityTimer = window.setTimeout(function(){
+    if (currentEmployeeUsername) logoutEmployee();
+  }, INACTIVITY_LIMIT_MS);
+}
+
+async function submitMedication(){
+  clearResult();
+  const name = document.getElementById("medName").value.trim();
+  const expiry = document.getElementById("medExpiry").value;
+  if (!name || !expiry){ showResult("error", text[currentLang].missingFields); return; }
+  if (!KIDNEY_API_URL){ showResult("error", text[currentLang].notConfigured); return; }
+
+  try{
+    const res = await fetch(KIDNEY_API_URL + "?action=checkMedication&name=" + encodeURIComponent(name));
+    const data = await res.json();
+    const matches = (data && data.matches) || [];
+    const older = matches.filter(function(m){ return m.expiry && m.expiry < expiry; });
+    if (older.length){
+      pendingMedication = { name, expiry };
+      showConflict(older);
+      return;
+    }
+  }catch(error){
+    // تعذر التحقق من التكرار، نكمل الحفظ مباشرة
+  }
+
+  await saveMedication(name, expiry);
+}
+
+function showConflict(older){
+  const list = document.getElementById("conflictList");
+  list.innerHTML = "";
+  older.forEach(function(m){
+    const li = document.createElement("li");
+    li.innerText = m.expiry + (m.registeredBy ? " — " + m.registeredBy : "");
+    list.appendChild(li);
+  });
+  document.getElementById("conflictBox").style.display = "block";
+}
+
+function cancelConflict(){
+  pendingMedication = null;
+  document.getElementById("conflictBox").style.display = "none";
+}
+
+async function confirmSave(){
+  if (!pendingMedication) return;
+  const { name, expiry } = pendingMedication;
+  document.getElementById("conflictBox").style.display = "none";
+  await saveMedication(name, expiry);
+}
+
+async function saveMedication(name, expiry){
+  try{
+    const response = await fetch(KIDNEY_API_URL, {
+      method:"POST",
+      body: JSON.stringify({
+        action:"addMedication",
+        name, expiry,
+        registeredByUsername: currentEmployeeUsername,
+        registeredByName: currentEmployeeName
+      })
+    });
+    const result = await response.json();
+    if (!result.success){ showResult("error", text[currentLang].saveFailed); return; }
+    showResult("success", text[currentLang].saved);
+    document.getElementById("medName").value = "";
+    document.getElementById("medExpiry").value = "";
+    pendingMedication = null;
+  }catch(error){
+    showResult("error", text[currentLang].saveFailed);
+  }
+}
+
+function showResult(type, message){
+  const result = document.getElementById("result");
+  result.className = type;
+  result.innerText = message;
+}
+function clearResult(){
+  const result = document.getElementById("result");
+  result.className = "";
+  result.innerText = "";
+}
+function showLoginResult(type, message){
+  const result = document.getElementById("loginResult");
+  result.className = type;
+  result.innerText = message;
+}
+function clearLoginResult(){
+  const result = document.getElementById("loginResult");
+  result.className = "";
+  result.innerText = "";
+}
+
+setLanguage("ar");
+if (currentEmployeeName) {
+  showEmployeeView();
+}
+</script>
+</body>
+</html>
