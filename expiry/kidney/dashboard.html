@@ -185,20 +185,20 @@ function statusLabel(daysLeft){
   if (daysLeft < 0) return Math.abs(daysLeft) + text[currentLang].expiredSince;
   return text[currentLang].daysLeft + daysLeft;
 }
-function rowClass(daysLeft){
-  if (daysLeft < 0) return "row-expired";
-  if (daysLeft <= 90) return "row-soon";
+function rowClass(item){
+  const bucket = itemBucket(item);
+  if (bucket === "expired") return "row-expired";
+  if (bucket === "soon") return "row-soon";
   return "";
 }
-function dateClass(daysLeft){
-  if (daysLeft < 0) return "date-expired";
-  if (daysLeft <= 90) return "date-soon";
+function dateClass(item){
+  const bucket = itemBucket(item);
+  if (bucket === "expired") return "date-expired";
+  if (bucket === "soon") return "date-soon";
   return "date-ok";
 }
-function pillClass(daysLeft){
-  if (daysLeft < 0) return "expired";
-  if (daysLeft <= 90) return "soon";
-  return "ok";
+function pillClass(item){
+  return itemBucket(item);
 }
 
 let lastItems = [];
@@ -249,11 +249,11 @@ function renderTable(){
   const filtered = lastItems.filter(function(m){ return matchesFilter(m); });
   filtered.forEach(function(m){
     const tr = document.createElement("tr");
-    tr.className = rowClass(m.daysLeft);
+    tr.className = rowClass(m);
     tr.innerHTML =
       "<td>" + m.name + "</td>" +
-      "<td class=\"" + dateClass(m.daysLeft) + "\">" + m.expiry + "</td>" +
-      "<td><span class=\"status-pill " + pillClass(m.daysLeft) + "\">" + statusLabel(m.daysLeft) + "</span></td>" +
+      "<td class=\"" + dateClass(m) + "\">" + m.expiry + "</td>" +
+      "<td><span class=\"status-pill " + pillClass(m) + "\">" + statusLabel(m.daysLeft) + "</span></td>" +
       "<td>" + (m.registeredBy || "-") + "</td>";
     tbody.appendChild(tr);
   });
@@ -306,6 +306,7 @@ setInterval(loadData, 10000);
 </script>
 </body>
 </html>
+
 
 
 
