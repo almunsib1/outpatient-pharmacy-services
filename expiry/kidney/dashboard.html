@@ -97,8 +97,6 @@ tr:last-child td{border-bottom:0}
   </div>
   <div class="empty-note" id="emptyNote" style="display:none">لا توجد بيانات لعرضها حالياً.</div>
   <div class="refresh-note" id="refreshNote">يتحدث تلقائياً كل 10 ثواني</div>
-
-  <a class="main-home-link" href="index.html" title="العودة إلى صيدلية مركز الكلى" aria-label="العودة إلى صيدلية مركز الكلى">⌂</a>
 </div>
 
 <script>
@@ -167,8 +165,10 @@ function setLanguage(lang){
   document.getElementById("refreshBtn").title = text[lang].refreshBtnText;
   document.getElementById("refreshBtn").setAttribute("aria-label", text[lang].refreshBtnText);
   const homeLink = document.querySelector(".main-home-link");
-  homeLink.title = text[lang].back;
-  homeLink.setAttribute("aria-label", text[lang].back);
+  if (homeLink) {
+    homeLink.title = text[lang].back;
+    homeLink.setAttribute("aria-label", text[lang].back);
+  }
   document.getElementById("languageToggle").innerText = "🌐 ع | E";
   renderDate();
   renderRows(lastItems);
@@ -306,6 +306,9 @@ setInterval(loadData, 10000);
 </script>
 </body>
 </html>
+
+
+
 
 
 

@@ -73,8 +73,6 @@ a.portal-card:hover,.portal-card:hover{border-color:#0f7592;transform:translateY
       </div>
     </a>
   </div>
-
-  <a class="main-home-link" href="../index.html" title="العودة إلى اختيار الصيدلية" aria-label="العودة إلى اختيار الصيدلية">⌂</a>
 </div>
 
 <script>
@@ -113,9 +111,11 @@ function setLanguage(lang){
   ["officialLine1","officialLine2","officialLine3","pageTitle","subtitle","dashboardTitle","dashboardDesc","formTitle","formDesc"].forEach(id=>{
     document.getElementById(id).innerText=text[lang][id.replace("pageTitle","title")];
   });
-  const homeLink=document.querySelector(".main-home-link");
-  homeLink.title=text[lang].back;
-  homeLink.setAttribute("aria-label",text[lang].back);
+  const homeLink = document.querySelector(".main-home-link");
+  if (homeLink) {
+    homeLink.title = text[lang].back;
+    homeLink.setAttribute("aria-label", text[lang].back);
+  }
   document.getElementById("languageToggle").innerText="🌐 ع | E";
   renderDate();
 }
@@ -130,5 +130,8 @@ setLanguage("ar");
 </script>
 </body>
 </html>
+
+
+
 
 
