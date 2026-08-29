@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Expiry Inspection</title>
+<title>Monthly Inspection</title>
 <style>
 *{box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
@@ -74,21 +74,7 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
   </div>
 
   <div class="title-row">
-    <h1 class="page-title" id="pageTitle">Expiry Inspection</h1>
-    <select id="inspectionMonth" class="inspection-month-select" aria-label="Inspection Month">
-      <option value="01">January</option>
-      <option value="02">February</option>
-      <option value="03">March</option>
-      <option value="04">April</option>
-      <option value="05">May</option>
-      <option value="06">June</option>
-      <option value="07">July</option>
-      <option value="08">August</option>
-      <option value="09">September</option>
-      <option value="10">October</option>
-      <option value="11">November</option>
-      <option value="12">December</option>
-    </select>
+    <h1 class="page-title" id="pageTitle">Monthly Inspection</h1>
   </div>
 
   <div id="loginView" class="login-card">
@@ -162,7 +148,7 @@ const INACTIVITY_LIMIT_MS = 30 * 60 * 1000;
 
 const text = {
   ar: {
-    title:"فحص صلاحية الأدوية",
+    title:"الفحص الشهري",
     officialLine1:"تجمع المدينة المنورة الصحي",
     officialLine2:"مستشفى الملك فهد بالمدينة المنورة",
     officialLine3:"إدارة الرعاية الصيدلانية",
@@ -192,7 +178,7 @@ const text = {
     back:"العودة إلى صيدلية مركز الكلى"
   },
   en: {
-    title:"Expiry Inspection",
+    title:"Monthly Inspection",
     officialLine1:"Madinah Health Cluster",
     officialLine2:"King Fahad Hospital - Madinah",
     officialLine3:"Pharmaceutical Care Administration",
@@ -256,23 +242,9 @@ function setLanguage(lang){
     homeLink.setAttribute("aria-label", text[lang].back);
   }
   document.getElementById("languageToggle").innerText = "🌐 ع | E";
-  document.getElementById("inspectionMonth").setAttribute("aria-label", lang === "ar" ? "شهر التفتيش" : "Inspection Month");
   if (currentEmployeeName) document.getElementById("employeeName").innerText = currentEmployeeName;
   renderDate();
 }
-function setDefaultInspectionMonth(){
-  const month = new Intl.DateTimeFormat("en-US", { timeZone:"Asia/Riyadh", month:"2-digit" }).format(new Date());
-  const select = document.getElementById("inspectionMonth");
-  if (select) select.value = month;
-}
-function toggleLanguage(){ setLanguage(currentLang === "ar" ? "en" : "ar"); }
-function renderDate(){
-  const now = new Date();
-  const date = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(now);
-  const dayName = new Intl.DateTimeFormat(currentLang === "ar" ? "ar-SA" : "en-US",{timeZone:"Asia/Riyadh",weekday:"long"}).format(now);
-  document.getElementById("dateBox").innerText = `${dayName} - ${date}`;
-}
-
 async function loginEmployee(){
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
@@ -487,13 +459,14 @@ document.addEventListener("click", function(e){
 });
 
 setLanguage("en");
-setDefaultInspectionMonth();
 if (currentEmployeeName) {
   showEmployeeView();
 }
 </script>
 </body>
 </html>
+
+
 
 
 

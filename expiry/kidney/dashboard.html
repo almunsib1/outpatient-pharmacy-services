@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مؤشر صلاحية الأدوية</title>
+<title>Inspection Indicator</title>
 <style>
 *{box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
@@ -69,7 +69,7 @@ tr:last-child td{border-bottom:0}
     <button type="button" class="language-chip" id="languageToggle" onclick="toggleLanguage()">🌐 ع | E</button>
   </div>
 
-  <h1 class="page-title" id="pageTitle">مؤشر صلاحية الأدوية</h1>
+  <h1 class="page-title" id="pageTitle">Inspection Indicator</h1>
 
   <div class="stats">
     <div class="stat-card red" id="cardExpired" data-filter="expired" role="button" tabindex="0" aria-pressed="false" onclick="setFilter('expired')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('expired');}"><div class="label" id="labelExpired">هذا الشهر</div><div class="num" id="countExpired">-</div></div>
@@ -104,7 +104,7 @@ tr:last-child td{border-bottom:0}
 // نفس الرابط المستخدم في form.html وadmin.html لهذا المشروع.
 const API_URL = "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wCZnp6OPiKVurOOL8YG_Ma1mPMhgmzWFadYGxWV4CDejgcIw/exec";
 
-let currentLang = "ar";
+let currentLang = "en";
 const text = {
   ar: {
     title:"مؤشر صلاحية الأدوية",
@@ -129,7 +129,7 @@ const text = {
     back:"العودة إلى صيدلية مركز الكلى"
   },
   en: {
-    title:"Medication Expiry Indicator",
+    title:"Inspection Indicator",
     officialLine1:"Madinah Health Cluster",
     officialLine2:"King Fahad Hospital - Madinah",
     officialLine3:"Pharmaceutical Care Administration",
@@ -300,12 +300,13 @@ function loadData(){
     });
 }
 
-setLanguage("ar");
+setLanguage("en");
 loadData();
 setInterval(loadData, 10000);
 </script>
 </body>
 </html>
+
 
 
 
