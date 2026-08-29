@@ -1,4 +1,5 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbw0jSrbe1SM596Kyv0EpB6VTKEXT81c2Cn8Wlc2lEQ_RzbrS9b6w-k4gyrflwPBTgpKSQ/exec";
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbw0jSrbe1SM596Kyv0EpB6VTKEXT81c2Cn8Wlc2lEQ_RzbrS9b6w-k4gyrflwPBTgpKSQ/exec";
 
 const els = {
   loginView: document.getElementById("loginView"),
@@ -37,9 +38,19 @@ let selectedPrescription = null;
 let isScanning = false;
 let inactivityTimer = null;
 let currentLang = "ar";
-const INACTIVITY_LIMIT_MS = 30 * 60 * 1000;
-const PREP_SESSION_USER_KEY = "mailPrepUsername";
-const PREP_SESSION_NAME_KEY = "mailPrepDisplayName";
+
+const INACTIVITY_LIMIT_MS =
+  30 * 60 * 1000;
+
+const PREP_SESSION_USER_KEY =
+  "mailPrepUsername";
+
+const PREP_SESSION_NAME_KEY =
+  "mailPrepDisplayName";
+
+const PREP_SESSION_TOKEN_KEY =
+  "mailPrepSessionToken";
+
 
 const i18n = {
   ar: {
@@ -77,14 +88,17 @@ const i18n = {
     enterFile: "أدخل رقم الملف.",
     searching: "جاري البحث عن رقم الملف...",
     notFound: "لم يتم العثور على الوصفة.",
-    alreadyPrepared: (name, time) => `تم تحضيرها سابقاً بواسطة ${name} الساعة ${time}. يمكنك تسجيل تحضير جديد.`,
+    alreadyPrepared: (name, time) =>
+      `تم تحضيرها سابقاً بواسطة ${name} الساعة ${time}. يمكنك تسجيل تحضير جديد.`,
     readSuccess: "تمت قراءة رقم الملف.",
     preparing: "جاري تسجيل التحضير...",
     prepareFailed: "لم يتم تسجيل التحضير.",
     sent: "تم الإرسال بنجاح.",
     scriptUrlMissing: "ضع رابط Google Apps Script Web App في ملف script.js أولاً.",
-    serverFailed: "تعذر الاتصال بالخادم."
+    serverFailed: "تعذر الاتصال بالخادم.",
+    sessionExpired: "انتهت الجلسة. سجّل الدخول مرة أخرى."
   },
+
   en: {
     pageTitle: "Mail Pharmacy Prescription",
     officialLine1: "Madinah Health Cluster",
@@ -120,233 +134,774 @@ const i18n = {
     enterFile: "Enter the file number.",
     searching: "Searching for file number...",
     notFound: "Prescription was not found.",
-    alreadyPrepared: (name, time) => `Previously prepared by ${name} at ${time}. You can record a new preparation.`,
+    alreadyPrepared: (name, time) =>
+      `Previously prepared by ${name} at ${time}. You can record a new preparation.`,
     readSuccess: "File number was read.",
     preparing: "Recording preparation...",
     prepareFailed: "Preparation was not recorded.",
     sent: "Submitted successfully.",
     scriptUrlMissing: "Add the Google Apps Script Web App URL in script.js first.",
-    serverFailed: "Unable to connect to the server."
+    serverFailed: "Unable to connect to the server.",
+    sessionExpired: "Session expired. Please sign in again."
   }
 };
 
+
 function t(key, ...args) {
-  const value = i18n[currentLang][key] || i18n.ar[key] || key;
-  return typeof value === "function" ? value(...args) : value;
+  const value =
+    i18n[currentLang][key] ||
+    i18n.ar[key] ||
+    key;
+
+  return typeof value === "function"
+    ? value(...args)
+    : value;
 }
 
-document.addEventListener("DOMContentLoaded", init);
 
-function init() {
+document.addEventListener(
+  "DOMContentLoaded",
+  init
+);
+
+
+async function init() {
   setLanguage("ar");
+
   startInactivityWatcher();
-  const savedUser = sessionStorage.getItem(PREP_SESSION_USER_KEY);
-  const savedName = sessionStorage.getItem(PREP_SESSION_NAME_KEY) || savedUser;
-  if (savedUser) {
-    showPrep(savedName);
+
+  els.loginForm.addEventListener(
+    "submit",
+    handleLogin
+  );
+
+  if (els.languageToggle) {
+    els.languageToggle.addEventListener(
+      "click",
+      toggleLanguage
+    );
   }
 
-  els.loginForm.addEventListener("submit", handleLogin);
-  if (els.languageToggle) els.languageToggle.addEventListener("click", toggleLanguage);
-  els.changePinLoginBtn.addEventListener("click", changeLoginPin);
-  els.logoutBtn.addEventListener("click", logout);
-  els.startCameraBtn.addEventListener("click", toggleCamera);
-  els.manualForm.addEventListener("submit", handleManualSearch);
-  els.markPreparedBtn.addEventListener("click", markPrepared);
+  els.changePinLoginBtn.addEventListener(
+    "click",
+    changeLoginPin
+  );
+
+  els.logoutBtn.addEventListener(
+    "click",
+    logout
+  );
+
+  els.startCameraBtn.addEventListener(
+    "click",
+    toggleCamera
+  );
+
+  els.manualForm.addEventListener(
+    "submit",
+    handleManualSearch
+  );
+
+  els.markPreparedBtn.addEventListener(
+    "click",
+    markPrepared
+  );
+
+  await restoreSession();
 }
+
+
+/* =========================================================
+   RESTORE SESSION
+========================================================= */
+
+async function restoreSession() {
+  const savedUser =
+    sessionStorage.getItem(
+      PREP_SESSION_USER_KEY
+    );
+
+  const savedName =
+    sessionStorage.getItem(
+      PREP_SESSION_NAME_KEY
+    ) ||
+    savedUser;
+
+  const sessionToken =
+    sessionStorage.getItem(
+      PREP_SESSION_TOKEN_KEY
+    );
+
+  if (
+    !savedUser ||
+    !sessionToken
+  ) {
+    clearAuthSession();
+    return;
+  }
+
+  try {
+    const response =
+      await api(
+        "validateSession"
+      );
+
+    if (
+      !isSuccess(response)
+    ) {
+      clearAuthSession();
+      return;
+    }
+
+    resetInactivityTimer();
+
+    showPrep(
+      response.user &&
+      response.user.name
+        ? response.user.name
+        : savedName
+    );
+
+  } catch (error) {
+    clearAuthSession();
+  }
+}
+
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
 
 function setLanguage(lang) {
   currentLang = lang;
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-  document.title = t("pageTitle");
-  if (els.officialLine1) els.officialLine1.textContent = t("officialLine1");
-  if (els.officialLine2) els.officialLine2.textContent = t("officialLine2");
-  if (els.officialLine3) els.officialLine3.textContent = t("officialLine3");
-  if (els.pageTitle) els.pageTitle.textContent = t("pageTitle");
-  if (els.usernameLabel) els.usernameLabel.textContent = t("username");
-  if (els.pinLabel) els.pinLabel.textContent = t("pin");
+
+  document.documentElement.lang =
+    lang;
+
+  document.documentElement.dir =
+    lang === "ar"
+      ? "rtl"
+      : "ltr";
+
+  document.title =
+    t("pageTitle");
+
+  if (els.officialLine1) {
+    els.officialLine1.textContent =
+      t("officialLine1");
+  }
+
+  if (els.officialLine2) {
+    els.officialLine2.textContent =
+      t("officialLine2");
+  }
+
+  if (els.officialLine3) {
+    els.officialLine3.textContent =
+      t("officialLine3");
+  }
+
+  if (els.pageTitle) {
+    els.pageTitle.textContent =
+      t("pageTitle");
+  }
+
+  if (els.usernameLabel) {
+    els.usernameLabel.textContent =
+      t("username");
+  }
+
+  if (els.pinLabel) {
+    els.pinLabel.textContent =
+      t("pin");
+  }
+
   if (els.loginBtn) {
-    els.loginBtn.title = t("login");
-    els.loginBtn.setAttribute("aria-label", t("login"));
+    els.loginBtn.title =
+      t("login");
+
+    els.loginBtn.setAttribute(
+      "aria-label",
+      t("login")
+    );
   }
+
   if (els.changePinLoginBtn) {
-    els.changePinLoginBtn.title = t("changePin");
-    els.changePinLoginBtn.setAttribute("aria-label", t("changePin"));
+    els.changePinLoginBtn.title =
+      t("changePin");
+
+    els.changePinLoginBtn.setAttribute(
+      "aria-label",
+      t("changePin")
+    );
   }
+
   if (els.logoutBtn) {
-    els.logoutBtn.title = t("logout");
-    els.logoutBtn.setAttribute("aria-label", t("logout"));
+    els.logoutBtn.title =
+      t("logout");
+
+    els.logoutBtn.setAttribute(
+      "aria-label",
+      t("logout")
+    );
   }
+
   if (els.manualSearchBtn) {
-    els.manualSearchBtn.title = t("search");
-    els.manualSearchBtn.setAttribute("aria-label", t("search"));
+    els.manualSearchBtn.title =
+      t("search");
+
+    els.manualSearchBtn.setAttribute(
+      "aria-label",
+      t("search")
+    );
   }
-  if (els.fileNumberLabel) els.fileNumberLabel.textContent = t("fileNumber");
-  if (els.patientNameLabel) els.patientNameLabel.textContent = t("patientName");
+
+  if (els.fileNumberLabel) {
+    els.fileNumberLabel.textContent =
+      t("fileNumber");
+  }
+
+  if (els.patientNameLabel) {
+    els.patientNameLabel.textContent =
+      t("patientName");
+  }
+
   if (els.markPreparedBtn) {
-    els.markPreparedBtn.title = t("send");
-    els.markPreparedBtn.setAttribute("aria-label", t("send"));
+    els.markPreparedBtn.title =
+      t("send");
+
+    els.markPreparedBtn.setAttribute(
+      "aria-label",
+      t("send")
+    );
   }
-  if (els.languageToggle) els.languageToggle.textContent = "🌐 ع | E";
+
+  if (els.languageToggle) {
+    els.languageToggle.textContent =
+      "🌐 ع | E";
+  }
+
   renderDate();
   updateCameraButton();
 }
 
+
 function toggleLanguage() {
-  setLanguage(currentLang === "ar" ? "en" : "ar");
+  setLanguage(
+    currentLang === "ar"
+      ? "en"
+      : "ar"
+  );
 }
+
+
+/* =========================================================
+   DATE
+========================================================= */
 
 function renderDate() {
-  const dateBox = document.getElementById("dateBox");
-  if (!dateBox) return;
+  const dateBox =
+    document.getElementById(
+      "dateBox"
+    );
 
-  const now = new Date();
-  const date = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Riyadh" }).format(now);
-  const dayName = new Intl.DateTimeFormat(currentLang === "ar" ? "ar-SA" : "en-US", {
-    timeZone: "Asia/Riyadh",
-    weekday: "long"
-  }).format(now);
+  if (!dateBox) {
+    return;
+  }
 
-  dateBox.textContent = `${dayName} - ${date}`;
+  const now =
+    new Date();
+
+  const date =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:
+          "Asia/Riyadh"
+      }
+    ).format(now);
+
+  const dayName =
+    new Intl.DateTimeFormat(
+      currentLang === "ar"
+        ? "ar-SA"
+        : "en-US",
+      {
+        timeZone:
+          "Asia/Riyadh",
+        weekday:
+          "long"
+      }
+    ).format(now);
+
+  dateBox.textContent =
+    `${dayName} - ${date}`;
 }
 
-async function handleLogin(event) {
-  event.preventDefault();
-  const username = els.username.value.trim();
-  const pin = els.pin.value.trim();
 
-  setMessage(els.loginMessage, t("loginLoading"));
+/* =========================================================
+   LOGIN
+========================================================= */
+
+async function handleLogin(
+  event
+) {
+  event.preventDefault();
+
+  const username =
+    els.username.value.trim();
+
+  const pin =
+    els.pin.value.trim();
+
+  setMessage(
+    els.loginMessage,
+    t("loginLoading")
+  );
+
   try {
-    const response = await authenticateLogin(username, pin);
-    sessionStorage.setItem(PREP_SESSION_USER_KEY, username);
-    sessionStorage.setItem(PREP_SESSION_NAME_KEY, response.displayName || username);
+    const response =
+      await authenticateLogin(
+        username,
+        pin
+      );
+
+    if (
+      !response.sessionToken
+    ) {
+      throw new Error(
+        t("serverFailed")
+      );
+    }
+
+    sessionStorage.setItem(
+      PREP_SESSION_USER_KEY,
+      response.username ||
+      username
+    );
+
+    sessionStorage.setItem(
+      PREP_SESSION_NAME_KEY,
+      response.displayName ||
+      username
+    );
+
+    sessionStorage.setItem(
+      PREP_SESSION_TOKEN_KEY,
+      response.sessionToken
+    );
+
     resetInactivityTimer();
-    showPrep(response.displayName || username);
+
+    showPrep(
+      response.displayName ||
+      username
+    );
+
   } catch (error) {
-    setMessage(els.loginMessage, error.message, "error");
+    setMessage(
+      els.loginMessage,
+      error.message,
+      "error"
+    );
   }
 }
 
-async function authenticateLogin(username, pin) {
-  const response = await api("login", { username, pin });
-  if (isSuccess(response)) return response;
 
-  if (username.toLowerCase() === "admin") {
-    const adminResponse = await api("adminLogin", { username, pin });
-    if (isSuccess(adminResponse)) {
-      return { ...adminResponse, displayName: adminResponse.displayName || "Admin" };
+async function authenticateLogin(
+  username,
+  pin
+) {
+  const response =
+    await api(
+      "login",
+      {
+        username,
+        pin
+      },
+      false
+    );
+
+  if (
+    isSuccess(response)
+  ) {
+    return response;
+  }
+
+  if (
+    username.toLowerCase() ===
+    "admin"
+  ) {
+    const adminResponse =
+      await api(
+        "adminLogin",
+        {
+          username,
+          pin
+        },
+        false
+      );
+
+    if (
+      isSuccess(
+        adminResponse
+      )
+    ) {
+      return {
+        ...adminResponse,
+        displayName:
+          adminResponse.displayName ||
+          "Admin"
+      };
     }
   }
 
-  throw new Error(response.message || t("invalidLogin"));
+  throw new Error(
+    response.message ||
+    t("invalidLogin")
+  );
 }
 
-function isSuccess(response) {
-  return Boolean(response && (response.ok || response.success));
+
+function isSuccess(
+  response
+) {
+  return Boolean(
+    response &&
+    (
+      response.ok ||
+      response.success
+    )
+  );
 }
+
+
+/* =========================================================
+   CHANGE PIN
+========================================================= */
 
 async function changeLoginPin() {
-  const username = els.username.value.trim() || window.prompt(t("promptUsername"));
-  if (!username) return;
-  const currentPin = window.prompt(t("promptCurrentPin"));
-  if (!currentPin) return;
-  const newPin = window.prompt(t("promptNewPin"));
-  if (!newPin) return;
-  const confirmPin = window.prompt(t("promptConfirmPin"));
-  if (newPin !== confirmPin) {
-    setMessage(els.loginMessage, t("pinMismatch"), "error");
+  const username =
+    els.username.value.trim() ||
+    window.prompt(
+      t("promptUsername")
+    );
+
+  if (!username) {
     return;
   }
 
-  setMessage(els.loginMessage, t("pinChanging"));
+  const currentPin =
+    window.prompt(
+      t("promptCurrentPin")
+    );
+
+  if (!currentPin) {
+    return;
+  }
+
+  const newPin =
+    window.prompt(
+      t("promptNewPin")
+    );
+
+  if (!newPin) {
+    return;
+  }
+
+  const confirmPin =
+    window.prompt(
+      t("promptConfirmPin")
+    );
+
+  if (
+    newPin !==
+    confirmPin
+  ) {
+    setMessage(
+      els.loginMessage,
+      t("pinMismatch"),
+      "error"
+    );
+
+    return;
+  }
+
+  setMessage(
+    els.loginMessage,
+    t("pinChanging")
+  );
+
   try {
-    const response = await api("changeLoginPin", { username, currentPin, newPin });
-    if (!response.ok) throw new Error(response.message || t("pinChangeFailed"));
-    setMessage(els.loginMessage, t("pinChanged"), "success");
-    setTimeout(() => window.location.reload(), 1200);
+    const response =
+      await api(
+        "changeLoginPin",
+        {
+          username,
+          currentPin,
+          newPin
+        },
+        false
+      );
+
+    if (
+      !isSuccess(
+        response
+      )
+    ) {
+      throw new Error(
+        response.message ||
+        t("pinChangeFailed")
+      );
+    }
+
+    clearAuthSession();
+
+    setMessage(
+      els.loginMessage,
+      t("pinChanged"),
+      "success"
+    );
+
+    setTimeout(
+      () =>
+        window.location.reload(),
+      1200
+    );
+
   } catch (error) {
-    setMessage(els.loginMessage, error.message, "error");
+    setMessage(
+      els.loginMessage,
+      error.message,
+      "error"
+    );
   }
 }
 
-function showPrep(username) {
-  els.currentUser.textContent = username;
-  els.loginView.classList.add("hidden");
-  els.prepView.classList.remove("hidden");
+
+/* =========================================================
+   VIEW
+========================================================= */
+
+function showPrep(
+  username
+) {
+  els.currentUser.textContent =
+    username;
+
+  els.loginView
+    .classList
+    .add(
+      "hidden"
+    );
+
+  els.prepView
+    .classList
+    .remove(
+      "hidden"
+    );
+
   updateCameraButton();
-  setMessage(els.scanMessage, t("cameraOff"));
+
+  setMessage(
+    els.scanMessage,
+    t("cameraOff")
+  );
 }
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
 
 function logout() {
   clearAuthSession();
+
   stopCamera();
-  selectedPrescription = null;
-  els.prepView.classList.add("hidden");
-  els.loginView.classList.remove("hidden");
+
+  selectedPrescription =
+    null;
+
+  els.prepView
+    .classList
+    .add(
+      "hidden"
+    );
+
+  els.loginView
+    .classList
+    .remove(
+      "hidden"
+    );
+
   els.loginForm.reset();
+
   clearResult();
 }
 
+
 function clearAuthSession() {
-  sessionStorage.removeItem(PREP_SESSION_USER_KEY);
-  sessionStorage.removeItem(PREP_SESSION_NAME_KEY);
+  sessionStorage.removeItem(
+    PREP_SESSION_USER_KEY
+  );
+
+  sessionStorage.removeItem(
+    PREP_SESSION_NAME_KEY
+  );
+
+  sessionStorage.removeItem(
+    PREP_SESSION_TOKEN_KEY
+  );
 }
 
+
+/* =========================================================
+   INACTIVITY
+========================================================= */
+
 function startInactivityWatcher() {
-  ["click", "keydown", "touchstart", "mousemove", "scan-activity"].forEach(eventName => {
-    window.addEventListener(eventName, resetInactivityTimer, { passive: true });
-  });
+  [
+    "click",
+    "keydown",
+    "touchstart",
+    "mousemove",
+    "scan-activity"
+  ].forEach(
+    eventName => {
+      window.addEventListener(
+        eventName,
+        resetInactivityTimer,
+        {
+          passive: true
+        }
+      );
+    }
+  );
+
   resetInactivityTimer();
 }
 
+
 function resetInactivityTimer() {
-  window.clearTimeout(inactivityTimer);
-  inactivityTimer = window.setTimeout(() => {
-    if (sessionStorage.getItem(PREP_SESSION_USER_KEY)) logout();
-  }, INACTIVITY_LIMIT_MS);
+  window.clearTimeout(
+    inactivityTimer
+  );
+
+  inactivityTimer =
+    window.setTimeout(
+      () => {
+        if (
+          sessionStorage.getItem(
+            PREP_SESSION_TOKEN_KEY
+          )
+        ) {
+          logout();
+        }
+      },
+      INACTIVITY_LIMIT_MS
+    );
 }
 
+
+/* =========================================================
+   CAMERA
+========================================================= */
+
 async function startCamera() {
-  if (!window.Html5Qrcode) {
-    setMessage(els.scanMessage, t("cameraNotLoaded"), "error");
+  if (
+    !window.Html5Qrcode
+  ) {
+    setMessage(
+      els.scanMessage,
+      t("cameraNotLoaded"),
+      "error"
+    );
+
     return;
   }
-  if (isScanning) return;
 
-  scanner = scanner || new Html5Qrcode("reader");
-  setMessage(els.scanMessage, t("cameraStarting"));
+  if (isScanning) {
+    return;
+  }
+
+  scanner =
+    scanner ||
+    new Html5Qrcode(
+      "reader"
+    );
+
+  setMessage(
+    els.scanMessage,
+    t("cameraStarting")
+  );
 
   try {
     await scanner.start(
-      { facingMode: "environment" },
-      { fps: 10, qrbox: { width: 240, height: 240 } },
+      {
+        facingMode:
+          "environment"
+      },
+      {
+        fps: 10,
+        qrbox: {
+          width: 240,
+          height: 240
+        }
+      },
       handleScanSuccess
     );
+
     isScanning = true;
+
     updateCameraButton();
-    setMessage(els.scanMessage, t("cameraGuide"));
+
+    setMessage(
+      els.scanMessage,
+      t("cameraGuide")
+    );
+
   } catch (error) {
     updateCameraButton();
-    setMessage(els.scanMessage, t("cameraFailed"), "error");
+
+    setMessage(
+      els.scanMessage,
+      t("cameraFailed"),
+      "error"
+    );
   }
 }
 
+
 async function stopCamera() {
-  if (!scanner || !isScanning) {
+  if (
+    !scanner ||
+    !isScanning
+  ) {
     updateCameraButton();
     return;
   }
+
   try {
     await scanner.stop();
+
   } catch (error) {
-    console.warn(error);
+    console.warn(
+      error
+    );
+
   } finally {
-    isScanning = false;
+    isScanning =
+      false;
+
     updateCameraButton();
-    setMessage(els.scanMessage, t("cameraStopped"));
+
+    setMessage(
+      els.scanMessage,
+      t("cameraStopped")
+    );
   }
 }
+
 
 async function toggleCamera() {
   if (isScanning) {
@@ -356,145 +911,536 @@ async function toggleCamera() {
   }
 }
 
+
 function updateCameraButton() {
-  const text = document.getElementById("cameraButtonText");
-  els.startCameraBtn.classList.toggle("is-on", isScanning);
-  els.startCameraBtn.setAttribute("aria-pressed", String(isScanning));
-  els.startCameraBtn.setAttribute("title", isScanning ? t("stopCamera") : t("capture"));
-  els.startCameraBtn.setAttribute("aria-label", isScanning ? t("stopCamera") : t("capture"));
-  if (text) text.textContent = isScanning ? "■" : "📷";
+  const text =
+    document.getElementById(
+      "cameraButtonText"
+    );
+
+  els.startCameraBtn
+    .classList
+    .toggle(
+      "is-on",
+      isScanning
+    );
+
+  els.startCameraBtn
+    .setAttribute(
+      "aria-pressed",
+      String(
+        isScanning
+      )
+    );
+
+  els.startCameraBtn
+    .setAttribute(
+      "title",
+      isScanning
+        ? t("stopCamera")
+        : t("capture")
+    );
+
+  els.startCameraBtn
+    .setAttribute(
+      "aria-label",
+      isScanning
+        ? t("stopCamera")
+        : t("capture")
+    );
+
+  if (text) {
+    text.textContent =
+      isScanning
+        ? "■"
+        : "📷";
+  }
 }
 
-async function handleScanSuccess(decodedText) {
-  resetInactivityTimer();
-  const fileNumber = normalizeFileNumber(decodedText);
-  if (!fileNumber) return;
-  if (scanner && isScanning) scanner.pause(true);
-  await lookupPrescription(fileNumber);
-}
 
-async function handleManualSearch(event) {
-  event.preventDefault();
+/* =========================================================
+   SCAN
+========================================================= */
+
+async function handleScanSuccess(
+  decodedText
+) {
   resetInactivityTimer();
-  const fileNumber = normalizeFileNumber(els.manualFileNumber.value);
+
+  const fileNumber =
+    normalizeFileNumber(
+      decodedText
+    );
+
   if (!fileNumber) {
-    setMessage(els.scanMessage, t("enterFile"), "error");
     return;
   }
-  await lookupPrescription(fileNumber);
+
+  if (
+    scanner &&
+    isScanning
+  ) {
+    scanner.pause(
+      true
+    );
+  }
+
+  await lookupPrescription(
+    fileNumber
+  );
 }
 
-async function lookupPrescription(fileNumber) {
+
+/* =========================================================
+   MANUAL SEARCH
+========================================================= */
+
+async function handleManualSearch(
+  event
+) {
+  event.preventDefault();
+
   resetInactivityTimer();
+
+  const fileNumber =
+    normalizeFileNumber(
+      els.manualFileNumber
+        .value
+    );
+
+  if (!fileNumber) {
+    setMessage(
+      els.scanMessage,
+      t("enterFile"),
+      "error"
+    );
+
+    return;
+  }
+
+  await lookupPrescription(
+    fileNumber
+  );
+}
+
+
+/* =========================================================
+   LOOKUP
+========================================================= */
+
+async function lookupPrescription(
+  fileNumber
+) {
+  resetInactivityTimer();
+
   clearResult();
-  setMessage(els.scanMessage, t("searching"));
+
+  setMessage(
+    els.scanMessage,
+    t("searching")
+  );
 
   try {
-    const response = await api("lookupPrescription", { fileNumber });
-    if (!response.ok) throw new Error(response.message || t("notFound"));
+    const response =
+      await api(
+        "lookupPrescription",
+        {
+          fileNumber
+        }
+      );
+
+    if (
+      !isSuccess(
+        response
+      )
+    ) {
+      throw new Error(
+        response.message ||
+        t("notFound")
+      );
+    }
 
     selectedPrescription = {
-      fileNumber: response.fileNumber,
-      patientName: response.patientName
+      fileNumber:
+        response.fileNumber,
+
+      patientName:
+        response.patientName
     };
 
-    els.fileNumberText.textContent = response.fileNumber;
-    els.patientNameText.textContent = response.patientName;
-    els.resultCard.classList.remove("hidden");
+    els.fileNumberText.textContent =
+      response.fileNumber;
 
-    if (response.prepared && isTodayRiyadh(response.preparedAt)) {
-      const timeText = formatDateTime(response.preparedAt);
-      els.preparedMessage.textContent = t("alreadyPrepared", response.preparedBy, timeText);
-      els.preparedMessage.classList.remove("hidden");
+    els.patientNameText.textContent =
+      response.patientName;
+
+    els.resultCard
+      .classList
+      .remove(
+        "hidden"
+      );
+
+    if (
+      response.prepared &&
+      isTodayRiyadh(
+        response.preparedAt
+      )
+    ) {
+      const timeText =
+        formatDateTime(
+          response.preparedAt
+        );
+
+      els.preparedMessage.textContent =
+        t(
+          "alreadyPrepared",
+          response.preparedBy,
+          timeText
+        );
+
+      els.preparedMessage
+        .classList
+        .remove(
+          "hidden"
+        );
     }
-    els.markPreparedBtn.disabled = false;
 
-    setMessage(els.scanMessage, t("readSuccess"), "success");
+    els.markPreparedBtn.disabled =
+      false;
+
+    setMessage(
+      els.scanMessage,
+      t("readSuccess"),
+      "success"
+    );
+
   } catch (error) {
-    setMessage(els.scanMessage, error.message, "error");
-    selectedPrescription = null;
+    setMessage(
+      els.scanMessage,
+      error.message,
+      "error"
+    );
+
+    selectedPrescription =
+      null;
   }
 }
+
+
+/* =========================================================
+   MARK PREPARED
+========================================================= */
 
 async function markPrepared() {
-  if (!selectedPrescription) return;
-  resetInactivityTimer();
-  const preparedBy = sessionStorage.getItem(PREP_SESSION_NAME_KEY) || sessionStorage.getItem(PREP_SESSION_USER_KEY);
+  if (
+    !selectedPrescription
+  ) {
+    return;
+  }
 
-  els.markPreparedBtn.disabled = true;
-  setMessage(els.scanMessage, t("preparing"));
+  resetInactivityTimer();
+
+  els.markPreparedBtn.disabled =
+    true;
+
+  setMessage(
+    els.scanMessage,
+    t("preparing")
+  );
 
   try {
-    const response = await api("markPrepared", {
-      fileNumber: selectedPrescription.fileNumber,
-      preparedBy
-    });
+    /*
+      لا نرسل preparedBy.
+      الـ Backend يحدد المستخدم
+      من sessionToken.
+    */
+    const response =
+      await api(
+        "markPrepared",
+        {
+          fileNumber:
+            selectedPrescription
+              .fileNumber
+        }
+      );
 
-    if (!response.ok) throw new Error(response.message || t("prepareFailed"));
+    if (
+      !isSuccess(
+        response
+      )
+    ) {
+      throw new Error(
+        response.message ||
+        t("prepareFailed")
+      );
+    }
 
-    setMessage(els.scanMessage, t("sent"), "success");
-    setTimeout(() => {
-      window.location.reload();
-    }, 1500);
+    setMessage(
+      els.scanMessage,
+      t("sent"),
+      "success"
+    );
+
+    setTimeout(
+      () => {
+        window.location.reload();
+      },
+      1500
+    );
+
   } catch (error) {
-    setMessage(els.scanMessage, error.message, "error");
+    els.markPreparedBtn.disabled =
+      false;
+
+    setMessage(
+      els.scanMessage,
+      error.message,
+      "error"
+    );
   }
 }
 
-function normalizeFileNumber(value) {
-  return String(value || "")
+
+/* =========================================================
+   FILE NUMBER
+========================================================= */
+
+function normalizeFileNumber(
+  value
+) {
+  return String(
+    value ||
+    ""
+  )
     .trim()
-    .replace(/\s+/g, "");
+    .replace(
+      /\s+/g,
+      ""
+    );
 }
+
+
+/* =========================================================
+   RESULT
+========================================================= */
 
 function clearResult() {
-  selectedPrescription = null;
-  els.resultCard.classList.add("hidden");
-  els.preparedMessage.classList.add("hidden");
-  els.preparedMessage.textContent = "";
-  els.markPreparedBtn.disabled = true;
-  els.fileNumberText.textContent = "";
-  els.patientNameText.textContent = "";
+  selectedPrescription =
+    null;
+
+  els.resultCard
+    .classList
+    .add(
+      "hidden"
+    );
+
+  els.preparedMessage
+    .classList
+    .add(
+      "hidden"
+    );
+
+  els.preparedMessage.textContent =
+    "";
+
+  els.markPreparedBtn.disabled =
+    true;
+
+  els.fileNumberText.textContent =
+    "";
+
+  els.patientNameText.textContent =
+    "";
 }
 
-function setMessage(element, text, type = "") {
-  element.textContent = text;
-  element.className = `message ${type}`.trim();
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+function setMessage(
+  element,
+  text,
+  type = ""
+) {
+  element.textContent =
+    text;
+
+  element.className =
+    `message ${type}`.trim();
 }
 
-function formatDateTime(value) {
-  const date = value ? new Date(value) : null;
-  if (!date || Number.isNaN(date.getTime())) return value || "";
-  return date.toLocaleString(currentLang === "ar" ? "ar-SA" : "en-US", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit"
-  });
-}
 
-function isTodayRiyadh(value) {
-  const date = value ? new Date(value) : null;
-  if (!date || Number.isNaN(date.getTime())) return false;
-  const formatter = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Riyadh" });
-  return formatter.format(date) === formatter.format(new Date());
-}
+/* =========================================================
+   FORMAT DATE
+========================================================= */
 
-async function api(action, payload = {}) {
-  if (!API_URL || API_URL.includes("PUT_GOOGLE_APPS_SCRIPT")) {
-    throw new Error(t("scriptUrlMissing"));
+function formatDateTime(
+  value
+) {
+  const date =
+    value
+      ? new Date(
+          value
+        )
+      : null;
+
+  if (
+    !date ||
+    Number.isNaN(
+      date.getTime()
+    )
+  ) {
+    return value || "";
   }
 
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify({ action, ...payload })
-  });
+  return date.toLocaleString(
+    currentLang === "ar"
+      ? "ar-SA"
+      : "en-US",
+    {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit"
+    }
+  );
+}
+
+
+function isTodayRiyadh(
+  value
+) {
+  const date =
+    value
+      ? new Date(
+          value
+        )
+      : null;
+
+  if (
+    !date ||
+    Number.isNaN(
+      date.getTime()
+    )
+  ) {
+    return false;
+  }
+
+  const formatter =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:
+          "Asia/Riyadh"
+      }
+    );
+
+  return (
+    formatter.format(
+      date
+    ) ===
+    formatter.format(
+      new Date()
+    )
+  );
+}
+
+
+/* =========================================================
+   API
+========================================================= */
+
+async function api(
+  action,
+  payload = {},
+  includeSession = true
+) {
+  if (
+    !API_URL ||
+    API_URL.includes(
+      "PUT_GOOGLE_APPS_SCRIPT"
+    )
+  ) {
+    throw new Error(
+      t("scriptUrlMissing")
+    );
+  }
+
+  const requestData = {
+    action,
+    ...payload
+  };
+
+  if (
+    includeSession
+  ) {
+    const sessionToken =
+      sessionStorage.getItem(
+        PREP_SESSION_TOKEN_KEY
+      );
+
+    if (sessionToken) {
+      requestData.sessionToken =
+        sessionToken;
+    }
+  }
+
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method:
+          "POST",
+
+        headers: {
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+
+        body:
+          JSON.stringify(
+            requestData
+          )
+      }
+    );
 
   if (!response.ok) {
-    throw new Error(t("serverFailed"));
+    throw new Error(
+      t("serverFailed")
+    );
   }
 
-  return response.json();
+  const data =
+    await response.json();
+
+  if (
+    data &&
+    (
+      data.code ===
+        "INVALID_SESSION" ||
+      data.code ===
+        "MISSING_SESSION" ||
+      data.code ===
+        "NO_PERMISSION"
+    )
+  ) {
+    clearAuthSession();
+
+    if (
+      els.prepView &&
+      !els.prepView.classList.contains(
+        "hidden"
+      )
+    ) {
+      logout();
+    }
+
+    throw new Error(
+      t("sessionExpired")
+    );
+  }
+
+  return data;
 }
