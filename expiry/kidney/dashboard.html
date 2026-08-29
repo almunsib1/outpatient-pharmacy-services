@@ -18,7 +18,7 @@ hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
 .language-chip{color:#168fb3;font-size:13px;font-weight:bold;padding:4px 0;white-space:nowrap;background:transparent;border:0;cursor:pointer;font-family:inherit}
 .page-title{text-align:center;font-size:23px;font-weight:bold;margin:18px 0 10px;color:#168fb3}
 .inspection-month-row{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 auto 18px;flex-wrap:wrap;color:#168fb3;font-size:13px;font-weight:bold}
-.inspection-month-row input{width:150px;border:1px solid #d1d5db;border-radius:8px;padding:7px 10px;color:#168fb3;font-weight:bold;font-family:inherit;text-align:center;background:#fff}
+.inspection-month-row select{width:180px;border:1px solid #d1d5db;border-radius:8px;padding:7px 10px;color:#168fb3;font-weight:bold;font-family:inherit;text-align:center;background:#fff;direction:ltr}
 .stats{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;justify-content:center}
 .stat-card{display:grid;justify-items:center;gap:4px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,.04);padding:10px 18px;min-width:118px;min-height:52px;text-align:center;cursor:pointer;transition:.15s ease;user-select:none}
 .stat-card .num{font-size:20px;font-weight:bold;line-height:1}
@@ -76,7 +76,7 @@ tr:last-child td{border-bottom:0}
   
   <div class="inspection-month-row">
     <label id="inspectionMonthLabel" for="inspectionMonth">Inspection Month</label>
-    <input type="month" id="inspectionMonth">
+    <select id="inspectionMonth"></select>
   </div><div class="stats">
     <div class="stat-card red" id="cardExpired" data-filter="expired" role="button" tabindex="0" aria-pressed="false" onclick="setFilter('expired')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('expired');}"><div class="label" id="labelExpired">هذا الشهر</div><div class="num" id="countExpired">-</div></div>
     <div class="stat-card orange" id="cardSoon" data-filter="soon" role="button" tabindex="0" aria-pressed="false" onclick="setFilter('soon')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('soon');}"><div class="label" id="labelSoon">خلال 3 أشهر</div><div class="num" id="countSoon">-</div></div>
@@ -220,8 +220,29 @@ function getSelectedMonth(){
   return today.substring(0, 7);
 }
 
-function getSelectedMonthParts(){
-  const parts = getSelectedMonth().split("-");
+function buildInspectionMonthOptions(){
+  const select = document.getElementById("inspectionMonth");
+  if (!select || select.options.length) return;
+  const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const today = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(new Date());
+  const currentYear = Number(today.substring(0, 4));
+  const currentMonthValue = today.substring(0, 7);
+  for (let year = currentYear - 1; year <= currentYear + 1; year++) {
+    monthNames.forEach(function(monthName, index){
+      const monthNumber = String(index + 1).padStart(2, "0");
+      const value = year + "-" + monthNumber;
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = monthName + " " + year;
+      select.appendChild(option);
+    });
+  }
+  select.value = currentMonthValue;
+}
+
+function getCurrentMonthParts(){
+  const today = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(new Date());
+  const parts = today.split("-");
   return { year: parts[0], month: parts[1] };
 }
 
@@ -230,22 +251,22 @@ function setDefaultInspectionMonth(){
   if (input && !input.value) input.value = getSelectedMonth();
 }
 
-function monthDistanceFromSelected(expiry){
+function monthDistanceFromCurrent(expiry){
   const parts = String(expiry || "").split("-");
   if (parts.length < 2) return 999;
-  const selected = getSelectedMonthParts();
-  return ((Number(parts[0]) - Number(selected.year)) * 12) + (Number(parts[1]) - Number(selected.month));
+  const current = getCurrentMonthParts();
+  return ((Number(parts[0]) - Number(current.year)) * 12) + (Number(parts[1]) - Number(current.month));
 }
 
 function isThisMonth(expiry){
   const parts = String(expiry || "").split("-");
   if (parts.length < 2) return false;
-  const today = getSelectedMonthParts();
-  return parts[0] === today.year && parts[1] === today.month;
+  const current = getCurrentMonthParts();
+  return parts[0] === current.year && parts[1] === current.month;
 }
 
 function itemBucket(item){
-  const monthDistance = monthDistanceFromSelected(item.expiry);
+  const monthDistance = monthDistanceFromCurrent(item.expiry);
   if (monthDistance === 0) return "expired";
   if (monthDistance > 0 && monthDistance <= 3) return "soon";
   return "ok";
@@ -328,6 +349,7 @@ function loadData(){
     });
 }
 
+buildInspectionMonthOptions();
 setDefaultInspectionMonth();
 document.getElementById("inspectionMonth").addEventListener("change", refreshData);
 setLanguage("en");
@@ -336,6 +358,8 @@ setInterval(loadData, 10000);
 </script>
 </body>
 </html>
+
+
 
 
 
