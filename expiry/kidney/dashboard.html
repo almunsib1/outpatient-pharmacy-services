@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inspection Indicator</title>
+<title>Monthly Inspection Index</title>
 <style>
 *{box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
@@ -71,7 +71,7 @@ tr:last-child td{border-bottom:0}
     <button type="button" class="language-chip" id="languageToggle" onclick="toggleLanguage()">🌐 ع | E</button>
   </div>
 
-  <h1 class="page-title" id="pageTitle">Inspection Indicator</h1>
+  <h1 class="page-title" id="pageTitle">Monthly Inspection Index</h1>
 
   <div class="report-controls">
     <select id="reportType" onchange="refreshReportView()">
@@ -117,9 +117,9 @@ const API_URL = "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wC
 let currentLang = "en";
 const text = {
   ar: {
-    title:"مؤشر صلاحية الأدوية",
-    inspectionReport:"تقرير التفتيش",
-    removalReport:"تقرير الاستبعاد",
+    title:"مؤشر المتابعة الشهري لصلاحية الأدوية",
+    inspectionReport:"Inspection Report",
+    removalReport:"Expiry Removal Report",
     officialLine1:"تجمع المدينة المنورة الصحي",
     officialLine2:"مستشفى الملك فهد بالمدينة المنورة",
     officialLine3:"إدارة الرعاية الصيدلانية",
@@ -141,7 +141,7 @@ emptyNote:"لا توجد بيانات لعرضها حالياً.",
     back:"العودة إلى صيدلية مركز الكلى"
   },
   en: {
-    title:"Inspection Indicator",
+    title:"Monthly Inspection Index",
     inspectionReport:"Inspection Report",
     removalReport:"Expiry Removal Report",
     officialLine1:"Madinah Health Cluster",
@@ -171,6 +171,7 @@ function setLanguage(lang){
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
   document.title = text[lang].title;
+  document.getElementById("pageTitle").innerText = text[lang].title;
   ["officialLine1","officialLine2","officialLine3","labelExpired","labelSoon","labelOk","colName","colExpiry","colStatus","colEmployee","refreshNote"].forEach(id=>{
     const key = id.replace("pageTitle","title");
     document.getElementById(id).innerText = text[lang][key];
@@ -246,9 +247,7 @@ function getReportMonthLabel(){
 }
 
 function updateReportTitle(){
-  const reportType = getReportType();
-  const title = reportType === "removal" ? text[currentLang].removalReport : text[currentLang].inspectionReport;
-  document.getElementById("pageTitle").innerText = title + " - " + getReportMonthLabel();
+  document.getElementById("pageTitle").innerText = text[currentLang].title;
 }
 
 function refreshReportView(){
@@ -396,12 +395,16 @@ function loadData(){
     });
 }
 
+buildReportMonthOptions();
 setLanguage("en");
 loadData();
 setInterval(loadData, 10000);
 </script>
 </body>
 </html>
+
+
+
 
 
 
