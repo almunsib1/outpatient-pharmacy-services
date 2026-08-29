@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monthly Inspection</title>
+
 <style>
 *{box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
@@ -18,7 +19,6 @@ hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
 .language-chip{color:#168fb3;font-size:13px;font-weight:bold;padding:4px 0;white-space:nowrap;background:transparent;border:0;cursor:pointer;font-family:inherit}
 .title-row{display:flex;align-items:center;justify-content:center;gap:10px;margin:18px auto 22px;flex-wrap:wrap}
 .page-title{text-align:center;font-size:23px;font-weight:bold;margin:0;color:#168fb3}
-.inspection-month-select{width:auto;min-width:128px;height:34px;padding:5px 9px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:#168fb3;font-size:13px;font-weight:bold;font-family:inherit;text-align:center;direction:ltr}
 label{font-weight:bold;display:block;margin-bottom:2px;color:#111827;font-size:12px}
 input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;background:#fff;text-align:start;font-family:inherit}
 #medName{direction:ltr;text-align:left}
@@ -52,22 +52,37 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
 #result,#loginResult{display:none;margin-top:12px;padding:10px;border-radius:8px;text-align:center;font-size:13px}
 #result.error,#loginResult.error{display:block;background:#fef2f2;color:#991b1b}
 #result.success,#loginResult.success{display:block;background:#ecfdf5;color:#065f46}
-.main-home-link{display:flex;align-items:center;justify-content:center;width:fit-content;margin:22px auto 0;color:#168fb3;text-decoration:none;font-size:28px;line-height:1;background:transparent;border:none;padding:4px}
-.main-home-link:hover{color:#0f7592}
-@media (max-width:700px){body{padding:10px;background:#fff}.container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}.logo{width:84px;height:84px}.official-header{transform:translateY(10px)}.official-header h2,.official-header h3{font-size:12px}.title-row{gap:8px;margin-bottom:20px}.page-title{font-size:20px}.inspection-month-select{height:32px;min-width:118px;font-size:12px}.form-panel{width:min(100%,320px);padding:14px}.login-actions .primary-btn,.login-actions .secondary-btn{width:44px!important;height:44px!important}}
+
+@media (max-width:700px){
+  body{padding:10px;background:#fff}
+  .container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}
+  .logo{width:84px;height:84px}
+  .official-header{transform:translateY(10px)}
+  .official-header h2,.official-header h3{font-size:12px}
+  .title-row{gap:8px;margin-bottom:20px}
+  .page-title{font-size:20px}
+  .form-panel{width:min(100%,320px);padding:14px}
+  .login-actions .primary-btn,.login-actions .secondary-btn{width:44px!important;height:44px!important}
+}
 </style>
 </head>
+
 <body>
+
 <div class="container">
+
   <div class="top-bar">
     <img class="logo" src="../../logo.png" alt="Logo">
+
     <div class="official-header">
       <h2 id="officialLine1">تجمع المدينة المنورة الصحي</h2>
       <h3 id="officialLine2">مستشفى الملك فهد بالمدينة المنورة</h3>
       <h3 id="officialLine3">إدارة الرعاية الصيدلانية</h3>
     </div>
   </div>
+
   <hr>
+
   <div class="meta-row">
     <div class="date-box" id="dateBox"></div>
     <button type="button" class="language-chip" id="languageToggle" onclick="toggleLanguage()">🌐 ع | E</button>
@@ -78,62 +93,118 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
   </div>
 
   <div id="loginView" class="login-card">
+
     <label id="usernameLabel" for="username">اسم المستخدم</label>
     <input type="text" id="username" autocomplete="username">
+
     <label id="passwordLabel" for="password">PIN</label>
     <input type="password" id="password" inputmode="numeric" autocomplete="current-password">
+
     <div class="login-actions">
-      <button type="button" class="primary-btn" id="loginBtn" onclick="loginEmployee()" title="تسجيل الدخول" aria-label="تسجيل الدخول"><svg class="login-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path><path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path></svg></button>
+
+      <button type="button" class="primary-btn" id="loginBtn" onclick="loginEmployee()" title="تسجيل الدخول" aria-label="تسجيل الدخول">
+        <svg class="login-svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M10 17l5-5-5-5"></path>
+          <path d="M15 12H3"></path>
+          <path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path>
+        </svg>
+      </button>
+
       <button type="button" class="secondary-btn" id="togglePasswordBtn" onclick="togglePasswordPanel()" title="تغيير PIN" aria-label="تغيير PIN">🔑</button>
+
     </div>
+
     <div class="change-password-panel" id="changePasswordPanel">
+
       <label id="changeUsernameLabel" for="changeUsername">اسم المستخدم</label>
       <input type="text" id="changeUsername" autocomplete="username">
+
       <label id="oldPasswordLabel" for="oldPassword">PIN الحالي</label>
       <input type="password" id="oldPassword" autocomplete="current-password">
+
       <label id="newPasswordLabel" for="newPassword">PIN الجديد</label>
       <input type="password" id="newPassword" autocomplete="new-password">
+
       <button type="button" class="primary-btn" id="changePasswordBtn" onclick="changePassword()">تغيير PIN</button>
+
     </div>
+
     <div id="loginResult"></div>
   </div>
 
+
   <div id="employeeView" style="display:none">
+
     <div class="employee-toolbar">
       <span class="employee-name" id="employeeName"></span>
-      <button type="button" class="logout-icon" id="logoutBtn" onclick="logoutEmployee()" title="تسجيل الخروج" aria-label="تسجيل الخروج"><svg class="power-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9"></path><path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path></svg></button>
+
+      <button type="button" class="logout-icon" id="logoutBtn" onclick="logoutEmployee()" title="تسجيل الخروج" aria-label="تسجيل الخروج">
+        <svg class="power-svg" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3v9"></path>
+          <path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path>
+        </svg>
+      </button>
     </div>
+
 
     <div class="conflict-box" id="conflictBox">
       <div id="conflictText"></div>
       <ul id="conflictList"></ul>
+
       <div class="conflict-actions">
         <button type="button" class="danger-btn" id="confirmSaveBtn" onclick="confirmSave()">متابعة الحفظ رغم ذلك</button>
         <button type="button" class="secondary-btn" id="cancelConflictBtn" onclick="cancelConflict()">إلغاء</button>
       </div>
     </div>
 
+
     <div class="form-panel">
+
       <label id="medNameLabel" for="medName">اسم الدواء</label>
+
       <div class="combo-wrap">
-        <input type="text" id="medName" autocomplete="off" dir="ltr" lang="en" inputmode="text" pattern="[A-Za-z0-9\\s\\-_/().,+%]*">
+        <input
+          type="text"
+          id="medName"
+          autocomplete="off"
+          dir="ltr"
+          lang="en"
+          inputmode="text"
+          pattern="[A-Za-z0-9\s\-_/().,+%]*"
+        >
         <div class="combo-options" id="medNameOptions"></div>
       </div>
+
       <label id="medExpiryLabel" for="medExpiry">تاريخ الانتهاء</label>
       <input type="date" id="medExpiry">
-<div class="form-actions">
+
+      <div class="form-actions">
         <button type="button" class="primary-btn" id="submitBtn" onclick="submitMedication()">تسجيل</button>
       </div>
+
     </div>
 
     <div id="result"></div>
+
   </div>
+
 </div>
 
+
 <script>
-// TODO: ضع رابط Google Apps Script Web App هنا بعد النشر (ينتهي بـ /exec)
-// نفس الرابط يُستخدم في dashboard.html وadmin.html لهذا المشروع.
-const KIDNEY_API_URL = "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wCZnp6OPiKVurOOL8YG_Ma1mPMhgmzWFadYGxWV4CDejgcIw/exec";
+
+const KIDNEY_API_URL =
+  "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wCZnp6OPiKVurOOL8YG_Ma1mPMhgmzWFadYGxWV4CDejgcIw/exec";
+
+const KIDNEY_SESSION_NAME_KEY =
+  "kidneyEmployeeName";
+
+const KIDNEY_SESSION_USERNAME_KEY =
+  "kidneyEmployeeUsername";
+
+const KIDNEY_SESSION_TOKEN_KEY =
+  "kidneySessionToken";
+
 
 const MEDICATIONS = [
   "Adenosine inj",
@@ -298,12 +369,37 @@ const MEDICATIONS = [
   "Zemplar inj"
 ];
 
-let currentLang = "en";
-let currentEmployeeName = sessionStorage.getItem("kidneyEmployeeName") || "";
-let currentEmployeeUsername = sessionStorage.getItem("kidneyEmployeeUsername") || "";
-let pendingMedication = null;
-let inactivityTimer = null;
-const INACTIVITY_LIMIT_MS = 30 * 60 * 1000;
+
+let currentLang =
+  "en";
+
+let currentEmployeeName =
+  sessionStorage.getItem(
+    KIDNEY_SESSION_NAME_KEY
+  ) || "";
+
+let currentEmployeeUsername =
+  sessionStorage.getItem(
+    KIDNEY_SESSION_USERNAME_KEY
+  ) || "";
+
+let currentSessionToken =
+  sessionStorage.getItem(
+    KIDNEY_SESSION_TOKEN_KEY
+  ) || "";
+
+let pendingMedication =
+  null;
+
+let inactivityTimer =
+  null;
+
+let inactivityWatcherStarted =
+  false;
+
+const INACTIVITY_LIMIT_MS =
+  30 * 60 * 1000;
+
 
 const text = {
   ar: {
@@ -326,16 +422,17 @@ const text = {
     noMatches:"لا يوجد دواء مطابق في القائمة.",
     medName:"اسم الدواء",
     medExpiry:"تاريخ الانتهاء",
-submit:"تسجيل",
+    submit:"تسجيل",
     missingFields:"الرجاء تعبئة اسم الدواء وتاريخ الانتهاء.",
     englishNameOnly:"اسم الدواء يجب أن يكون باللغة الإنجليزية فقط.",
     saved:"تم تسجيل الدواء بنجاح.",
-    saveFailed:"تعذر حفظ البيانات، حاول لاحقاً.",
+    saveFailed:"تعذر حفظ البيانات.",
     conflictTitle:"يوجد تسجيل سابق لنفس الدواء بتاريخ أقدم:",
     confirmSave:"متابعة الحفظ رغم ذلك",
     cancel:"إلغاء",
-    back:"العودة إلى صيدلية مركز الكلى"
+    sessionExpired:"انتهت الجلسة. سجّل الدخول مرة أخرى."
   },
+
   en: {
     title:"Monthly Inspection",
     officialLine1:"Madinah Health Cluster",
@@ -356,288 +453,1013 @@ submit:"تسجيل",
     noMatches:"No matching medication in the list.",
     medName:"Medication Name",
     medExpiry:"Expiry Date",
-submit:"Register",
+    submit:"Register",
     missingFields:"Please fill in the medication name and expiry date.",
     englishNameOnly:"Medication name must be in English only.",
     saved:"Medication registered successfully.",
-    saveFailed:"Could not save the data, try again later.",
+    saveFailed:"Could not save the data.",
     conflictTitle:"An earlier expiry date is already registered for this medication:",
     confirmSave:"Save Anyway",
     cancel:"Cancel",
-    back:"Back to Kidney Center Pharmacy"
+    sessionExpired:"Session expired. Please sign in again."
   }
 };
 
+
 function setLanguage(lang){
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-  document.title = text[lang].title;
-  document.getElementById("officialLine1").innerText = text[lang].officialLine1;
-  document.getElementById("officialLine2").innerText = text[lang].officialLine2;
-  document.getElementById("officialLine3").innerText = text[lang].officialLine3;
-  document.getElementById("pageTitle").innerText = text[lang].title;
-  document.getElementById("usernameLabel").innerText = text[lang].username;
-  document.getElementById("passwordLabel").innerText = text[lang].password;
-  document.getElementById("loginBtn").title = text[lang].login;
-  document.getElementById("loginBtn").setAttribute("aria-label", text[lang].login);
-  document.getElementById("togglePasswordBtn").title = text[lang].changePassword;
-  document.getElementById("togglePasswordBtn").setAttribute("aria-label", text[lang].changePassword);
-  document.getElementById("changeUsernameLabel").innerText = text[lang].username;
-  document.getElementById("oldPasswordLabel").innerText = text[lang].oldPassword;
-  document.getElementById("newPasswordLabel").innerText = text[lang].newPassword;
-  document.getElementById("changePasswordBtn").innerText = text[lang].changePassword;
-  document.getElementById("logoutBtn").title = text[lang].logout;
-  document.getElementById("logoutBtn").setAttribute("aria-label", text[lang].logout);
-  document.getElementById("medNameLabel").innerText = text[lang].medName;
-  document.getElementById("medExpiryLabel").innerText = text[lang].medExpiry;
-document.getElementById("submitBtn").innerText = text[lang].submit;
-  document.getElementById("confirmSaveBtn").innerText = text[lang].confirmSave;
-  document.getElementById("cancelConflictBtn").innerText = text[lang].cancel;
-  document.getElementById("conflictText").innerText = text[lang].conflictTitle;
-  const homeLink = document.querySelector(".main-home-link");
-  if (homeLink) {
-    homeLink.title = text[lang].back;
-    homeLink.setAttribute("aria-label", text[lang].back);
+
+  currentLang =
+    lang;
+
+  document.documentElement.lang =
+    lang;
+
+  document.documentElement.dir =
+    lang === "ar"
+      ? "rtl"
+      : "ltr";
+
+  document.title =
+    text[lang].title;
+
+  document.getElementById("officialLine1").innerText =
+    text[lang].officialLine1;
+
+  document.getElementById("officialLine2").innerText =
+    text[lang].officialLine2;
+
+  document.getElementById("officialLine3").innerText =
+    text[lang].officialLine3;
+
+  document.getElementById("pageTitle").innerText =
+    text[lang].title;
+
+  document.getElementById("usernameLabel").innerText =
+    text[lang].username;
+
+  document.getElementById("passwordLabel").innerText =
+    text[lang].password;
+
+  document.getElementById("loginBtn").title =
+    text[lang].login;
+
+  document.getElementById("togglePasswordBtn").title =
+    text[lang].changePassword;
+
+  document.getElementById("changeUsernameLabel").innerText =
+    text[lang].username;
+
+  document.getElementById("oldPasswordLabel").innerText =
+    text[lang].oldPassword;
+
+  document.getElementById("newPasswordLabel").innerText =
+    text[lang].newPassword;
+
+  document.getElementById("changePasswordBtn").innerText =
+    text[lang].changePassword;
+
+  document.getElementById("logoutBtn").title =
+    text[lang].logout;
+
+  document.getElementById("medNameLabel").innerText =
+    text[lang].medName;
+
+  document.getElementById("medExpiryLabel").innerText =
+    text[lang].medExpiry;
+
+  document.getElementById("submitBtn").innerText =
+    text[lang].submit;
+
+  document.getElementById("confirmSaveBtn").innerText =
+    text[lang].confirmSave;
+
+  document.getElementById("cancelConflictBtn").innerText =
+    text[lang].cancel;
+
+  document.getElementById("conflictText").innerText =
+    text[lang].conflictTitle;
+
+  document.getElementById("languageToggle").innerText =
+    "🌐 ع | E";
+
+  if (
+    currentEmployeeName
+  ) {
+    document.getElementById("employeeName").innerText =
+      currentEmployeeName;
   }
-  document.getElementById("languageToggle").innerText = "🌐 ع | E";
-  if (currentEmployeeName) document.getElementById("employeeName").innerText = currentEmployeeName;
+
   renderDate();
 }
-async function loginEmployee(){
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value.trim();
-  if (!KIDNEY_API_URL){ showLoginResult("error", text[currentLang].notConfigured); return; }
 
-  try{
-    const response = await fetch(KIDNEY_API_URL, {
-      method:"POST",
-      body: JSON.stringify({ action:"employeeLogin", username, password })
-    });
-    const result = await response.json();
-    if (!result.success || !result.employee){
-      showLoginResult("error", text[currentLang].invalidLogin);
+
+function toggleLanguage(){
+
+  setLanguage(
+    currentLang === "ar"
+      ? "en"
+      : "ar"
+  );
+}
+
+
+function renderDate(){
+
+  const now =
+    new Date();
+
+  const date =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:"Asia/Riyadh"
+      }
+    ).format(now);
+
+  const dayName =
+    new Intl.DateTimeFormat(
+      currentLang === "ar"
+        ? "ar-SA"
+        : "en-US",
+      {
+        timeZone:"Asia/Riyadh",
+        weekday:"long"
+      }
+    ).format(now);
+
+  document.getElementById("dateBox").innerText =
+    `${dayName} - ${date}`;
+}
+
+
+async function loginEmployee(){
+
+  const username =
+    document.getElementById("username").value.trim();
+
+  const password =
+    document.getElementById("password").value.trim();
+
+  try {
+
+    const result =
+      await postApi(
+        "employeeLogin",
+        {
+          username,
+          password
+        },
+        false
+      );
+
+    if (
+      !result.success ||
+      !result.employee ||
+      !result.sessionToken
+    ) {
+      showLoginResult(
+        "error",
+        text[currentLang].invalidLogin +
+        diagnosticText(result)
+      );
       return;
     }
-    currentEmployeeName = result.employee.name;
-    currentEmployeeUsername = result.employee.username;
-    sessionStorage.setItem("kidneyEmployeeName", currentEmployeeName);
-    sessionStorage.setItem("kidneyEmployeeUsername", currentEmployeeUsername);
+
+    currentEmployeeName =
+      result.employee.name ||
+      result.employee.username ||
+      username;
+
+    currentEmployeeUsername =
+      result.employee.username ||
+      username;
+
+    currentSessionToken =
+      result.sessionToken;
+
+    sessionStorage.setItem(
+      KIDNEY_SESSION_NAME_KEY,
+      currentEmployeeName
+    );
+
+    sessionStorage.setItem(
+      KIDNEY_SESSION_USERNAME_KEY,
+      currentEmployeeUsername
+    );
+
+    sessionStorage.setItem(
+      KIDNEY_SESSION_TOKEN_KEY,
+      currentSessionToken
+    );
+
+    clearLoginResult();
+
     showEmployeeView();
-  }catch(error){
-    showLoginResult("error", text[currentLang].invalidLogin);
+
+  } catch(error){
+
+    showLoginResult(
+      "error",
+      text[currentLang].invalidLogin +
+      " [NETWORK_ERROR]"
+    );
   }
 }
 
+
+async function restoreSession(){
+
+  if (
+    !currentSessionToken
+  ) {
+    clearStoredSession();
+    showLoginView();
+    return;
+  }
+
+  try {
+
+    const result =
+      await postApi(
+        "validateSession",
+        {},
+        true
+      );
+
+    if (
+      !result.success ||
+      !result.user
+    ) {
+      clearStoredSession();
+      showLoginView();
+      return;
+    }
+
+    currentEmployeeUsername =
+      result.user.username ||
+      currentEmployeeUsername;
+
+    currentEmployeeName =
+      result.user.name ||
+      result.user.username ||
+      currentEmployeeName;
+
+    sessionStorage.setItem(
+      KIDNEY_SESSION_USERNAME_KEY,
+      currentEmployeeUsername
+    );
+
+    sessionStorage.setItem(
+      KIDNEY_SESSION_NAME_KEY,
+      currentEmployeeName
+    );
+
+    showEmployeeView();
+
+  } catch(error){
+
+    clearStoredSession();
+    showLoginView();
+  }
+}
+
+
 function togglePasswordPanel(){
-  const panel = document.getElementById("changePasswordPanel");
-  panel.style.display = panel.style.display === "block" ? "none" : "block";
+
+  const panel =
+    document.getElementById("changePasswordPanel");
+
+  panel.style.display =
+    panel.style.display === "block"
+      ? "none"
+      : "block";
+
   clearLoginResult();
 }
 
-async function changePassword(){
-  const username = document.getElementById("changeUsername").value.trim();
-  const oldPassword = document.getElementById("oldPassword").value.trim();
-  const newPassword = document.getElementById("newPassword").value.trim();
-  if (!newPassword){ showLoginResult("error", text[currentLang].passwordTooShort); return; }
-  if (!KIDNEY_API_URL){ showLoginResult("error", text[currentLang].notConfigured); return; }
 
-  try{
-    const response = await fetch(KIDNEY_API_URL, {
-      method:"POST",
-      body: JSON.stringify({ action:"changeEmployeePassword", username, oldPassword, newPassword })
-    });
-    const result = await response.json();
-    if (!result.success){ showLoginResult("error", text[currentLang].passwordMismatch); return; }
-    document.getElementById("oldPassword").value = "";
-    document.getElementById("newPassword").value = "";
-    showLoginResult("success", text[currentLang].passwordChanged);
-  }catch(error){
-    showLoginResult("error", text[currentLang].passwordMismatch);
+async function changePassword(){
+
+  const username =
+    document.getElementById("changeUsername").value.trim();
+
+  const oldPassword =
+    document.getElementById("oldPassword").value.trim();
+
+  const newPassword =
+    document.getElementById("newPassword").value.trim();
+
+  if (
+    !newPassword
+  ) {
+    showLoginResult(
+      "error",
+      text[currentLang].passwordTooShort
+    );
+    return;
+  }
+
+  try {
+
+    const result =
+      await postApi(
+        "changeEmployeePassword",
+        {
+          username,
+          oldPassword,
+          newPassword
+        },
+        false
+      );
+
+    if (
+      !result.success
+    ) {
+      showLoginResult(
+        "error",
+        text[currentLang].passwordMismatch +
+        diagnosticText(result)
+      );
+      return;
+    }
+
+    document.getElementById("oldPassword").value =
+      "";
+
+    document.getElementById("newPassword").value =
+      "";
+
+    clearStoredSession();
+
+    showLoginResult(
+      "success",
+      text[currentLang].passwordChanged
+    );
+
+  } catch(error){
+
+    showLoginResult(
+      "error",
+      text[currentLang].passwordMismatch +
+      " [NETWORK_ERROR]"
+    );
   }
 }
 
-function logoutEmployee(){
-  sessionStorage.removeItem("kidneyEmployeeName");
-  sessionStorage.removeItem("kidneyEmployeeUsername");
-  currentEmployeeName = "";
-  currentEmployeeUsername = "";
-  window.clearTimeout(inactivityTimer);
-  document.getElementById("employeeView").style.display = "none";
-  document.getElementById("loginView").style.display = "block";
+
+function clearStoredSession(){
+
+  sessionStorage.removeItem(
+    KIDNEY_SESSION_NAME_KEY
+  );
+
+  sessionStorage.removeItem(
+    KIDNEY_SESSION_USERNAME_KEY
+  );
+
+  sessionStorage.removeItem(
+    KIDNEY_SESSION_TOKEN_KEY
+  );
+
+  currentEmployeeName =
+    "";
+
+  currentEmployeeUsername =
+    "";
+
+  currentSessionToken =
+    "";
 }
 
+
+function logoutEmployee(){
+
+  clearStoredSession();
+
+  window.clearTimeout(
+    inactivityTimer
+  );
+
+  pendingMedication =
+    null;
+
+  document.getElementById("conflictBox").style.display =
+    "none";
+
+  showLoginView();
+}
+
+
+function showLoginView(){
+
+  document.getElementById("employeeView").style.display =
+    "none";
+
+  document.getElementById("loginView").style.display =
+    "block";
+}
+
+
 function showEmployeeView(){
-  document.getElementById("loginView").style.display = "none";
-  document.getElementById("employeeView").style.display = "block";
-  document.getElementById("employeeName").innerText = currentEmployeeName;
+
+  document.getElementById("loginView").style.display =
+    "none";
+
+  document.getElementById("employeeView").style.display =
+    "block";
+
+  document.getElementById("employeeName").innerText =
+    currentEmployeeName;
+
   startInactivityWatcher();
 }
 
+
 function startInactivityWatcher(){
-  ["click","keydown","touchstart","mousemove"].forEach(function(eventName){
-    window.addEventListener(eventName, resetInactivityTimer, { passive:true });
-  });
+
+  if (
+    !inactivityWatcherStarted
+  ) {
+
+    [
+      "click",
+      "keydown",
+      "touchstart",
+      "mousemove"
+    ].forEach(
+      function(eventName){
+
+        window.addEventListener(
+          eventName,
+          resetInactivityTimer,
+          {
+            passive:true
+          }
+        );
+      }
+    );
+
+    inactivityWatcherStarted =
+      true;
+  }
+
   resetInactivityTimer();
 }
+
+
 function resetInactivityTimer(){
-  window.clearTimeout(inactivityTimer);
-  inactivityTimer = window.setTimeout(function(){
-    if (currentEmployeeUsername) logoutEmployee();
-  }, INACTIVITY_LIMIT_MS);
+
+  window.clearTimeout(
+    inactivityTimer
+  );
+
+  inactivityTimer =
+    window.setTimeout(
+      function(){
+
+        if (
+          currentSessionToken
+        ) {
+          logoutEmployee();
+        }
+
+      },
+      INACTIVITY_LIMIT_MS
+    );
 }
+
 
 function renderMedOptions(filterText){
-  const box = document.getElementById("medNameOptions");
-  if (!MEDICATIONS.length){ box.style.display = "none"; return; }
-  const q = (filterText || "").trim().toLowerCase();
-  const matches = q ? MEDICATIONS.filter(function(m){ return m.toLowerCase().indexOf(q) !== -1; }) : MEDICATIONS;
-  box.innerHTML = "";
-  if (!matches.length){
-    const empty = document.createElement("div");
-    empty.className = "combo-empty";
-    empty.innerText = text[currentLang].noMatches;
+
+  const box =
+    document.getElementById("medNameOptions");
+
+  const q =
+    (filterText || "")
+      .trim()
+      .toLowerCase();
+
+  const matches =
+    q
+      ? MEDICATIONS.filter(
+          function(m){
+            return m.toLowerCase().includes(q);
+          }
+        )
+      : MEDICATIONS;
+
+  box.innerHTML =
+    "";
+
+  if (
+    !matches.length
+  ) {
+
+    const empty =
+      document.createElement("div");
+
+    empty.className =
+      "combo-empty";
+
+    empty.innerText =
+      text[currentLang].noMatches;
+
     box.appendChild(empty);
+
   } else {
-    matches.slice(0, 50).forEach(function(name){
-      const opt = document.createElement("div");
-      opt.className = "combo-option";
-      opt.innerText = name;
-      opt.onmousedown = function(e){ e.preventDefault(); selectMedication(name); };
-      box.appendChild(opt);
-    });
+
+    matches
+      .slice(0,50)
+      .forEach(
+        function(name){
+
+          const opt =
+            document.createElement("div");
+
+          opt.className =
+            "combo-option";
+
+          opt.innerText =
+            name;
+
+          opt.onmousedown =
+            function(e){
+
+              e.preventDefault();
+
+              selectMedication(name);
+            };
+
+          box.appendChild(opt);
+        }
+      );
   }
-  box.style.display = "block";
+
+  box.style.display =
+    "block";
 }
+
+
 function selectMedication(name){
-  document.getElementById("medName").value = name;
-  document.getElementById("medNameOptions").style.display = "none";
+
+  document.getElementById("medName").value =
+    name;
+
+  document.getElementById("medNameOptions").style.display =
+    "none";
 }
+
 
 function isEnglishMedicationName(value){
-  return /^[A-Za-z0-9][A-Za-z0-9\s\-_/().,+%]*$/.test(value);
+
+  return /^[A-Za-z0-9][A-Za-z0-9\s\-_/().,+%]*$/.test(
+    value
+  );
 }
+
 
 async function submitMedication(){
-  clearResult();
-  const name = document.getElementById("medName").value.trim();
-  const expiry = document.getElementById("medExpiry").value;
-  if (!name || !expiry){ showResult("error", text[currentLang].missingFields); return; }
-  if (!isEnglishMedicationName(name)){ showResult("error", text[currentLang].englishNameOnly); return; }
-  if (!KIDNEY_API_URL){ showResult("error", text[currentLang].notConfigured); return; }
 
-  try{
-    const res = await fetch(KIDNEY_API_URL + "?action=checkMedication&name=" + encodeURIComponent(name));
-    const data = await res.json();
-    const matches = (data && data.matches) || [];
-    const older = matches.filter(function(m){ return m.expiry && m.expiry < expiry; });
-    if (older.length){
-      pendingMedication = { name, expiry };
-      showConflict(older);
+  clearResult();
+
+  if (
+    !currentSessionToken
+  ) {
+    handleSessionExpired();
+    return;
+  }
+
+  const name =
+    document.getElementById("medName").value.trim();
+
+  const expiry =
+    document.getElementById("medExpiry").value;
+
+  if (
+    !name ||
+    !expiry
+  ) {
+    showResult(
+      "error",
+      text[currentLang].missingFields
+    );
+    return;
+  }
+
+  if (
+    !isEnglishMedicationName(name)
+  ) {
+    showResult(
+      "error",
+      text[currentLang].englishNameOnly
+    );
+    return;
+  }
+
+  try {
+
+    const res =
+      await fetch(
+        KIDNEY_API_URL +
+        "?action=checkMedication&name=" +
+        encodeURIComponent(name)
+      );
+
+    const data =
+      await res.json();
+
+    const matches =
+      (data && data.matches) || [];
+
+    const older =
+      matches.filter(
+        function(m){
+          return (
+            m.expiry &&
+            m.expiry < expiry
+          );
+        }
+      );
+
+    if (
+      older.length
+    ) {
+
+      pendingMedication = {
+        name,
+        expiry
+      };
+
+      showConflict(
+        older
+      );
+
       return;
     }
-  }catch(error){
-    // تعذر التحقق من التكرار، نكمل الحفظ مباشرة
+
+  } catch(error){
   }
 
-  await saveMedication(name, expiry);
+  await saveMedication(
+    name,
+    expiry
+  );
 }
+
 
 function showConflict(older){
-  const list = document.getElementById("conflictList");
-  list.innerHTML = "";
-  older.forEach(function(m){
-    const li = document.createElement("li");
-    li.innerText = m.expiry + (m.registeredBy ? " — " + m.registeredBy : "");
-    list.appendChild(li);
-  });
-  document.getElementById("conflictBox").style.display = "block";
+
+  const list =
+    document.getElementById("conflictList");
+
+  list.innerHTML =
+    "";
+
+  older.forEach(
+    function(m){
+
+      const li =
+        document.createElement("li");
+
+      li.innerText =
+        m.expiry +
+        (
+          m.registeredBy
+            ? " — " + m.registeredBy
+            : ""
+        );
+
+      list.appendChild(li);
+    }
+  );
+
+  document.getElementById("conflictBox").style.display =
+    "block";
 }
+
 
 function cancelConflict(){
-  pendingMedication = null;
-  document.getElementById("conflictBox").style.display = "none";
+
+  pendingMedication =
+    null;
+
+  document.getElementById("conflictBox").style.display =
+    "none";
 }
+
 
 async function confirmSave(){
-  if (!pendingMedication) return;
-  const { name, expiry } = pendingMedication;
-  document.getElementById("conflictBox").style.display = "none";
-  await saveMedication(name, expiry);
+
+  if (
+    !pendingMedication
+  ) {
+    return;
+  }
+
+  const {
+    name,
+    expiry
+  } =
+    pendingMedication;
+
+  document.getElementById("conflictBox").style.display =
+    "none";
+
+  await saveMedication(
+    name,
+    expiry
+  );
 }
+
 
 async function saveMedication(name, expiry){
-  try{
-    const response = await fetch(KIDNEY_API_URL, {
-      method:"POST",
-      body: JSON.stringify({
-        action:"addMedication",
-        name, expiry,
-        registeredByUsername: currentEmployeeUsername,
-        registeredByName: currentEmployeeName
-      })
-    });
-    const result = await response.json();
-    if (!result.success){ showResult("error", text[currentLang].saveFailed); return; }
-    showResult("success", text[currentLang].saved);
-    document.getElementById("medName").value = "";
-    document.getElementById("medExpiry").value = "";
-    pendingMedication = null;
-  }catch(error){
-    showResult("error", text[currentLang].saveFailed);
+
+  try {
+
+    const result =
+      await postApi(
+        "addMedication",
+        {
+          name,
+          expiry
+        },
+        true
+      );
+
+    if (
+      !result.success
+    ) {
+
+      if (
+        isSessionError(result)
+      ) {
+        handleSessionExpired();
+        return;
+      }
+
+      showResult(
+        "error",
+        text[currentLang].saveFailed +
+        diagnosticText(result)
+      );
+
+      return;
+    }
+
+    showResult(
+      "success",
+      text[currentLang].saved
+    );
+
+    document.getElementById("medName").value =
+      "";
+
+    document.getElementById("medExpiry").value =
+      "";
+
+    pendingMedication =
+      null;
+
+  } catch(error){
+
+    showResult(
+      "error",
+      text[currentLang].saveFailed +
+      " [NETWORK_ERROR: " +
+      String(error.message || error) +
+      "]"
+    );
   }
 }
 
-function showResult(type, message){
-  const result = document.getElementById("result");
-  result.className = type;
-  result.innerText = message;
+
+async function postApi(
+  action,
+  payload = {},
+  includeSession = true
+){
+
+  const requestData = {
+    action,
+    ...payload
+  };
+
+  if (
+    includeSession &&
+    currentSessionToken
+  ) {
+    requestData.sessionToken =
+      currentSessionToken;
+  }
+
+  const response =
+    await fetch(
+      KIDNEY_API_URL,
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+        body:
+          JSON.stringify(
+            requestData
+          )
+      }
+    );
+
+  if (
+    !response.ok
+  ) {
+    throw new Error(
+      "HTTP_" +
+      response.status
+    );
+  }
+
+  return await response.json();
 }
+
+
+function diagnosticText(result){
+
+  if (
+    !result
+  ) {
+    return " [NO_RESPONSE]";
+  }
+
+  const parts =
+    [];
+
+  if (
+    result.code
+  ) {
+    parts.push(
+      "CODE=" +
+      result.code
+    );
+  }
+
+  if (
+    result.message
+  ) {
+    parts.push(
+      "MESSAGE=" +
+      result.message
+    );
+  }
+
+  if (
+    !parts.length
+  ) {
+    parts.push(
+      "UNKNOWN_ERROR"
+    );
+  }
+
+  return (
+    " [" +
+    parts.join(" | ") +
+    "]"
+  );
+}
+
+
+function isSessionError(result){
+
+  if (
+    !result
+  ) {
+    return false;
+  }
+
+  return [
+    "INVALID_SESSION",
+    "MISSING_SESSION",
+    "NO_PERMISSION",
+    "USER_INACTIVE"
+  ].includes(
+    result.code
+  );
+}
+
+
+function handleSessionExpired(){
+
+  clearStoredSession();
+
+  pendingMedication =
+    null;
+
+  document.getElementById("conflictBox").style.display =
+    "none";
+
+  showLoginView();
+
+  showLoginResult(
+    "error",
+    text[currentLang].sessionExpired
+  );
+}
+
+
+function showResult(type,message){
+
+  const result =
+    document.getElementById("result");
+
+  result.className =
+    type;
+
+  result.innerText =
+    message;
+}
+
+
 function clearResult(){
-  const result = document.getElementById("result");
-  result.className = "";
-  result.innerText = "";
+
+  const result =
+    document.getElementById("result");
+
+  result.className =
+    "";
+
+  result.innerText =
+    "";
 }
-function showLoginResult(type, message){
-  const result = document.getElementById("loginResult");
-  result.className = type;
-  result.innerText = message;
+
+
+function showLoginResult(type,message){
+
+  const result =
+    document.getElementById("loginResult");
+
+  result.className =
+    type;
+
+  result.innerText =
+    message;
 }
+
+
 function clearLoginResult(){
-  const result = document.getElementById("loginResult");
-  result.className = "";
-  result.innerText = "";
+
+  const result =
+    document.getElementById("loginResult");
+
+  result.className =
+    "";
+
+  result.innerText =
+    "";
 }
 
-document.getElementById("medName").addEventListener("input", function(){ renderMedOptions(this.value); });
-document.getElementById("medName").addEventListener("focus", function(){ renderMedOptions(this.value); });
-document.addEventListener("click", function(e){
-  if (!e.target.closest(".combo-wrap")) {
-    document.getElementById("medNameOptions").style.display = "none";
+
+document.getElementById("medName").addEventListener(
+  "input",
+  function(){
+    renderMedOptions(this.value);
   }
-});
+);
 
-setLanguage("en");
-if (currentEmployeeName) {
-  showEmployeeView();
+document.getElementById("medName").addEventListener(
+  "focus",
+  function(){
+    renderMedOptions(this.value);
+  }
+);
+
+document.addEventListener(
+  "click",
+  function(e){
+
+    if (
+      !e.target.closest(".combo-wrap")
+    ) {
+      document.getElementById("medNameOptions").style.display =
+        "none";
+    }
+  }
+);
+
+
+async function init(){
+
+  setLanguage(
+    "en"
+  );
+
+  await restoreSession();
 }
+
+
+document.addEventListener(
+  "DOMContentLoaded",
+  init
+);
+
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
