@@ -17,6 +17,8 @@ hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
 .date-box{color:#168fb3;padding:4px 0;font-size:13px;font-weight:bold;text-align:center}
 .language-chip{color:#168fb3;font-size:13px;font-weight:bold;padding:4px 0;white-space:nowrap;background:transparent;border:0;cursor:pointer;font-family:inherit}
 .page-title{text-align:center;font-size:23px;font-weight:bold;margin:18px 0 10px;color:#168fb3}
+.report-controls{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 auto 16px;flex-wrap:wrap;direction:ltr}
+.report-controls select{width:auto;min-width:178px;height:34px;padding:5px 10px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:#168fb3;font-size:13px;font-weight:bold;font-family:inherit;text-align:center;direction:ltr}
 .stats{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;justify-content:center}
 .stat-card{display:grid;justify-items:center;gap:4px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,.04);padding:10px 18px;min-width:118px;min-height:52px;text-align:center;cursor:pointer;transition:.15s ease;user-select:none}
 .stat-card .num{font-size:20px;font-weight:bold;line-height:1}
@@ -49,8 +51,8 @@ tr:last-child td{border-bottom:0}
 .empty-note,.refresh-note{text-align:center;font-size:12px;color:#888;margin-top:10px}
 .main-home-link{display:flex;align-items:center;justify-content:center;width:fit-content;margin:22px auto 0;color:#168fb3;text-decoration:none;font-size:28px;line-height:1;background:transparent;border:none;padding:4px}
 .main-home-link:hover{color:#0f7592}
-@media (max-width:700px){body{padding:10px;background:#fff}.container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}.logo{width:84px;height:84px}.official-header{transform:translateY(10px)}.official-header h2,.official-header h3{font-size:12px}.page-title{font-size:20px;margin-bottom:10px}.stat-card{min-width:96px;padding:8px 12px}.stat-card .num{font-size:18px}th,td{padding:8px 8px;font-size:12px}.action-btn{width:40px;min-width:40px;min-height:40px;font-size:22px}}
-@media print{.language-chip,.main-home-link,.action-row,.refresh-note{display:none !important}}
+@media (max-width:700px){body{padding:10px;background:#fff}.container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}.logo{width:84px;height:84px}.official-header{transform:translateY(10px)}.official-header h2,.official-header h3{font-size:12px}.page-title{font-size:20px;margin-bottom:10px}.report-controls{gap:8px;margin-bottom:14px}.report-controls select{min-width:150px;font-size:12px}.stat-card{min-width:96px;padding:8px 12px}.stat-card .num{font-size:18px}th,td{padding:8px 8px;font-size:12px}.action-btn{width:40px;min-width:40px;min-height:40px;font-size:22px}}
+@media print{.language-chip,.main-home-link,.action-row,.refresh-note,.report-controls{display:none !important}body{background:#fff;padding:0}.container{max-width:none;width:100%;min-height:auto;margin:0;padding:18px 22px;border:1px solid #dbe7ed;border-radius:8px;box-shadow:none}.logo{width:82px;height:82px}.official-header{transform:none}.official-header h2,.official-header h3{font-size:11px}.page-title{font-size:22px;margin:10px 0 4px}.meta-row{justify-content:center;margin-bottom:8px}.date-box{font-size:12px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 18px}.stat-card{box-shadow:none;min-height:58px;padding:8px 10px}.table-wrap{box-shadow:none;border-radius:8px}th{font-size:12px}td{font-size:11px;padding:7px 8px}}
 </style>
 </head>
 <body>
@@ -70,7 +72,16 @@ tr:last-child td{border-bottom:0}
   </div>
 
   <h1 class="page-title" id="pageTitle">Inspection Indicator</h1>
-<div class="stats">
+
+  <div class="report-controls">
+    <select id="reportType" onchange="refreshReportView()">
+      <option value="inspection">Inspection Report</option>
+      <option value="removal">Expiry Removal Report</option>
+    </select>
+    <select id="reportMonth" onchange="refreshReportView()"></select>
+  </div>
+
+  <div class="stats">
     <div class="stat-card red" id="cardExpired" data-filter="expired" role="button" tabindex="0" aria-pressed="false" onclick="setFilter('expired')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('expired');}"><div class="label" id="labelExpired">هذا الشهر</div><div class="num" id="countExpired">-</div></div>
     <div class="stat-card orange" id="cardSoon" data-filter="soon" role="button" tabindex="0" aria-pressed="false" onclick="setFilter('soon')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('soon');}"><div class="label" id="labelSoon">خلال 3 أشهر</div><div class="num" id="countSoon">-</div></div>
     <div class="stat-card green" id="cardOk" data-filter="ok" role="button" tabindex="0" aria-pressed="false" onclick="setFilter('ok')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('ok');}"><div class="label" id="labelOk">ضمن المدة الآمنة</div><div class="num" id="countOk">-</div></div>
@@ -107,6 +118,8 @@ let currentLang = "en";
 const text = {
   ar: {
     title:"مؤشر صلاحية الأدوية",
+    inspectionReport:"تقرير التفتيش",
+    removalReport:"تقرير الاستبعاد",
     officialLine1:"تجمع المدينة المنورة الصحي",
     officialLine2:"مستشفى الملك فهد بالمدينة المنورة",
     officialLine3:"إدارة الرعاية الصيدلانية",
@@ -129,6 +142,8 @@ emptyNote:"لا توجد بيانات لعرضها حالياً.",
   },
   en: {
     title:"Inspection Indicator",
+    inspectionReport:"Inspection Report",
+    removalReport:"Expiry Removal Report",
     officialLine1:"Madinah Health Cluster",
     officialLine2:"King Fahad Hospital - Madinah",
     officialLine3:"Pharmaceutical Care Administration",
@@ -156,7 +171,7 @@ function setLanguage(lang){
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
   document.title = text[lang].title;
-  ["officialLine1","officialLine2","officialLine3","pageTitle","labelExpired","labelSoon","labelOk","colName","colExpiry","colStatus","colEmployee","refreshNote"].forEach(id=>{
+  ["officialLine1","officialLine2","officialLine3","labelExpired","labelSoon","labelOk","colName","colExpiry","colStatus","colEmployee","refreshNote"].forEach(id=>{
     const key = id.replace("pageTitle","title");
     document.getElementById(id).innerText = text[lang][key];
   });
@@ -164,6 +179,11 @@ function setLanguage(lang){
   document.getElementById("printBtn").setAttribute("aria-label", text[lang].printBtnText);
   document.getElementById("refreshBtn").title = text[lang].refreshBtnText;
   document.getElementById("refreshBtn").setAttribute("aria-label", text[lang].refreshBtnText);
+  const reportType = document.getElementById("reportType");
+  if (reportType) {
+    reportType.options[0].textContent = text[lang].inspectionReport;
+    reportType.options[1].textContent = text[lang].removalReport;
+  }
   const homeLink = document.querySelector(".main-home-link");
   if (homeLink) {
     homeLink.title = text[lang].back;
@@ -181,6 +201,71 @@ function renderDate(){
   document.getElementById("dateBox").innerText = `${dayName} - ${date}`;
 }
 
+function buildReportMonthOptions(){
+  const select = document.getElementById("reportMonth");
+  if (!select || select.options.length) return;
+  const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const today = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(new Date());
+  const currentYear = Number(today.substring(0, 4));
+  const defaultMonth = getNextMonthValue();
+  for (let year = currentYear - 1; year <= currentYear + 1; year++) {
+    monthNames.forEach(function(monthName, index){
+      const monthNumber = String(index + 1).padStart(2, "0");
+      const value = year + "-" + monthNumber;
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = monthName + " " + year;
+      select.appendChild(option);
+    });
+  }
+  select.value = defaultMonth;
+}
+
+function getNextMonthValue(){
+  const today = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(new Date());
+  const parts = today.split("-");
+  let year = Number(parts[0]);
+  let month = Number(parts[1]) + 1;
+  if (month > 12) { month = 1; year += 1; }
+  return year + "-" + String(month).padStart(2, "0");
+}
+
+function getReportMonth(){
+  const select = document.getElementById("reportMonth");
+  return select && select.value ? select.value : getNextMonthValue();
+}
+
+function getReportType(){
+  const select = document.getElementById("reportType");
+  return select && select.value ? select.value : "inspection";
+}
+
+function getReportMonthLabel(){
+  const select = document.getElementById("reportMonth");
+  return select && select.selectedOptions.length ? select.selectedOptions[0].textContent : getReportMonth();
+}
+
+function updateReportTitle(){
+  const reportType = getReportType();
+  const title = reportType === "removal" ? text[currentLang].removalReport : text[currentLang].inspectionReport;
+  document.getElementById("pageTitle").innerText = title + " - " + getReportMonthLabel();
+}
+
+function refreshReportView(){
+  activeFilter = null;
+  updateReportTitle();
+  renderRows(lastItems);
+}
+
+function reportBaseItems(){
+  const month = getReportMonth();
+  const reportType = getReportType();
+  return lastItems.filter(function(item){
+    const itemMonth = String(item.expiry || "").substring(0, 7);
+    if (reportType === "removal") return itemMonth === month;
+    return itemMonth >= month;
+  });
+}
 function statusLabel(daysLeft){
   if (daysLeft < 0) return Math.abs(daysLeft) + text[currentLang].expiredSince;
   return text[currentLang].daysLeft + daysLeft;
@@ -218,9 +303,20 @@ function isThisMonth(expiry){
 }
 
 function itemBucket(item){
-  if (isThisMonth(item.expiry)) return "expired";
-  if (item.daysLeft >= 0 && item.daysLeft <= 90) return "soon";
+  const itemMonth = String(item.expiry || "").substring(0, 7);
+  const reportMonth = getReportMonth();
+  if (getReportType() === "removal") return "expired";
+  if (itemMonth === reportMonth) return "expired";
+  const distance = monthDistance(reportMonth, itemMonth);
+  if (distance > 0 && distance <= 3) return "soon";
   return "ok";
+}
+
+function monthDistance(fromMonth, toMonth){
+  const from = String(fromMonth || "").split("-");
+  const to = String(toMonth || "").split("-");
+  if (from.length < 2 || to.length < 2) return 999;
+  return ((Number(to[0]) - Number(from[0])) * 12) + (Number(to[1]) - Number(from[1]));
 }
 
 function matchesFilter(item){
@@ -246,7 +342,7 @@ function renderTable(){
   const tbody = document.getElementById("tableBody");
   const emptyNote = document.getElementById("emptyNote");
   tbody.innerHTML = "";
-  const filtered = lastItems.filter(function(m){ return matchesFilter(m); });
+  const filtered = reportBaseItems().filter(function(m){ return matchesFilter(m); });
   filtered.forEach(function(m){
     const tr = document.createElement("tr");
     tr.className = rowClass(m);
@@ -306,6 +402,8 @@ setInterval(loadData, 10000);
 </script>
 </body>
 </html>
+
+
 
 
 
