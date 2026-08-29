@@ -19,10 +19,10 @@ hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
 .page-title{text-align:center;font-size:23px;font-weight:bold;margin:18px 0 10px;color:#168fb3}
 .report-controls{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 auto 16px;flex-wrap:wrap;direction:ltr}
 .report-controls select{width:auto;min-width:178px;height:34px;padding:5px 10px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:#168fb3;font-size:13px;font-weight:bold;font-family:inherit;text-align:center;direction:ltr}
-.stats{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;justify-content:center}
-.stat-card{display:grid;justify-items:center;gap:4px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,.04);padding:10px 18px;min-width:118px;min-height:52px;text-align:center;cursor:pointer;transition:.15s ease;user-select:none}
-.stat-card .num{font-size:20px;font-weight:bold;line-height:1}
-.stat-card .label{font-size:13px;color:#168fb3;font-weight:bold}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;max-width:560px;margin:0 auto 18px;justify-content:center}
+.stat-card{display:grid;justify-items:center;align-content:center;gap:5px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,.04);padding:9px 10px;min-width:0;min-height:68px;text-align:center;cursor:pointer;transition:.15s ease;user-select:none}
+.stat-card .num{font-size:19px;font-weight:bold;line-height:1}
+.stat-card .label{font-size:12px;color:#168fb3;font-weight:bold;line-height:1.25;white-space:normal}
 .stat-card.red .num{color:#a12727}
 .stat-card.orange .num{color:#eab308}
 .stat-card.green .num{color:#0f7592}
@@ -31,7 +31,7 @@ hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
 .stat-card.red.active-filter{background:#fdeaea;border-color:#a12727}
 .stat-card.orange.active-filter{background:#fff6e0;border-color:#eab308}
 .stat-card.green.active-filter{background:#e6f2f5;border-color:#0f7592}
-.search-row{display:flex;justify-content:center;margin:-4px auto 16px;position:relative;max-width:360px}.medicine-search{width:100%;height:36px;border:1px solid #cbd5e1;border-radius:8px;padding:6px 12px;background:#fff;color:#168fb3;font-size:13px;font-weight:bold;text-align:center;font-family:inherit}.medicine-search::placeholder{color:#94a3b8;font-weight:normal}.action-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;direction:ltr}
+.search-row{display:flex;justify-content:center;margin:-2px auto 10px;position:relative;max-width:300px}.search-combo{position:relative;width:100%}.medicine-search{width:100%;height:36px;border:1px solid #cbd5e1;border-radius:8px;padding:6px 12px;background:#fff;color:#168fb3;font-size:13px;font-weight:bold;text-align:center;font-family:inherit}.medicine-search::placeholder{color:#94a3b8;font-weight:normal}.combo-options{position:absolute;top:100%;right:0;left:0;background:#fff;border:1px solid #cbd5e1;border-radius:8px;margin-top:-1px;max-height:190px;overflow-y:auto;box-shadow:0 10px 20px rgba(0,0,0,.1);z-index:20;display:none}.combo-option{padding:8px 10px;font-size:13px;cursor:pointer;text-align:left;direction:ltr;color:#168fb3}.combo-option:hover{background:#e0f2fe}.combo-empty{padding:9px 12px;font-size:12px;color:#94a3b8;text-align:center}.action-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:-4px 0 8px;direction:ltr}
 .action-btn{width:44px;min-width:44px;min-height:44px;padding:0;border:0;border-radius:0;background:transparent;color:#168fb3;font-size:26px;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-family:inherit}
 .action-btn:hover{background:transparent;transform:scale(1.08)}
 .table-wrap{overflow-x:auto;border-radius:10px;border:1px solid #e5e7eb;box-shadow:0 4px 10px rgba(0,0,0,.04)}
@@ -51,7 +51,7 @@ tr:last-child td{border-bottom:0}
 .empty-note,.refresh-note{text-align:center;font-size:12px;color:#888;margin-top:10px}
 .main-home-link{display:flex;align-items:center;justify-content:center;width:fit-content;margin:22px auto 0;color:#168fb3;text-decoration:none;font-size:28px;line-height:1;background:transparent;border:none;padding:4px}
 .main-home-link:hover{color:#0f7592}
-@media (max-width:700px){body{padding:10px;background:#fff}.container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}.logo{width:84px;height:84px}.official-header{transform:translateY(10px)}.official-header h2,.official-header h3{font-size:12px}.page-title{font-size:20px;margin-bottom:10px}.report-controls{gap:8px;margin-bottom:14px}.report-controls select{min-width:150px;font-size:12px}.stat-card{min-width:96px;padding:8px 12px}.stat-card .num{font-size:18px}.search-row{max-width:280px;margin-bottom:14px}.medicine-search{height:34px;font-size:12px}th,td{padding:8px 8px;font-size:12px}.action-btn{width:40px;min-width:40px;min-height:40px;font-size:22px}}
+@media (max-width:700px){body{padding:10px;background:#fff}.container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}.logo{width:84px;height:84px}.official-header{transform:translateY(10px)}.official-header h2,.official-header h3{font-size:12px}.page-title{font-size:20px;margin-bottom:10px}.report-controls{gap:8px;margin-bottom:14px}.report-controls select{min-width:150px;font-size:12px}.stats{max-width:100%;gap:7px;margin-bottom:14px}.stat-card{padding:8px 5px;min-height:62px}.stat-card .label{font-size:10.5px}.stat-card .num{font-size:17px}.search-row{max-width:240px;margin-bottom:10px}.medicine-search{height:34px;font-size:12px}th,td{padding:8px 8px;font-size:12px}.action-btn{width:40px;min-width:40px;min-height:40px;font-size:22px}}
 @media print{.language-chip,.main-home-link,.action-row,.refresh-note,.report-controls,.search-row{display:none !important}body{background:#fff;padding:0}.container{max-width:none;width:100%;min-height:auto;margin:0;padding:18px 22px;border:1px solid #dbe7ed;border-radius:8px;box-shadow:none}.logo{width:82px;height:82px}.official-header{transform:none}.official-header h2,.official-header h3{font-size:11px}.page-title{font-size:22px;margin:10px 0 4px}.meta-row{justify-content:center;margin-bottom:8px}.date-box{font-size:12px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 18px}.stat-card{box-shadow:none;min-height:58px;padding:8px 10px}.table-wrap{box-shadow:none;border-radius:8px}th{font-size:12px}td{font-size:11px;padding:7px 8px}}
 </style>
 </head>
@@ -88,8 +88,10 @@ tr:last-child td{border-bottom:0}
   </div>
 
   <div class="search-row">
-    <input class="medicine-search" id="medicineSearch" list="medicineSearchOptions" autocomplete="off" oninput="setMedicineSearch(this.value)">
-    <datalist id="medicineSearchOptions"></datalist>
+    <div class="search-combo">
+      <input class="medicine-search" id="medicineSearch" autocomplete="off" oninput="setMedicineSearch(this.value)" onclick="openMedicineSearchOptions()">
+      <div class="combo-options" id="medicineSearchOptions"></div>
+    </div>
   </div>
 
   <div class="action-row">
@@ -334,7 +336,16 @@ function matchesFilter(item){
 
 function setMedicineSearch(value){
   medicineSearchQuery = String(value || "").trim().toLowerCase();
+  const list = document.getElementById("medicineSearchOptions");
+  if (list && list.style.display === "block") {
+    renderMedicineSearchOptions(value);
+  }
   renderTable();
+}
+
+function openMedicineSearchOptions(){
+  const input = document.getElementById("medicineSearch");
+  renderMedicineSearchOptions(input ? input.value : "");
 }
 
 function matchesMedicineSearch(item){
@@ -342,11 +353,42 @@ function matchesMedicineSearch(item){
   return String(item.name || "").toLowerCase().includes(medicineSearchQuery);
 }
 
-function renderMedicineSearchOptions(){
+function renderMedicineSearchOptions(filterText){
   const list = document.getElementById("medicineSearchOptions");
   if (!list) return;
-  const names = Array.from(new Set(reportBaseItems().map(function(item){ return item.name; }).filter(Boolean))).sort(function(a,b){ return a.localeCompare(b); });
-  list.innerHTML = names.map(function(name){ return "<option value=\"" + escapeHtml(name) + "\"></option>"; }).join("");
+  const q = String(filterText || "").trim().toLowerCase();
+  const names = Array.from(new Set(reportBaseItems().map(function(item){ return item.name; }).filter(Boolean)))
+    .filter(function(name){ return !q || name.toLowerCase().includes(q); })
+    .sort(function(a,b){ return a.localeCompare(b); })
+    .slice(0, 50);
+  list.innerHTML = "";
+  if (!names.length) {
+    const empty = document.createElement("div");
+    empty.className = "combo-empty";
+    empty.innerText = text[currentLang].emptyNote;
+    list.appendChild(empty);
+  } else {
+    names.forEach(function(name){
+      const opt = document.createElement("div");
+      opt.className = "combo-option";
+      opt.innerText = name;
+      opt.onmousedown = function(e){
+        e.preventDefault();
+        selectMedicineSearch(name);
+      };
+      list.appendChild(opt);
+    });
+  }
+  list.style.display = "block";
+}
+
+function selectMedicineSearch(name){
+  const input = document.getElementById("medicineSearch");
+  if (input) input.value = name;
+  medicineSearchQuery = String(name || "").trim().toLowerCase();
+  const list = document.getElementById("medicineSearchOptions");
+  if (list) list.style.display = "none";
+  renderTable();
 }
 
 function escapeHtml(value){
@@ -400,12 +442,14 @@ function renderRows(items){
   document.getElementById("countExpired").textContent = expired;
   document.getElementById("countSoon").textContent = soon;
   document.getElementById("countOk").textContent = ok;
-  renderMedicineSearchOptions();
   renderTable();
 }
 
 function refreshData(){
   activeFilter = null;
+  medicineSearchQuery = "";
+  const searchInput = document.getElementById("medicineSearch");
+  if (searchInput) searchInput.value = "";
   updateFilterCardsUI();
   renderTable();
   loadData();
@@ -428,6 +472,12 @@ function loadData(){
     });
 }
 
+document.addEventListener("click", function(e){
+  if (!e.target.closest(".search-combo")) {
+    const list = document.getElementById("medicineSearchOptions");
+    if (list) list.style.display = "none";
+  }
+});
 buildReportMonthOptions();
 setLanguage("en");
 loadData();
@@ -435,6 +485,13 @@ setInterval(loadData, 10000);
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
 
 
 
