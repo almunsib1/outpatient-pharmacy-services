@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تسجيل تاريخ الانتهاء</title>
+<title>Expiry Inspection</title>
 <style>
 *{box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
@@ -16,9 +16,12 @@ hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
 .meta-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;direction:ltr}
 .date-box{color:#168fb3;padding:4px 0;font-size:13px;font-weight:bold;text-align:center}
 .language-chip{color:#168fb3;font-size:13px;font-weight:bold;padding:4px 0;white-space:nowrap;background:transparent;border:0;cursor:pointer;font-family:inherit}
-.page-title{text-align:center;font-size:23px;font-weight:bold;margin:18px 0 22px;color:#168fb3}
-label{font-weight:bold;display:block;margin-bottom:3px;color:#111827;font-size:13px}
-input{width:100%;height:38px;padding:7px 10px;margin-top:5px;margin-bottom:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;background:#fff;text-align:start;font-family:inherit}
+.title-row{display:flex;align-items:center;justify-content:center;gap:10px;margin:18px auto 22px;flex-wrap:wrap}
+.page-title{text-align:center;font-size:23px;font-weight:bold;margin:0;color:#168fb3}
+.inspection-month-select{width:auto;min-width:128px;height:34px;padding:5px 9px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:#168fb3;font-size:13px;font-weight:bold;font-family:inherit;text-align:center;direction:ltr}
+label{font-weight:bold;display:block;margin-bottom:2px;color:#111827;font-size:12px}
+input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:13px;background:#fff;text-align:start;font-family:inherit}
+#medName{direction:ltr;text-align:left}
 .primary-btn{padding:9px 18px;background:#168fb3;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer;font-family:inherit}
 .primary-btn:hover{filter:brightness(1.05)}
 .primary-btn:disabled{background:#94a3b8;cursor:not-allowed}
@@ -34,13 +37,13 @@ input{width:100%;height:38px;padding:7px 10px;margin-top:5px;margin-bottom:12px;
 .logout-icon{width:30px;height:30px;padding:0;border:none;background:transparent;color:#168fb3;font-size:22px;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
 .logout-icon:hover{transform:scale(1.08)}
 .power-svg{width:20px;height:20px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.form-panel{background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:18px}
-.combo-wrap{position:relative}
-.combo-options{position:absolute;top:100%;right:0;left:0;background:#fff;border:1px solid #cbd5e1;border-radius:8px;margin-top:-8px;max-height:190px;overflow-y:auto;box-shadow:0 10px 20px rgba(0,0,0,.1);z-index:20;display:none}
-.combo-option{padding:9px 12px;font-size:14px;cursor:pointer}
+.form-panel{width:min(100%,360px);margin:0 auto;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:16px}
+.combo-wrap{position:relative;width:100%;margin:0 auto}
+.combo-options{position:absolute;top:100%;right:0;left:0;background:#fff;border:1px solid #cbd5e1;border-radius:8px;margin-top:-6px;max-height:190px;overflow-y:auto;box-shadow:0 10px 20px rgba(0,0,0,.1);z-index:20;display:none}
+.combo-option{padding:8px 10px;font-size:13px;cursor:pointer;text-align:left;direction:ltr}
 .combo-option:hover,.combo-option.active{background:#e0f2fe}
 .combo-empty{padding:9px 12px;font-size:12px;color:#94a3b8}
-.form-actions{display:flex;justify-content:center;margin-top:6px}
+.form-actions{display:flex;justify-content:center;margin-top:4px}
 .conflict-box{display:none;background:#fff6e0;border:1px solid #eab308;border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:13px;color:#7c5a00}
 .conflict-box ul{margin:8px 0;padding-inline-start:18px}
 .conflict-actions{display:flex;gap:10px;justify-content:center;margin-top:10px}
@@ -51,7 +54,7 @@ input{width:100%;height:38px;padding:7px 10px;margin-top:5px;margin-bottom:12px;
 #result.success,#loginResult.success{display:block;background:#ecfdf5;color:#065f46}
 .main-home-link{display:flex;align-items:center;justify-content:center;width:fit-content;margin:22px auto 0;color:#168fb3;text-decoration:none;font-size:28px;line-height:1;background:transparent;border:none;padding:4px}
 .main-home-link:hover{color:#0f7592}
-@media (max-width:700px){body{padding:10px;background:#fff}.container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}.logo{width:84px;height:84px}.official-header{transform:translateY(10px)}.official-header h2,.official-header h3{font-size:12px}.page-title{font-size:20px;margin-bottom:20px}.login-actions .primary-btn,.login-actions .secondary-btn{width:44px!important;height:44px!important}}
+@media (max-width:700px){body{padding:10px;background:#fff}.container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}.logo{width:84px;height:84px}.official-header{transform:translateY(10px)}.official-header h2,.official-header h3{font-size:12px}.title-row{gap:8px;margin-bottom:20px}.page-title{font-size:20px}.inspection-month-select{height:32px;min-width:118px;font-size:12px}.form-panel{width:min(100%,320px);padding:14px}.login-actions .primary-btn,.login-actions .secondary-btn{width:44px!important;height:44px!important}}
 </style>
 </head>
 <body>
@@ -70,7 +73,23 @@ input{width:100%;height:38px;padding:7px 10px;margin-top:5px;margin-bottom:12px;
     <button type="button" class="language-chip" id="languageToggle" onclick="toggleLanguage()">🌐 ع | E</button>
   </div>
 
-  <h1 class="page-title" id="pageTitle">تسجيل تاريخ الانتهاء</h1>
+  <div class="title-row">
+    <h1 class="page-title" id="pageTitle">Expiry Inspection</h1>
+    <select id="inspectionMonth" class="inspection-month-select" aria-label="Inspection Month">
+      <option value="01">January</option>
+      <option value="02">February</option>
+      <option value="03">March</option>
+      <option value="04">April</option>
+      <option value="05">May</option>
+      <option value="06">June</option>
+      <option value="07">July</option>
+      <option value="08">August</option>
+      <option value="09">September</option>
+      <option value="10">October</option>
+      <option value="11">November</option>
+      <option value="12">December</option>
+    </select>
+  </div>
 
   <div id="loginView" class="login-card">
     <label id="usernameLabel" for="username">اسم المستخدم</label>
@@ -111,7 +130,7 @@ input{width:100%;height:38px;padding:7px 10px;margin-top:5px;margin-bottom:12px;
     <div class="form-panel">
       <label id="medNameLabel" for="medName">اسم الدواء</label>
       <div class="combo-wrap">
-        <input type="text" id="medName" autocomplete="off">
+        <input type="text" id="medName" autocomplete="off" dir="ltr" lang="en" inputmode="text" pattern="[A-Za-z0-9\\s\\-_/().,+%]*">
         <div class="combo-options" id="medNameOptions"></div>
       </div>
       <label id="medExpiryLabel" for="medExpiry">تاريخ الانتهاء</label>
@@ -134,7 +153,7 @@ const KIDNEY_API_URL = "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtX
 // const MEDICATIONS = ["أموكسيسيلين 500مج", "إيبوبروفين 400مج", "..."];
 const MEDICATIONS = [];
 
-let currentLang = "ar";
+let currentLang = "en";
 let currentEmployeeName = sessionStorage.getItem("kidneyEmployeeName") || "";
 let currentEmployeeUsername = sessionStorage.getItem("kidneyEmployeeUsername") || "";
 let pendingMedication = null;
@@ -143,7 +162,7 @@ const INACTIVITY_LIMIT_MS = 30 * 60 * 1000;
 
 const text = {
   ar: {
-    title:"تسجيل تاريخ الانتهاء",
+    title:"فحص صلاحية الأدوية",
     officialLine1:"تجمع المدينة المنورة الصحي",
     officialLine2:"مستشفى الملك فهد بالمدينة المنورة",
     officialLine3:"إدارة الرعاية الصيدلانية",
@@ -164,6 +183,7 @@ const text = {
     medExpiry:"تاريخ الانتهاء",
     submit:"تسجيل",
     missingFields:"الرجاء تعبئة اسم الدواء وتاريخ الانتهاء.",
+    englishNameOnly:"اسم الدواء يجب أن يكون باللغة الإنجليزية فقط.",
     saved:"تم تسجيل الدواء بنجاح.",
     saveFailed:"تعذر حفظ البيانات، حاول لاحقاً.",
     conflictTitle:"يوجد تسجيل سابق لنفس الدواء بتاريخ أقدم:",
@@ -172,7 +192,7 @@ const text = {
     back:"العودة إلى صيدلية مركز الكلى"
   },
   en: {
-    title:"Register Expiry Date",
+    title:"Expiry Inspection",
     officialLine1:"Madinah Health Cluster",
     officialLine2:"King Fahad Hospital - Madinah",
     officialLine3:"Pharmaceutical Care Administration",
@@ -193,6 +213,7 @@ const text = {
     medExpiry:"Expiry Date",
     submit:"Register",
     missingFields:"Please fill in the medication name and expiry date.",
+    englishNameOnly:"Medication name must be in English only.",
     saved:"Medication registered successfully.",
     saveFailed:"Could not save the data, try again later.",
     conflictTitle:"An earlier expiry date is already registered for this medication:",
@@ -235,8 +256,14 @@ function setLanguage(lang){
     homeLink.setAttribute("aria-label", text[lang].back);
   }
   document.getElementById("languageToggle").innerText = "🌐 ع | E";
+  document.getElementById("inspectionMonth").setAttribute("aria-label", lang === "ar" ? "شهر التفتيش" : "Inspection Month");
   if (currentEmployeeName) document.getElementById("employeeName").innerText = currentEmployeeName;
   renderDate();
+}
+function setDefaultInspectionMonth(){
+  const month = new Intl.DateTimeFormat("en-US", { timeZone:"Asia/Riyadh", month:"2-digit" }).format(new Date());
+  const select = document.getElementById("inspectionMonth");
+  if (select) select.value = month;
 }
 function toggleLanguage(){ setLanguage(currentLang === "ar" ? "en" : "ar"); }
 function renderDate(){
@@ -356,11 +383,16 @@ function selectMedication(name){
   document.getElementById("medNameOptions").style.display = "none";
 }
 
+function isEnglishMedicationName(value){
+  return /^[A-Za-z0-9][A-Za-z0-9\s\-_/().,+%]*$/.test(value);
+}
+
 async function submitMedication(){
   clearResult();
   const name = document.getElementById("medName").value.trim();
   const expiry = document.getElementById("medExpiry").value;
   if (!name || !expiry){ showResult("error", text[currentLang].missingFields); return; }
+  if (!isEnglishMedicationName(name)){ showResult("error", text[currentLang].englishNameOnly); return; }
   if (!KIDNEY_API_URL){ showResult("error", text[currentLang].notConfigured); return; }
 
   try{
@@ -454,13 +486,18 @@ document.addEventListener("click", function(e){
   }
 });
 
-setLanguage("ar");
+setLanguage("en");
+setDefaultInspectionMonth();
 if (currentEmployeeName) {
   showEmployeeView();
 }
 </script>
 </body>
 </html>
+
+
+
+
 
 
 
