@@ -121,9 +121,7 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
       </div>
       <label id="medExpiryLabel" for="medExpiry">تاريخ الانتهاء</label>
       <input type="date" id="medExpiry">
-      <label id="inspectionMonthLabel" for="inspectionMonth">Inspection Month</label>
-      <select id="inspectionMonth" class="inspection-month-select"></select>
-      <div class="form-actions">
+<div class="form-actions">
         <button type="button" class="primary-btn" id="submitBtn" onclick="submitMedication()">تسجيل</button>
       </div>
     </div>
@@ -169,9 +167,8 @@ const text = {
     noMatches:"لا يوجد دواء مطابق في القائمة.",
     medName:"اسم الدواء",
     medExpiry:"تاريخ الانتهاء",
-    inspectionMonth:"شهر التفتيش",
-    submit:"تسجيل",
-    missingFields:"الرجاء تعبئة اسم الدواء وتاريخ الانتهاء وشهر التفتيش.",
+submit:"تسجيل",
+    missingFields:"الرجاء تعبئة اسم الدواء وتاريخ الانتهاء.",
     englishNameOnly:"اسم الدواء يجب أن يكون باللغة الإنجليزية فقط.",
     saved:"تم تسجيل الدواء بنجاح.",
     saveFailed:"تعذر حفظ البيانات، حاول لاحقاً.",
@@ -200,9 +197,8 @@ const text = {
     noMatches:"No matching medication in the list.",
     medName:"Medication Name",
     medExpiry:"Expiry Date",
-    inspectionMonth:"Inspection Month",
-    submit:"Register",
-    missingFields:"Please fill in the medication name, expiry date, and inspection month.",
+submit:"Register",
+    missingFields:"Please fill in the medication name and expiry date.",
     englishNameOnly:"Medication name must be in English only.",
     saved:"Medication registered successfully.",
     saveFailed:"Could not save the data, try again later.",
@@ -236,8 +232,7 @@ function setLanguage(lang){
   document.getElementById("logoutBtn").setAttribute("aria-label", text[lang].logout);
   document.getElementById("medNameLabel").innerText = text[lang].medName;
   document.getElementById("medExpiryLabel").innerText = text[lang].medExpiry;
-  document.getElementById("inspectionMonthLabel").innerText = text[lang].inspectionMonth;
-  document.getElementById("submitBtn").innerText = text[lang].submit;
+document.getElementById("submitBtn").innerText = text[lang].submit;
   document.getElementById("confirmSaveBtn").innerText = text[lang].confirmSave;
   document.getElementById("cancelConflictBtn").innerText = text[lang].cancel;
   document.getElementById("conflictText").innerText = text[lang].conflictTitle;
@@ -333,34 +328,6 @@ function resetInactivityTimer(){
   }, INACTIVITY_LIMIT_MS);
 }
 
-function buildInspectionMonthOptions(){
-  const select = document.getElementById("inspectionMonth");
-  if (!select || select.options.length) return;
-  const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-  const today = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(new Date());
-  const currentYear = Number(today.substring(0, 4));
-  const defaultMonth = getNextInspectionMonthValue();
-  for (let year = currentYear - 1; year <= currentYear + 1; year++) {
-    monthNames.forEach(function(monthName, index){
-      const monthNumber = String(index + 1).padStart(2, "0");
-      const value = year + "-" + monthNumber;
-      const option = document.createElement("option");
-      option.value = value;
-      option.textContent = monthName + " " + year;
-      select.appendChild(option);
-    });
-  }
-  select.value = defaultMonth;
-}
-
-function getNextInspectionMonthValue(){
-  const today = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(new Date());
-  const parts = today.split("-");
-  let year = Number(parts[0]);
-  let month = Number(parts[1]) + 1;
-  if (month > 12) { month = 1; year += 1; }
-  return year + "-" + String(month).padStart(2, "0");
-}
 function renderMedOptions(filterText){
   const box = document.getElementById("medNameOptions");
   if (!MEDICATIONS.length){ box.style.display = "none"; return; }
@@ -396,8 +363,7 @@ async function submitMedication(){
   clearResult();
   const name = document.getElementById("medName").value.trim();
   const expiry = document.getElementById("medExpiry").value;
-  const inspectionMonth = document.getElementById("inspectionMonth").value;
-  if (!name || !expiry || !inspectionMonth){ showResult("error", text[currentLang].missingFields); return; }
+  if (!name || !expiry){ showResult("error", text[currentLang].missingFields); return; }
   if (!isEnglishMedicationName(name)){ showResult("error", text[currentLang].englishNameOnly); return; }
   if (!KIDNEY_API_URL){ showResult("error", text[currentLang].notConfigured); return; }
 
@@ -407,7 +373,7 @@ async function submitMedication(){
     const matches = (data && data.matches) || [];
     const older = matches.filter(function(m){ return m.expiry && m.expiry < expiry; });
     if (older.length){
-      pendingMedication = { name, expiry, inspectionMonth };
+      pendingMedication = { name, expiry };
       showConflict(older);
       return;
     }
@@ -415,7 +381,7 @@ async function submitMedication(){
     // تعذر التحقق من التكرار، نكمل الحفظ مباشرة
   }
 
-  await saveMedication(name, expiry, inspectionMonth);
+  await saveMedication(name, expiry);
 }
 
 function showConflict(older){
@@ -436,19 +402,18 @@ function cancelConflict(){
 
 async function confirmSave(){
   if (!pendingMedication) return;
-  const { name, expiry, inspectionMonth } = pendingMedication;
+  const { name, expiry } = pendingMedication;
   document.getElementById("conflictBox").style.display = "none";
-  await saveMedication(name, expiry, inspectionMonth);
+  await saveMedication(name, expiry);
 }
 
-async function saveMedication(name, expiry, inspectionMonth){
+async function saveMedication(name, expiry){
   try{
     const response = await fetch(KIDNEY_API_URL, {
       method:"POST",
       body: JSON.stringify({
         action:"addMedication",
         name, expiry,
-        inspectionMonth,
         registeredByUsername: currentEmployeeUsername,
         registeredByName: currentEmployeeName
       })
@@ -493,7 +458,6 @@ document.addEventListener("click", function(e){
   }
 });
 
-buildInspectionMonthOptions();
 setLanguage("en");
 if (currentEmployeeName) {
   showEmployeeView();
@@ -501,6 +465,7 @@ if (currentEmployeeName) {
 </script>
 </body>
 </html>
+
 
 
 
