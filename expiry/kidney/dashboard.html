@@ -359,7 +359,7 @@ function renderTable(){
 function renderRows(items){
   lastItems = items || [];
   let expired = 0, soon = 0, ok = 0;
-  lastItems.forEach(function(m){
+  reportBaseItems().forEach(function(m){
     const bucket = itemBucket(m);
     if (bucket === "expired") expired++;
     else if (bucket === "soon") soon++;
@@ -402,6 +402,7 @@ setInterval(loadData, 10000);
 </script>
 </body>
 </html>
+
 
 
 
