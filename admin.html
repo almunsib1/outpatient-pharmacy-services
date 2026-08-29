@@ -18,20 +18,17 @@ body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color
 hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
 .meta-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;direction:ltr}
 .date-box{color:#168fb3;padding:6px 10px;font-size:13px;font-weight:bold;text-align:center}
-.language-btn{border:none;background:transparent;cursor:pointer;font-size:13px;font-weight:bold;color:#168fb3;padding:4px 0;border-radius:0}
+.language-btn{border:none;background:transparent;cursor:pointer;font-size:13px;font-weight:bold;color:#168fb3;padding:4px 0}
 .secondary-btn{border:1px solid #cbd5e1;background:#fff;cursor:pointer;font-size:13px;font-weight:bold;color:#168fb3;padding:7px 10px;border-radius:8px}
-.language-btn:hover{background:transparent}
-.secondary-btn:hover{background:#f9fafb}
 .page-title{text-align:center;font-size:24px;font-weight:bold;margin:14px 0 10px;color:#168fb3}
 .login-card,.panel,.empty-box{border:1px solid #e5e7eb;background:#f9fafb;border-radius:8px;padding:14px;margin-top:14px}
-/* Login style reference: match medication/employee.html login card. */
 .login-card{max-width:280px;margin:16px auto 0;background:#f9fafb;box-shadow:none;padding:12px}
 label{font-weight:bold;display:block;margin-bottom:3px;color:#111827;font-size:13px}
 input{width:100%;height:36px;padding:7px 10px;margin-top:5px;margin-bottom:10px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;background:#fff;text-align:start}
 .primary-btn{padding:9px 18px;background:#168fb3;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:bold;cursor:pointer}
 .primary-btn:disabled{background:#94a3b8;cursor:not-allowed}
 .login-actions{display:flex;align-items:center;justify-content:center;gap:8px;width:fit-content;margin:2px auto 0}
-.login-actions .primary-btn,.login-actions .secondary-btn{width:36px;height:36px;margin:0;padding:0;display:inline-flex;align-items:center;justify-content:center;font-size:18px;line-height:1}
+.login-actions .primary-btn,.login-actions .secondary-btn{width:36px;height:36px;margin:0;padding:0;display:inline-flex;align-items:center;justify-content:center}
 .login-svg{width:20px;height:20px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .admin-top{display:flex;align-items:center;justify-content:center;gap:8px;border:none;background:transparent;padding:0;margin:4px auto 12px}
 .admin-name{font-weight:bold;color:#168fb3}
@@ -43,27 +40,22 @@ input{width:100%;height:36px;padding:7px 10px;margin-top:5px;margin-bottom:10px;
 .check-pill input{width:auto;height:auto;margin:0}
 .form-actions{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:2px}
 .form-actions .primary-btn,.form-actions .secondary-btn{height:36px;margin:0;min-width:120px}
-.table-wrap{overflow-x:auto;margin-top:16px}
-table{width:100%;border-collapse:collapse;min-width:1000px;background:#fff}
-th,td{padding:8px;border:1px solid #e5e7eb;text-align:center;color:#111827;font-size:13px}
+.table-wrap{overflow-x:auto;max-width:980px;margin:14px auto 0}
+table{width:100%;border-collapse:collapse;min-width:840px;background:#fff}
+th,td{padding:6px 5px;border:1px solid #e5e7eb;text-align:center;color:#111827;font-size:12px}
 th{background:#168fb3;color:#fff}
-.status-pill{display:inline-block;min-width:70px;padding:4px 8px;border-radius:8px;font-weight:bold;font-size:12px}
+.status-pill{display:inline-block;min-width:58px;padding:3px 6px;border-radius:8px;font-weight:bold;font-size:11px}
 .status-active{background:#ecfdf5;color:#047857}
 .status-inactive{background:#fff7ed;color:#9a3412}
 .status-none{background:#f1f5f9;color:#64748b}
-.row-actions{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:nowrap}
-.icon-only{border:none;background:transparent;cursor:pointer;font-size:18px;line-height:1;padding:2px}
+.icon-only{border:none;background:transparent;cursor:pointer;font-size:16px;line-height:1;padding:1px}
 .edit-btn{color:#168fb3}
 .delete-btn{color:#b91c1c}
 #result,#loginResult{display:none;margin-top:12px;padding:10px;border-radius:8px;text-align:center}
 #result.error,#loginResult.error{display:block;background:#fef2f2;color:#991b1b}
 #result.success,#loginResult.success{display:block;background:#ecfdf5;color:#065f46}
 .panel{padding:12px}
-.table-wrap{max-width:980px;margin:14px auto 0}
-table{min-width:840px}
-th,td{padding:6px 5px;font-size:12px}
-.status-pill{min-width:58px;padding:3px 6px;font-size:11px}
-.icon-only{font-size:16px;padding:1px}
+
 @media (max-width:700px){
 body{padding:10px;background:#fff}
 .container{padding:14px;border-radius:0;box-shadow:none}
@@ -71,23 +63,17 @@ body{padding:10px;background:#fff}
 .official-header{transform:translateY(10px)}
 .official-header h2,.official-header h3{font-size:12px}
 .page-title{font-size:20px}
-.date-box,.language-btn{font-size:12px;padding:6px 9px}
 .form-grid{grid-template-columns:1fr;max-width:320px}
 .form-actions{flex-wrap:wrap}
 .login-card{max-width:280px;padding:12px}
-.login-actions{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:10px;width:fit-content;margin:8px auto 0}
-.login-actions .primary-btn,.login-actions .secondary-btn{width:42px!important;min-width:42px!important;height:42px!important;min-height:42px!important;margin:0!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:20px;line-height:1;writing-mode:horizontal-tb}
-.admin-top{justify-content:center}
-.table-wrap{margin-top:12px}
 table{min-width:760px}
-th,td{padding:5px 4px;font-size:11px}
-.status-pill{font-size:10px}
 }
 </style>
 </head>
 
 <body>
 <div class="container">
+
 <div class="top-bar">
   <div class="official-header">
     <h2 id="officialLine1"></h2>
@@ -109,58 +95,75 @@ th,td{padding:5px 4px;font-size:11px}
 <div id="loginView" class="login-card">
   <label id="adminUsernameLabel" for="adminUsername"></label>
   <input type="text" id="adminUsername" autocomplete="username">
+
   <label for="adminPin">PIN</label>
   <input type="password" id="adminPin" inputmode="numeric" autocomplete="current-password">
+
   <div class="login-actions">
     <button type="button" class="primary-btn" id="loginBtn" onclick="loginAdmin()"></button>
     <button type="button" class="secondary-btn" id="changePinBtn" onclick="changeLoginPin()">🔑</button>
   </div>
+
   <div id="loginResult"></div>
 </div>
 
 <div id="adminView" style="display:none">
+
   <div class="admin-top">
     <span class="admin-name" id="adminName"></span>
     <button type="button" class="logout-btn" id="logoutBtn" onclick="logoutAdmin()"></button>
   </div>
 
   <div class="panel">
+
     <div class="form-grid">
+
       <div>
         <label id="usernameLabel" for="usernameInput"></label>
         <input type="text" id="usernameInput">
       </div>
+
       <div>
         <label id="pinLabel" for="pinInput"></label>
-        <input type="text" id="pinInput">
+        <input type="text" id="pinInput" inputmode="numeric">
       </div>
+
       <div>
         <label id="nameLabel" for="nameInput"></label>
         <input type="text" id="nameInput">
       </div>
+
     </div>
+
     <div class="permissions-row">
+
       <label class="check-pill">
         <input id="medAccessInput" type="checkbox" checked>
         <span id="medAccessLabel"></span>
       </label>
+
       <label class="check-pill">
         <input id="mailAccessInput" type="checkbox">
         <span id="mailAccessLabel"></span>
       </label>
+
       <label class="check-pill">
         <input id="kidneyAccessInput" type="checkbox">
         <span id="kidneyAccessLabel"></span>
       </label>
+
       <label class="check-pill">
         <input id="activeInput" type="checkbox" checked>
         <span id="activeLabel"></span>
       </label>
+
     </div>
+
     <div class="form-actions">
       <button type="button" class="primary-btn" id="saveUserBtn" onclick="saveUser()"></button>
       <button type="button" class="secondary-btn" id="clearFormBtn" onclick="clearForm()"></button>
     </div>
+
   </div>
 
   <div id="result"></div>
@@ -176,614 +179,1556 @@ th,td{padding:5px 4px;font-size:11px}
           <th id="medHeader"></th>
           <th id="mailHeader"></th>
           <th id="kidneyHeader"></th>
+          <th id="activeHeader"></th>
           <th id="editHeader"></th>
           <th id="deleteHeader"></th>
         </tr>
       </thead>
+
       <tbody id="usersBody"></tbody>
     </table>
   </div>
+
 </div>
+
 </div>
 
 <script>
-const MED_API_URL = "https://script.google.com/macros/s/AKfycbw9JM87uiSHihWDP0N1gn4IskEG_8O-fWleathLZW9Wwbs915UQz8Gq5k2dIwAGImCF/exec";
-const MAIL_API_URL = "https://script.google.com/macros/s/AKfycbw0jSrbe1SM596Kyv0EpB6VTKEXT81c2Cn8Wlc2lEQ_RzbrS9b6w-k4gyrflwPBTgpKSQ/exec";
-// TODO: ضع رابط Google Apps Script Web App الخاص بموديول صيدلية الكلى هنا بعد النشر (ينتهي بـ /exec)
-// نفس الرابط المستخدم في expiry/kidney/form.html وexpiry/kidney/dashboard.html.
-const KIDNEY_API_URL = "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wCZnp6OPiKVurOOL8YG_Ma1mPMhgmzWFadYGxWV4CDejgcIw/exec";
+
+/*
+  قاعدة المستخدمين المركزية أصبحت في
+  Medication Booking Apps Script فقط.
+*/
+const UNIFIED_API_URL =
+"https://script.google.com/macros/s/AKfycbw9JM87uiSHihWDP0N1gn4IskEG_8O-fWleathLZW9Wwbs915UQz8Gq5k2dIwAGImCF/exec";
 
 let currentLang = "ar";
-let adminUsername = sessionStorage.getItem("unifiedAdminUsername") || "";
-let adminPin = sessionStorage.getItem("unifiedAdminPin") || "";
+
+let adminUsername =
+  sessionStorage.getItem("unifiedAdminUsername") || "";
+
+let adminPin =
+  sessionStorage.getItem("unifiedAdminPin") || "";
+
 let editingUsername = "";
 let users = [];
 let inactivityTimer = null;
-const INACTIVITY_LIMIT_MS = 30 * 60 * 1000;
+
+const INACTIVITY_LIMIT_MS =
+  30 * 60 * 1000;
 
 const text = {
+
   ar: {
-    officialLine1: "تجمع المدينة المنورة الصحي",
-    officialLine2: "مستشفى الملك فهد بالمدينة المنورة",
-    officialLine3: "إدارة الرعاية الصيدلانية",
-    pageTitle: "إدارة المستخدمين الموحدة",
-    username: "اسم المستخدم",
-    pin: "PIN",
-    name: "الاسم",
-    login: "تسجيل الدخول",
-    invalidLogin: "ليس لديك صلاحيات المستخدم الرئيسي.",
-    logout: "تسجيل الخروج",
-    medAccess: "حجز المواعيد",
-    mailAccess: "وصفات البريد",
-    kidneyAccess: "صيدلية الكلى",
-    active: "نشط",
-    inactive: "غير نشط",
-    noAccess: "لا يوجد",
-    save: "إضافة مستخدم",
-    update: "تحديث المستخدم",
-    clear: "مسح الحقول",
-    edit: "تعديل",
-    delete: "حذف",
-    loading: "جاري التحميل...",
-    noUsers: "لا يوجد مستخدمون.",
-    saved: "تم حفظ بيانات المستخدم.",
-    deleted: "تم حذف المستخدم.",
-    failed: "تعذر تنفيذ العملية.",
-    confirmDelete: "هل تريد حذف المستخدم من المشروعين؟",
-    pinRequired: "أدخل PIN للمستخدم عند منحه صلاحية وصفات البريد."
+    officialLine1:
+      "تجمع المدينة المنورة الصحي",
+
+    officialLine2:
+      "مستشفى الملك فهد بالمدينة المنورة",
+
+    officialLine3:
+      "إدارة الرعاية الصيدلانية",
+
+    pageTitle:
+      "إدارة المستخدمين الموحدة",
+
+    username:
+      "اسم المستخدم",
+
+    pin:
+      "PIN",
+
+    name:
+      "الاسم",
+
+    login:
+      "تسجيل الدخول",
+
+    invalidLogin:
+      "اسم المستخدم أو PIN غير صحيح، أو ليس لديك صلاحية الأدمن.",
+
+    logout:
+      "تسجيل الخروج",
+
+    medAccess:
+      "حجز المواعيد",
+
+    mailAccess:
+      "وصفات البريد",
+
+    kidneyAccess:
+      "صيدلية الكلى",
+
+    active:
+      "نشط",
+
+    inactive:
+      "غير نشط",
+
+    noAccess:
+      "لا يوجد",
+
+    save:
+      "إضافة مستخدم",
+
+    update:
+      "تحديث المستخدم",
+
+    clear:
+      "مسح الحقول",
+
+    edit:
+      "تعديل",
+
+    delete:
+      "حذف",
+
+    loading:
+      "جاري التحميل...",
+
+    noUsers:
+      "لا يوجد مستخدمون.",
+
+    saved:
+      "تم حفظ بيانات المستخدم.",
+
+    deleted:
+      "تم حذف المستخدم.",
+
+    failed:
+      "تعذر تنفيذ العملية.",
+
+    confirmDelete:
+      "هل تريد حذف هذا المستخدم من البوابة؟",
+
+    pinRequired:
+      "أدخل PIN للمستخدم.",
+
+    permissionRequired:
+      "اختر صلاحية واحدة على الأقل.",
+
+    pinChanged:
+      "تم تغيير PIN بنجاح.",
+
+    pinMismatch:
+      "PIN الجديد غير متطابق."
   },
+
   en: {
-    officialLine1: "Madinah Health Cluster",
-    officialLine2: "King Fahad Hospital - Madinah",
-    officialLine3: "Pharmaceutical Care Administration",
-    pageTitle: "Unified User Management",
-    username: "Username",
-    pin: "PIN",
-    name: "Name",
-    login: "Login",
-    invalidLogin: "You do not have main admin permissions.",
-    logout: "Logout",
-    medAccess: "Appointments",
-    mailAccess: "Prescription Mail",
-    kidneyAccess: "Kidney Pharmacy",
-    active: "Active",
-    inactive: "Inactive",
-    noAccess: "No Access",
-    save: "Add User",
-    update: "Update User",
-    clear: "Clear Form",
-    edit: "Edit",
-    delete: "Delete",
-    loading: "Loading...",
-    noUsers: "No users found.",
-    saved: "User data saved.",
-    deleted: "User deleted.",
-    failed: "Unable to complete the action.",
-    confirmDelete: "Delete this user from both projects?",
-    pinRequired: "Enter a PIN when granting Prescription Mail access."
+
+    officialLine1:
+      "Madinah Health Cluster",
+
+    officialLine2:
+      "King Fahad Hospital - Madinah",
+
+    officialLine3:
+      "Pharmaceutical Care Administration",
+
+    pageTitle:
+      "Unified User Management",
+
+    username:
+      "Username",
+
+    pin:
+      "PIN",
+
+    name:
+      "Name",
+
+    login:
+      "Login",
+
+    invalidLogin:
+      "Invalid username/PIN or no administrator permission.",
+
+    logout:
+      "Logout",
+
+    medAccess:
+      "Appointments",
+
+    mailAccess:
+      "Prescription Mail",
+
+    kidneyAccess:
+      "Kidney Pharmacy",
+
+    active:
+      "Active",
+
+    inactive:
+      "Inactive",
+
+    noAccess:
+      "No Access",
+
+    save:
+      "Add User",
+
+    update:
+      "Update User",
+
+    clear:
+      "Clear Form",
+
+    edit:
+      "Edit",
+
+    delete:
+      "Delete",
+
+    loading:
+      "Loading...",
+
+    noUsers:
+      "No users found.",
+
+    saved:
+      "User data saved.",
+
+    deleted:
+      "User deleted.",
+
+    failed:
+      "Unable to complete the action.",
+
+    confirmDelete:
+      "Delete this user from the portal?",
+
+    pinRequired:
+      "Enter a PIN for the user.",
+
+    permissionRequired:
+      "Select at least one permission.",
+
+    pinChanged:
+      "PIN changed successfully.",
+
+    pinMismatch:
+      "The new PIN values do not match."
   }
+
 };
 
 function setLanguage(lang) {
+
   currentLang = lang;
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-  document.getElementById("officialLine1").innerText = text[lang].officialLine1;
-  document.getElementById("officialLine2").innerText = text[lang].officialLine2;
-  document.getElementById("officialLine3").innerText = text[lang].officialLine3;
-  document.getElementById("pageTitle").innerText = text[lang].pageTitle;
-  document.getElementById("adminUsernameLabel").innerText = text[lang].username;
-  document.getElementById("loginBtn").innerHTML = loginIcon();
-  document.getElementById("loginBtn").title = text[lang].login;
-  document.getElementById("loginBtn").setAttribute("aria-label", text[lang].login);
-  document.getElementById("changePinBtn").title = "PIN";
-  document.getElementById("logoutBtn").innerHTML = powerIcon();
-  document.getElementById("logoutBtn").title = text[lang].logout;
-  document.getElementById("logoutBtn").setAttribute("aria-label", text[lang].logout);
-  document.getElementById("usernameLabel").innerText = text[lang].username;
-  document.getElementById("pinLabel").innerText = text[lang].pin;
-  document.getElementById("nameLabel").innerText = text[lang].name;
-  document.getElementById("medAccessLabel").innerText = text[lang].medAccess;
-  document.getElementById("mailAccessLabel").innerText = text[lang].mailAccess;
-  document.getElementById("kidneyAccessLabel").innerText = text[lang].kidneyAccess;
-  document.getElementById("activeLabel").innerText = text[lang].active;
-  document.getElementById("saveUserBtn").innerText = editingUsername ? text[lang].update : text[lang].save;
-  document.getElementById("clearFormBtn").innerText = text[lang].clear;
-  document.getElementById("nameHeader").innerText = text[lang].name;
-  document.getElementById("usernameHeader").innerText = text[lang].username;
-  document.getElementById("pinHeader").innerText = text[lang].pin;
-  document.getElementById("medHeader").innerText = text[lang].medAccess;
-  document.getElementById("mailHeader").innerText = text[lang].mailAccess;
-  document.getElementById("kidneyHeader").innerText = text[lang].kidneyAccess;
-  document.getElementById("editHeader").innerText = text[lang].edit;
-  document.getElementById("deleteHeader").innerText = text[lang].delete;
-  document.getElementById("languageToggle").innerText = "🌐 ع | E";
+
+  document.documentElement.lang =
+    lang;
+
+  document.documentElement.dir =
+    lang === "ar"
+      ? "rtl"
+      : "ltr";
+
+  document.getElementById(
+    "officialLine1"
+  ).innerText =
+    text[lang].officialLine1;
+
+  document.getElementById(
+    "officialLine2"
+  ).innerText =
+    text[lang].officialLine2;
+
+  document.getElementById(
+    "officialLine3"
+  ).innerText =
+    text[lang].officialLine3;
+
+  document.getElementById(
+    "pageTitle"
+  ).innerText =
+    text[lang].pageTitle;
+
+  document.getElementById(
+    "adminUsernameLabel"
+  ).innerText =
+    text[lang].username;
+
+  document.getElementById(
+    "loginBtn"
+  ).innerHTML =
+    loginIcon();
+
+  document.getElementById(
+    "loginBtn"
+  ).title =
+    text[lang].login;
+
+  document.getElementById(
+    "changePinBtn"
+  ).title =
+    "PIN";
+
+  document.getElementById(
+    "logoutBtn"
+  ).innerHTML =
+    powerIcon();
+
+  document.getElementById(
+    "logoutBtn"
+  ).title =
+    text[lang].logout;
+
+  document.getElementById(
+    "usernameLabel"
+  ).innerText =
+    text[lang].username;
+
+  document.getElementById(
+    "pinLabel"
+  ).innerText =
+    text[lang].pin;
+
+  document.getElementById(
+    "nameLabel"
+  ).innerText =
+    text[lang].name;
+
+  document.getElementById(
+    "medAccessLabel"
+  ).innerText =
+    text[lang].medAccess;
+
+  document.getElementById(
+    "mailAccessLabel"
+  ).innerText =
+    text[lang].mailAccess;
+
+  document.getElementById(
+    "kidneyAccessLabel"
+  ).innerText =
+    text[lang].kidneyAccess;
+
+  document.getElementById(
+    "activeLabel"
+  ).innerText =
+    text[lang].active;
+
+  document.getElementById(
+    "saveUserBtn"
+  ).innerText =
+    editingUsername
+      ? text[lang].update
+      : text[lang].save;
+
+  document.getElementById(
+    "clearFormBtn"
+  ).innerText =
+    text[lang].clear;
+
+  document.getElementById(
+    "nameHeader"
+  ).innerText =
+    text[lang].name;
+
+  document.getElementById(
+    "usernameHeader"
+  ).innerText =
+    text[lang].username;
+
+  document.getElementById(
+    "pinHeader"
+  ).innerText =
+    text[lang].pin;
+
+  document.getElementById(
+    "medHeader"
+  ).innerText =
+    text[lang].medAccess;
+
+  document.getElementById(
+    "mailHeader"
+  ).innerText =
+    text[lang].mailAccess;
+
+  document.getElementById(
+    "kidneyHeader"
+  ).innerText =
+    text[lang].kidneyAccess;
+
+  document.getElementById(
+    "activeHeader"
+  ).innerText =
+    text[lang].active;
+
+  document.getElementById(
+    "editHeader"
+  ).innerText =
+    text[lang].edit;
+
+  document.getElementById(
+    "deleteHeader"
+  ).innerText =
+    text[lang].delete;
+
+  document.getElementById(
+    "languageToggle"
+  ).innerText =
+    "🌐 ع | E";
+
   renderDate();
   renderUsers();
 }
 
 function toggleLanguage() {
-  setLanguage(currentLang === "ar" ? "en" : "ar");
+
+  setLanguage(
+    currentLang === "ar"
+      ? "en"
+      : "ar"
+  );
 }
 
 function loginIcon() {
-  return '<svg class="login-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path><path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path></svg>';
+
+  return `
+  <svg class="login-svg"
+       viewBox="0 0 24 24"
+       aria-hidden="true">
+
+    <path d="M10 17l5-5-5-5"></path>
+    <path d="M15 12H3"></path>
+    <path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path>
+
+  </svg>`;
+}
+
+function powerIcon() {
+
+  return `
+  <svg class="power-svg"
+       viewBox="0 0 24 24"
+       aria-hidden="true">
+
+    <path d="M12 3v9"></path>
+    <path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path>
+
+  </svg>`;
 }
 
 function renderDate() {
-  const now = new Date();
-  const date = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Riyadh" }).format(now);
-  const dayName = new Intl.DateTimeFormat(currentLang === "ar" ? "ar-SA" : "en-US", {
-    timeZone: "Asia/Riyadh",
-    weekday: "long"
-  }).format(now);
-  document.getElementById("dateBox").innerText = `${dayName} - ${date}`;
+
+  const now =
+    new Date();
+
+  const date =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:
+          "Asia/Riyadh"
+      }
+    ).format(now);
+
+  const dayName =
+    new Intl.DateTimeFormat(
+      currentLang === "ar"
+        ? "ar-SA"
+        : "en-US",
+      {
+        timeZone:
+          "Asia/Riyadh",
+        weekday:
+          "long"
+      }
+    ).format(now);
+
+  document.getElementById(
+    "dateBox"
+  ).innerText =
+    `${dayName} - ${date}`;
 }
+
+/* ================================
+   ADMIN LOGIN
+================================ */
 
 async function loginAdmin() {
-  const username = document.getElementById("adminUsername").value.trim();
-  const pin = document.getElementById("adminPin").value.trim();
 
-  try {
-    const results = await Promise.allSettled([
-      medApi({ action: "adminLogin", username, pin }),
-      mailApi("adminLogin", { username, pin }),
-      kidneyApi({ action: "adminLogin", username, pin })
-    ]);
-    const medOk = results[0].status === "fulfilled" && isSuccess(results[0].value);
-    const mailOk = results[1].status === "fulfilled" && isSuccess(results[1].value);
-    const kidneyOk = results[2].status === "fulfilled" && isSuccess(results[2].value);
+  const username =
+    document.getElementById(
+      "adminUsername"
+    ).value.trim();
 
-    if (!medOk && !mailOk && !kidneyOk) {
-      showLoginResult("error", text[currentLang].invalidLogin);
-      return;
-    }
+  const pin =
+    document.getElementById(
+      "adminPin"
+    ).value.trim();
 
-    adminUsername = "Admin";
-    adminPin = pin;
-    sessionStorage.setItem("unifiedAdminUsername", adminUsername);
-    sessionStorage.setItem("unifiedAdminPin", adminPin);
-    resetInactivityTimer();
-    showAdminView();
-  } catch (error) {
-    showLoginResult("error", text[currentLang].invalidLogin);
-  }
-}
-
-function isSuccess(response) {
-  return Boolean(response && (response.success || response.ok));
-}
-
-function logoutAdmin() {
-  sessionStorage.removeItem("unifiedAdminUsername");
-  sessionStorage.removeItem("unifiedAdminPin");
-  adminUsername = "";
-  adminPin = "";
-  users = [];
-  document.getElementById("adminView").style.display = "none";
-  document.getElementById("loginView").style.display = "block";
-}
-
-function showAdminView() {
-  document.getElementById("loginView").style.display = "none";
-  document.getElementById("adminView").style.display = "block";
-  document.getElementById("adminName").innerText = adminUsername;
-  startInactivityWatcher();
-  loadUsers();
-}
-
-async function changeLoginPin() {
-  const username = document.getElementById("adminUsername").value.trim() || window.prompt("أدخل اسم المستخدم:");
-  if (!username) return;
-  const currentPin = window.prompt("أدخل PIN الحالي:");
-  if (!currentPin) return;
-  const newPin = window.prompt("أدخل PIN الجديد:");
-  if (!newPin) return;
-  const confirmPin = window.prompt("أعد إدخال PIN الجديد:");
-
-  if (newPin !== confirmPin) {
-    showLoginResult("error", "PIN الجديد غير متطابق.");
+  if (!username || !pin) {
+    showLoginResult(
+      "error",
+      text[currentLang].invalidLogin
+    );
     return;
   }
 
   try {
-    const results = await Promise.allSettled([
-      medApi({ action: "changeLoginPin", username, currentPin, newPin }),
-      mailApi("changeLoginPin", { username, currentPin, newPin }),
-      kidneyApi({ action: "changeLoginPin", username, currentPin, newPin })
-    ]);
-    const medOk = results[0].status === "fulfilled" && isSuccess(results[0].value);
-    const mailOk = results[1].status === "fulfilled" && isSuccess(results[1].value);
-    const kidneyOk = results[2].status === "fulfilled" && isSuccess(results[2].value);
 
-    if (!medOk && !mailOk && !kidneyOk) {
-      showLoginResult("error", text[currentLang].failed);
+    const result =
+      await unifiedApi({
+        action:
+          "adminLogin",
+        username:
+          username,
+        pin:
+          pin
+      });
+
+    if (!result.success) {
+
+      showLoginResult(
+        "error",
+        text[currentLang].invalidLogin
+      );
+
       return;
     }
 
-    adminPin = newPin;
-    sessionStorage.setItem("unifiedAdminPin", adminPin);
-    showLoginResult("success", "تم تغيير PIN بنجاح.");
+    adminUsername =
+      result.admin &&
+      result.admin.username
+        ? result.admin.username
+        : username;
+
+    adminPin =
+      pin;
+
+    sessionStorage.setItem(
+      "unifiedAdminUsername",
+      adminUsername
+    );
+
+    sessionStorage.setItem(
+      "unifiedAdminPin",
+      adminPin
+    );
+
+    resetInactivityTimer();
+
+    showAdminView();
+
   } catch (error) {
-    showLoginResult("error", text[currentLang].failed);
+
+    showLoginResult(
+      "error",
+      text[currentLang].invalidLogin
+    );
   }
 }
 
+/* ================================
+   LOGOUT
+================================ */
+
+function logoutAdmin() {
+
+  sessionStorage.removeItem(
+    "unifiedAdminUsername"
+  );
+
+  sessionStorage.removeItem(
+    "unifiedAdminPin"
+  );
+
+  adminUsername = "";
+  adminPin = "";
+  users = [];
+
+  document.getElementById(
+    "adminView"
+  ).style.display =
+    "none";
+
+  document.getElementById(
+    "loginView"
+  ).style.display =
+    "block";
+
+  document.getElementById(
+    "adminPin"
+  ).value =
+    "";
+}
+
+/* ================================
+   ADMIN VIEW
+================================ */
+
+function showAdminView() {
+
+  document.getElementById(
+    "loginView"
+  ).style.display =
+    "none";
+
+  document.getElementById(
+    "adminView"
+  ).style.display =
+    "block";
+
+  document.getElementById(
+    "adminName"
+  ).innerText =
+    adminUsername;
+
+  startInactivityWatcher();
+
+  loadUsers();
+}
+
+/* ================================
+   CHANGE MAIN ADMIN PIN
+================================ */
+
+async function changeLoginPin() {
+
+  const username =
+    document.getElementById(
+      "adminUsername"
+    ).value.trim()
+    ||
+    adminUsername
+    ||
+    window.prompt(
+      "أدخل اسم المستخدم:"
+    );
+
+  if (!username) return;
+
+  const currentPin =
+    window.prompt(
+      "أدخل PIN الحالي:"
+    );
+
+  if (!currentPin) return;
+
+  const newPin =
+    window.prompt(
+      "أدخل PIN الجديد:"
+    );
+
+  if (!newPin) return;
+
+  const confirmPin =
+    window.prompt(
+      "أعد إدخال PIN الجديد:"
+    );
+
+  if (
+    newPin !==
+    confirmPin
+  ) {
+
+    showLoginResult(
+      "error",
+      text[
+        currentLang
+      ].pinMismatch
+    );
+
+    return;
+  }
+
+  try {
+
+    const result =
+      await unifiedApi({
+        action:
+          "changeLoginPin",
+        username:
+          username,
+        currentPin:
+          currentPin,
+        newPin:
+          newPin
+      });
+
+    if (!result.success) {
+
+      showLoginResult(
+        "error",
+        result.message ||
+        text[currentLang].failed
+      );
+
+      return;
+    }
+
+    adminPin =
+      newPin;
+
+    sessionStorage.setItem(
+      "unifiedAdminPin",
+      adminPin
+    );
+
+    showLoginResult(
+      "success",
+      text[currentLang].pinChanged
+    );
+
+  } catch (error) {
+
+    showLoginResult(
+      "error",
+      text[currentLang].failed
+    );
+  }
+}
+
+/* ================================
+   INACTIVITY
+================================ */
+
 function startInactivityWatcher() {
-  ["click", "keydown", "touchstart", "mousemove"].forEach(eventName => {
-    window.addEventListener(eventName, resetInactivityTimer, { passive: true });
-  });
+
+  [
+    "click",
+    "keydown",
+    "touchstart",
+    "mousemove"
+  ].forEach(
+    function(eventName) {
+
+      window.addEventListener(
+        eventName,
+        resetInactivityTimer,
+        {
+          passive: true
+        }
+      );
+    }
+  );
+
   resetInactivityTimer();
 }
 
 function resetInactivityTimer() {
-  window.clearTimeout(inactivityTimer);
-  inactivityTimer = window.setTimeout(() => {
-    if (adminUsername && adminPin) {
-      logoutAdmin();
-    }
-  }, INACTIVITY_LIMIT_MS);
+
+  window.clearTimeout(
+    inactivityTimer
+  );
+
+  inactivityTimer =
+    window.setTimeout(
+      function() {
+
+        if (
+          adminUsername &&
+          adminPin
+        ) {
+          logoutAdmin();
+        }
+
+      },
+      INACTIVITY_LIMIT_MS
+    );
 }
+
+/* ================================
+   LOAD USERS
+================================ */
 
 async function loadUsers() {
+
   clearResult();
-  document.getElementById("emptyBox").style.display = "block";
-  document.getElementById("emptyBox").innerText = text[currentLang].loading;
-  document.getElementById("usersTable").style.display = "none";
+
+  document.getElementById(
+    "emptyBox"
+  ).style.display =
+    "block";
+
+  document.getElementById(
+    "emptyBox"
+  ).innerText =
+    text[currentLang].loading;
+
+  document.getElementById(
+    "usersTable"
+  ).style.display =
+    "none";
 
   try {
-    const results = await Promise.allSettled([
-      medApi({ action: "adminListEmployees" }),
-      mailApi("listUsers"),
-      kidneyApi({ action: "adminListEmployees" })
-    ]);
-    const medUsers = results[0].status === "fulfilled" ? results[0].value : { success: false, employees: [] };
-    const mailUsers = results[1].status === "fulfilled" ? results[1].value : { ok: false, users: [] };
-    const kidneyUsers = results[2].status === "fulfilled" ? results[2].value : { success: false, employees: [] };
 
-    users = mergeUsers(
-      medUsers.success ? medUsers.employees || [] : [],
-      mailUsers.ok ? mailUsers.users || [] : [],
-      kidneyUsers.success ? kidneyUsers.employees || [] : []
-    );
-    renderUsers();
-  } catch (error) {
-    users = [];
-    showResult("error", text[currentLang].failed);
-    renderUsers();
-  }
-}
+    const result =
+      await unifiedApi({
+        action:
+          "adminListUsers"
+      });
 
-function mergeUsers(medUsers, mailUsers, kidneyUsers) {
-  const map = {};
+    if (!result.success) {
 
-  medUsers.forEach(user => {
-    const key = user.username.toLowerCase();
-    map[key] = map[key] || { username: user.username, name: user.name, pin: user.password || "", med: null, mail: null, kidney: null };
-    map[key].username = user.username;
-    map[key].name = user.name || map[key].name;
-    map[key].pin = user.password || map[key].pin;
-    map[key].med = { active: user.active !== false };
-  });
+      users = [];
 
-  mailUsers.forEach(user => {
-    const key = user.username.toLowerCase();
-    map[key] = map[key] || { username: user.username, name: user.name, pin: user.pin || "", med: null, mail: null, kidney: null };
-    map[key].username = map[key].username || user.username;
-    map[key].name = map[key].name || user.name || user.username;
-    map[key].pin = user.pin || map[key].pin;
-    map[key].mail = { active: user.active !== false };
-  });
+      showResult(
+        "error",
+        text[currentLang].failed
+      );
 
-  (kidneyUsers || []).forEach(user => {
-    const key = user.username.toLowerCase();
-    map[key] = map[key] || { username: user.username, name: user.name, pin: user.password || "", med: null, mail: null, kidney: null };
-    map[key].username = map[key].username || user.username;
-    map[key].name = map[key].name || user.name || user.username;
-    map[key].pin = map[key].pin || user.password || "";
-    map[key].kidney = { active: user.active !== false };
-  });
+      renderUsers();
 
-  return Object.values(map).sort((a, b) => a.username.localeCompare(b.username));
-}
-
-async function saveUser() {
-  const username = document.getElementById("usernameInput").value.trim();
-  const pin = document.getElementById("pinInput").value.trim();
-  const name = document.getElementById("nameInput").value.trim();
-  const medAccess = document.getElementById("medAccessInput").checked;
-  const mailAccess = document.getElementById("mailAccessInput").checked;
-  const kidneyAccess = document.getElementById("kidneyAccessInput").checked;
-  const active = document.getElementById("activeInput").checked;
-  const existing = users.find(user => user.username.toLowerCase() === (editingUsername || username).toLowerCase());
-
-  if (!username || !name || (!medAccess && !mailAccess && !kidneyAccess)) {
-    showResult("error", text[currentLang].failed + " (MISSING_FIELDS)");
-    return;
-  }
-
-  if ((mailAccess || kidneyAccess) && !pin && (!existing || !existing.pin)) {
-    showResult("error", text[currentLang].pinRequired);
-    return;
-  }
-
-  const finalPin = pin || (existing ? existing.pin : "");
-  const tasks = [];
-
-  if (medAccess) {
-    tasks.push(saveMedUser(existing, { username, pin: finalPin, name, active }));
-  } else if (existing && existing.med) {
-    tasks.push(medApi({ action: "adminDeleteEmployee", username: existing.username }));
-  }
-
-  if (mailAccess) {
-    tasks.push(saveMailUser(existing, { username, pin: finalPin, name, active }));
-  } else if (existing && existing.mail) {
-    tasks.push(mailApi("deleteUser", { username: existing.username }));
-  }
-
-  if (kidneyAccess) {
-    tasks.push(saveKidneyUser(existing, { username, pin: finalPin, name, active }));
-  } else if (existing && existing.kidney) {
-    tasks.push(kidneyApi({ action: "adminDeleteEmployee", username: existing.username }));
-  }
-
-  try {
-    const results = await Promise.all(tasks);
-    const failed = results.some(result => !(result.success || result.ok));
-
-    if (failed) {
-      showResult("error", text[currentLang].failed);
       return;
     }
 
-    showResult("success", text[currentLang].saved);
-    clearForm();
-    await loadUsers();
+    users =
+      result.users ||
+      [];
+
+    users.sort(
+      function(a, b) {
+
+        return String(
+          a.username || ""
+        ).localeCompare(
+          String(
+            b.username || ""
+          )
+        );
+      }
+    );
+
+    renderUsers();
+
   } catch (error) {
-    showResult("error", text[currentLang].failed);
+
+    users = [];
+
+    showResult(
+      "error",
+      text[currentLang].failed
+    );
+
+    renderUsers();
   }
 }
 
-function saveMedUser(existing, user) {
-  if (existing && existing.med) {
-    return medApi({
-      action: "adminUpdateEmployee",
-      originalUsername: existing.username,
-      username: user.username,
-      password: user.pin,
-      name: user.name,
-      active: user.active
-    });
-  }
+/* ================================
+   SAVE USER
+================================ */
 
-  return medApi({
-    action: "adminAddEmployee",
-    username: user.username,
-    password: user.pin,
-    name: user.name,
-    active: user.active
-  });
-}
+async function saveUser() {
 
-function saveKidneyUser(existing, user) {
-  if (existing && existing.kidney) {
-    return kidneyApi({
-      action: "adminUpdateEmployee",
-      originalUsername: existing.username,
-      username: user.username,
-      password: user.pin,
-      name: user.name,
-      active: user.active
-    });
-  }
+  const username =
+    document.getElementById(
+      "usernameInput"
+    ).value.trim();
 
-  return kidneyApi({
-    action: "adminAddEmployee",
-    username: user.username,
-    password: user.pin,
-    name: user.name,
-    active: user.active
-  });
-}
+  const pin =
+    document.getElementById(
+      "pinInput"
+    ).value.trim();
 
-function saveMailUser(existing, user) {
-  if (existing && existing.mail) {
-    return mailApi("updateUser", {
-      originalUsername: existing.username,
-      username: user.username,
-      pin: user.pin,
-      name: user.name,
-      active: user.active
-    });
-  }
+  const name =
+    document.getElementById(
+      "nameInput"
+    ).value.trim();
 
-  return mailApi("addUser", {
-    username: user.username,
-    pin: user.pin,
-    name: user.name,
-    active: user.active
-  });
-}
+  const medAccess =
+    document.getElementById(
+      "medAccessInput"
+    ).checked;
 
-function editUser(username) {
-  const user = users.find(item => item.username === username);
-  if (!user) return;
+  const mailAccess =
+    document.getElementById(
+      "mailAccessInput"
+    ).checked;
 
-  editingUsername = user.username;
-  document.getElementById("usernameInput").value = user.username;
-  document.getElementById("pinInput").value = user.pin || "";
-  document.getElementById("nameInput").value = user.name || "";
-  document.getElementById("medAccessInput").checked = Boolean(user.med);
-  document.getElementById("mailAccessInput").checked = Boolean(user.mail);
-  document.getElementById("kidneyAccessInput").checked = Boolean(user.kidney);
-  document.getElementById("activeInput").checked = getUserActive(user);
-  document.getElementById("saveUserBtn").innerText = text[currentLang].update;
-}
+  const kidneyAccess =
+    document.getElementById(
+      "kidneyAccessInput"
+    ).checked;
 
-async function deleteUser(username) {
-  if (!confirm(text[currentLang].confirmDelete)) return;
-  const user = users.find(item => item.username === username);
-  if (!user) return;
+  const active =
+    document.getElementById(
+      "activeInput"
+    ).checked;
 
-  const tasks = [];
-  if (user.med) tasks.push(medApi({ action: "adminDeleteEmployee", username }));
-  if (user.mail) tasks.push(mailApi("deleteUser", { username }));
-  if (user.kidney) tasks.push(kidneyApi({ action: "adminDeleteEmployee", username }));
+  if (
+    !username ||
+    !name
+  ) {
 
-  try {
-    await Promise.all(tasks);
-    showResult("success", text[currentLang].deleted);
-    await loadUsers();
-  } catch (error) {
-    showResult("error", text[currentLang].failed);
-  }
-}
+    showResult(
+      "error",
+      text[currentLang].failed +
+      " (MISSING_FIELDS)"
+    );
 
-function clearForm() {
-  editingUsername = "";
-  document.getElementById("usernameInput").value = "";
-  document.getElementById("pinInput").value = "";
-  document.getElementById("nameInput").value = "";
-  document.getElementById("medAccessInput").checked = true;
-  document.getElementById("mailAccessInput").checked = false;
-  document.getElementById("kidneyAccessInput").checked = false;
-  document.getElementById("activeInput").checked = true;
-  document.getElementById("saveUserBtn").innerText = text[currentLang].save;
-}
-
-function renderUsers() {
-  const body = document.getElementById("usersBody");
-  const table = document.getElementById("usersTable");
-  const empty = document.getElementById("emptyBox");
-
-  if (!body) return;
-  body.innerHTML = "";
-
-  if (!users.length) {
-    table.style.display = "none";
-    empty.style.display = "block";
-    empty.innerText = text[currentLang].noUsers;
     return;
   }
 
-  empty.style.display = "none";
-  table.style.display = "table";
+  if (
+    !medAccess &&
+    !mailAccess &&
+    !kidneyAccess
+  ) {
 
-  users.forEach(user => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${escapeHtml(user.name || "")}</td>
-      <td>${escapeHtml(user.username)}</td>
-      <td>${escapeHtml(user.pin || "****")}</td>
-      <td>${projectStatus(user.med)}</td>
-      <td>${projectStatus(user.mail)}</td>
-      <td>${projectStatus(user.kidney)}</td>
-      <td><button type="button" class="icon-only edit-btn" title="${text[currentLang].edit}" onclick="editUser('${escapeAttribute(user.username)}')">✎</button></td>
-      <td><button type="button" class="icon-only delete-btn" title="${text[currentLang].delete}" onclick="deleteUser('${escapeAttribute(user.username)}')">✕</button></td>
-    `;
-    body.appendChild(tr);
-  });
-}
+    showResult(
+      "error",
+      text[
+        currentLang
+      ].permissionRequired
+    );
 
-function projectStatus(project) {
-  if (!project) {
-    return `<span class="status-pill status-none">${text[currentLang].noAccess}</span>`;
+    return;
   }
 
-  return project.active
-    ? `<span class="status-pill status-active">${text[currentLang].active}</span>`
-    : `<span class="status-pill status-inactive">${text[currentLang].inactive}</span>`;
+  /*
+    مستخدم جديد:
+    PIN إلزامي.
+
+    تعديل مستخدم:
+    PIN فاضي = لا يتغير.
+  */
+  if (
+    !editingUsername &&
+    !pin
+  ) {
+
+    showResult(
+      "error",
+      text[
+        currentLang
+      ].pinRequired
+    );
+
+    return;
+  }
+
+  try {
+
+    let result;
+
+    if (editingUsername) {
+
+      result =
+        await unifiedApi({
+          action:
+            "adminUpdateUser",
+
+          originalUsername:
+            editingUsername,
+
+          username:
+            username,
+
+          pin:
+            pin,
+
+          name:
+            name,
+
+          active:
+            active,
+
+          medAccess:
+            medAccess,
+
+          mailAccess:
+            mailAccess,
+
+          kidneyAccess:
+            kidneyAccess
+        });
+
+    } else {
+
+      result =
+        await unifiedApi({
+          action:
+            "adminAddUser",
+
+          username:
+            username,
+
+          pin:
+            pin,
+
+          name:
+            name,
+
+          active:
+            active,
+
+          medAccess:
+            medAccess,
+
+          mailAccess:
+            mailAccess,
+
+          kidneyAccess:
+            kidneyAccess
+        });
+    }
+
+    if (!result.success) {
+
+      showResult(
+        "error",
+        result.message ||
+        `${text[currentLang].failed} (${result.code || "ERROR"})`
+      );
+
+      return;
+    }
+
+    showResult(
+      "success",
+      text[currentLang].saved
+    );
+
+    clearForm();
+
+    await loadUsers();
+
+  } catch (error) {
+
+    showResult(
+      "error",
+      text[currentLang].failed
+    );
+  }
 }
 
-function getUserActive(user) {
-  if (user.med) return user.med.active;
-  if (user.mail) return user.mail.active;
-  if (user.kidney) return user.kidney.active;
-  return true;
+/* ================================
+   EDIT USER
+================================ */
+
+function editUser(username) {
+
+  const user =
+    users.find(
+      function(item) {
+
+        return (
+          item.username ===
+          username
+        );
+      }
+    );
+
+  if (!user) return;
+
+  editingUsername =
+    user.username;
+
+  document.getElementById(
+    "usernameInput"
+  ).value =
+    user.username || "";
+
+  /*
+    لا نظهر PIN القديم في الفورم.
+    تركه فارغاً يعني:
+    لا تغير PIN.
+  */
+  document.getElementById(
+    "pinInput"
+  ).value =
+    "";
+
+  document.getElementById(
+    "nameInput"
+  ).value =
+    user.name || "";
+
+  document.getElementById(
+    "medAccessInput"
+  ).checked =
+    Boolean(
+      user.medAccess
+    );
+
+  document.getElementById(
+    "mailAccessInput"
+  ).checked =
+    Boolean(
+      user.mailAccess
+    );
+
+  document.getElementById(
+    "kidneyAccessInput"
+  ).checked =
+    Boolean(
+      user.kidneyAccess
+    );
+
+  document.getElementById(
+    "activeInput"
+  ).checked =
+    user.active !== false;
+
+  document.getElementById(
+    "saveUserBtn"
+  ).innerText =
+    text[
+      currentLang
+    ].update;
 }
 
-async function medApi(payload) {
-  const response = await fetch(MED_API_URL, {
-    method: "POST",
-    body: JSON.stringify({
-      adminUsername,
-      adminPin,
-      ...payload
-    })
-  });
+/* ================================
+   DELETE USER
+================================ */
+
+async function deleteUser(
+  username
+) {
+
+  if (
+    !confirm(
+      text[
+        currentLang
+      ].confirmDelete
+    )
+  ) {
+    return;
+  }
+
+  try {
+
+    const result =
+      await unifiedApi({
+        action:
+          "adminDeleteUser",
+
+        username:
+          username
+      });
+
+    if (!result.success) {
+
+      showResult(
+        "error",
+        result.message ||
+        text[currentLang].failed
+      );
+
+      return;
+    }
+
+    showResult(
+      "success",
+      text[currentLang].deleted
+    );
+
+    await loadUsers();
+
+  } catch (error) {
+
+    showResult(
+      "error",
+      text[currentLang].failed
+    );
+  }
+}
+
+/* ================================
+   CLEAR FORM
+================================ */
+
+function clearForm() {
+
+  editingUsername =
+    "";
+
+  document.getElementById(
+    "usernameInput"
+  ).value =
+    "";
+
+  document.getElementById(
+    "pinInput"
+  ).value =
+    "";
+
+  document.getElementById(
+    "nameInput"
+  ).value =
+    "";
+
+  document.getElementById(
+    "medAccessInput"
+  ).checked =
+    true;
+
+  document.getElementById(
+    "mailAccessInput"
+  ).checked =
+    false;
+
+  document.getElementById(
+    "kidneyAccessInput"
+  ).checked =
+    false;
+
+  document.getElementById(
+    "activeInput"
+  ).checked =
+    true;
+
+  document.getElementById(
+    "saveUserBtn"
+  ).innerText =
+    text[currentLang].save;
+}
+
+/* ================================
+   RENDER USERS
+================================ */
+
+function renderUsers() {
+
+  const body =
+    document.getElementById(
+      "usersBody"
+    );
+
+  const table =
+    document.getElementById(
+      "usersTable"
+    );
+
+  const empty =
+    document.getElementById(
+      "emptyBox"
+    );
+
+  if (!body) return;
+
+  body.innerHTML =
+    "";
+
+  if (!users.length) {
+
+    table.style.display =
+      "none";
+
+    empty.style.display =
+      "block";
+
+    empty.innerText =
+      text[currentLang].noUsers;
+
+    return;
+  }
+
+  empty.style.display =
+    "none";
+
+  table.style.display =
+    "table";
+
+  users.forEach(
+    function(user) {
+
+      const tr =
+        document.createElement(
+          "tr"
+        );
+
+      tr.innerHTML = `
+
+        <td>
+          ${escapeHtml(
+            user.name || ""
+          )}
+        </td>
+
+        <td>
+          ${escapeHtml(
+            user.username || ""
+          )}
+        </td>
+
+        <td>
+          ****
+        </td>
+
+        <td>
+          ${permissionStatus(
+            user.medAccess,
+            user.active
+          )}
+        </td>
+
+        <td>
+          ${permissionStatus(
+            user.mailAccess,
+            user.active
+          )}
+        </td>
+
+        <td>
+          ${permissionStatus(
+            user.kidneyAccess,
+            user.active
+          )}
+        </td>
+
+        <td>
+          ${activeStatus(
+            user.active
+          )}
+        </td>
+
+        <td>
+          <button
+            type="button"
+            class="icon-only edit-btn"
+            title="${text[currentLang].edit}"
+            onclick="editUser('${escapeAttribute(user.username)}')">
+            ✎
+          </button>
+        </td>
+
+        <td>
+          <button
+            type="button"
+            class="icon-only delete-btn"
+            title="${text[currentLang].delete}"
+            onclick="deleteUser('${escapeAttribute(user.username)}')">
+            ✕
+          </button>
+        </td>
+
+      `;
+
+      body.appendChild(
+        tr
+      );
+    }
+  );
+}
+
+function permissionStatus(
+  hasAccess,
+  active
+) {
+
+  if (!hasAccess) {
+
+    return `
+      <span class="status-pill status-none">
+        ${text[currentLang].noAccess}
+      </span>
+    `;
+  }
+
+  if (!active) {
+
+    return `
+      <span class="status-pill status-inactive">
+        ${text[currentLang].inactive}
+      </span>
+    `;
+  }
+
+  return `
+    <span class="status-pill status-active">
+      ${text[currentLang].active}
+    </span>
+  `;
+}
+
+function activeStatus(active) {
+
+  return active !== false
+    ? `
+      <span class="status-pill status-active">
+        ${text[currentLang].active}
+      </span>
+      `
+    : `
+      <span class="status-pill status-inactive">
+        ${text[currentLang].inactive}
+      </span>
+      `;
+}
+
+/* ================================
+   UNIFIED API
+================================ */
+
+async function unifiedApi(
+  payload
+) {
+
+  const response =
+    await fetch(
+      UNIFIED_API_URL,
+      {
+        method:
+          "POST",
+
+        headers: {
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+
+        body:
+          JSON.stringify({
+            adminUsername:
+              adminUsername,
+
+            adminPin:
+              adminPin,
+
+            ...payload
+          })
+      }
+    );
+
   return response.json();
 }
 
-async function kidneyApi(payload) {
-  const response = await fetch(KIDNEY_API_URL, {
-    method: "POST",
-    body: JSON.stringify({
-      adminUsername,
-      adminPin,
-      ...payload
-    })
-  });
-  return response.json();
-}
+/* ================================
+   UI HELPERS
+================================ */
 
-async function mailApi(action, payload = {}) {
-  const response = await fetch(MAIL_API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify({
-      action,
-      adminUsername,
-      adminPin,
-      ...payload
-    })
-  });
-  return response.json();
-}
+function showResult(
+  type,
+  message
+) {
 
-function showResult(type, message) {
-  const result = document.getElementById("result");
-  result.className = type;
-  result.innerText = message;
+  const result =
+    document.getElementById(
+      "result"
+    );
+
+  result.className =
+    type;
+
+  result.innerText =
+    message;
 }
 
 function clearResult() {
-  const result = document.getElementById("result");
-  result.className = "";
-  result.innerText = "";
+
+  const result =
+    document.getElementById(
+      "result"
+    );
+
+  result.className =
+    "";
+
+  result.innerText =
+    "";
 }
 
-function showLoginResult(type, message) {
-  const result = document.getElementById("loginResult");
-  result.className = type;
-  result.innerText = message;
+function showLoginResult(
+  type,
+  message
+) {
+
+  const result =
+    document.getElementById(
+      "loginResult"
+    );
+
+  result.className =
+    type;
+
+  result.innerText =
+    message;
 }
 
 function escapeHtml(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
 }
 
-function escapeAttribute(value) {
-  return String(value ?? "").replace(/\\/g, "\\\\").replace(/'/g, "\\'");
+function escapeAttribute(
+  value
+) {
+
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /\\/g,
+    "\\\\"
+  )
+  .replace(
+    /'/g,
+    "\\'"
+  );
 }
 
-function powerIcon() {
-  return '<svg class="power-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9"></path><path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path></svg>';
-}
+/* ================================
+   INITIALIZE
+================================ */
 
 setLanguage("ar");
-if (adminUsername && adminPin) {
-  showAdminView();
+
+if (
+  adminUsername &&
+  adminPin
+) {
+
+  /*
+    نتحقق من الجلسة القديمة
+    قبل إظهار الإدارة.
+  */
+  unifiedApi({
+    action:
+      "adminLogin",
+
+    username:
+      adminUsername,
+
+    pin:
+      adminPin
+  })
+  .then(
+    function(result) {
+
+      if (
+        result &&
+        result.success
+      ) {
+        showAdminView();
+      } else {
+        logoutAdmin();
+      }
+    }
+  )
+  .catch(
+    function() {
+      logoutAdmin();
+    }
+  );
 }
+
 </script>
+
 </body>
 </html>
-
-
-
-
