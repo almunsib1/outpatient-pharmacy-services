@@ -207,8 +207,12 @@ let currentLang = "ar";
 let adminUsername =
   sessionStorage.getItem("unifiedAdminUsername") || "";
 
-let adminPin =
-  sessionStorage.getItem("unifiedAdminPin") || "";
+let adminSessionToken =
+  sessionStorage.getItem("unifiedAdminSessionToken") || "";
+
+sessionStorage.removeItem(
+  "unifiedAdminPin"
+);
 
 let editingUsername = "";
 let users = [];
@@ -696,8 +700,17 @@ async function loginAdmin() {
         ? result.admin.username
         : username;
 
-    adminPin =
-      pin;
+    adminSessionToken =
+      result.sessionToken || "";
+
+    if (!adminSessionToken) {
+      showLoginResult(
+        "error",
+        text[currentLang].invalidLogin
+      );
+
+      return;
+    }
 
     sessionStorage.setItem(
       "unifiedAdminUsername",
@@ -705,9 +718,14 @@ async function loginAdmin() {
     );
 
     sessionStorage.setItem(
-      "unifiedAdminPin",
-      adminPin
+      "unifiedAdminSessionToken",
+      adminSessionToken
     );
+
+    document.getElementById(
+      "adminPin"
+    ).value =
+      "";
 
     resetInactivityTimer();
 
@@ -728,16 +746,19 @@ async function loginAdmin() {
 
 function logoutAdmin() {
 
+  const tokenToRevoke =
+    adminSessionToken;
+
   sessionStorage.removeItem(
     "unifiedAdminUsername"
   );
 
   sessionStorage.removeItem(
-    "unifiedAdminPin"
+    "unifiedAdminSessionToken"
   );
 
   adminUsername = "";
-  adminPin = "";
+  adminSessionToken = "";
   users = [];
 
   document.getElementById(
@@ -754,6 +775,17 @@ function logoutAdmin() {
     "adminPin"
   ).value =
     "";
+
+  if (tokenToRevoke) {
+    unifiedApi({
+      action:
+        "revokeSession",
+      sessionToken:
+        tokenToRevoke
+    }).catch(
+      function() {}
+    );
+  }
 }
 
 /* ================================
@@ -860,14 +892,6 @@ async function changeLoginPin() {
       return;
     }
 
-    adminPin =
-      newPin;
-
-    sessionStorage.setItem(
-      "unifiedAdminPin",
-      adminPin
-    );
-
     showLoginResult(
       "success",
       text[currentLang].pinChanged
@@ -921,7 +945,7 @@ function resetInactivityTimer() {
 
         if (
           adminUsername &&
-          adminPin
+          adminSessionToken
         ) {
           logoutAdmin();
         }
@@ -1573,11 +1597,12 @@ async function unifiedApi(
 
         body:
           JSON.stringify({
+            sessionToken:
+              payload.sessionToken ||
+              adminSessionToken,
+
             adminUsername:
               adminUsername,
-
-            adminPin:
-              adminPin,
 
             ...payload
           })
@@ -1691,29 +1716,28 @@ setLanguage("ar");
 
 if (
   adminUsername &&
-  adminPin
+  adminSessionToken
 ) {
 
   /*
-    نتحقق من الجلسة القديمة
+    نتحقق من جلسة الأدمن
     قبل إظهار الإدارة.
   */
   unifiedApi({
     action:
-      "adminLogin",
+      "validateSession",
 
-    username:
-      adminUsername,
-
-    pin:
-      adminPin
+    service:
+      "admin"
   })
   .then(
     function(result) {
 
       if (
         result &&
-        result.success
+        result.success &&
+        result.user &&
+        result.user.isAdmin
       ) {
         showAdminView();
       } else {
