@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,46 +7,318 @@
 
 <style>
 *{box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
-.container{max-width:1100px;margin:auto;background:#fff;padding:22px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,.1)}
-.top-bar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px;direction:rtl}
-.logo{width:120px;height:120px;object-fit:contain}
-.official-header{width:fit-content;max-width:100%;text-align:start;margin-inline-start:0;margin-inline-end:auto;transform:translateY(14px)}
-.official-header h2,.official-header h3{margin:2px 0;font-size:13px;line-height:1.4;color:#168fb3}
-[dir="rtl"] .official-header{padding-left:8px;border-left:4px solid #168fb3}
-[dir="ltr"] .official-header{padding-right:8px;border-right:4px solid #168fb3}
-hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
-.page-title{text-align:center;font-size:24px;font-weight:bold;margin:14px 0 10px;color:#168fb3}
-.subtitle{text-align:center;color:#168fb3;margin-bottom:18px;line-height:1.7}
-.meta-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;direction:ltr}
-.date-box{color:#168fb3;padding:6px 10px;font-size:13px;font-weight:bold;text-align:center}
-.language-btn{border:none;background:transparent;cursor:pointer;font-size:13px;font-weight:bold;color:#168fb3;padding:4px 0;border-radius:0}
-.language-btn:hover{background:transparent}
-.cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-bottom:16px}
-.card{background:#168fb3;color:#fff;padding:10px 8px;border-radius:8px;text-align:center;min-width:0}
-.card h2{margin:0;font-size:16px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card p{margin:5px 0 0;font-size:11px;line-height:1.35}
-.insight{background:#f9fafb;color:#168fb3;border:1px solid #e5e7eb}
-.table-wrap{max-width:760px;margin:0 auto;overflow-x:auto}
-table{width:100%;border-collapse:collapse;margin-top:12px;min-width:520px}
-th,td{padding:8px 6px;border:1px solid #e5e7eb;text-align:center;color:#111827;font-size:12px}
-th{background:#168fb3;color:#fff}
-.loading{text-align:center;font-size:20px;padding:30px;color:#168fb3}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f3f4f6;
+  margin:0;
+  padding:16px;
+  color:#168fb3
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  background:#fff;
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 10px 25px rgba(0,0,0,.1)
+}
+
+.top-bar{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;
+  direction:rtl
+}
+
+.logo{
+  width:120px;
+  height:120px;
+  object-fit:contain
+}
+
+.official-header{
+  width:fit-content;
+  max-width:100%;
+  text-align:start;
+  margin-inline-start:0;
+  margin-inline-end:auto;
+  transform:translateY(14px)
+}
+
+.official-header h2,
+.official-header h3{
+  margin:2px 0;
+  font-size:13px;
+  line-height:1.4;
+  color:#168fb3
+}
+
+[dir="rtl"] .official-header{
+  padding-left:8px;
+  border-left:4px solid #168fb3
+}
+
+[dir="ltr"] .official-header{
+  padding-right:8px;
+  border-right:4px solid #168fb3
+}
+
+hr{
+  border:none;
+  border-top:1px solid #e5e7eb;
+  margin:14px 0
+}
+
+.page-title{
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+  margin:14px 0 10px;
+  color:#168fb3
+}
+
+.subtitle{
+  text-align:center;
+  color:#168fb3;
+  margin-bottom:18px;
+  line-height:1.7
+}
+
+.meta-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:18px;
+  direction:ltr
+}
+
+.date-box{
+  color:#168fb3;
+  padding:6px 10px;
+  font-size:13px;
+  font-weight:bold;
+  text-align:center
+}
+
+.language-btn{
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:bold;
+  color:#168fb3;
+  padding:4px 0
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:8px;
+  margin-bottom:16px
+}
+
+.card{
+  background:#168fb3;
+  color:#fff;
+  padding:10px 8px;
+  border-radius:8px;
+  text-align:center;
+  min-width:0
+}
+
+.card h2{
+  margin:0;
+  font-size:16px;
+  line-height:1.2;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+.card p{
+  margin:5px 0 0;
+  font-size:11px;
+  line-height:1.35
+}
+
+.insight{
+  background:#f9fafb;
+  color:#168fb3;
+  border:1px solid #e5e7eb
+}
+
+.table-wrap{
+  max-width:760px;
+  margin:0 auto;
+  overflow-x:auto
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:12px;
+  min-width:520px
+}
+
+th,
+td{
+  padding:8px 6px;
+  border:1px solid #e5e7eb;
+  text-align:center;
+  color:#111827;
+  font-size:12px
+}
+
+th{
+  background:#168fb3;
+  color:#fff
+}
+
+.loading{
+  text-align:center;
+  font-size:18px;
+  padding:30px;
+  color:#168fb3
+}
+
+.login-card{
+  max-width:300px;
+  margin:20px auto;
+  padding:16px;
+  background:#f9fafb;
+  border:1px solid #e5e7eb;
+  border-radius:10px
+}
+
+.login-card label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:5px;
+  font-size:13px
+}
+
+.login-card input{
+  width:100%;
+  height:38px;
+  padding:8px 10px;
+  margin-bottom:12px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:14px;
+  background:#fff
+}
+
+.login-btn{
+  display:block;
+  margin:auto;
+  border:none;
+  background:#168fb3;
+  color:#fff;
+  font-size:14px;
+  font-weight:bold;
+  padding:9px 18px;
+  border-radius:8px;
+  cursor:pointer
+}
+
+.login-btn:disabled{
+  opacity:.6;
+  cursor:not-allowed
+}
+
+.login-message{
+  display:none;
+  margin-top:12px;
+  padding:10px;
+  border-radius:8px;
+  text-align:center;
+  font-size:13px
+}
+
+.login-message.error{
+  display:block;
+  background:#fef2f2;
+  color:#991b1b
+}
+
+.error-box{
+  display:none;
+  margin:16px auto;
+  max-width:600px;
+  padding:12px;
+  background:#fef2f2;
+  color:#991b1b;
+  border-radius:8px;
+  text-align:center
+}
 
 @media (max-width:600px){
-body{padding:10px;background:#fff}
-.container{padding:14px;border-radius:0;box-shadow:none}
-.logo{width:84px;height:84px}
-.official-header{transform:translateY(10px)}
-.official-header h2,.official-header h3{font-size:12px}
-.page-title{font-size:20px}
-.date-box,.language-btn{font-size:12px;padding:6px 9px}
-.cards{grid-template-columns:repeat(2,minmax(0,1fr))}
-.card{padding:9px 6px}
-.card h2{font-size:15px}
-.card p{font-size:10px}
-table{min-width:440px}
-th,td{padding:6px 5px;font-size:11px}
+
+  body{
+    padding:10px;
+    background:#fff
+  }
+
+  .container{
+    padding:14px;
+    border-radius:0;
+    box-shadow:none
+  }
+
+  .logo{
+    width:84px;
+    height:84px
+  }
+
+  .official-header{
+    transform:translateY(10px)
+  }
+
+  .official-header h2,
+  .official-header h3{
+    font-size:12px
+  }
+
+  .page-title{
+    font-size:20px
+  }
+
+  .date-box,
+  .language-btn{
+    font-size:12px;
+    padding:6px 9px
+  }
+
+  .cards{
+    grid-template-columns:repeat(2,minmax(0,1fr))
+  }
+
+  .card{
+    padding:9px 6px
+  }
+
+  .card h2{
+    font-size:15px
+  }
+
+  .card p{
+    font-size:10px
+  }
+
+  table{
+    min-width:440px
+  }
+
+  th,
+  td{
+    padding:6px 5px;
+    font-size:11px
+  }
 }
 </style>
 </head>
@@ -55,104 +327,147 @@ th,td{padding:6px 5px;font-size:11px}
 
 <div class="container">
 
-<div class="top-bar">
+  <div class="top-bar">
 
-  <div class="official-header">
-    <h2 id="officialLine1"></h2>
-    <h3 id="officialLine2"></h3>
-    <h3 id="officialLine3"></h3>
+    <div class="official-header">
+      <h2 id="officialLine1"></h2>
+      <h3 id="officialLine2"></h3>
+      <h3 id="officialLine3"></h3>
+    </div>
+
+    <img class="logo" src="logo.png" alt="Logo">
+
   </div>
 
-  <img class="logo" src="logo.png" alt="Logo">
+  <hr>
 
-</div>
+  <div class="meta-row">
 
-<hr>
+    <div class="date-box" id="dateBox"></div>
 
-<div class="meta-row">
+    <button
+      type="button"
+      class="language-btn"
+      id="languageToggle"
+      onclick="toggleLanguage()">
+    </button>
 
-  <div class="date-box" id="dateBox"></div>
+  </div>
 
-  <button
-    type="button"
-    class="language-btn"
-    id="languageToggle"
-    onclick="toggleLanguage()">
-  </button>
+  <div class="page-title" id="pageTitle"></div>
 
-</div>
-
-<div class="page-title" id="pageTitle"></div>
-
-<p class="subtitle" id="pageSubtitle"></p>
+  <p class="subtitle" id="pageSubtitle"></p>
 
 
-<div
-  id="loading"
-  class="loading">
-  Loading dashboard...
-</div>
+  <!-- LOGIN -->
 
+  <div id="loginView" class="login-card" style="display:none">
 
-<div
-  id="dashboard"
-  style="display:none">
+    <label id="usernameLabel" for="username"></label>
 
-  <div class="cards">
+    <input
+      type="text"
+      id="username"
+      autocomplete="username">
 
-    <div class="card">
-      <h2 id="totalBookings">0</h2>
-      <p id="totalBookingsLabel"></p>
-    </div>
+    <label id="pinLabel" for="pin"></label>
 
-    <div class="card">
-      <h2 id="remainingToday">0</h2>
-      <p id="remainingTodayLabel"></p>
-    </div>
+    <input
+      type="password"
+      id="pin"
+      inputmode="numeric"
+      autocomplete="current-password">
 
-    <div class="card">
-      <h2 id="occupancyRate">0%</h2>
-      <p id="occupancyRateLabel"></p>
-    </div>
+    <button
+      type="button"
+      class="login-btn"
+      id="loginBtn"
+      onclick="loginEmployee()">
+    </button>
 
-    <div class="card insight">
-      <h2 id="statusText">Low</h2>
-      <p id="statusLabel"></p>
-    </div>
-
-    <div class="card insight">
-      <h2 id="busiestSlot">-</h2>
-      <p id="busiestSlotLabel"></p>
-    </div>
-
-    <div class="card insight">
-      <h2 id="leastBusySlot">-</h2>
-      <p id="leastBusySlotLabel"></p>
+    <div
+      id="loginMessage"
+      class="login-message">
     </div>
 
   </div>
 
 
-  <div class="table-wrap">
+  <!-- LOADING -->
 
-    <table>
-
-      <thead>
-        <tr>
-          <th id="timeHeader"></th>
-          <th id="bookedHeader"></th>
-          <th id="remainingHeader"></th>
-          <th id="slotOccupancyHeader"></th>
-        </tr>
-      </thead>
-
-      <tbody id="slotsTable"></tbody>
-
-    </table>
-
+  <div
+    id="loading"
+    class="loading">
   </div>
 
-</div>
+
+  <div
+    id="errorBox"
+    class="error-box">
+  </div>
+
+
+  <!-- DASHBOARD -->
+
+  <div
+    id="dashboard"
+    style="display:none">
+
+    <div class="cards">
+
+      <div class="card">
+        <h2 id="totalBookings">0</h2>
+        <p id="totalBookingsLabel"></p>
+      </div>
+
+      <div class="card">
+        <h2 id="remainingToday">0</h2>
+        <p id="remainingTodayLabel"></p>
+      </div>
+
+      <div class="card">
+        <h2 id="occupancyRate">0%</h2>
+        <p id="occupancyRateLabel"></p>
+      </div>
+
+      <div class="card insight">
+        <h2 id="statusText">-</h2>
+        <p id="statusLabel"></p>
+      </div>
+
+      <div class="card insight">
+        <h2 id="busiestSlot">-</h2>
+        <p id="busiestSlotLabel"></p>
+      </div>
+
+      <div class="card insight">
+        <h2 id="leastBusySlot">-</h2>
+        <p id="leastBusySlotLabel"></p>
+      </div>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th id="timeHeader"></th>
+            <th id="bookedHeader"></th>
+            <th id="remainingHeader"></th>
+            <th id="slotOccupancyHeader"></th>
+          </tr>
+        </thead>
+
+        <tbody id="slotsTable"></tbody>
+
+      </table>
+
+    </div>
+
+  </div>
 
 </div>
 
@@ -174,65 +489,180 @@ const SESSION_USERNAME_KEY =
 
 
 let currentLang =
-  "en";
+  "ar";
 
 let dashboardData =
   null;
 
 let currentSessionToken =
-  localStorage.getItem(
-    SESSION_TOKEN_KEY
-  ) || "";
+  "";
 
 
 const text = {
 
-  en: {
-    officialLine1:"Madinah Health Cluster",
-    officialLine2:"King Fahad Hospital - Madinah",
-    officialLine3:"Pharmaceutical Care Administration",
-    pageTitle:"Medication Pickup Service Dashboard",
-    pageSubtitle:"Medication Refill Pickup Appointment Service",
-    loading:"Loading dashboard...",
-    failed:"Failed to load dashboard data",
-    totalBookings:"Total Bookings Today",
-    remainingToday:"Remaining Capacity",
-    occupancyRate:"Occupancy Rate",
-    dailyStatus:"Daily Status",
-    busiestSlot:"Busiest Slot",
-    leastBusySlot:"Least Busy Slot",
-    timeSlot:"Time Slot",
-    booked:"Booked",
-    remaining:"Remaining",
-    occupancy:"Occupancy",
-    low:"Low",
-    medium:"Medium",
-    high:"High",
-    sessionExpired:"Session expired. Please sign in again."
+  ar: {
+
+    officialLine1:
+      "تجمع المدينة المنورة الصحي",
+
+    officialLine2:
+      "مستشفى الملك فهد بالمدينة المنورة",
+
+    officialLine3:
+      "إدارة الرعاية الصيدلانية",
+
+    pageTitle:
+      "مؤشرات خدمة استلام الأدوية",
+
+    pageSubtitle:
+      "خدمة حجز موعد استلام أدوية إعادة الصرف",
+
+    username:
+      "اسم المستخدم",
+
+    pin:
+      "PIN",
+
+    login:
+      "تسجيل الدخول",
+
+    loggingIn:
+      "جاري تسجيل الدخول...",
+
+    invalidLogin:
+      "اسم المستخدم أو PIN غير صحيح أو لا توجد صلاحية.",
+
+    loading:
+      "جاري تحميل البيانات...",
+
+    failed:
+      "تعذر تحميل بيانات المؤشر.",
+
+    sessionExpired:
+      "انتهت الجلسة. سجل الدخول مرة أخرى.",
+
+    totalBookings:
+      "إجمالي حجوزات اليوم",
+
+    remainingToday:
+      "المقاعد المتبقية",
+
+    occupancyRate:
+      "نسبة الإشغال",
+
+    dailyStatus:
+      "حالة اليوم",
+
+    busiestSlot:
+      "أكثر فترة ازدحاما",
+
+    leastBusySlot:
+      "أقل فترة ازدحاما",
+
+    timeSlot:
+      "الفترة",
+
+    booked:
+      "المحجوز",
+
+    remaining:
+      "المتبقي",
+
+    occupancy:
+      "نسبة الإشغال",
+
+    low:
+      "منخفض",
+
+    medium:
+      "متوسط",
+
+    high:
+      "مرتفع"
+
   },
 
-  ar: {
-    officialLine1:"تجمع المدينة المنورة الصحي",
-    officialLine2:"مستشفى الملك فهد بالمدينة المنورة",
-    officialLine3:"إدارة الرعاية الصيدلانية",
-    pageTitle:"مؤشرات خدمة استلام الأدوية",
-    pageSubtitle:"خدمة حجز موعد استلام أدوية إعادة الصرف",
-    loading:"جاري تحميل البيانات...",
-    failed:"فشل تحميل بيانات المؤشرات",
-    totalBookings:"إجمالي حجوزات اليوم",
-    remainingToday:"المقاعد المتبقية",
-    occupancyRate:"نسبة الإشغال",
-    dailyStatus:"حالة اليوم",
-    busiestSlot:"أكثر فترة ازدحاما",
-    leastBusySlot:"أقل فترة ازدحاما",
-    timeSlot:"الفترة",
-    booked:"المحجوز",
-    remaining:"المتبقي",
-    occupancy:"نسبة الإشغال",
-    low:"منخفض",
-    medium:"متوسط",
-    high:"مرتفع",
-    sessionExpired:"انتهت الجلسة. سجّل الدخول مرة أخرى."
+
+  en: {
+
+    officialLine1:
+      "Madinah Health Cluster",
+
+    officialLine2:
+      "King Fahad Hospital - Madinah",
+
+    officialLine3:
+      "Pharmaceutical Care Administration",
+
+    pageTitle:
+      "Medication Pickup Service Dashboard",
+
+    pageSubtitle:
+      "Medication Refill Pickup Appointment Service",
+
+    username:
+      "Username",
+
+    pin:
+      "PIN",
+
+    login:
+      "Login",
+
+    loggingIn:
+      "Signing in...",
+
+    invalidLogin:
+      "Incorrect username/PIN or no permission.",
+
+    loading:
+      "Loading dashboard...",
+
+    failed:
+      "Unable to load dashboard data.",
+
+    sessionExpired:
+      "Session expired. Please sign in again.",
+
+    totalBookings:
+      "Total Bookings Today",
+
+    remainingToday:
+      "Remaining Capacity",
+
+    occupancyRate:
+      "Occupancy Rate",
+
+    dailyStatus:
+      "Daily Status",
+
+    busiestSlot:
+      "Busiest Slot",
+
+    leastBusySlot:
+      "Least Busy Slot",
+
+    timeSlot:
+      "Time Slot",
+
+    booked:
+      "Booked",
+
+    remaining:
+      "Remaining",
+
+    occupancy:
+      "Occupancy",
+
+    low:
+      "Low",
+
+    medium:
+      "Medium",
+
+    high:
+      "High"
+
   }
 
 };
@@ -286,6 +716,24 @@ function setLanguage(
     "pageSubtitle"
   ).innerText =
     text[lang].pageSubtitle;
+
+
+  document.getElementById(
+    "usernameLabel"
+  ).innerText =
+    text[lang].username;
+
+
+  document.getElementById(
+    "pinLabel"
+  ).innerText =
+    text[lang].pin;
+
+
+  document.getElementById(
+    "loginBtn"
+  ).innerText =
+    text[lang].login;
 
 
   document.getElementById(
@@ -358,12 +806,6 @@ function setLanguage(
     dashboardData
   ) {
     renderDashboard();
-
-  } else {
-    document.getElementById(
-      "loading"
-    ).innerText =
-      text[lang].loading;
   }
 }
 
@@ -379,7 +821,566 @@ function toggleLanguage() {
 
 
 /* =========================================================
-   STATUS
+   UI
+========================================================= */
+
+function showLoading() {
+
+  document.getElementById(
+    "loginView"
+  ).style.display =
+    "none";
+
+  document.getElementById(
+    "dashboard"
+  ).style.display =
+    "none";
+
+  document.getElementById(
+    "errorBox"
+  ).style.display =
+    "none";
+
+  document.getElementById(
+    "loading"
+  ).style.display =
+    "block";
+
+  document.getElementById(
+    "loading"
+  ).innerText =
+    text[currentLang].loading;
+}
+
+
+function hideLoading() {
+
+  document.getElementById(
+    "loading"
+  ).style.display =
+    "none";
+}
+
+
+function showLogin() {
+
+  hideLoading();
+
+  document.getElementById(
+    "dashboard"
+  ).style.display =
+    "none";
+
+  document.getElementById(
+    "errorBox"
+  ).style.display =
+    "none";
+
+  document.getElementById(
+    "loginView"
+  ).style.display =
+    "block";
+}
+
+
+function showDashboard() {
+
+  hideLoading();
+
+  document.getElementById(
+    "loginView"
+  ).style.display =
+    "none";
+
+  document.getElementById(
+    "errorBox"
+  ).style.display =
+    "none";
+
+  document.getElementById(
+    "dashboard"
+  ).style.display =
+    "block";
+}
+
+
+function showError(
+  message
+) {
+
+  hideLoading();
+
+  document.getElementById(
+    "loginView"
+  ).style.display =
+    "none";
+
+  document.getElementById(
+    "dashboard"
+  ).style.display =
+    "none";
+
+  const box =
+    document.getElementById(
+      "errorBox"
+    );
+
+  box.style.display =
+    "block";
+
+  box.innerText =
+    message;
+}
+
+
+function showLoginError(
+  message
+) {
+
+  const box =
+    document.getElementById(
+      "loginMessage"
+    );
+
+  box.className =
+    "login-message error";
+
+  box.innerText =
+    message;
+}
+
+
+function clearLoginError() {
+
+  const box =
+    document.getElementById(
+      "loginMessage"
+    );
+
+  box.className =
+    "login-message";
+
+  box.innerText =
+    "";
+}
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
+
+function saveSession(
+  token,
+  user
+) {
+
+  currentSessionToken =
+    token;
+
+
+  localStorage.setItem(
+    SESSION_TOKEN_KEY,
+    token
+  );
+
+
+  if (
+    user
+  ) {
+
+    localStorage.setItem(
+      SESSION_USERNAME_KEY,
+      user.username || ""
+    );
+
+    localStorage.setItem(
+      SESSION_NAME_KEY,
+      user.name ||
+      user.username ||
+      ""
+    );
+  }
+}
+
+
+function clearSession() {
+
+  currentSessionToken =
+    "";
+
+  localStorage.removeItem(
+    SESSION_TOKEN_KEY
+  );
+
+  localStorage.removeItem(
+    SESSION_USERNAME_KEY
+  );
+
+  localStorage.removeItem(
+    SESSION_NAME_KEY
+  );
+}
+
+
+/* =========================================================
+   API
+========================================================= */
+
+async function postApi(
+  action,
+  payload = {},
+  useSession = true
+) {
+
+  const requestData = {
+    action:
+      action,
+
+    ...payload
+  };
+
+
+  if (
+    useSession
+  ) {
+
+    currentSessionToken =
+      localStorage.getItem(
+        SESSION_TOKEN_KEY
+      ) ||
+      currentSessionToken ||
+      "";
+
+
+    if (
+      currentSessionToken
+    ) {
+      requestData.sessionToken =
+        currentSessionToken;
+    }
+  }
+
+
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method:
+          "POST",
+
+        headers:{
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+
+        body:
+          JSON.stringify(
+            requestData
+          )
+      }
+    );
+
+
+  if (
+    !response.ok
+  ) {
+    throw new Error(
+      "HTTP_" +
+      response.status
+    );
+  }
+
+
+  return await response.json();
+}
+
+
+/* =========================================================
+   SESSION CHECK
+========================================================= */
+
+function isInvalidSession(
+  result
+) {
+
+  if (
+    !result
+  ) {
+    return false;
+  }
+
+  return [
+    "INVALID_SESSION",
+    "MISSING_SESSION",
+    "SESSION_REQUIRED",
+    "NO_PERMISSION",
+    "USER_INACTIVE",
+    "UNAUTHORIZED"
+  ].includes(
+    result.code
+  );
+}
+
+
+async function validateCurrentSession() {
+
+  currentSessionToken =
+    localStorage.getItem(
+      SESSION_TOKEN_KEY
+    ) || "";
+
+
+  if (
+    !currentSessionToken
+  ) {
+    return false;
+  }
+
+
+  try {
+
+    const result =
+      await postApi(
+        "validateSession",
+        {
+          service:
+            "med"
+        },
+        true
+      );
+
+
+    if (
+      result &&
+      result.success &&
+      result.user
+    ) {
+
+      saveSession(
+        currentSessionToken,
+        result.user
+      );
+
+      return true;
+    }
+
+
+    if (
+      isInvalidSession(
+        result
+      )
+    ) {
+      clearSession();
+      return false;
+    }
+
+
+    /*
+    إذا الرد غريب لا نمسح الجلسة.
+    */
+    return false;
+
+
+  } catch(error) {
+
+    /*
+    خطأ الاتصال لا يمسح مفتاح الدخول.
+    */
+    throw error;
+  }
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+async function loginEmployee() {
+
+  clearLoginError();
+
+
+  const username =
+    document.getElementById(
+      "username"
+    ).value.trim();
+
+
+  const pin =
+    document.getElementById(
+      "pin"
+    ).value.trim();
+
+
+  if (
+    !username ||
+    !pin
+  ) {
+
+    showLoginError(
+      text[currentLang].invalidLogin
+    );
+
+    return;
+  }
+
+
+  const button =
+    document.getElementById(
+      "loginBtn"
+    );
+
+
+  button.disabled =
+    true;
+
+  button.innerText =
+    text[currentLang].loggingIn;
+
+
+  try {
+
+    const result =
+      await postApi(
+        "employeeLogin",
+        {
+          username:
+            username,
+
+          password:
+            pin
+        },
+        false
+      );
+
+
+    if (
+      !result ||
+      !result.success ||
+      !result.sessionToken ||
+      !result.employee
+    ) {
+
+      showLoginError(
+        text[currentLang].invalidLogin
+      );
+
+      return;
+    }
+
+
+    saveSession(
+      result.sessionToken,
+      {
+        username:
+          result.employee.username,
+
+        name:
+          result.employee.name
+      }
+    );
+
+
+    document.getElementById(
+      "pin"
+    ).value =
+      "";
+
+
+    await loadDashboard();
+
+
+  } catch(error) {
+
+    showLoginError(
+      text[currentLang].failed
+    );
+
+
+  } finally {
+
+    button.disabled =
+      false;
+
+    button.innerText =
+      text[currentLang].login;
+  }
+}
+
+
+/* =========================================================
+   LOAD DASHBOARD
+========================================================= */
+
+async function loadDashboard() {
+
+  showLoading();
+
+
+  try {
+
+    const result =
+      await postApi(
+        "dashboard",
+        {},
+        true
+      );
+
+
+    if (
+      result &&
+      result.success &&
+      result.dashboard
+    ) {
+
+      dashboardData =
+        result.dashboard;
+
+      showDashboard();
+
+      renderDashboard();
+
+      return;
+    }
+
+
+    if (
+      isInvalidSession(
+        result
+      )
+    ) {
+
+      clearSession();
+
+      showLogin();
+
+      showLoginError(
+        text[currentLang].sessionExpired
+      );
+
+      return;
+    }
+
+
+    showError(
+      text[currentLang].failed
+    );
+
+
+  } catch(error) {
+
+    /*
+    لا نحذف الجلسة بسبب مشكلة اتصال.
+    */
+    showError(
+      text[currentLang].failed
+    );
+  }
+}
+
+
+/* =========================================================
+   STATUS LABEL
 ========================================================= */
 
 function statusLabel(
@@ -403,203 +1404,7 @@ function statusLabel(
 
 
 /* =========================================================
-   SESSION
-========================================================= */
-
-function clearStoredSession() {
-
-  localStorage.removeItem(
-    SESSION_TOKEN_KEY
-  );
-
-  localStorage.removeItem(
-    SESSION_NAME_KEY
-  );
-
-  localStorage.removeItem(
-    SESSION_USERNAME_KEY
-  );
-
-  currentSessionToken =
-    "";
-}
-
-
-function redirectToLogin() {
-
-  clearStoredSession();
-
-  window.location.replace(
-    "employee.html"
-  );
-}
-
-
-function isSessionError(
-  data
-) {
-
-  return Boolean(
-    data &&
-    [
-      "INVALID_SESSION",
-      "MISSING_SESSION",
-      "SESSION_REQUIRED",
-      "NO_PERMISSION",
-      "USER_INACTIVE",
-      "UNAUTHORIZED"
-    ].includes(
-      data.code
-    )
-  );
-}
-
-
-/* =========================================================
-   POST
-========================================================= */
-
-async function securePost(
-  action,
-  payload = {}
-) {
-
-  currentSessionToken =
-    localStorage.getItem(
-      SESSION_TOKEN_KEY
-    ) || "";
-
-
-  if (
-    !currentSessionToken
-  ) {
-
-    redirectToLogin();
-
-    throw new Error(
-      "MISSING_SESSION"
-    );
-  }
-
-
-  const response =
-    await fetch(
-      API_URL,
-      {
-        method:
-          "POST",
-
-        headers:{
-          "Content-Type":
-            "text/plain;charset=utf-8"
-        },
-
-        body:
-          JSON.stringify({
-            action:
-              action,
-
-            sessionToken:
-              currentSessionToken,
-
-            ...payload
-          })
-      }
-    );
-
-
-  if (
-    !response.ok
-  ) {
-    throw new Error(
-      "HTTP_" +
-      response.status
-    );
-  }
-
-
-  return await response.json();
-}
-
-
-/* =========================================================
-   LOAD DASHBOARD
-========================================================= */
-
-async function loadDashboard() {
-
-  try {
-
-    const data =
-      await securePost(
-        "dashboard",
-        {}
-      );
-
-
-    if (
-      !data ||
-      !data.success ||
-      !data.dashboard
-    ) {
-
-      if (
-        isSessionError(
-          data
-        )
-      ) {
-        redirectToLogin();
-        return;
-      }
-
-      throw new Error(
-        "INVALID_DASHBOARD_RESPONSE"
-      );
-    }
-
-
-    dashboardData =
-      data.dashboard;
-
-
-    document.getElementById(
-      "loading"
-    ).style.display =
-      "none";
-
-
-    document.getElementById(
-      "dashboard"
-    ).style.display =
-      "block";
-
-
-    renderDashboard();
-
-
-  } catch(error) {
-
-    if (
-      String(
-        error.message ||
-        error
-      ) ===
-      "MISSING_SESSION"
-    ) {
-      return;
-    }
-
-
-    document.getElementById(
-      "loading"
-    ).innerText =
-      text[currentLang].failed;
-  }
-}
-
-
-/* =========================================================
-   RENDER
+   DASHBOARD RENDER
 ========================================================= */
 
 function renderDashboard() {
@@ -608,22 +1413,30 @@ function renderDashboard() {
     dashboardData;
 
 
-  if (!d) {
+  if (
+    !d
+  ) {
     return;
   }
 
 
   const busiestSlot =
     d.busiestSlot || {
-      time:"-",
-      booked:0
+      time:
+        "-",
+
+      booked:
+        0
     };
 
 
   const leastBusySlot =
     d.leastBusySlot || {
-      time:"-",
-      booked:0
+      time:
+        "-",
+
+      booked:
+        0
     };
 
 
@@ -634,8 +1447,8 @@ function renderDashboard() {
       d
     ) +
     " - " +
-    escapeHtml(
-      d.date
+    String(
+      d.date || ""
     );
 
 
@@ -676,7 +1489,8 @@ function renderDashboard() {
     "busiestSlot"
   ).innerText =
     String(
-      busiestSlot.time || "-"
+      busiestSlot.time ||
+      "-"
     ) +
     " (" +
     Number(
@@ -689,7 +1503,8 @@ function renderDashboard() {
     "leastBusySlot"
   ).innerText =
     String(
-      leastBusySlot.time || "-"
+      leastBusySlot.time ||
+      "-"
     ) +
     " (" +
     Number(
@@ -706,30 +1521,95 @@ function renderDashboard() {
       : [];
 
 
-  document.getElementById(
-    "slotsTable"
-  ).innerHTML =
-    slots
-      .map(
-        function(slot) {
+  const tbody =
+    document.getElementById(
+      "slotsTable"
+    );
 
-          return `
-            <tr>
-              <td>${escapeHtml(slot.time)}</td>
-              <td>${Number(slot.booked || 0)}</td>
-              <td>${Number(slot.remaining || 0)}</td>
-              <td>${Number(slot.occupancy || 0)}%</td>
-            </tr>
-          `;
 
-        }
-      )
-      .join("");
+  tbody.innerHTML =
+    "";
+
+
+  slots.forEach(
+    function(slot) {
+
+      const tr =
+        document.createElement(
+          "tr"
+        );
+
+
+      const tdTime =
+        document.createElement(
+          "td"
+        );
+
+      tdTime.textContent =
+        slot.time || "";
+
+
+      const tdBooked =
+        document.createElement(
+          "td"
+        );
+
+      tdBooked.textContent =
+        Number(
+          slot.booked || 0
+        );
+
+
+      const tdRemaining =
+        document.createElement(
+          "td"
+        );
+
+      tdRemaining.textContent =
+        Number(
+          slot.remaining || 0
+        );
+
+
+      const tdOccupancy =
+        document.createElement(
+          "td"
+        );
+
+      tdOccupancy.textContent =
+        Number(
+          slot.occupancy || 0
+        ) +
+        "%";
+
+
+      tr.appendChild(
+        tdTime
+      );
+
+      tr.appendChild(
+        tdBooked
+      );
+
+      tr.appendChild(
+        tdRemaining
+      );
+
+      tr.appendChild(
+        tdOccupancy
+      );
+
+
+      tbody.appendChild(
+        tr
+      );
+    }
+  );
 }
 
 
 /* =========================================================
-   DAY NAME
+   DAY
 ========================================================= */
 
 function getDisplayDayName(
@@ -773,44 +1653,39 @@ function getDisplayDayName(
 
   const parsedDate =
     new Date(
-      data.date +
+      String(
+        data.date || ""
+      ) +
       "T12:00:00"
     );
 
 
   return dayNames[
     parsedDate.getDay()
-  ];
+  ] || "";
 }
 
 
 /* =========================================================
-   ESCAPE
+   ENTER KEY
 ========================================================= */
 
-function escapeHtml(
-  value
-) {
+document.addEventListener(
+  "keydown",
+  function(event) {
 
-  return String(
-    value === null ||
-    value === undefined
-      ? ""
-      : value
-  ).replace(
-    /[&<>"]/g,
-    function(ch) {
+    if (
+      event.key === "Enter" &&
+      document.getElementById(
+        "loginView"
+      ).style.display !==
+        "none"
+    ) {
 
-      return {
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        "\"":"&quot;"
-      }[ch];
-
+      loginEmployee();
     }
-  );
-}
+  }
+);
 
 
 /* =========================================================
@@ -820,27 +1695,52 @@ function escapeHtml(
 async function init() {
 
   setLanguage(
-    "en"
+    "ar"
   );
 
-
-  currentSessionToken =
-    localStorage.getItem(
-      SESSION_TOKEN_KEY
-    ) || "";
+  showLoading();
 
 
-  if (
-    !currentSessionToken
-  ) {
+  try {
 
-    redirectToLogin();
+    const valid =
+      await validateCurrentSession();
 
-    return;
+
+    if (
+      valid
+    ) {
+
+      await loadDashboard();
+
+      return;
+    }
+
+
+    showLogin();
+
+
+  } catch(error) {
+
+    /*
+    لو مفتاح الدخول موجود ولكن حصل خطأ اتصال،
+    لا نمسحه.
+    */
+    if (
+      localStorage.getItem(
+        SESSION_TOKEN_KEY
+      )
+    ) {
+
+      showError(
+        text[currentLang].failed
+      );
+
+    } else {
+
+      showLogin();
+    }
   }
-
-
-  await loadDashboard();
 }
 
 
