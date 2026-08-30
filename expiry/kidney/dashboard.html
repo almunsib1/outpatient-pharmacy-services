@@ -283,22 +283,6 @@ tr:last-child td{border-bottom:0}
 const API_URL =
   "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wCZnp6OPiKVurOOL8YG_Ma1mPMhgmzWFadYGxWV4CDejgcIw/exec";
 
-const SESSION_TOKEN_KEY =
-  "kidneySessionToken";
-
-const SESSION_NAME_KEY =
-  "kidneyEmployeeName";
-
-const SESSION_USERNAME_KEY =
-  "kidneyEmployeeUsername";
-
-
-let currentSessionToken =
-  localStorage.getItem(
-    SESSION_TOKEN_KEY
-  ) || "";
-
-
 let currentLang =
   "en";
 
@@ -1249,8 +1233,10 @@ function escapeHtml(
 ){
 
   return String(
-    value ||
-    ""
+    value === null ||
+    value === undefined
+      ? ""
+      : value
   ).replace(
     /[&<>"]/g,
     function(ch){
@@ -1427,133 +1413,7 @@ function renderRows(
 
 
 /* =========================================================
-   SECURITY
-========================================================= */
-
-function clearStoredSession(){
-
-  localStorage.removeItem(
-    SESSION_TOKEN_KEY
-  );
-
-  localStorage.removeItem(
-    SESSION_NAME_KEY
-  );
-
-  localStorage.removeItem(
-    SESSION_USERNAME_KEY
-  );
-
-  sessionStorage.removeItem(
-    SESSION_TOKEN_KEY
-  );
-
-  sessionStorage.removeItem(
-    SESSION_NAME_KEY
-  );
-
-  sessionStorage.removeItem(
-    SESSION_USERNAME_KEY
-  );
-
-  currentSessionToken =
-    "";
-}
-
-
-function redirectToLogin(){
-
-  clearStoredSession();
-
-  window.location.replace(
-    "form.html"
-  );
-}
-
-
-function isSessionError(
-  data
-){
-
-  if (
-    !data
-  ) {
-    return false;
-  }
-
-  return [
-    "MISSING_SESSION",
-    "INVALID_SESSION",
-    "NO_PERMISSION",
-    "USER_INACTIVE",
-    "SESSION_REQUIRED"
-  ].includes(
-    data.code
-  );
-}
-
-
-async function securePost(
-  action,
-  payload = {}
-){
-
-  currentSessionToken =
-    localStorage.getItem(
-      SESSION_TOKEN_KEY
-    ) || "";
-
-  if (
-    !currentSessionToken
-  ) {
-
-    redirectToLogin();
-
-    throw new Error(
-      "MISSING_SESSION"
-    );
-  }
-
-  const body = {
-    ...payload,
-    action,
-    sessionToken:
-      currentSessionToken
-  };
-
-  const response =
-    await fetch(
-      API_URL,
-      {
-        method:"POST",
-
-        headers:{
-          "Content-Type":
-            "text/plain;charset=utf-8"
-        },
-
-        body:
-          JSON.stringify(
-            body
-          )
-      }
-    );
-
-  if (
-    !response.ok
-  ) {
-    throw new Error(
-      "HTTP_" +
-      response.status
-    );
-  }
-
-  return await response.json();
-}
-
-
-/* =========================================================
-   LOAD DATA
+   LOAD DATA - PUBLIC DASHBOARD
 ========================================================= */
 
 async function loadData(){
@@ -1577,28 +1437,31 @@ async function loadData(){
 
   try {
 
-    const data =
-      await securePost(
-        "dashboard",
-        {}
+    const response =
+      await fetch(
+        API_URL +
+        "?action=dashboard",
+        {
+          cache:"no-store"
+        }
       );
+
+    if (
+      !response.ok
+    ) {
+      throw new Error(
+        "HTTP_" +
+        response.status
+      );
+    }
+
+    const data =
+      await response.json();
 
     if (
       !data ||
       !data.success
     ) {
-
-      if (
-        isSessionError(
-          data
-        )
-      ) {
-
-        redirectToLogin();
-
-        return;
-      }
-
       throw new Error(
         data &&
         data.code
@@ -1614,16 +1477,6 @@ async function loadData(){
     );
 
   } catch(error){
-
-    if (
-      String(
-        error.message ||
-        error
-      ) ===
-      "MISSING_SESSION"
-    ) {
-      return;
-    }
 
     document.getElementById(
       "emptyNote"
@@ -1704,7 +1557,7 @@ document.addEventListener(
    START
 ========================================================= */
 
-async function init(){
+function init(){
 
   buildReportMonthOptions();
 
@@ -1712,49 +1565,7 @@ async function init(){
     "en"
   );
 
-  currentSessionToken =
-    localStorage.getItem(
-      SESSION_TOKEN_KEY
-    ) || "";
-
-  if (
-    !currentSessionToken
-  ) {
-
-    redirectToLogin();
-
-    return;
-  }
-
-  /*
-    نتحقق من الجلسة نفسها أولاً.
-  */
-  try {
-
-    const validation =
-      await securePost(
-        "validateSession",
-        {}
-      );
-
-    if (
-      !validation ||
-      !validation.success
-    ) {
-
-      redirectToLogin();
-
-      return;
-    }
-
-  } catch(error){
-
-    redirectToLogin();
-
-    return;
-  }
-
-  await loadData();
+  loadData();
 
   setInterval(
     loadData,
