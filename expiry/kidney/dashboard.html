@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Monthly Inspection Index</title>
+
 <style>
 *{box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
@@ -31,7 +32,15 @@ hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
 .stat-card.red.active-filter{background:#fdeaea;border-color:#a12727}
 .stat-card.orange.active-filter{background:#fff6e0;border-color:#eab308}
 .stat-card.green.active-filter{background:#e6f2f5;border-color:#0f7592}
-.search-row{display:flex;justify-content:center;margin:-2px auto 10px;position:relative;max-width:300px}.search-combo{position:relative;width:100%}.medicine-search{width:100%;height:36px;border:1px solid #cbd5e1;border-radius:8px;padding:6px 12px;background:#fff;color:#168fb3;font-size:13px;font-weight:bold;text-align:center;font-family:inherit}.medicine-search::placeholder{color:#94a3b8;font-weight:normal}.combo-options{position:absolute;top:100%;right:0;left:0;background:#fff;border:1px solid #cbd5e1;border-radius:8px;margin-top:-1px;max-height:190px;overflow-y:auto;box-shadow:0 10px 20px rgba(0,0,0,.1);z-index:20;display:none}.combo-option{padding:8px 10px;font-size:13px;cursor:pointer;text-align:left;direction:ltr;color:#168fb3}.combo-option:hover{background:#e0f2fe}.combo-empty{padding:9px 12px;font-size:12px;color:#94a3b8;text-align:center}.action-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:-4px 0 8px;direction:ltr}
+.search-row{display:flex;justify-content:center;margin:-2px auto 10px;position:relative;max-width:300px}
+.search-combo{position:relative;width:100%}
+.medicine-search{width:100%;height:36px;border:1px solid #cbd5e1;border-radius:8px;padding:6px 12px;background:#fff;color:#168fb3;font-size:13px;font-weight:bold;text-align:center;font-family:inherit}
+.medicine-search::placeholder{color:#94a3b8;font-weight:normal}
+.combo-options{position:absolute;top:100%;right:0;left:0;background:#fff;border:1px solid #cbd5e1;border-radius:8px;margin-top:-1px;max-height:190px;overflow-y:auto;box-shadow:0 10px 20px rgba(0,0,0,.1);z-index:20;display:none}
+.combo-option{padding:8px 10px;font-size:13px;cursor:pointer;text-align:left;direction:ltr;color:#168fb3}
+.combo-option:hover{background:#e0f2fe}
+.combo-empty{padding:9px 12px;font-size:12px;color:#94a3b8;text-align:center}
+.action-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:-4px 0 8px;direction:ltr}
 .action-btn{width:44px;min-width:44px;min-height:44px;padding:0;border:0;border-radius:0;background:transparent;color:#168fb3;font-size:26px;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-family:inherit}
 .action-btn:hover{background:transparent;transform:scale(1.08)}
 .table-wrap{overflow-x:auto;border-radius:10px;border:1px solid #e5e7eb;box-shadow:0 4px 10px rgba(0,0,0,.04)}
@@ -51,78 +60,301 @@ tr:last-child td{border-bottom:0}
 .empty-note,.refresh-note{text-align:center;font-size:12px;color:#888;margin-top:10px}
 .main-home-link{display:flex;align-items:center;justify-content:center;width:fit-content;margin:22px auto 0;color:#168fb3;text-decoration:none;font-size:28px;line-height:1;background:transparent;border:none;padding:4px}
 .main-home-link:hover{color:#0f7592}
-@media (max-width:700px){body{padding:10px;background:#fff}.container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}.logo{width:84px;height:84px}.official-header{transform:translateY(10px)}.official-header h2,.official-header h3{font-size:12px}.page-title{font-size:20px;margin-bottom:10px}.report-controls{gap:8px;margin-bottom:14px}.report-controls select{min-width:150px;font-size:12px}.stats{max-width:100%;gap:7px;margin-bottom:14px}.stat-card{padding:8px 5px;min-height:62px}.stat-card .label{font-size:10.5px}.stat-card .num{font-size:17px}.search-row{max-width:240px;margin-bottom:10px}.medicine-search{height:34px;font-size:12px}th,td{padding:8px 8px;font-size:12px}.action-btn{width:40px;min-width:40px;min-height:40px;font-size:22px}}
-@media print{.language-chip,.main-home-link,.action-row,.refresh-note,.report-controls,.search-row{display:none !important}body{background:#fff;padding:0}.container{max-width:none;width:100%;min-height:auto;margin:0;padding:18px 22px;border:1px solid #dbe7ed;border-radius:8px;box-shadow:none}.logo{width:82px;height:82px}.official-header{transform:none}.official-header h2,.official-header h3{font-size:11px}.page-title{font-size:22px;margin:10px 0 4px}.meta-row{justify-content:center;margin-bottom:8px}.date-box{font-size:12px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 18px}.stat-card{box-shadow:none;min-height:58px;padding:8px 10px}.table-wrap{box-shadow:none;border-radius:8px}th{font-size:12px}td{font-size:11px;padding:7px 8px}}
+
+@media (max-width:700px){
+  body{padding:10px;background:#fff}
+  .container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}
+  .logo{width:84px;height:84px}
+  .official-header{transform:translateY(10px)}
+  .official-header h2,.official-header h3{font-size:12px}
+  .page-title{font-size:20px;margin-bottom:10px}
+  .report-controls{gap:8px;margin-bottom:14px}
+  .report-controls select{min-width:150px;font-size:12px}
+  .stats{max-width:100%;gap:7px;margin-bottom:14px}
+  .stat-card{padding:8px 5px;min-height:62px}
+  .stat-card .label{font-size:10.5px}
+  .stat-card .num{font-size:17px}
+  .search-row{max-width:240px;margin-bottom:10px}
+  .medicine-search{height:34px;font-size:12px}
+  th,td{padding:8px 8px;font-size:12px}
+  .action-btn{width:40px;min-width:40px;min-height:40px;font-size:22px}
+}
+
+@media print{
+  .language-chip,.main-home-link,.action-row,.refresh-note,.report-controls,.search-row{display:none !important}
+  body{background:#fff;padding:0}
+  .container{max-width:none;width:100%;min-height:auto;margin:0;padding:18px 22px;border:1px solid #dbe7ed;border-radius:8px;box-shadow:none}
+  .logo{width:82px;height:82px}
+  .official-header{transform:none}
+  .official-header h2,.official-header h3{font-size:11px}
+  .page-title{font-size:22px;margin:10px 0 4px}
+  .meta-row{justify-content:center;margin-bottom:8px}
+  .date-box{font-size:12px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 18px}
+  .stat-card{box-shadow:none;min-height:58px;padding:8px 10px}
+  .table-wrap{box-shadow:none;border-radius:8px}
+  th{font-size:12px}
+  td{font-size:11px;padding:7px 8px}
+}
 </style>
 </head>
+
 <body>
+
 <div class="container">
+
   <div class="top-bar">
+
     <img class="logo" src="../../logo.png" alt="Logo">
+
     <div class="official-header">
       <h2 id="officialLine1">تجمع المدينة المنورة الصحي</h2>
       <h3 id="officialLine2">مستشفى الملك فهد بالمدينة المنورة</h3>
       <h3 id="officialLine3">إدارة الرعاية الصيدلانية</h3>
     </div>
-  </div>
-  <hr>
-  <div class="meta-row">
-    <div class="date-box" id="dateBox"></div>
-    <button type="button" class="language-chip" id="languageToggle" onclick="toggleLanguage()">🌐 ع | E</button>
+
   </div>
 
-  <h1 class="page-title" id="pageTitle">Monthly Inspection Index</h1>
+  <hr>
+
+  <div class="meta-row">
+
+    <div class="date-box" id="dateBox"></div>
+
+    <button
+      type="button"
+      class="language-chip"
+      id="languageToggle"
+      onclick="toggleLanguage()">
+      🌐 ع | E
+    </button>
+
+  </div>
+
+
+  <h1 class="page-title" id="pageTitle">
+    Monthly Inspection Index
+  </h1>
+
 
   <div class="report-controls">
-    <select id="reportType" onchange="refreshReportView()">
-      <option value="inspection">Inspection Report</option>
-      <option value="removal">Expiry Removal Report</option>
+
+    <select
+      id="reportType"
+      onchange="refreshReportView()">
+
+      <option value="inspection">
+        Inspection Report
+      </option>
+
+      <option value="removal">
+        Expiry Removal Report
+      </option>
+
     </select>
-    <select id="reportMonth" onchange="refreshReportView()"></select>
+
+
+    <select
+      id="reportMonth"
+      onchange="refreshReportView()">
+    </select>
+
   </div>
+
 
   <div class="stats">
-    <div class="stat-card red" id="cardExpired" data-filter="expired" role="button" tabindex="0" aria-pressed="false" onclick="setFilter('expired')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('expired');}"><div class="label" id="labelExpired">هذا الشهر</div><div class="num" id="countExpired">-</div></div>
-    <div class="stat-card orange" id="cardSoon" data-filter="soon" role="button" tabindex="0" aria-pressed="false" onclick="setFilter('soon')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('soon');}"><div class="label" id="labelSoon">خلال 3 أشهر</div><div class="num" id="countSoon">-</div></div>
-    <div class="stat-card green" id="cardOk" data-filter="ok" role="button" tabindex="0" aria-pressed="false" onclick="setFilter('ok')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('ok');}"><div class="label" id="labelOk">ضمن المدة الآمنة</div><div class="num" id="countOk">-</div></div>
+
+    <div
+      class="stat-card red"
+      id="cardExpired"
+      data-filter="expired"
+      role="button"
+      tabindex="0"
+      aria-pressed="false"
+      onclick="setFilter('expired')"
+      onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('expired');}">
+
+      <div class="label" id="labelExpired">
+        هذا الشهر
+      </div>
+
+      <div class="num" id="countExpired">
+        -
+      </div>
+
+    </div>
+
+
+    <div
+      class="stat-card orange"
+      id="cardSoon"
+      data-filter="soon"
+      role="button"
+      tabindex="0"
+      aria-pressed="false"
+      onclick="setFilter('soon')"
+      onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('soon');}">
+
+      <div class="label" id="labelSoon">
+        خلال 3 أشهر
+      </div>
+
+      <div class="num" id="countSoon">
+        -
+      </div>
+
+    </div>
+
+
+    <div
+      class="stat-card green"
+      id="cardOk"
+      data-filter="ok"
+      role="button"
+      tabindex="0"
+      aria-pressed="false"
+      onclick="setFilter('ok')"
+      onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setFilter('ok');}">
+
+      <div class="label" id="labelOk">
+        ضمن المدة الآمنة
+      </div>
+
+      <div class="num" id="countOk">
+        -
+      </div>
+
+    </div>
+
   </div>
+
 
   <div class="search-row">
+
     <div class="search-combo">
-      <input class="medicine-search" id="medicineSearch" autocomplete="off" oninput="setMedicineSearch(this.value)" onclick="openMedicineSearchOptions()">
-      <div class="combo-options" id="medicineSearchOptions"></div>
+
+      <input
+        class="medicine-search"
+        id="medicineSearch"
+        autocomplete="off"
+        oninput="setMedicineSearch(this.value)"
+        onclick="openMedicineSearchOptions()">
+
+      <div
+        class="combo-options"
+        id="medicineSearchOptions">
+      </div>
+
     </div>
+
   </div>
+
 
   <div class="action-row">
-    <button type="button" class="action-btn" id="printBtn" onclick="window.print()" title="طباعة" aria-label="طباعة">🖨️</button>
-    <button type="button" class="action-btn" id="refreshBtn" onclick="refreshData()" title="تحديث" aria-label="تحديث">🔄</button>
+
+    <button
+      type="button"
+      class="action-btn"
+      id="printBtn"
+      onclick="window.print()"
+      title="طباعة"
+      aria-label="طباعة">
+      🖨️
+    </button>
+
+    <button
+      type="button"
+      class="action-btn"
+      id="refreshBtn"
+      onclick="refreshData()"
+      title="تحديث"
+      aria-label="تحديث">
+      🔄
+    </button>
+
   </div>
+
 
   <div class="table-wrap">
+
     <table>
+
       <thead>
+
         <tr>
-          <th id="colName">اسم الدواء</th>
-          <th id="colExpiry">تاريخ الانتهاء</th>
-          <th id="colStatus">الحالة</th>
-          <th id="colEmployee">اسم الموظف</th>
+          <th id="colName">
+            اسم الدواء
+          </th>
+
+          <th id="colExpiry">
+            تاريخ الانتهاء
+          </th>
+
+          <th id="colStatus">
+            الحالة
+          </th>
+
+          <th id="colEmployee">
+            اسم الموظف
+          </th>
         </tr>
+
       </thead>
-      <tbody id="tableBody"></tbody>
+
+
+      <tbody id="tableBody">
+      </tbody>
+
     </table>
+
   </div>
-  <div class="empty-note" id="emptyNote" style="display:none">لا توجد بيانات لعرضها حالياً.</div>
-  <div class="refresh-note" id="refreshNote">يتحدث تلقائياً كل 10 ثواني</div>
+
+
+  <div
+    class="empty-note"
+    id="emptyNote"
+    style="display:none">
+    لا توجد بيانات لعرضها حالياً.
+  </div>
+
+
+  <div
+    class="refresh-note"
+    id="refreshNote">
+    يتحدث تلقائياً كل 10 ثواني
+  </div>
+
 </div>
 
-<script>
-// TODO: ضع رابط Google Apps Script Web App هنا بعد النشر (ينتهي بـ /exec)
-// نفس الرابط المستخدم في form.html وadmin.html لهذا المشروع.
-const API_URL = "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wCZnp6OPiKVurOOL8YG_Ma1mPMhgmzWFadYGxWV4CDejgcIw/exec";
 
-let currentLang = "en";
+<script>
+
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wCZnp6OPiKVurOOL8YG_Ma1mPMhgmzWFadYGxWV4CDejgcIw/exec";
+
+
+const SESSION_TOKEN_KEY =
+  "kidneySessionToken";
+
+const SESSION_NAME_KEY =
+  "kidneyEmployeeName";
+
+const SESSION_USERNAME_KEY =
+  "kidneyEmployeeUsername";
+
+
+let currentSessionToken =
+  sessionStorage.getItem(
+    SESSION_TOKEN_KEY
+  ) || "";
+
+
+let currentLang =
+  "en";
+
+
 const text = {
+
   ar: {
     title:"مؤشر المتابعة الشهري لصلاحية الأدوية",
     inspectionReport:"Inspection Report",
@@ -141,13 +373,14 @@ const text = {
     refreshBtnText:"تحديث",
     refreshNote:"يتحدث تلقائياً كل 10 ثواني",
     searchPlaceholder:"بحث باسم الدواء",
-emptyNote:"لا توجد بيانات لعرضها حالياً.",
+    emptyNote:"لا توجد بيانات لعرضها حالياً.",
     notConfigured:"لم يتم ربط مصدر البيانات بعد.",
     loadError:"تعذر تحميل البيانات، حاول لاحقاً.",
     expiredSince:" يوم منتهي منذ ",
     daysLeft:" يوم متبقي ",
     back:"العودة إلى صيدلية مركز الكلى"
   },
+
   en: {
     title:"Monthly Inspection Index",
     inspectionReport:"Inspection Report",
@@ -166,353 +399,1620 @@ emptyNote:"لا توجد بيانات لعرضها حالياً.",
     refreshBtnText:"Refresh",
     refreshNote:"Auto-refreshes every 10 seconds",
     searchPlaceholder:"Search by medication name",
-emptyNote:"No data to display yet.",
+    emptyNote:"No data to display yet.",
     notConfigured:"Data source is not connected yet.",
     loadError:"Could not load data, try again later.",
     expiredSince:" days expired",
     daysLeft:"Days left: ",
     back:"Back to Kidney Center Pharmacy"
   }
+
 };
 
+
 function setLanguage(lang){
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-  document.title = text[lang].title;
-  document.getElementById("pageTitle").innerText = text[lang].title;
-  ["officialLine1","officialLine2","officialLine3","labelExpired","labelSoon","labelOk","colName","colExpiry","colStatus","colEmployee","refreshNote"].forEach(id=>{
-    const key = id.replace("pageTitle","title");
-    document.getElementById(id).innerText = text[lang][key];
-  });
-  document.getElementById("printBtn").title = text[lang].printBtnText;
-  document.getElementById("printBtn").setAttribute("aria-label", text[lang].printBtnText);
-  document.getElementById("refreshBtn").title = text[lang].refreshBtnText;
-  document.getElementById("refreshBtn").setAttribute("aria-label", text[lang].refreshBtnText);
-  const reportType = document.getElementById("reportType");
+
+  currentLang =
+    lang;
+
+  document.documentElement.lang =
+    lang;
+
+  document.documentElement.dir =
+    lang === "ar"
+      ? "rtl"
+      : "ltr";
+
+  document.title =
+    text[lang].title;
+
+  document.getElementById(
+    "pageTitle"
+  ).innerText =
+    text[lang].title;
+
+
+  [
+    "officialLine1",
+    "officialLine2",
+    "officialLine3",
+    "labelExpired",
+    "labelSoon",
+    "labelOk",
+    "colName",
+    "colExpiry",
+    "colStatus",
+    "colEmployee",
+    "refreshNote"
+  ].forEach(
+    function(id){
+
+      const key =
+        id.replace(
+          "pageTitle",
+          "title"
+        );
+
+      document.getElementById(
+        id
+      ).innerText =
+        text[lang][key];
+
+    }
+  );
+
+
+  document.getElementById(
+    "printBtn"
+  ).title =
+    text[lang].printBtnText;
+
+  document.getElementById(
+    "printBtn"
+  ).setAttribute(
+    "aria-label",
+    text[lang].printBtnText
+  );
+
+
+  document.getElementById(
+    "refreshBtn"
+  ).title =
+    text[lang].refreshBtnText;
+
+  document.getElementById(
+    "refreshBtn"
+  ).setAttribute(
+    "aria-label",
+    text[lang].refreshBtnText
+  );
+
+
+  const reportType =
+    document.getElementById(
+      "reportType"
+    );
+
   if (reportType) {
-    reportType.options[0].textContent = text[lang].inspectionReport;
-    reportType.options[1].textContent = text[lang].removalReport;
+
+    reportType.options[0].textContent =
+      text[lang].inspectionReport;
+
+    reportType.options[1].textContent =
+      text[lang].removalReport;
+
   }
-  const homeLink = document.querySelector(".main-home-link");
-  if (homeLink) {
-    homeLink.title = text[lang].back;
-    homeLink.setAttribute("aria-label", text[lang].back);
-  }
-  document.getElementById("languageToggle").innerText = "🌐 ع | E";
-  document.getElementById("medicineSearch").placeholder = text[lang].searchPlaceholder;
+
+
+  document.getElementById(
+    "languageToggle"
+  ).innerText =
+    "🌐 ع | E";
+
+
+  document.getElementById(
+    "medicineSearch"
+  ).placeholder =
+    text[lang].searchPlaceholder;
+
+
   renderDate();
-  renderRows(lastItems);
+
+  renderRows(
+    lastItems
+  );
+
 }
-function toggleLanguage(){ setLanguage(currentLang === "ar" ? "en" : "ar"); }
+
+
+function toggleLanguage(){
+
+  setLanguage(
+    currentLang === "ar"
+      ? "en"
+      : "ar"
+  );
+
+}
+
+
 function renderDate(){
-  const now = new Date();
-  const date = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(now);
-  const dayName = new Intl.DateTimeFormat(currentLang === "ar" ? "ar-SA" : "en-US",{timeZone:"Asia/Riyadh",weekday:"long"}).format(now);
-  document.getElementById("dateBox").innerText = `${dayName} - ${date}`;
+
+  const now =
+    new Date();
+
+
+  const date =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:
+          "Asia/Riyadh"
+      }
+    ).format(
+      now
+    );
+
+
+  const dayName =
+    new Intl.DateTimeFormat(
+      currentLang === "ar"
+        ? "ar-SA"
+        : "en-US",
+      {
+        timeZone:
+          "Asia/Riyadh",
+        weekday:
+          "long"
+      }
+    ).format(
+      now
+    );
+
+
+  document.getElementById(
+    "dateBox"
+  ).innerText =
+    `${dayName} - ${date}`;
+
 }
+
 
 function buildReportMonthOptions(){
-  const select = document.getElementById("reportMonth");
-  if (!select || select.options.length) return;
-  const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-  const today = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(new Date());
-  const currentYear = Number(today.substring(0, 4));
-  const defaultMonth = getNextMonthValue();
-  for (let year = currentYear - 1; year <= currentYear + 1; year++) {
-    monthNames.forEach(function(monthName, index){
-      const monthNumber = String(index + 1).padStart(2, "0");
-      const value = year + "-" + monthNumber;
-      const option = document.createElement("option");
-      option.value = value;
-      option.textContent = monthName + " " + year;
-      select.appendChild(option);
-    });
-  }
-  select.value = defaultMonth;
-}
 
-function getNextMonthValue(){
-  const today = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(new Date());
-  const parts = today.split("-");
-  let year = Number(parts[0]);
-  let month = Number(parts[1]) + 1;
-  if (month > 12) { month = 1; year += 1; }
-  return year + "-" + String(month).padStart(2, "0");
-}
+  const select =
+    document.getElementById(
+      "reportMonth"
+    );
 
-function getReportMonth(){
-  const select = document.getElementById("reportMonth");
-  return select && select.value ? select.value : getNextMonthValue();
-}
 
-function getReportType(){
-  const select = document.getElementById("reportType");
-  return select && select.value ? select.value : "inspection";
-}
-
-function getReportMonthLabel(){
-  const select = document.getElementById("reportMonth");
-  return select && select.selectedOptions.length ? select.selectedOptions[0].textContent : getReportMonth();
-}
-
-function updateReportTitle(){
-  document.getElementById("pageTitle").innerText = text[currentLang].title;
-}
-
-function refreshReportView(){
-  activeFilter = null;
-  updateReportTitle();
-  renderRows(lastItems);
-}
-
-function reportBaseItems(){
-  const month = getReportMonth();
-  const reportType = getReportType();
-  return lastItems.filter(function(item){
-    const itemMonth = String(item.expiry || "").substring(0, 7);
-    if (reportType === "removal") return itemMonth === month;
-    return itemMonth >= month;
-  });
-}
-function statusLabel(daysLeft){
-  if (daysLeft < 0) return Math.abs(daysLeft) + text[currentLang].expiredSince;
-  return text[currentLang].daysLeft + daysLeft;
-}
-function rowClass(item){
-  const bucket = itemBucket(item);
-  if (bucket === "expired") return "row-expired";
-  if (bucket === "soon") return "row-soon";
-  return "";
-}
-function dateClass(item){
-  const bucket = itemBucket(item);
-  if (bucket === "expired") return "date-expired";
-  if (bucket === "soon") return "date-soon";
-  return "date-ok";
-}
-function pillClass(item){
-  return itemBucket(item);
-}
-
-let lastItems = [];
-let activeFilter = null;
-let medicineSearchQuery = "";
-
-function getTodayParts(){
-  const today = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(new Date());
-  const parts = today.split("-");
-  return { year: parts[0], month: parts[1] };
-}
-
-function isThisMonth(expiry){
-  const parts = String(expiry || "").split("-");
-  if (parts.length < 2) return false;
-  const today = getTodayParts();
-  return parts[0] === today.year && parts[1] === today.month;
-}
-
-function itemBucket(item){
-  const itemMonth = String(item.expiry || "").substring(0, 7);
-  const reportMonth = getReportMonth();
-  if (getReportType() === "removal") return "expired";
-  if (itemMonth === reportMonth) return "expired";
-  const distance = monthDistance(reportMonth, itemMonth);
-  if (distance > 0 && distance <= 3) return "soon";
-  return "ok";
-}
-
-function monthDistance(fromMonth, toMonth){
-  const from = String(fromMonth || "").split("-");
-  const to = String(toMonth || "").split("-");
-  if (from.length < 2 || to.length < 2) return 999;
-  return ((Number(to[0]) - Number(from[0])) * 12) + (Number(to[1]) - Number(from[1]));
-}
-
-function matchesFilter(item){
-  if (!activeFilter) return true;
-  return itemBucket(item) === activeFilter;
-}
-
-function setMedicineSearch(value){
-  medicineSearchQuery = String(value || "").trim().toLowerCase();
-  const list = document.getElementById("medicineSearchOptions");
-  if (list && list.style.display === "block") {
-    renderMedicineSearchOptions(value);
-  }
-  renderTable();
-}
-
-function openMedicineSearchOptions(){
-  const input = document.getElementById("medicineSearch");
-  renderMedicineSearchOptions(input ? input.value : "");
-}
-
-function matchesMedicineSearch(item){
-  if (!medicineSearchQuery) return true;
-  return String(item.name || "").toLowerCase().includes(medicineSearchQuery);
-}
-
-function renderMedicineSearchOptions(filterText){
-  const list = document.getElementById("medicineSearchOptions");
-  if (!list) return;
-  const q = String(filterText || "").trim().toLowerCase();
-  const names = Array.from(new Set(reportBaseItems().map(function(item){ return item.name; }).filter(Boolean)))
-    .filter(function(name){ return !q || name.toLowerCase().includes(q); })
-    .sort(function(a,b){ return a.localeCompare(b); })
-    .slice(0, 50);
-  list.innerHTML = "";
-  if (!names.length) {
-    const empty = document.createElement("div");
-    empty.className = "combo-empty";
-    empty.innerText = text[currentLang].emptyNote;
-    list.appendChild(empty);
-  } else {
-    names.forEach(function(name){
-      const opt = document.createElement("div");
-      opt.className = "combo-option";
-      opt.innerText = name;
-      opt.onmousedown = function(e){
-        e.preventDefault();
-        selectMedicineSearch(name);
-      };
-      list.appendChild(opt);
-    });
-  }
-  list.style.display = "block";
-}
-
-function selectMedicineSearch(name){
-  const input = document.getElementById("medicineSearch");
-  if (input) input.value = name;
-  medicineSearchQuery = String(name || "").trim().toLowerCase();
-  const list = document.getElementById("medicineSearchOptions");
-  if (list) list.style.display = "none";
-  renderTable();
-}
-
-function escapeHtml(value){
-  return String(value || "").replace(/[&<>\"]/g, function(ch){
-    return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[ch];
-  });
-}
-
-function setFilter(status){
-  activeFilter = (activeFilter === status) ? null : status;
-  updateFilterCardsUI();
-  renderTable();
-}
-
-function updateFilterCardsUI(){
-  document.querySelectorAll(".stat-card").forEach(function(card){
-    const isActive = activeFilter && card.getAttribute("data-filter") === activeFilter;
-    card.classList.toggle("active-filter", !!isActive);
-    card.setAttribute("aria-pressed", isActive ? "true" : "false");
-  });
-}
-
-function renderTable(){
-  const tbody = document.getElementById("tableBody");
-  const emptyNote = document.getElementById("emptyNote");
-  tbody.innerHTML = "";
-  const filtered = reportBaseItems().filter(function(m){ return matchesFilter(m) && matchesMedicineSearch(m); });
-  filtered.forEach(function(m){
-    const tr = document.createElement("tr");
-    tr.className = rowClass(m);
-    tr.innerHTML =
-      "<td>" + m.name + "</td>" +
-      "<td class=\"" + dateClass(m) + "\">" + m.expiry + "</td>" +
-      "<td><span class=\"status-pill " + pillClass(m) + "\">" + statusLabel(m.daysLeft) + "</span></td>" +
-      "<td>" + (m.registeredBy || "-") + "</td>";
-    tbody.appendChild(tr);
-  });
-  emptyNote.style.display = filtered.length ? "none" : "block";
-  emptyNote.innerText = text[currentLang].emptyNote;
-}
-
-function renderRows(items){
-  lastItems = items || [];
-  let expired = 0, soon = 0, ok = 0;
-  reportBaseItems().forEach(function(m){
-    const bucket = itemBucket(m);
-    if (bucket === "expired") expired++;
-    else if (bucket === "soon") soon++;
-    else ok++;
-  });
-  document.getElementById("countExpired").textContent = expired;
-  document.getElementById("countSoon").textContent = soon;
-  document.getElementById("countOk").textContent = ok;
-  renderTable();
-}
-
-function refreshData(){
-  activeFilter = null;
-  medicineSearchQuery = "";
-  const searchInput = document.getElementById("medicineSearch");
-  if (searchInput) searchInput.value = "";
-  updateFilterCardsUI();
-  renderTable();
-  loadData();
-}
-
-function loadData(){
-  if (!API_URL){
-    document.getElementById("emptyNote").style.display = "block";
-    document.getElementById("emptyNote").innerText = text[currentLang].notConfigured;
+  if (
+    !select ||
+    select.options.length
+  ) {
     return;
   }
-  fetch(API_URL + "?action=dashboard")
-    .then(function(res){ return res.json(); })
-    .then(function(data){
-      renderRows(data.items || data.medications || []);
-    })
-    .catch(function(){
-      document.getElementById("emptyNote").style.display = "block";
-      document.getElementById("emptyNote").innerText = text[currentLang].loadError;
-    });
+
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+
+
+  const today =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:
+          "Asia/Riyadh"
+      }
+    ).format(
+      new Date()
+    );
+
+
+  const currentYear =
+    Number(
+      today.substring(
+        0,
+        4
+      )
+    );
+
+
+  const defaultMonth =
+    getNextMonthValue();
+
+
+  for (
+    let year =
+      currentYear - 1;
+    year <=
+      currentYear + 1;
+    year++
+  ) {
+
+    monthNames.forEach(
+      function(
+        monthName,
+        index
+      ){
+
+        const monthNumber =
+          String(
+            index + 1
+          ).padStart(
+            2,
+            "0"
+          );
+
+
+        const value =
+          year +
+          "-" +
+          monthNumber;
+
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+
+        option.value =
+          value;
+
+
+        option.textContent =
+          monthName +
+          " " +
+          year;
+
+
+        select.appendChild(
+          option
+        );
+
+      }
+    );
+
+  }
+
+
+  select.value =
+    defaultMonth;
+
 }
 
-document.addEventListener("click", function(e){
-  if (!e.target.closest(".search-combo")) {
-    const list = document.getElementById("medicineSearchOptions");
-    if (list) list.style.display = "none";
+
+function getNextMonthValue(){
+
+  const today =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:
+          "Asia/Riyadh"
+      }
+    ).format(
+      new Date()
+    );
+
+
+  const parts =
+    today.split(
+      "-"
+    );
+
+
+  let year =
+    Number(
+      parts[0]
+    );
+
+
+  let month =
+    Number(
+      parts[1]
+    ) + 1;
+
+
+  if (
+    month > 12
+  ) {
+
+    month =
+      1;
+
+    year +=
+      1;
+
   }
-});
+
+
+  return (
+    year +
+    "-" +
+    String(
+      month
+    ).padStart(
+      2,
+      "0"
+    )
+  );
+
+}
+
+
+function getReportMonth(){
+
+  const select =
+    document.getElementById(
+      "reportMonth"
+    );
+
+
+  return (
+    select &&
+    select.value
+      ? select.value
+      : getNextMonthValue()
+  );
+
+}
+
+
+function getReportType(){
+
+  const select =
+    document.getElementById(
+      "reportType"
+    );
+
+
+  return (
+    select &&
+    select.value
+      ? select.value
+      : "inspection"
+  );
+
+}
+
+
+function getReportMonthLabel(){
+
+  const select =
+    document.getElementById(
+      "reportMonth"
+    );
+
+
+  return (
+    select &&
+    select.selectedOptions.length
+      ? select.selectedOptions[0].textContent
+      : getReportMonth()
+  );
+
+}
+
+
+function updateReportTitle(){
+
+  document.getElementById(
+    "pageTitle"
+  ).innerText =
+    text[currentLang].title;
+
+}
+
+
+function refreshReportView(){
+
+  activeFilter =
+    null;
+
+  updateReportTitle();
+
+  renderRows(
+    lastItems
+  );
+
+}
+
+
+function reportBaseItems(){
+
+  const month =
+    getReportMonth();
+
+
+  const reportType =
+    getReportType();
+
+
+  return lastItems.filter(
+    function(item){
+
+      const itemMonth =
+        String(
+          item.expiry ||
+          ""
+        ).substring(
+          0,
+          7
+        );
+
+
+      if (
+        reportType ===
+        "removal"
+      ) {
+        return (
+          itemMonth ===
+          month
+        );
+      }
+
+
+      return (
+        itemMonth >=
+        month
+      );
+
+    }
+  );
+
+}
+
+
+function statusLabel(
+  daysLeft
+){
+
+  if (
+    daysLeft < 0
+  ) {
+    return (
+      Math.abs(
+        daysLeft
+      ) +
+      text[currentLang].expiredSince
+    );
+  }
+
+
+  return (
+    text[currentLang].daysLeft +
+    daysLeft
+  );
+
+}
+
+
+function rowClass(
+  item
+){
+
+  const bucket =
+    itemBucket(
+      item
+    );
+
+
+  if (
+    bucket ===
+    "expired"
+  ) {
+    return "row-expired";
+  }
+
+
+  if (
+    bucket ===
+    "soon"
+  ) {
+    return "row-soon";
+  }
+
+
+  return "";
+
+}
+
+
+function dateClass(
+  item
+){
+
+  const bucket =
+    itemBucket(
+      item
+    );
+
+
+  if (
+    bucket ===
+    "expired"
+  ) {
+    return "date-expired";
+  }
+
+
+  if (
+    bucket ===
+    "soon"
+  ) {
+    return "date-soon";
+  }
+
+
+  return "date-ok";
+
+}
+
+
+function pillClass(
+  item
+){
+
+  return itemBucket(
+    item
+  );
+
+}
+
+
+let lastItems =
+  [];
+
+let activeFilter =
+  null;
+
+let medicineSearchQuery =
+  "";
+
+
+function getTodayParts(){
+
+  const today =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:
+          "Asia/Riyadh"
+      }
+    ).format(
+      new Date()
+    );
+
+
+  const parts =
+    today.split(
+      "-"
+    );
+
+
+  return {
+    year:
+      parts[0],
+
+    month:
+      parts[1]
+  };
+
+}
+
+
+function isThisMonth(
+  expiry
+){
+
+  const parts =
+    String(
+      expiry ||
+      ""
+    ).split(
+      "-"
+    );
+
+
+  if (
+    parts.length < 2
+  ) {
+    return false;
+  }
+
+
+  const today =
+    getTodayParts();
+
+
+  return (
+    parts[0] ===
+      today.year &&
+    parts[1] ===
+      today.month
+  );
+
+}
+
+
+function itemBucket(
+  item
+){
+
+  const itemMonth =
+    String(
+      item.expiry ||
+      ""
+    ).substring(
+      0,
+      7
+    );
+
+
+  const reportMonth =
+    getReportMonth();
+
+
+  if (
+    getReportType() ===
+    "removal"
+  ) {
+    return "expired";
+  }
+
+
+  if (
+    itemMonth ===
+    reportMonth
+  ) {
+    return "expired";
+  }
+
+
+  const distance =
+    monthDistance(
+      reportMonth,
+      itemMonth
+    );
+
+
+  if (
+    distance > 0 &&
+    distance <= 3
+  ) {
+    return "soon";
+  }
+
+
+  return "ok";
+
+}
+
+
+function monthDistance(
+  fromMonth,
+  toMonth
+){
+
+  const from =
+    String(
+      fromMonth ||
+      ""
+    ).split(
+      "-"
+    );
+
+
+  const to =
+    String(
+      toMonth ||
+      ""
+    ).split(
+      "-"
+    );
+
+
+  if (
+    from.length < 2 ||
+    to.length < 2
+  ) {
+    return 999;
+  }
+
+
+  return (
+    (
+      Number(
+        to[0]
+      ) -
+      Number(
+        from[0]
+      )
+    ) *
+    12
+  ) +
+  (
+    Number(
+      to[1]
+    ) -
+    Number(
+      from[1]
+    )
+  );
+
+}
+
+
+function matchesFilter(
+  item
+){
+
+  if (
+    !activeFilter
+  ) {
+    return true;
+  }
+
+
+  return (
+    itemBucket(
+      item
+    ) ===
+    activeFilter
+  );
+
+}
+
+
+function setMedicineSearch(
+  value
+){
+
+  medicineSearchQuery =
+    String(
+      value ||
+      ""
+    )
+      .trim()
+      .toLowerCase();
+
+
+  const list =
+    document.getElementById(
+      "medicineSearchOptions"
+    );
+
+
+  if (
+    list &&
+    list.style.display ===
+      "block"
+  ) {
+
+    renderMedicineSearchOptions(
+      value
+    );
+
+  }
+
+
+  renderTable();
+
+}
+
+
+function openMedicineSearchOptions(){
+
+  const input =
+    document.getElementById(
+      "medicineSearch"
+    );
+
+
+  renderMedicineSearchOptions(
+    input
+      ? input.value
+      : ""
+  );
+
+}
+
+
+function matchesMedicineSearch(
+  item
+){
+
+  if (
+    !medicineSearchQuery
+  ) {
+    return true;
+  }
+
+
+  return String(
+    item.name ||
+    ""
+  )
+    .toLowerCase()
+    .includes(
+      medicineSearchQuery
+    );
+
+}
+
+
+function renderMedicineSearchOptions(
+  filterText
+){
+
+  const list =
+    document.getElementById(
+      "medicineSearchOptions"
+    );
+
+
+  if (!list) {
+    return;
+  }
+
+
+  const q =
+    String(
+      filterText ||
+      ""
+    )
+      .trim()
+      .toLowerCase();
+
+
+  const names =
+    Array.from(
+      new Set(
+        reportBaseItems()
+          .map(
+            function(item){
+              return item.name;
+            }
+          )
+          .filter(
+            Boolean
+          )
+      )
+    )
+      .filter(
+        function(name){
+          return (
+            !q ||
+            name
+              .toLowerCase()
+              .includes(
+                q
+              )
+          );
+        }
+      )
+      .sort(
+        function(a,b){
+          return a.localeCompare(
+            b
+          );
+        }
+      )
+      .slice(
+        0,
+        50
+      );
+
+
+  list.innerHTML =
+    "";
+
+
+  if (
+    !names.length
+  ) {
+
+    const empty =
+      document.createElement(
+        "div"
+      );
+
+
+    empty.className =
+      "combo-empty";
+
+
+    empty.innerText =
+      text[currentLang].emptyNote;
+
+
+    list.appendChild(
+      empty
+    );
+
+  } else {
+
+    names.forEach(
+      function(name){
+
+        const opt =
+          document.createElement(
+            "div"
+          );
+
+
+        opt.className =
+          "combo-option";
+
+
+        opt.innerText =
+          name;
+
+
+        opt.onmousedown =
+          function(e){
+
+            e.preventDefault();
+
+            selectMedicineSearch(
+              name
+            );
+
+          };
+
+
+        list.appendChild(
+          opt
+        );
+
+      }
+    );
+
+  }
+
+
+  list.style.display =
+    "block";
+
+}
+
+
+function selectMedicineSearch(
+  name
+){
+
+  const input =
+    document.getElementById(
+      "medicineSearch"
+    );
+
+
+  if (input) {
+    input.value =
+      name;
+  }
+
+
+  medicineSearchQuery =
+    String(
+      name ||
+      ""
+    )
+      .trim()
+      .toLowerCase();
+
+
+  const list =
+    document.getElementById(
+      "medicineSearchOptions"
+    );
+
+
+  if (list) {
+    list.style.display =
+      "none";
+  }
+
+
+  renderTable();
+
+}
+
+
+function escapeHtml(
+  value
+){
+
+  return String(
+    value ||
+    ""
+  ).replace(
+    /[&<>"]/g,
+    function(ch){
+
+      return {
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        "\"":"&quot;"
+      }[ch];
+
+    }
+  );
+
+}
+
+
+function setFilter(
+  status
+){
+
+  activeFilter =
+    activeFilter ===
+      status
+      ? null
+      : status;
+
+
+  updateFilterCardsUI();
+
+  renderTable();
+
+}
+
+
+function updateFilterCardsUI(){
+
+  document
+    .querySelectorAll(
+      ".stat-card"
+    )
+    .forEach(
+      function(card){
+
+        const isActive =
+          activeFilter &&
+          card.getAttribute(
+            "data-filter"
+          ) ===
+            activeFilter;
+
+
+        card.classList.toggle(
+          "active-filter",
+          !!isActive
+        );
+
+
+        card.setAttribute(
+          "aria-pressed",
+          isActive
+            ? "true"
+            : "false"
+        );
+
+      }
+    );
+
+}
+
+
+function renderTable(){
+
+  const tbody =
+    document.getElementById(
+      "tableBody"
+    );
+
+
+  const emptyNote =
+    document.getElementById(
+      "emptyNote"
+    );
+
+
+  tbody.innerHTML =
+    "";
+
+
+  const filtered =
+    reportBaseItems().filter(
+      function(m){
+
+        return (
+          matchesFilter(
+            m
+          ) &&
+          matchesMedicineSearch(
+            m
+          )
+        );
+
+      }
+    );
+
+
+  filtered.forEach(
+    function(m){
+
+      const tr =
+        document.createElement(
+          "tr"
+        );
+
+
+      tr.className =
+        rowClass(
+          m
+        );
+
+
+      tr.innerHTML =
+        "<td>" +
+        escapeHtml(
+          m.name
+        ) +
+        "</td>" +
+
+        "<td class=\"" +
+        dateClass(
+          m
+        ) +
+        "\">" +
+        escapeHtml(
+          m.expiry
+        ) +
+        "</td>" +
+
+        "<td><span class=\"status-pill " +
+        pillClass(
+          m
+        ) +
+        "\">" +
+        escapeHtml(
+          statusLabel(
+            m.daysLeft
+          )
+        ) +
+        "</span></td>" +
+
+        "<td>" +
+        escapeHtml(
+          m.registeredBy ||
+          "-"
+        ) +
+        "</td>";
+
+
+      tbody.appendChild(
+        tr
+      );
+
+    }
+  );
+
+
+  emptyNote.style.display =
+    filtered.length
+      ? "none"
+      : "block";
+
+
+  emptyNote.innerText =
+    text[currentLang].emptyNote;
+
+}
+
+
+function renderRows(
+  items
+){
+
+  lastItems =
+    items ||
+    [];
+
+
+  let expired =
+    0;
+
+  let soon =
+    0;
+
+  let ok =
+    0;
+
+
+  reportBaseItems().forEach(
+    function(m){
+
+      const bucket =
+        itemBucket(
+          m
+        );
+
+
+      if (
+        bucket ===
+        "expired"
+      ) {
+        expired++;
+
+      } else if (
+        bucket ===
+        "soon"
+      ) {
+        soon++;
+
+      } else {
+        ok++;
+      }
+
+    }
+  );
+
+
+  document.getElementById(
+    "countExpired"
+  ).textContent =
+    expired;
+
+
+  document.getElementById(
+    "countSoon"
+  ).textContent =
+    soon;
+
+
+  document.getElementById(
+    "countOk"
+  ).textContent =
+    ok;
+
+
+  renderTable();
+
+}
+
+
+function refreshData(){
+
+  activeFilter =
+    null;
+
+
+  medicineSearchQuery =
+    "";
+
+
+  const searchInput =
+    document.getElementById(
+      "medicineSearch"
+    );
+
+
+  if (
+    searchInput
+  ) {
+    searchInput.value =
+      "";
+  }
+
+
+  updateFilterCardsUI();
+
+  renderTable();
+
+  loadData();
+
+}
+
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+function clearKidneySession(){
+
+  sessionStorage.removeItem(
+    SESSION_TOKEN_KEY
+  );
+
+  sessionStorage.removeItem(
+    SESSION_NAME_KEY
+  );
+
+  sessionStorage.removeItem(
+    SESSION_USERNAME_KEY
+  );
+
+
+  currentSessionToken =
+    "";
+
+}
+
+
+function redirectToLogin(){
+
+  clearKidneySession();
+
+  window.location.replace(
+    "form.html"
+  );
+
+}
+
+
+function isSessionError(
+  data
+){
+
+  if (!data) {
+    return false;
+  }
+
+
+  return [
+    "MISSING_SESSION",
+    "INVALID_SESSION",
+    "NO_PERMISSION",
+    "USER_INACTIVE",
+    "SESSION_REQUIRED"
+  ].includes(
+    data.code
+  );
+
+}
+
+
+async function securePost(
+  action,
+  payload
+){
+
+  if (
+    !currentSessionToken
+  ) {
+
+    redirectToLogin();
+
+    throw new Error(
+      "MISSING_SESSION"
+    );
+
+  }
+
+
+  const body =
+    Object.assign(
+      {},
+      payload || {},
+      {
+        action:
+          action,
+
+        sessionToken:
+          currentSessionToken
+      }
+    );
+
+
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method:
+          "POST",
+
+        headers:{
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+
+        body:
+          JSON.stringify(
+            body
+          )
+      }
+    );
+
+
+  if (
+    !response.ok
+  ) {
+    throw new Error(
+      "HTTP_" +
+      response.status
+    );
+  }
+
+
+  return await response.json();
+
+}
+
+
+/* =========================================================
+   LOAD SECURE DASHBOARD
+========================================================= */
+
+async function loadData(){
+
+  if (
+    !API_URL
+  ) {
+
+    document.getElementById(
+      "emptyNote"
+    ).style.display =
+      "block";
+
+
+    document.getElementById(
+      "emptyNote"
+    ).innerText =
+      text[currentLang].notConfigured;
+
+
+    return;
+
+  }
+
+
+  if (
+    !currentSessionToken
+  ) {
+
+    redirectToLogin();
+
+    return;
+
+  }
+
+
+  try {
+
+    const data =
+      await securePost(
+        "dashboard",
+        {}
+      );
+
+
+    if (
+      !data ||
+      !data.success
+    ) {
+
+      if (
+        isSessionError(
+          data
+        )
+      ) {
+
+        redirectToLogin();
+
+        return;
+
+      }
+
+
+      throw new Error(
+        data &&
+        data.code
+          ? data.code
+          : "LOAD_FAILED"
+      );
+
+    }
+
+
+    renderRows(
+      data.items ||
+      data.medications ||
+      []
+    );
+
+  } catch(error) {
+
+    if (
+      String(
+        error.message ||
+        error
+      ) ===
+      "MISSING_SESSION"
+    ) {
+      return;
+    }
+
+
+    document.getElementById(
+      "emptyNote"
+    ).style.display =
+      "block";
+
+
+    document.getElementById(
+      "emptyNote"
+    ).innerText =
+      text[currentLang].loadError;
+
+  }
+
+}
+
+
+document.addEventListener(
+  "click",
+  function(e){
+
+    if (
+      !e.target.closest(
+        ".search-combo"
+      )
+    ) {
+
+      const list =
+        document.getElementById(
+          "medicineSearchOptions"
+        );
+
+
+      if (list) {
+        list.style.display =
+          "none";
+      }
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   START
+========================================================= */
+
 buildReportMonthOptions();
-setLanguage("en");
-loadData();
-setInterval(loadData, 10000);
+
+setLanguage(
+  "en"
+);
+
+if (
+  currentSessionToken
+) {
+
+  loadData();
+
+  setInterval(
+    loadData,
+    10000
+  );
+
+} else {
+
+  redirectToLogin();
+
+}
+
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
