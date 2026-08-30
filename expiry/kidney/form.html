@@ -220,7 +220,6 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
 const KIDNEY_API_URL =
   "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wCZnp6OPiKVurOOL8YG_Ma1mPMhgmzWFadYGxWV4CDejgcIw/exec";
 
-
 const KIDNEY_SESSION_NAME_KEY =
   "kidneyEmployeeName";
 
@@ -399,9 +398,6 @@ let currentLang =
   "en";
 
 
-/*
-  نقل أي جلسة قديمة من sessionStorage إلى localStorage.
-*/
 function migrateOldSession(){
 
   const oldToken =
@@ -599,8 +595,18 @@ function setLanguage(lang){
   document.getElementById("loginBtn").title =
     text[lang].login;
 
+  document.getElementById("loginBtn").setAttribute(
+    "aria-label",
+    text[lang].login
+  );
+
   document.getElementById("togglePasswordBtn").title =
     text[lang].changePassword;
+
+  document.getElementById("togglePasswordBtn").setAttribute(
+    "aria-label",
+    text[lang].changePassword
+  );
 
   document.getElementById("changeUsernameLabel").innerText =
     text[lang].username;
@@ -616,6 +622,11 @@ function setLanguage(lang){
 
   document.getElementById("logoutBtn").title =
     text[lang].logout;
+
+  document.getElementById("logoutBtn").setAttribute(
+    "aria-label",
+    text[lang].logout
+  );
 
   document.getElementById("medNameLabel").innerText =
     text[lang].medName;
@@ -710,9 +721,6 @@ function saveStoredSession(){
   );
 
 
-  /*
-    مؤقت للتوافق مع أي صفحة قديمة ما زالت تقرأ sessionStorage.
-  */
   sessionStorage.setItem(
     KIDNEY_SESSION_NAME_KEY,
     currentEmployeeName
@@ -788,14 +796,29 @@ async function loginEmployee(){
     ).value.trim();
 
 
+  if (
+    !username ||
+    !password
+  ) {
+
+    showLoginResult(
+      "error",
+      text[currentLang].invalidLogin
+    );
+
+    return;
+  }
+
+
   try {
 
     const result =
       await postApi(
         "employeeLogin",
         {
-          username,
-          password
+          username:username,
+          password:password,
+          pin:password
         },
         false
       );
@@ -837,6 +860,11 @@ async function loginEmployee(){
     saveStoredSession();
 
     clearLoginResult();
+
+    document.getElementById(
+      "password"
+    ).value =
+      "";
 
     showEmployeeView();
 
@@ -893,7 +921,9 @@ async function restoreSession(){
     const result =
       await postApi(
         "validateSession",
-        {},
+        {
+          service:"kidney"
+        },
         true
       );
 
@@ -975,12 +1005,14 @@ async function changePassword(){
 
 
   if (
+    !username ||
+    !oldPassword ||
     !newPassword
   ) {
 
     showLoginResult(
       "error",
-      text[currentLang].passwordTooShort
+      text[currentLang].passwordMismatch
     );
 
     return;
@@ -993,9 +1025,13 @@ async function changePassword(){
       await postApi(
         "changeEmployeePassword",
         {
-          username,
-          oldPassword,
-          newPassword
+          username:username,
+
+          oldPassword:oldPassword,
+          currentPin:oldPassword,
+
+          newPassword:newPassword,
+          newPin:newPassword
         },
         false
       );
@@ -1363,16 +1399,14 @@ async function submitMedication(){
   }
 
 
-  /*
-    checkMedication أصبح الآن POST محمي.
-  */
   try {
 
     const data =
       await postApi(
         "checkMedication",
         {
-          name
+          name:name,
+          medicationName:name
         },
         true
       );
@@ -1409,6 +1443,7 @@ async function submitMedication(){
 
     const matches =
       data.matches ||
+      data.items ||
       [];
 
 
@@ -1416,9 +1451,14 @@ async function submitMedication(){
       matches.filter(
         function(m){
 
+          const itemExpiry =
+            m.expiry ||
+            m.expiryDate ||
+            "";
+
           return (
-            m.expiry &&
-            m.expiry <
+            itemExpiry &&
+            itemExpiry <
               expiry
           );
 
@@ -1431,8 +1471,8 @@ async function submitMedication(){
     ) {
 
       pendingMedication = {
-        name,
-        expiry
+        name:name,
+        expiry:expiry
       };
 
 
@@ -1488,12 +1528,22 @@ function showConflict(
           "li"
         );
 
+      const itemExpiry =
+        m.expiry ||
+        m.expiryDate ||
+        "";
+
+      const registeredBy =
+        m.registeredBy ||
+        m.registeredByName ||
+        "";
+
       li.innerText =
-        m.expiry +
+        itemExpiry +
         (
-          m.registeredBy
+          registeredBy
             ? " — " +
-              m.registeredBy
+              registeredBy
             : ""
         );
 
@@ -1571,8 +1621,17 @@ async function saveMedication(
       await postApi(
         "addMedication",
         {
-          name,
-          expiry
+          name:name,
+          medicationName:name,
+
+          expiry:expiry,
+          expiryDate:expiry,
+
+          registeredByUsername:
+            currentEmployeeUsername,
+
+          registeredByName:
+            currentEmployeeName
         },
         true
       );
@@ -1656,7 +1715,7 @@ async function postApi(
 ){
 
   const requestData = {
-    action,
+    action:action,
     ...payload
   };
 
@@ -1677,6 +1736,9 @@ async function postApi(
     ) {
 
       requestData.sessionToken =
+        currentSessionToken;
+
+      requestData.token =
         currentSessionToken;
 
     }
