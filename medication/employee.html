@@ -77,14 +77,16 @@ th,td{padding:6px 5px;font-size:12px}
 .print-label{display:none}
 .main-home-link{display:flex;align-items:center;justify-content:center;width:fit-content;margin:20px auto 0;color:#168fb3;text-decoration:none;font-size:28px;line-height:1;background:transparent;border:none;padding:4px}
 .main-home-link:hover{color:#0f7592}
+
 @media print{
-  body *{visibility:hidden}
-  .print-label,.print-label *{visibility:visible}
-  .print-label{display:block;position:absolute;left:0;top:0;width:58mm;padding:6mm;text-align:center;color:#000;font-family:Arial,sans-serif}
-  .print-label .print-booking{font-size:24px;font-weight:bold;margin-bottom:8px}
-  .print-label .print-name{font-size:16px;margin-bottom:8px}
-  .print-label .print-employee{font-size:13px}
+body *{visibility:hidden}
+.print-label,.print-label *{visibility:visible}
+.print-label{display:block;position:absolute;left:0;top:0;width:58mm;padding:6mm;text-align:center;color:#000;font-family:Arial,sans-serif}
+.print-label .print-booking{font-size:24px;font-weight:bold;margin-bottom:8px}
+.print-label .print-name{font-size:16px;margin-bottom:8px}
+.print-label .print-employee{font-size:13px}
 }
+
 @media (max-width:600px){
 body{padding:10px;background:#fff}
 .container{padding:14px;border-radius:0;box-shadow:none}
@@ -113,66 +115,183 @@ th,td{padding:5px 4px;font-size:11px}
 </head>
 
 <body>
+
 <div class="container">
+
 <div class="top-bar">
+
   <div class="official-header">
     <h2 id="officialLine1"></h2>
     <h3 id="officialLine2"></h3>
     <h3 id="officialLine3"></h3>
   </div>
+
   <img class="logo" src="logo.png" alt="Logo">
+
 </div>
 
 <hr>
 
 <div class="meta-row">
+
   <div class="date-box" id="dateBox"></div>
-  <button type="button" class="language-btn" id="languageToggle" onclick="toggleLanguage()"></button>
+
+  <button
+    type="button"
+    class="language-btn"
+    id="languageToggle"
+    onclick="toggleLanguage()">
+  </button>
+
 </div>
 
 <div class="page-title" id="pageTitle"></div>
 
+
 <div id="loginView" class="login-card">
+
   <label id="usernameLabel" for="username"></label>
-  <input type="text" id="username" autocomplete="username">
+
+  <input
+    type="text"
+    id="username"
+    autocomplete="username">
+
   <label id="passwordLabel" for="password"></label>
-  <input type="password" id="password" inputmode="numeric" autocomplete="current-password">
+
+  <input
+    type="password"
+    id="password"
+    inputmode="numeric"
+    autocomplete="current-password">
+
   <div class="login-actions">
-    <button type="button" class="primary-btn" id="loginBtn" onclick="loginEmployee()"></button>
-    <button type="button" class="secondary-btn" id="togglePasswordBtn" onclick="togglePasswordPanel()"></button>
+
+    <button
+      type="button"
+      class="primary-btn"
+      id="loginBtn"
+      onclick="loginEmployee()">
+    </button>
+
+    <button
+      type="button"
+      class="secondary-btn"
+      id="togglePasswordBtn"
+      onclick="togglePasswordPanel()">
+    </button>
+
   </div>
-  <div class="change-password-panel" id="changePasswordPanel">
-    <label id="changeUsernameLabel" for="changeUsername"></label>
-    <input type="text" id="changeUsername" autocomplete="username">
-    <label id="oldPasswordLabel" for="oldPassword"></label>
-    <input type="password" id="oldPassword" autocomplete="current-password">
-    <label id="newPasswordLabel" for="newPassword"></label>
-    <input type="password" id="newPassword" autocomplete="new-password">
-    <button type="button" class="primary-btn" id="changePasswordBtn" onclick="changePassword()"></button>
+
+
+  <div
+    class="change-password-panel"
+    id="changePasswordPanel">
+
+    <label
+      id="changeUsernameLabel"
+      for="changeUsername">
+    </label>
+
+    <input
+      type="text"
+      id="changeUsername"
+      autocomplete="username">
+
+    <label
+      id="oldPasswordLabel"
+      for="oldPassword">
+    </label>
+
+    <input
+      type="password"
+      id="oldPassword"
+      autocomplete="current-password">
+
+    <label
+      id="newPasswordLabel"
+      for="newPassword">
+    </label>
+
+    <input
+      type="password"
+      id="newPassword"
+      autocomplete="new-password">
+
+    <button
+      type="button"
+      class="primary-btn"
+      id="changePasswordBtn"
+      onclick="changePassword()">
+    </button>
+
   </div>
+
   <div id="loginResult"></div>
+
 </div>
 
+
 <div id="employeeView" style="display:none">
+
   <div class="toolbar">
+
     <div class="pharmacy-tools">
-      <label id="pharmacyFilterLabel" for="pharmacyFilter"></label>
-      <select id="pharmacyFilter" onchange="loadBookings()"></select>
+
+      <label
+        id="pharmacyFilterLabel"
+        for="pharmacyFilter">
+      </label>
+
+      <select
+        id="pharmacyFilter"
+        onchange="loadBookings()">
+      </select>
+
     </div>
+
+
     <div class="employee-tools">
+
       <div class="employee-line">
-        <span class="employee-name" id="employeeName"></span>
+
+        <span
+          class="employee-name"
+          id="employeeName">
+        </span>
+
       </div>
-      <button type="button" class="logout-icon" id="logoutBtn" onclick="logoutEmployee()"></button>
+
+      <button
+        type="button"
+        class="logout-icon"
+        id="logoutBtn"
+        onclick="logoutEmployee()">
+      </button>
+
     </div>
+
   </div>
 
+
   <div id="result"></div>
-  <div id="emptyBox" class="empty-box" style="display:none"></div>
+
+
+  <div
+    id="emptyBox"
+    class="empty-box"
+    style="display:none">
+  </div>
+
 
   <div class="table-wrap">
-    <table id="bookingsTable" style="display:none">
+
+    <table
+      id="bookingsTable"
+      style="display:none">
+
       <thead>
+
         <tr>
           <th id="bookingIdHeader"></th>
           <th id="patientHeader"></th>
@@ -183,488 +302,2050 @@ th,td{padding:5px 4px;font-size:11px}
           <th id="statusHeader"></th>
           <th id="actionsHeader"></th>
         </tr>
+
       </thead>
+
       <tbody id="bookingsBody"></tbody>
+
     </table>
+
   </div>
+
 </div>
-<div class="print-label" id="printLabel">
-  <div class="print-booking" id="printBookingId"></div>
-  <div class="print-name" id="printPatientName"></div>
-  <div class="print-employee" id="printEmployeeName"></div>
+
+
+<div
+  class="print-label"
+  id="printLabel">
+
+  <div
+    class="print-booking"
+    id="printBookingId">
+  </div>
+
+  <div
+    class="print-name"
+    id="printPatientName">
+  </div>
+
+  <div
+    class="print-employee"
+    id="printEmployeeName">
+  </div>
+
 </div>
+
 </div>
+
 
 <script>
-const API_BASE_URL = "https://script.google.com/macros/s/AKfycbw9JM87uiSHihWDP0N1gn4IskEG_8O-fWleathLZW9Wwbs915UQz8Gq5k2dIwAGImCF/exec";
 
-let currentLang = "ar";
-let currentEmployee = sessionStorage.getItem("employeeName") || "";
-let currentUsername = sessionStorage.getItem("employeeUsername") || "";
-let bookings = [];
-let refreshTimer = null;
-let employeeInactivityTimer = null;
-const EMPLOYEE_INACTIVITY_LIMIT_MS = 30 * 60 * 1000;
+const API_BASE_URL =
+  "https://script.google.com/macros/s/AKfycbw9JM87uiSHihWDP0N1gn4IskEG_8O-fWleathLZW9Wwbs915UQz8Gq5k2dIwAGImCF/exec";
+
+
+const SESSION_TOKEN_KEY =
+  "medSessionToken";
+
+const SESSION_NAME_KEY =
+  "medEmployeeName";
+
+const SESSION_USERNAME_KEY =
+  "medEmployeeUsername";
+
+
+let currentLang =
+  "ar";
+
+let currentEmployee =
+  "";
+
+let currentUsername =
+  "";
+
+let currentSessionToken =
+  "";
+
+let bookings =
+  [];
+
+let refreshTimer =
+  null;
+
+let employeeInactivityTimer =
+  null;
+
+let inactivityWatcherStarted =
+  false;
+
+const EMPLOYEE_INACTIVITY_LIMIT_MS =
+  30 * 60 * 1000;
+
 
 const PHARMACIES = [
-  { value: "", ar: "جميع الصيدليات", en: "All Pharmacies" },
-  { value: "Outpatient Pharmacy", ar: "صيدلية العيادات الخارجية", en: "Outpatient Pharmacy" },
-  { value: "Diabetes Center Pharmacy", ar: "صيدلية مركز السكر", en: "Diabetes Center Pharmacy" }
+
+  {
+    value:"",
+    ar:"جميع الصيدليات",
+    en:"All Pharmacies"
+  },
+
+  {
+    value:"Outpatient Pharmacy",
+    ar:"صيدلية العيادات الخارجية",
+    en:"Outpatient Pharmacy"
+  },
+
+  {
+    value:"Diabetes Center Pharmacy",
+    ar:"صيدلية مركز السكر",
+    en:"Diabetes Center Pharmacy"
+  }
+
 ];
 
+
 const text = {
+
   ar: {
-    officialLine1: "تجمع المدينة المنورة الصحي",
-    officialLine2: "مستشفى الملك فهد بالمدينة المنورة",
-    officialLine3: "إدارة الرعاية الصيدلانية",
-    pageTitle: "إدارة مواعيد صرف الأدوية الشهرية",
-    today: "اليوم",
-    username: "اسم المستخدم",
-    password: "PIN",
-    login: "تسجيل الدخول",
-    changePassword: "تغيير PIN",
-    oldPassword: "PIN الحالي",
-    newPassword: "PIN الجديد",
-    passwordChanged: "تم تغيير PIN بنجاح.",
-    passwordMismatch: "اسم المستخدم أو PIN الحالي غير صحيح.",
-    passwordTooShort: "PIN الجديد يجب ألا يكون فارغا.",
-    logout: "تسجيل الخروج",
-    invalidLogin: "ليس لديك صلاحيات المستخدم الرئيسي.",
-    loggedInAs: "الموظف:",
-    pharmacyFilter: "اختر الصيدلية",
-    bookingId: "رقم الحجز",
-    patient: "اسم المريض",
-    file: "رقم الملف",
-    mobile: "رقم الجوال",
-    pharmacy: "الصيدلية",
-    pickupTime: "وقت الاستلام",
-    status: "حالة الطلب",
-    actions: "الإجراءات",
-    print: "🖨️ طباعة الملصق",
-    receive: "تم استلام الطلب",
-    deliver: "تم تسليم الطلب",
-    booked: "Booked",
-    received: "Received",
-    delivered: "Delivered",
-    noBookings: "لا توجد حجوزات لهذا اليوم.",
-    updated: "تم تحديث حالة الطلب.",
-    updateFailed: "تعذر تحديث حالة الطلب.",
-    loading: "جاري تحميل الحجوزات...",
-    employeeLabel: "الموظف"
+    officialLine1:"تجمع المدينة المنورة الصحي",
+    officialLine2:"مستشفى الملك فهد بالمدينة المنورة",
+    officialLine3:"إدارة الرعاية الصيدلانية",
+    pageTitle:"إدارة مواعيد صرف الأدوية الشهرية",
+    today:"اليوم",
+    username:"اسم المستخدم",
+    password:"PIN",
+    login:"تسجيل الدخول",
+    changePassword:"تغيير PIN",
+    oldPassword:"PIN الحالي",
+    newPassword:"PIN الجديد",
+    passwordChanged:"تم تغيير PIN بنجاح.",
+    passwordMismatch:"اسم المستخدم أو PIN الحالي غير صحيح.",
+    passwordTooShort:"PIN الجديد يجب ألا يكون فارغاً.",
+    logout:"تسجيل الخروج",
+    invalidLogin:"اسم المستخدم أو PIN غير صحيح أو لا توجد صلاحية.",
+    loggedInAs:"الموظف:",
+    pharmacyFilter:"اختر الصيدلية",
+    bookingId:"رقم الحجز",
+    patient:"اسم المريض",
+    file:"رقم الملف",
+    mobile:"رقم الجوال",
+    pharmacy:"الصيدلية",
+    pickupTime:"وقت الاستلام",
+    status:"حالة الطلب",
+    actions:"الإجراءات",
+    print:"🖨️ طباعة الملصق",
+    receive:"تم استلام الطلب",
+    deliver:"تم تسليم الطلب",
+    booked:"Booked",
+    received:"Received",
+    delivered:"Delivered",
+    noBookings:"لا توجد حجوزات لهذا اليوم.",
+    updated:"تم تحديث حالة الطلب.",
+    updateFailed:"تعذر تحديث حالة الطلب.",
+    loading:"جاري تحميل الحجوزات...",
+    employeeLabel:"الموظف",
+    sessionExpired:"انتهت الجلسة. سجّل الدخول مرة أخرى."
   },
+
   en: {
-    officialLine1: "Madinah Health Cluster",
-    officialLine2: "King Fahad Hospital - Madinah",
-    officialLine3: "Pharmaceutical Care Administration",
-    pageTitle: "Monthly Medication Appointment Management",
-    today: "Today",
-    username: "Username",
-    password: "PIN",
-    login: "Login",
-    changePassword: "Change PIN",
-    oldPassword: "Current PIN",
-    newPassword: "New PIN",
-    passwordChanged: "PIN changed successfully.",
-    passwordMismatch: "Username or current PIN is incorrect.",
-    passwordTooShort: "New PIN cannot be empty.",
-    logout: "Logout",
-    invalidLogin: "You do not have main admin permissions.",
-    loggedInAs: "Employee:",
-    pharmacyFilter: "Select Pharmacy",
-    bookingId: "Booking ID",
-    patient: "Patient Name",
-    file: "File Number",
-    mobile: "Mobile Number",
-    pharmacy: "Pharmacy",
-    pickupTime: "Pickup Time",
-    status: "Status",
-    actions: "Actions",
-    print: "🖨️ Print Label",
-    receive: "Mark Received",
-    deliver: "Mark Delivered",
-    booked: "Booked",
-    received: "Received",
-    delivered: "Delivered",
-    noBookings: "No bookings for today.",
-    updated: "Order status updated.",
-    updateFailed: "Unable to update order status.",
-    loading: "Loading bookings...",
-    employeeLabel: "Employee"
+    officialLine1:"Madinah Health Cluster",
+    officialLine2:"King Fahad Hospital - Madinah",
+    officialLine3:"Pharmaceutical Care Administration",
+    pageTitle:"Monthly Medication Appointment Management",
+    today:"Today",
+    username:"Username",
+    password:"PIN",
+    login:"Login",
+    changePassword:"Change PIN",
+    oldPassword:"Current PIN",
+    newPassword:"New PIN",
+    passwordChanged:"PIN changed successfully.",
+    passwordMismatch:"Username or current PIN is incorrect.",
+    passwordTooShort:"New PIN cannot be empty.",
+    logout:"Logout",
+    invalidLogin:"Incorrect username/PIN or no permission.",
+    loggedInAs:"Employee:",
+    pharmacyFilter:"Select Pharmacy",
+    bookingId:"Booking ID",
+    patient:"Patient Name",
+    file:"File Number",
+    mobile:"Mobile Number",
+    pharmacy:"Pharmacy",
+    pickupTime:"Pickup Time",
+    status:"Status",
+    actions:"Actions",
+    print:"🖨️ Print Label",
+    receive:"Mark Received",
+    deliver:"Mark Delivered",
+    booked:"Booked",
+    received:"Received",
+    delivered:"Delivered",
+    noBookings:"No bookings for today.",
+    updated:"Order status updated.",
+    updateFailed:"Unable to update order status.",
+    loading:"Loading bookings...",
+    employeeLabel:"Employee",
+    sessionExpired:"Session expired. Please sign in again."
   }
+
 };
 
-function setLanguage(lang) {
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-  document.getElementById("officialLine1").innerText = text[lang].officialLine1;
-  document.getElementById("officialLine2").innerText = text[lang].officialLine2;
-  document.getElementById("officialLine3").innerText = text[lang].officialLine3;
-  document.getElementById("pageTitle").innerText = text[lang].pageTitle;
-  document.getElementById("usernameLabel").innerText = text[lang].username;
-  document.getElementById("passwordLabel").innerText = text[lang].password;
-  document.getElementById("loginBtn").innerHTML = loginIcon();
-  document.getElementById("loginBtn").title = text[lang].login;
-  document.getElementById("loginBtn").setAttribute("aria-label", text[lang].login);
-  document.getElementById("togglePasswordBtn").innerText = "🔑";
-  document.getElementById("togglePasswordBtn").title = text[lang].changePassword;
-  document.getElementById("togglePasswordBtn").setAttribute("aria-label", text[lang].changePassword);
-  document.getElementById("changeUsernameLabel").innerText = text[lang].username;
-  document.getElementById("oldPasswordLabel").innerText = text[lang].oldPassword;
-  document.getElementById("newPasswordLabel").innerText = text[lang].newPassword;
-  document.getElementById("changePasswordBtn").innerText = text[lang].changePassword;
-  document.getElementById("logoutBtn").innerHTML = powerIcon();
-  document.getElementById("logoutBtn").title = text[lang].logout;
-  document.getElementById("logoutBtn").setAttribute("aria-label", text[lang].logout);
-  document.getElementById("pharmacyFilterLabel").innerText = text[lang].pharmacyFilter;
-  document.getElementById("bookingIdHeader").innerText = text[lang].bookingId;
-  document.getElementById("patientHeader").innerText = text[lang].patient;
-  document.getElementById("fileHeader").innerText = text[lang].file;
-  document.getElementById("mobileHeader").innerText = text[lang].mobile;
-  document.getElementById("pharmacyHeader").innerText = text[lang].pharmacy;
-  document.getElementById("timeHeader").innerText = text[lang].pickupTime;
-  document.getElementById("statusHeader").innerText = text[lang].status;
-  document.getElementById("actionsHeader").innerText = text[lang].actions;
-  document.getElementById("languageToggle").innerText = "🌐 ع | E";
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
+
+function setLanguage(
+  lang
+) {
+
+  currentLang =
+    lang;
+
+  document.documentElement.lang =
+    lang;
+
+  document.documentElement.dir =
+    lang === "ar"
+      ? "rtl"
+      : "ltr";
+
+
+  document.getElementById(
+    "officialLine1"
+  ).innerText =
+    text[lang].officialLine1;
+
+
+  document.getElementById(
+    "officialLine2"
+  ).innerText =
+    text[lang].officialLine2;
+
+
+  document.getElementById(
+    "officialLine3"
+  ).innerText =
+    text[lang].officialLine3;
+
+
+  document.getElementById(
+    "pageTitle"
+  ).innerText =
+    text[lang].pageTitle;
+
+
+  document.getElementById(
+    "usernameLabel"
+  ).innerText =
+    text[lang].username;
+
+
+  document.getElementById(
+    "passwordLabel"
+  ).innerText =
+    text[lang].password;
+
+
+  document.getElementById(
+    "loginBtn"
+  ).innerHTML =
+    loginIcon();
+
+
+  document.getElementById(
+    "loginBtn"
+  ).title =
+    text[lang].login;
+
+
+  document.getElementById(
+    "loginBtn"
+  ).setAttribute(
+    "aria-label",
+    text[lang].login
+  );
+
+
+  document.getElementById(
+    "togglePasswordBtn"
+  ).innerText =
+    "🔑";
+
+
+  document.getElementById(
+    "togglePasswordBtn"
+  ).title =
+    text[lang].changePassword;
+
+
+  document.getElementById(
+    "togglePasswordBtn"
+  ).setAttribute(
+    "aria-label",
+    text[lang].changePassword
+  );
+
+
+  document.getElementById(
+    "changeUsernameLabel"
+  ).innerText =
+    text[lang].username;
+
+
+  document.getElementById(
+    "oldPasswordLabel"
+  ).innerText =
+    text[lang].oldPassword;
+
+
+  document.getElementById(
+    "newPasswordLabel"
+  ).innerText =
+    text[lang].newPassword;
+
+
+  document.getElementById(
+    "changePasswordBtn"
+  ).innerText =
+    text[lang].changePassword;
+
+
+  document.getElementById(
+    "logoutBtn"
+  ).innerHTML =
+    powerIcon();
+
+
+  document.getElementById(
+    "logoutBtn"
+  ).title =
+    text[lang].logout;
+
+
+  document.getElementById(
+    "logoutBtn"
+  ).setAttribute(
+    "aria-label",
+    text[lang].logout
+  );
+
+
+  document.getElementById(
+    "pharmacyFilterLabel"
+  ).innerText =
+    text[lang].pharmacyFilter;
+
+
+  document.getElementById(
+    "bookingIdHeader"
+  ).innerText =
+    text[lang].bookingId;
+
+
+  document.getElementById(
+    "patientHeader"
+  ).innerText =
+    text[lang].patient;
+
+
+  document.getElementById(
+    "fileHeader"
+  ).innerText =
+    text[lang].file;
+
+
+  document.getElementById(
+    "mobileHeader"
+  ).innerText =
+    text[lang].mobile;
+
+
+  document.getElementById(
+    "pharmacyHeader"
+  ).innerText =
+    text[lang].pharmacy;
+
+
+  document.getElementById(
+    "timeHeader"
+  ).innerText =
+    text[lang].pickupTime;
+
+
+  document.getElementById(
+    "statusHeader"
+  ).innerText =
+    text[lang].status;
+
+
+  document.getElementById(
+    "actionsHeader"
+  ).innerText =
+    text[lang].actions;
+
+
+  document.getElementById(
+    "languageToggle"
+  ).innerText =
+    "🌐 ع | E";
+
+
   renderDate();
+
   renderPharmacyFilter();
+
   renderBookings();
+
 }
+
 
 function toggleLanguage() {
-  setLanguage(currentLang === "ar" ? "en" : "ar");
+
+  setLanguage(
+    currentLang === "ar"
+      ? "en"
+      : "ar"
+  );
+
 }
+
 
 function loginIcon() {
+
   return '<svg class="login-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path><path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path></svg>';
+
 }
 
-function renderDate() {
-  const now = new Date();
-  const date = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Riyadh" }).format(now);
-  const dayName = new Intl.DateTimeFormat(currentLang === "ar" ? "ar-SA" : "en-US", {
-    timeZone: "Asia/Riyadh",
-    weekday: "long"
-  }).format(now);
-
-  document.getElementById("dateBox").innerText = `${dayName} - ${date}`;
-}
-
-function renderPharmacyFilter() {
-  const select = document.getElementById("pharmacyFilter");
-  const selected = select.value;
-  select.innerHTML = "";
-  PHARMACIES.forEach(pharmacy => {
-    const option = document.createElement("option");
-    option.value = pharmacy.value;
-    option.textContent = pharmacy[currentLang];
-    select.appendChild(option);
-  });
-  select.value = selected || "";
-}
-
-async function loginEmployee() {
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value.trim();
-
-  try {
-    const response = await fetch(API_BASE_URL, {
-      method: "POST",
-      body: JSON.stringify({
-        action: "employeeLogin",
-        username,
-        password
-      })
-    });
-    const result = await response.json();
-
-    if (!result.success || !result.employee) {
-      showLoginResult("error", text[currentLang].invalidLogin);
-      return;
-    }
-
-    currentEmployee = result.employee.name;
-    currentUsername = result.employee.username;
-    sessionStorage.setItem("employeeName", currentEmployee);
-    sessionStorage.setItem("employeeUsername", currentUsername);
-    showEmployeeView();
-  } catch (error) {
-    showLoginResult("error", text[currentLang].invalidLogin);
-  }
-}
-
-function togglePasswordPanel() {
-  const panel = document.getElementById("changePasswordPanel");
-  panel.style.display = panel.style.display === "block" ? "none" : "block";
-  clearLoginResult();
-}
-
-async function changePassword() {
-  const username = document.getElementById("changeUsername").value.trim();
-  const oldPassword = document.getElementById("oldPassword").value.trim();
-  const newPassword = document.getElementById("newPassword").value.trim();
-
-  if (!newPassword) {
-    showLoginResult("error", text[currentLang].passwordTooShort);
-    return;
-  }
-
-  try {
-    const response = await fetch(API_BASE_URL, {
-      method: "POST",
-      body: JSON.stringify({
-        action: "changeEmployeePassword",
-        username,
-        oldPassword,
-        newPassword
-      })
-    });
-    const result = await response.json();
-
-    if (!result.success) {
-      showLoginResult("error", text[currentLang].passwordMismatch);
-      return;
-    }
-
-    document.getElementById("oldPassword").value = "";
-    document.getElementById("newPassword").value = "";
-    showLoginResult("success", text[currentLang].passwordChanged);
-  } catch (error) {
-    showLoginResult("error", text[currentLang].passwordMismatch);
-  }
-}
-
-function logoutEmployee() {
-  sessionStorage.removeItem("employeeName");
-  sessionStorage.removeItem("employeeUsername");
-  currentEmployee = "";
-  currentUsername = "";
-  stopAutoRefresh();
-  stopEmployeeInactivityWatcher();
-  document.getElementById("employeeView").style.display = "none";
-  document.getElementById("loginView").style.display = "block";
-}
-
-function showEmployeeView() {
-  document.getElementById("loginView").style.display = "none";
-  document.getElementById("employeeView").style.display = "block";
-  document.getElementById("employeeName").innerText = currentEmployee;
-  loadBookings();
-  startAutoRefresh();
-  startEmployeeInactivityWatcher();
-}
 
 function powerIcon() {
+
   return '<svg class="power-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9"></path><path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path></svg>';
+
 }
 
-function startEmployeeInactivityWatcher() {
-  ["click", "keydown", "touchstart", "mousemove"].forEach(function(eventName) {
-    window.addEventListener(eventName, resetEmployeeInactivityTimer, { passive: true });
-  });
-  resetEmployeeInactivityTimer();
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function renderDate() {
+
+  const now =
+    new Date();
+
+
+  const date =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:
+          "Asia/Riyadh"
+      }
+    ).format(
+      now
+    );
+
+
+  const dayName =
+    new Intl.DateTimeFormat(
+      currentLang === "ar"
+        ? "ar-SA"
+        : "en-US",
+      {
+        timeZone:
+          "Asia/Riyadh",
+
+        weekday:
+          "long"
+      }
+    ).format(
+      now
+    );
+
+
+  document.getElementById(
+    "dateBox"
+  ).innerText =
+    `${dayName} - ${date}`;
+
 }
 
-function stopEmployeeInactivityWatcher() {
-  window.clearTimeout(employeeInactivityTimer);
-}
 
-function resetEmployeeInactivityTimer() {
-  window.clearTimeout(employeeInactivityTimer);
-  employeeInactivityTimer = window.setTimeout(function() {
-    if (sessionStorage.getItem("employeeUsername")) logoutEmployee();
-  }, EMPLOYEE_INACTIVITY_LIMIT_MS);
-}
+/* =========================================================
+   PHARMACY FILTER
+========================================================= */
 
-function startAutoRefresh() {
-  stopAutoRefresh();
-  refreshTimer = setInterval(function() {
-    if (currentEmployee) {
-      loadBookings(true);
+function renderPharmacyFilter() {
+
+  const select =
+    document.getElementById(
+      "pharmacyFilter"
+    );
+
+
+  const selected =
+    select.value;
+
+
+  select.innerHTML =
+    "";
+
+
+  PHARMACIES.forEach(
+    function(
+      pharmacy
+    ) {
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+
+      option.value =
+        pharmacy.value;
+
+
+      option.textContent =
+        pharmacy[
+          currentLang
+        ];
+
+
+      select.appendChild(
+        option
+      );
+
     }
-  }, 10000);
+  );
+
+
+  select.value =
+    selected ||
+    "";
+
 }
 
-function stopAutoRefresh() {
-  if (refreshTimer) {
-    clearInterval(refreshTimer);
-    refreshTimer = null;
+
+/* =========================================================
+   SESSION STORAGE
+========================================================= */
+
+function saveSession() {
+
+  localStorage.setItem(
+    SESSION_TOKEN_KEY,
+    currentSessionToken
+  );
+
+  localStorage.setItem(
+    SESSION_NAME_KEY,
+    currentEmployee
+  );
+
+  localStorage.setItem(
+    SESSION_USERNAME_KEY,
+    currentUsername
+  );
+
+}
+
+
+function clearStoredSession() {
+
+  localStorage.removeItem(
+    SESSION_TOKEN_KEY
+  );
+
+  localStorage.removeItem(
+    SESSION_NAME_KEY
+  );
+
+  localStorage.removeItem(
+    SESSION_USERNAME_KEY
+  );
+
+
+  sessionStorage.removeItem(
+    "employeeName"
+  );
+
+  sessionStorage.removeItem(
+    "employeeUsername"
+  );
+
+
+  currentEmployee =
+    "";
+
+  currentUsername =
+    "";
+
+  currentSessionToken =
+    "";
+
+}
+
+
+/* =========================================================
+   API
+========================================================= */
+
+async function postApi(
+  action,
+  payload = {},
+  includeSession = true
+) {
+
+  const requestData = {
+    action,
+    ...payload
+  };
+
+
+  if (
+    includeSession
+  ) {
+
+    currentSessionToken =
+      localStorage.getItem(
+        SESSION_TOKEN_KEY
+      ) ||
+      currentSessionToken;
+
+
+    if (
+      currentSessionToken
+    ) {
+
+      requestData.sessionToken =
+        currentSessionToken;
+
+    }
+
   }
-}
 
-function showResult(type, message) {
-  const result = document.getElementById("result");
-  result.className = type;
-  result.innerText = message;
-}
 
-function showLoginResult(type, message) {
-  const result = document.getElementById("loginResult");
-  result.className = type;
-  result.innerText = message;
-}
+  const response =
+    await fetch(
+      API_BASE_URL,
+      {
+        method:
+          "POST",
 
-function clearLoginResult() {
-  const result = document.getElementById("loginResult");
-  result.className = "";
-  result.innerText = "";
-}
+        headers:{
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
 
-function clearResult() {
-  const result = document.getElementById("result");
-  result.className = "";
-  result.innerText = "";
-}
+        body:
+          JSON.stringify(
+            requestData
+          )
+      }
+    );
 
-async function loadBookings(isSilent) {
-  if (!currentEmployee) return;
-  clearResult();
-  if (!isSilent) {
-    document.getElementById("emptyBox").style.display = "block";
-    document.getElementById("emptyBox").innerText = text[currentLang].loading;
-    document.getElementById("bookingsTable").style.display = "none";
+
+  if (
+    !response.ok
+  ) {
+
+    throw new Error(
+      "HTTP_" +
+      response.status
+    );
+
   }
 
-  const pharmacy = document.getElementById("pharmacyFilter").value;
-  const url = `${API_BASE_URL}?action=employeeBookings&pharmacy=${encodeURIComponent(pharmacy)}`;
+
+  return await response.json();
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+async function loginEmployee() {
+
+  const username =
+    document.getElementById(
+      "username"
+    ).value.trim();
+
+
+  const password =
+    document.getElementById(
+      "password"
+    ).value.trim();
+
 
   try {
-    const response = await fetch(url);
-    const data = await response.json();
-    bookings = data.success ? data.bookings : [];
-    renderBookings();
-  } catch (error) {
-    bookings = [];
-    showResult("error", text[currentLang].updateFailed);
-    renderBookings();
-  }
-}
 
-function renderBookings() {
-  const body = document.getElementById("bookingsBody");
-  const table = document.getElementById("bookingsTable");
-  const empty = document.getElementById("emptyBox");
+    const result =
+      await postApi(
+        "employeeLogin",
+        {
+          username,
+          password
+        },
+        false
+      );
 
-  if (!body) return;
 
-  body.innerHTML = "";
+    if (
+      !result.success ||
+      !result.employee ||
+      !result.sessionToken
+    ) {
 
-  if (!bookings.length) {
-    table.style.display = "none";
-    empty.style.display = "block";
-    empty.innerText = text[currentLang].noBookings;
-    return;
-  }
+      showLoginResult(
+        "error",
+        text[
+          currentLang
+        ].invalidLogin
+      );
 
-  empty.style.display = "none";
-  table.style.display = "table";
-
-  bookings.forEach(booking => {
-    const status = normalizeClientStatus(booking.status);
-    const receiveDisabled = status === "Received" || status === "Delivered";
-    const deliverDisabled = status === "Delivered";
-    const deliverClass = status === "Delivered" ? " delivered-complete" : "";
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${booking.bookingId}</td>
-      <td>${booking.fullName}</td>
-      <td>${booking.fileNumber}</td>
-      <td>${booking.mobileNumber || ""}</td>
-      <td>${getPharmacyName(booking.pharmacy)}</td>
-      <td>${booking.pickupTime}</td>
-      <td>${statusBadge(status)}</td>
-      <td>
-        <div class="row-actions">
-          <button type="button" class="action-btn icon-btn print-btn" title="${text[currentLang].print}" aria-label="${text[currentLang].print}" onclick="printLabel('${booking.bookingId}')">🖨️</button>
-          <button type="button" class="action-btn icon-btn receive-btn" title="${text[currentLang].receive}" aria-label="${text[currentLang].receive}" ${receiveDisabled ? "disabled" : ""} onclick="updateStatus('${booking.bookingId}','markReceived')">📦</button>
-          <button type="button" class="action-btn icon-btn deliver-btn${deliverClass}" title="${text[currentLang].deliver}" aria-label="${text[currentLang].deliver}" ${deliverDisabled ? "disabled" : ""} onclick="updateStatus('${booking.bookingId}','markDelivered')">✅</button>
-        </div>
-      </td>
-    `;
-    body.appendChild(tr);
-  });
-}
-
-function normalizeClientStatus(status) {
-  if (!status || status === "Confirmed") {
-    return "Booked";
-  }
-
-  return status;
-}
-
-function statusBadge(status) {
-  const normalized = status || "Booked";
-  const labelMap = { Booked: text[currentLang].booked, Received: text[currentLang].received, Delivered: text[currentLang].delivered };
-  const classMap = { Booked: "status-booked", Received: "status-received", Delivered: "status-delivered" };
-  return `<span class="status ${classMap[normalized] || "status-booked"}">${labelMap[normalized] || normalized}</span>`;
-}
-
-function getPharmacyName(value) {
-  const pharmacy = PHARMACIES.find(item => item.value === value);
-  return pharmacy ? pharmacy[currentLang] : value;
-}
-
-function printLabel(bookingId) {
-  const booking = bookings.find(item => item.bookingId === bookingId);
-  if (!booking) return;
-  document.getElementById("printBookingId").innerText = booking.bookingId;
-  document.getElementById("printPatientName").innerText = booking.fullName;
-  document.getElementById("printEmployeeName").innerText = `${text[currentLang].employeeLabel}: ${currentUsername || currentEmployee}`;
-  window.print();
-}
-
-async function updateStatus(bookingId, action) {
-  clearResult();
-  const booking = bookings.find(item => item.bookingId === bookingId);
-
-  try {
-    const response = await fetch(API_BASE_URL, {
-      method: "POST",
-      body: JSON.stringify({
-        action,
-        bookingId,
-        pickupDate: booking ? booking.pickupDate : "",
-        pickupTime: booking ? booking.pickupTime : "",
-        pharmacy: booking ? booking.pharmacy : "",
-        employeeUsername: currentUsername,
-        employeeName: currentEmployee
-      })
-    });
-    const data = await response.json();
-
-    if (!data.success) {
-      showResult("error", formatUpdateError(data));
       return;
     }
 
-    if (booking) {
-      booking.status = action === "markReceived" ? "Received" : "Delivered";
+
+    currentEmployee =
+      result.employee.name ||
+      result.employee.username ||
+      username;
+
+
+    currentUsername =
+      result.employee.username ||
+      username;
+
+
+    currentSessionToken =
+      result.sessionToken;
+
+
+    saveSession();
+
+    clearLoginResult();
+
+    showEmployeeView();
+
+  } catch(error) {
+
+    showLoginResult(
+      "error",
+      text[
+        currentLang
+      ].invalidLogin
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   RESTORE SESSION
+========================================================= */
+
+async function restoreSession() {
+
+  currentSessionToken =
+    localStorage.getItem(
+      SESSION_TOKEN_KEY
+    ) || "";
+
+
+  currentEmployee =
+    localStorage.getItem(
+      SESSION_NAME_KEY
+    ) || "";
+
+
+  currentUsername =
+    localStorage.getItem(
+      SESSION_USERNAME_KEY
+    ) || "";
+
+
+  if (
+    !currentSessionToken
+  ) {
+
+    showLoginView();
+
+    return;
+  }
+
+
+  try {
+
+    const result =
+      await postApi(
+        "validateSession",
+        {
+          service:
+            "med"
+        },
+        true
+      );
+
+
+    if (
+      !result.success ||
+      !result.user
+    ) {
+
+      clearStoredSession();
+
+      showLoginView();
+
+      return;
     }
 
-    showResult("success", text[currentLang].updated);
+
+    currentUsername =
+      result.user.username ||
+      currentUsername;
+
+
+    currentEmployee =
+      result.user.name ||
+      result.user.username ||
+      currentEmployee;
+
+
+    saveSession();
+
+    showEmployeeView();
+
+  } catch(error) {
+
+    clearStoredSession();
+
+    showLoginView();
+
+  }
+
+}
+
+
+/* =========================================================
+   CHANGE PIN
+========================================================= */
+
+function togglePasswordPanel() {
+
+  const panel =
+    document.getElementById(
+      "changePasswordPanel"
+    );
+
+
+  panel.style.display =
+    panel.style.display ===
+      "block"
+      ? "none"
+      : "block";
+
+
+  clearLoginResult();
+
+}
+
+
+async function changePassword() {
+
+  const username =
+    document.getElementById(
+      "changeUsername"
+    ).value.trim();
+
+
+  const oldPassword =
+    document.getElementById(
+      "oldPassword"
+    ).value.trim();
+
+
+  const newPassword =
+    document.getElementById(
+      "newPassword"
+    ).value.trim();
+
+
+  if (
+    !newPassword
+  ) {
+
+    showLoginResult(
+      "error",
+      text[
+        currentLang
+      ].passwordTooShort
+    );
+
+    return;
+  }
+
+
+  try {
+
+    const result =
+      await postApi(
+        "changeEmployeePassword",
+        {
+          username,
+          oldPassword,
+          newPassword
+        },
+        false
+      );
+
+
+    if (
+      !result.success
+    ) {
+
+      showLoginResult(
+        "error",
+        text[
+          currentLang
+        ].passwordMismatch
+      );
+
+      return;
+    }
+
+
+    document.getElementById(
+      "oldPassword"
+    ).value =
+      "";
+
+
+    document.getElementById(
+      "newPassword"
+    ).value =
+      "";
+
+
+    clearStoredSession();
+
+
+    showLoginResult(
+      "success",
+      text[
+        currentLang
+      ].passwordChanged
+    );
+
+
+    showLoginView();
+
+  } catch(error) {
+
+    showLoginResult(
+      "error",
+      text[
+        currentLang
+      ].passwordMismatch
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+async function logoutEmployee() {
+
+  const token =
+    currentSessionToken ||
+    localStorage.getItem(
+      SESSION_TOKEN_KEY
+    ) ||
+    "";
+
+
+  if (
+    token
+  ) {
+
+    try {
+
+      await postApi(
+        "revokeSession",
+        {},
+        true
+      );
+
+    } catch(error) {
+    }
+
+  }
+
+
+  clearStoredSession();
+
+  stopAutoRefresh();
+
+  stopEmployeeInactivityWatcher();
+
+  bookings =
+    [];
+
+
+  document.getElementById(
+    "bookingsTable"
+  ).style.display =
+    "none";
+
+
+  document.getElementById(
+    "emptyBox"
+  ).style.display =
+    "none";
+
+
+  showLoginView();
+
+}
+
+
+/* =========================================================
+   VIEW
+========================================================= */
+
+function showLoginView() {
+
+  document.getElementById(
+    "employeeView"
+  ).style.display =
+    "none";
+
+
+  document.getElementById(
+    "loginView"
+  ).style.display =
+    "block";
+
+}
+
+
+function showEmployeeView() {
+
+  document.getElementById(
+    "loginView"
+  ).style.display =
+    "none";
+
+
+  document.getElementById(
+    "employeeView"
+  ).style.display =
+    "block";
+
+
+  document.getElementById(
+    "employeeName"
+  ).innerText =
+    currentEmployee;
+
+
+  loadBookings();
+
+  startAutoRefresh();
+
+  startEmployeeInactivityWatcher();
+
+}
+
+
+/* =========================================================
+   INACTIVITY
+========================================================= */
+
+function startEmployeeInactivityWatcher() {
+
+  if (
+    !inactivityWatcherStarted
+  ) {
+
+    [
+      "click",
+      "keydown",
+      "touchstart",
+      "mousemove"
+    ].forEach(
+      function(
+        eventName
+      ) {
+
+        window.addEventListener(
+          eventName,
+          resetEmployeeInactivityTimer,
+          {
+            passive:
+              true
+          }
+        );
+
+      }
+    );
+
+
+    inactivityWatcherStarted =
+      true;
+
+  }
+
+
+  resetEmployeeInactivityTimer();
+
+}
+
+
+function stopEmployeeInactivityWatcher() {
+
+  window.clearTimeout(
+    employeeInactivityTimer
+  );
+
+}
+
+
+function resetEmployeeInactivityTimer() {
+
+  window.clearTimeout(
+    employeeInactivityTimer
+  );
+
+
+  employeeInactivityTimer =
+    window.setTimeout(
+      function() {
+
+        if (
+          localStorage.getItem(
+            SESSION_TOKEN_KEY
+          )
+        ) {
+
+          logoutEmployee();
+
+        }
+
+      },
+      EMPLOYEE_INACTIVITY_LIMIT_MS
+    );
+
+}
+
+
+/* =========================================================
+   AUTO REFRESH
+========================================================= */
+
+function startAutoRefresh() {
+
+  stopAutoRefresh();
+
+
+  refreshTimer =
+    setInterval(
+      function() {
+
+        if (
+          currentSessionToken
+        ) {
+
+          loadBookings(
+            true
+          );
+
+        }
+
+      },
+      10000
+    );
+
+}
+
+
+function stopAutoRefresh() {
+
+  if (
+    refreshTimer
+  ) {
+
+    clearInterval(
+      refreshTimer
+    );
+
+    refreshTimer =
+      null;
+
+  }
+
+}
+
+
+/* =========================================================
+   RESULTS
+========================================================= */
+
+function showResult(
+  type,
+  message
+) {
+
+  const result =
+    document.getElementById(
+      "result"
+    );
+
+
+  result.className =
+    type;
+
+
+  result.innerText =
+    message;
+
+}
+
+
+function showLoginResult(
+  type,
+  message
+) {
+
+  const result =
+    document.getElementById(
+      "loginResult"
+    );
+
+
+  result.className =
+    type;
+
+
+  result.innerText =
+    message;
+
+}
+
+
+function clearLoginResult() {
+
+  const result =
+    document.getElementById(
+      "loginResult"
+    );
+
+
+  result.className =
+    "";
+
+
+  result.innerText =
+    "";
+
+}
+
+
+function clearResult() {
+
+  const result =
+    document.getElementById(
+      "result"
+    );
+
+
+  result.className =
+    "";
+
+
+  result.innerText =
+    "";
+
+}
+
+
+/* =========================================================
+   SESSION ERROR
+========================================================= */
+
+function isSessionError(
+  data
+) {
+
+  if (
+    !data
+  ) {
+
+    return false;
+
+  }
+
+
+  return [
+    "INVALID_SESSION",
+    "MISSING_SESSION",
+    "NO_PERMISSION",
+    "USER_INACTIVE",
+    "UNAUTHORIZED"
+  ].includes(
+    data.code
+  );
+
+}
+
+
+function handleSessionExpired() {
+
+  clearStoredSession();
+
+  stopAutoRefresh();
+
+  stopEmployeeInactivityWatcher();
+
+  bookings =
+    [];
+
+
+  showLoginView();
+
+
+  showLoginResult(
+    "error",
+    text[
+      currentLang
+    ].sessionExpired
+  );
+
+}
+
+
+/* =========================================================
+   LOAD BOOKINGS
+========================================================= */
+
+async function loadBookings(
+  isSilent
+) {
+
+  if (
+    !currentSessionToken
+  ) {
+
+    handleSessionExpired();
+
+    return;
+  }
+
+
+  clearResult();
+
+
+  if (
+    !isSilent
+  ) {
+
+    document.getElementById(
+      "emptyBox"
+    ).style.display =
+      "block";
+
+
+    document.getElementById(
+      "emptyBox"
+    ).innerText =
+      text[
+        currentLang
+      ].loading;
+
+
+    document.getElementById(
+      "bookingsTable"
+    ).style.display =
+      "none";
+
+  }
+
+
+  const pharmacy =
+    document.getElementById(
+      "pharmacyFilter"
+    ).value;
+
+
+  try {
+
+    const data =
+      await postApi(
+        "employeeBookings",
+        {
+          pharmacy
+        },
+        true
+      );
+
+
+    if (
+      !data ||
+      !data.success
+    ) {
+
+      if (
+        isSessionError(
+          data
+        )
+      ) {
+
+        handleSessionExpired();
+
+        return;
+      }
+
+
+      bookings =
+        [];
+
+
+      showResult(
+        "error",
+        formatUpdateError(
+          data
+        )
+      );
+
+
+      renderBookings();
+
+      return;
+    }
+
+
+    bookings =
+      data.bookings ||
+      [];
+
+
     renderBookings();
-    await loadBookings();
-  } catch (error) {
-    showResult("error", text[currentLang].updateFailed);
+
+  } catch(error) {
+
+    bookings =
+      [];
+
+
+    showResult(
+      "error",
+      text[
+        currentLang
+      ].updateFailed
+    );
+
+
+    renderBookings();
+
   }
+
 }
 
-function formatUpdateError(data) {
-  const reason = data && (data.code || data.message) ? (data.code || data.message) : "";
 
-  if (!reason) {
-    return text[currentLang].updateFailed;
+/* =========================================================
+   RENDER BOOKINGS
+========================================================= */
+
+function renderBookings() {
+
+  const body =
+    document.getElementById(
+      "bookingsBody"
+    );
+
+
+  const table =
+    document.getElementById(
+      "bookingsTable"
+    );
+
+
+  const empty =
+    document.getElementById(
+      "emptyBox"
+    );
+
+
+  if (
+    !body
+  ) {
+
+    return;
+
   }
 
-  return `${text[currentLang].updateFailed} (${reason})`;
+
+  body.innerHTML =
+    "";
+
+
+  if (
+    !bookings.length
+  ) {
+
+    table.style.display =
+      "none";
+
+
+    empty.style.display =
+      "block";
+
+
+    empty.innerText =
+      text[
+        currentLang
+      ].noBookings;
+
+
+    return;
+
+  }
+
+
+  empty.style.display =
+    "none";
+
+
+  table.style.display =
+    "table";
+
+
+  bookings.forEach(
+    function(
+      booking
+    ) {
+
+      const status =
+        normalizeClientStatus(
+          booking.status
+        );
+
+
+      const receiveDisabled =
+        status === "Received" ||
+        status === "Delivered";
+
+
+      const deliverDisabled =
+        status === "Delivered";
+
+
+      const deliverClass =
+        status === "Delivered"
+          ? " delivered-complete"
+          : "";
+
+
+      const tr =
+        document.createElement(
+          "tr"
+        );
+
+
+      tr.innerHTML = `
+        <td>${escapeHtml(booking.bookingId)}</td>
+        <td>${escapeHtml(booking.fullName)}</td>
+        <td>${escapeHtml(booking.fileNumber)}</td>
+        <td>${escapeHtml(booking.mobileNumber || "")}</td>
+        <td>${escapeHtml(getPharmacyName(booking.pharmacy))}</td>
+        <td>${escapeHtml(booking.pickupTime)}</td>
+        <td>${statusBadge(status)}</td>
+        <td>
+          <div class="row-actions">
+
+            <button
+              type="button"
+              class="action-btn icon-btn print-btn"
+              title="${escapeHtml(text[currentLang].print)}"
+              aria-label="${escapeHtml(text[currentLang].print)}"
+              onclick="printLabel('${escapeJs(booking.bookingId)}')">
+              🖨️
+            </button>
+
+            <button
+              type="button"
+              class="action-btn icon-btn receive-btn"
+              title="${escapeHtml(text[currentLang].receive)}"
+              aria-label="${escapeHtml(text[currentLang].receive)}"
+              ${receiveDisabled ? "disabled" : ""}
+              onclick="updateStatus('${escapeJs(booking.bookingId)}','markReceived')">
+              📦
+            </button>
+
+            <button
+              type="button"
+              class="action-btn icon-btn deliver-btn${deliverClass}"
+              title="${escapeHtml(text[currentLang].deliver)}"
+              aria-label="${escapeHtml(text[currentLang].deliver)}"
+              ${deliverDisabled ? "disabled" : ""}
+              onclick="updateStatus('${escapeJs(booking.bookingId)}','markDelivered')">
+              ✅
+            </button>
+
+          </div>
+        </td>
+      `;
+
+
+      body.appendChild(
+        tr
+      );
+
+    }
+  );
+
 }
 
-setLanguage("ar");
-if (currentEmployee) {
-  showEmployeeView();
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function normalizeClientStatus(
+  status
+) {
+
+  if (
+    !status ||
+    status === "Confirmed"
+  ) {
+
+    return "Booked";
+
+  }
+
+
+  return status;
+
 }
+
+
+function statusBadge(
+  status
+) {
+
+  const normalized =
+    status ||
+    "Booked";
+
+
+  const labelMap = {
+    Booked:
+      text[currentLang].booked,
+
+    Received:
+      text[currentLang].received,
+
+    Delivered:
+      text[currentLang].delivered
+  };
+
+
+  const classMap = {
+    Booked:
+      "status-booked",
+
+    Received:
+      "status-received",
+
+    Delivered:
+      "status-delivered"
+  };
+
+
+  return (
+    '<span class="status ' +
+    (
+      classMap[
+        normalized
+      ] ||
+      "status-booked"
+    ) +
+    '">' +
+    escapeHtml(
+      labelMap[
+        normalized
+      ] ||
+      normalized
+    ) +
+    "</span>"
+  );
+
+}
+
+
+/* =========================================================
+   PHARMACY NAME
+========================================================= */
+
+function getPharmacyName(
+  value
+) {
+
+  const pharmacy =
+    PHARMACIES.find(
+      function(
+        item
+      ) {
+
+        return (
+          item.value ===
+          value
+        );
+
+      }
+    );
+
+
+  return pharmacy
+    ? pharmacy[
+        currentLang
+      ]
+    : value;
+
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+function printLabel(
+  bookingId
+) {
+
+  const booking =
+    bookings.find(
+      function(
+        item
+      ) {
+
+        return (
+          item.bookingId ===
+          bookingId
+        );
+
+      }
+    );
+
+
+  if (
+    !booking
+  ) {
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    "printBookingId"
+  ).innerText =
+    booking.bookingId;
+
+
+  document.getElementById(
+    "printPatientName"
+  ).innerText =
+    booking.fullName;
+
+
+  document.getElementById(
+    "printEmployeeName"
+  ).innerText =
+    text[
+      currentLang
+    ].employeeLabel +
+    ": " +
+    (
+      currentUsername ||
+      currentEmployee
+    );
+
+
+  window.print();
+
+}
+
+
+/* =========================================================
+   UPDATE STATUS
+========================================================= */
+
+async function updateStatus(
+  bookingId,
+  action
+) {
+
+  clearResult();
+
+
+  const booking =
+    bookings.find(
+      function(
+        item
+      ) {
+
+        return (
+          item.bookingId ===
+          bookingId
+        );
+
+      }
+    );
+
+
+  try {
+
+    const data =
+      await postApi(
+        action,
+        {
+          bookingId,
+
+          pickupDate:
+            booking
+              ? booking.pickupDate
+              : "",
+
+          pickupTime:
+            booking
+              ? booking.pickupTime
+              : "",
+
+          pharmacy:
+            booking
+              ? booking.pharmacy
+              : ""
+        },
+        true
+      );
+
+
+    if (
+      !data ||
+      !data.success
+    ) {
+
+      if (
+        isSessionError(
+          data
+        )
+      ) {
+
+        handleSessionExpired();
+
+        return;
+
+      }
+
+
+      showResult(
+        "error",
+        formatUpdateError(
+          data
+        )
+      );
+
+
+      return;
+
+    }
+
+
+    if (
+      booking
+    ) {
+
+      booking.status =
+        action ===
+          "markReceived"
+          ? "Received"
+          : "Delivered";
+
+    }
+
+
+    showResult(
+      "success",
+      text[
+        currentLang
+      ].updated
+    );
+
+
+    renderBookings();
+
+
+    await loadBookings(
+      true
+    );
+
+  } catch(error) {
+
+    showResult(
+      "error",
+      text[
+        currentLang
+      ].updateFailed
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   ERROR FORMAT
+========================================================= */
+
+function formatUpdateError(
+  data
+) {
+
+  const reason =
+    data &&
+    (
+      data.code ||
+      data.message
+    )
+      ? (
+          data.code ||
+          data.message
+        )
+      : "";
+
+
+  if (
+    !reason
+  ) {
+
+    return text[
+      currentLang
+    ].updateFailed;
+
+  }
+
+
+  return (
+    text[
+      currentLang
+    ].updateFailed +
+    " (" +
+    reason +
+    ")"
+  );
+
+}
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+function escapeHtml(
+  value
+) {
+
+  return String(
+    value === null ||
+    value === undefined
+      ? ""
+      : value
+  ).replace(
+    /[&<>"]/g,
+    function(
+      ch
+    ) {
+
+      return {
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        "\"":"&quot;"
+      }[
+        ch
+      ];
+
+    }
+  );
+
+}
+
+
+function escapeJs(
+  value
+) {
+
+  return String(
+    value === null ||
+    value === undefined
+      ? ""
+      : value
+  )
+    .replace(
+      /\\/g,
+      "\\\\"
+    )
+    .replace(
+      /'/g,
+      "\\'"
+    )
+    .replace(
+      /\r/g,
+      ""
+    )
+    .replace(
+      /\n/g,
+      "\\n"
+    );
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+async function init() {
+
+  setLanguage(
+    "ar"
+  );
+
+
+  await restoreSession();
+
+}
+
+
+document.addEventListener(
+  "DOMContentLoaded",
+  init
+);
+
 </script>
+
 </body>
 </html>
-
