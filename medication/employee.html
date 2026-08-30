@@ -75,8 +75,6 @@ th,td{padding:6px 5px;font-size:12px}
 .row-actions{gap:7px}
 .icon-btn{width:24px;height:24px;font-size:18px}
 .print-label{display:none}
-.main-home-link{display:flex;align-items:center;justify-content:center;width:fit-content;margin:20px auto 0;color:#168fb3;text-decoration:none;font-size:28px;line-height:1;background:transparent;border:none;padding:4px}
-.main-home-link:hover{color:#0f7592}
 
 @media print{
 body *{visibility:hidden}
@@ -104,7 +102,7 @@ body{padding:10px;background:#fff}
 .login-card{max-width:280px;padding:12px}
 .login-card .primary-btn{width:auto}
 .login-actions{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:10px;width:fit-content;margin:8px auto 0}
-.login-actions .primary-btn,.login-actions .secondary-btn{width:42px!important;min-width:42px!important;height:42px!important;min-height:42px!important;margin:0!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:20px;line-height:1;writing-mode:horizontal-tb}
+.login-actions .primary-btn,.login-actions .secondary-btn{width:42px!important;min-width:42px!important;height:42px!important;min-height:42px!important;margin:0!important;padding:0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:20px;line-height:1}
 .table-wrap{margin-top:12px}
 table{min-width:720px}
 th,td{padding:5px 4px;font-size:11px}
@@ -119,7 +117,6 @@ th,td{padding:5px 4px;font-size:11px}
 <div class="container">
 
 <div class="top-bar">
-
   <div class="official-header">
     <h2 id="officialLine1"></h2>
     <h3 id="officialLine2"></h3>
@@ -127,13 +124,11 @@ th,td{padding:5px 4px;font-size:11px}
   </div>
 
   <img class="logo" src="logo.png" alt="Logo">
-
 </div>
 
 <hr>
 
 <div class="meta-row">
-
   <div class="date-box" id="dateBox"></div>
 
   <button
@@ -142,31 +137,19 @@ th,td{padding:5px 4px;font-size:11px}
     id="languageToggle"
     onclick="toggleLanguage()">
   </button>
-
 </div>
 
 <div class="page-title" id="pageTitle"></div>
 
-
 <div id="loginView" class="login-card">
 
   <label id="usernameLabel" for="username"></label>
-
-  <input
-    type="text"
-    id="username"
-    autocomplete="username">
+  <input type="text" id="username" autocomplete="username">
 
   <label id="passwordLabel" for="password"></label>
-
-  <input
-    type="password"
-    id="password"
-    inputmode="numeric"
-    autocomplete="current-password">
+  <input type="password" id="password" inputmode="numeric" autocomplete="current-password">
 
   <div class="login-actions">
-
     <button
       type="button"
       class="primary-btn"
@@ -180,43 +163,18 @@ th,td{padding:5px 4px;font-size:11px}
       id="togglePasswordBtn"
       onclick="togglePasswordPanel()">
     </button>
-
   </div>
 
+  <div class="change-password-panel" id="changePasswordPanel">
 
-  <div
-    class="change-password-panel"
-    id="changePasswordPanel">
+    <label id="changeUsernameLabel" for="changeUsername"></label>
+    <input type="text" id="changeUsername" autocomplete="username">
 
-    <label
-      id="changeUsernameLabel"
-      for="changeUsername">
-    </label>
+    <label id="oldPasswordLabel" for="oldPassword"></label>
+    <input type="password" id="oldPassword" autocomplete="current-password">
 
-    <input
-      type="text"
-      id="changeUsername"
-      autocomplete="username">
-
-    <label
-      id="oldPasswordLabel"
-      for="oldPassword">
-    </label>
-
-    <input
-      type="password"
-      id="oldPassword"
-      autocomplete="current-password">
-
-    <label
-      id="newPasswordLabel"
-      for="newPassword">
-    </label>
-
-    <input
-      type="password"
-      id="newPassword"
-      autocomplete="new-password">
+    <label id="newPasswordLabel" for="newPassword"></label>
+    <input type="password" id="newPassword" autocomplete="new-password">
 
     <button
       type="button"
@@ -231,35 +189,18 @@ th,td{padding:5px 4px;font-size:11px}
 
 </div>
 
-
 <div id="employeeView" style="display:none">
 
   <div class="toolbar">
 
     <div class="pharmacy-tools">
-
-      <label
-        id="pharmacyFilterLabel"
-        for="pharmacyFilter">
-      </label>
-
-      <select
-        id="pharmacyFilter"
-        onchange="loadBookings()">
-      </select>
-
+      <label id="pharmacyFilterLabel" for="pharmacyFilter"></label>
+      <select id="pharmacyFilter" onchange="loadBookings()"></select>
     </div>
 
-
     <div class="employee-tools">
-
       <div class="employee-line">
-
-        <span
-          class="employee-name"
-          id="employeeName">
-        </span>
-
+        <span class="employee-name" id="employeeName"></span>
       </div>
 
       <button
@@ -268,14 +209,11 @@ th,td{padding:5px 4px;font-size:11px}
         id="logoutBtn"
         onclick="logoutEmployee()">
       </button>
-
     </div>
 
   </div>
 
-
   <div id="result"></div>
-
 
   <div
     id="emptyBox"
@@ -283,15 +221,11 @@ th,td{padding:5px 4px;font-size:11px}
     style="display:none">
   </div>
 
-
   <div class="table-wrap">
 
-    <table
-      id="bookingsTable"
-      style="display:none">
+    <table id="bookingsTable" style="display:none">
 
       <thead>
-
         <tr>
           <th id="bookingIdHeader"></th>
           <th id="patientHeader"></th>
@@ -302,7 +236,6 @@ th,td{padding:5px 4px;font-size:11px}
           <th id="statusHeader"></th>
           <th id="actionsHeader"></th>
         </tr>
-
       </thead>
 
       <tbody id="bookingsBody"></tbody>
@@ -313,97 +246,60 @@ th,td{padding:5px 4px;font-size:11px}
 
 </div>
 
-
-<div
-  class="print-label"
-  id="printLabel">
-
-  <div
-    class="print-booking"
-    id="printBookingId">
-  </div>
-
-  <div
-    class="print-name"
-    id="printPatientName">
-  </div>
-
-  <div
-    class="print-employee"
-    id="printEmployeeName">
-  </div>
-
+<div class="print-label" id="printLabel">
+  <div class="print-booking" id="printBookingId"></div>
+  <div class="print-name" id="printPatientName"></div>
+  <div class="print-employee" id="printEmployeeName"></div>
 </div>
 
 </div>
-
 
 <script>
 
 const API_BASE_URL =
   "https://script.google.com/macros/s/AKfycbw9JM87uiSHihWDP0N1gn4IskEG_8O-fWleathLZW9Wwbs915UQz8Gq5k2dIwAGImCF/exec";
 
+const SESSION_TOKEN_KEY = "medSessionToken";
+const SESSION_NAME_KEY = "medEmployeeName";
+const SESSION_USERNAME_KEY = "medEmployeeUsername";
 
-const SESSION_TOKEN_KEY =
-  "medSessionToken";
+let currentLang = "ar";
+let currentEmployee = "";
+let currentUsername = "";
+let currentSessionToken = "";
 
-const SESSION_NAME_KEY =
-  "medEmployeeName";
+let bookings = [];
+let refreshTimer = null;
+let employeeInactivityTimer = null;
+let inactivityWatcherStarted = false;
 
-const SESSION_USERNAME_KEY =
-  "medEmployeeUsername";
-
-
-let currentLang =
-  "ar";
-
-let currentEmployee =
-  "";
-
-let currentUsername =
-  "";
-
-let currentSessionToken =
-  "";
-
-let bookings =
-  [];
-
-let refreshTimer =
-  null;
-
-let employeeInactivityTimer =
-  null;
-
-let inactivityWatcherStarted =
-  false;
+/*
+يحفظ الحجوزات التي يتم تحديثها حالياً.
+يمنع الضغط المتكرر على نفس الحجز.
+*/
+const pendingBookings =
+  new Set();
 
 const EMPLOYEE_INACTIVITY_LIMIT_MS =
   30 * 60 * 1000;
 
-
 const PHARMACIES = [
-
   {
     value:"",
     ar:"جميع الصيدليات",
     en:"All Pharmacies"
   },
-
   {
     value:"Outpatient Pharmacy",
     ar:"صيدلية العيادات الخارجية",
     en:"Outpatient Pharmacy"
   },
-
   {
     value:"Diabetes Center Pharmacy",
     ar:"صيدلية مركز السكر",
     en:"Diabetes Center Pharmacy"
   }
-
 ];
-
 
 const text = {
 
@@ -412,7 +308,6 @@ const text = {
     officialLine2:"مستشفى الملك فهد بالمدينة المنورة",
     officialLine3:"إدارة الرعاية الصيدلانية",
     pageTitle:"إدارة مواعيد صرف الأدوية الشهرية",
-    today:"اليوم",
     username:"اسم المستخدم",
     password:"PIN",
     login:"تسجيل الدخول",
@@ -424,7 +319,6 @@ const text = {
     passwordTooShort:"PIN الجديد يجب ألا يكون فارغاً.",
     logout:"تسجيل الخروج",
     invalidLogin:"اسم المستخدم أو PIN غير صحيح أو لا توجد صلاحية.",
-    loggedInAs:"الموظف:",
     pharmacyFilter:"اختر الصيدلية",
     bookingId:"رقم الحجز",
     patient:"اسم المريض",
@@ -434,7 +328,7 @@ const text = {
     pickupTime:"وقت الاستلام",
     status:"حالة الطلب",
     actions:"الإجراءات",
-    print:"🖨️ طباعة الملصق",
+    print:"طباعة الملصق",
     receive:"تم استلام الطلب",
     deliver:"تم تسليم الطلب",
     booked:"Booked",
@@ -453,7 +347,6 @@ const text = {
     officialLine2:"King Fahad Hospital - Madinah",
     officialLine3:"Pharmaceutical Care Administration",
     pageTitle:"Monthly Medication Appointment Management",
-    today:"Today",
     username:"Username",
     password:"PIN",
     login:"Login",
@@ -465,7 +358,6 @@ const text = {
     passwordTooShort:"New PIN cannot be empty.",
     logout:"Logout",
     invalidLogin:"Incorrect username/PIN or no permission.",
-    loggedInAs:"Employee:",
     pharmacyFilter:"Select Pharmacy",
     bookingId:"Booking ID",
     patient:"Patient Name",
@@ -475,7 +367,7 @@ const text = {
     pickupTime:"Pickup Time",
     status:"Status",
     actions:"Actions",
-    print:"🖨️ Print Label",
+    print:"Print Label",
     receive:"Mark Received",
     deliver:"Mark Delivered",
     booked:"Booked",
@@ -496,12 +388,9 @@ const text = {
    LANGUAGE
 ========================================================= */
 
-function setLanguage(
-  lang
-) {
+function setLanguage(lang) {
 
-  currentLang =
-    lang;
+  currentLang = lang;
 
   document.documentElement.lang =
     lang;
@@ -511,218 +400,106 @@ function setLanguage(
       ? "rtl"
       : "ltr";
 
-
-  document.getElementById(
-    "officialLine1"
-  ).innerText =
+  document.getElementById("officialLine1").innerText =
     text[lang].officialLine1;
 
-
-  document.getElementById(
-    "officialLine2"
-  ).innerText =
+  document.getElementById("officialLine2").innerText =
     text[lang].officialLine2;
 
-
-  document.getElementById(
-    "officialLine3"
-  ).innerText =
+  document.getElementById("officialLine3").innerText =
     text[lang].officialLine3;
 
-
-  document.getElementById(
-    "pageTitle"
-  ).innerText =
+  document.getElementById("pageTitle").innerText =
     text[lang].pageTitle;
 
-
-  document.getElementById(
-    "usernameLabel"
-  ).innerText =
+  document.getElementById("usernameLabel").innerText =
     text[lang].username;
 
-
-  document.getElementById(
-    "passwordLabel"
-  ).innerText =
+  document.getElementById("passwordLabel").innerText =
     text[lang].password;
 
-
-  document.getElementById(
-    "loginBtn"
-  ).innerHTML =
+  document.getElementById("loginBtn").innerHTML =
     loginIcon();
 
-
-  document.getElementById(
-    "loginBtn"
-  ).title =
+  document.getElementById("loginBtn").title =
     text[lang].login;
 
-
-  document.getElementById(
-    "loginBtn"
-  ).setAttribute(
-    "aria-label",
-    text[lang].login
-  );
-
-
-  document.getElementById(
-    "togglePasswordBtn"
-  ).innerText =
+  document.getElementById("togglePasswordBtn").innerText =
     "🔑";
 
-
-  document.getElementById(
-    "togglePasswordBtn"
-  ).title =
+  document.getElementById("togglePasswordBtn").title =
     text[lang].changePassword;
 
-
-  document.getElementById(
-    "togglePasswordBtn"
-  ).setAttribute(
-    "aria-label",
-    text[lang].changePassword
-  );
-
-
-  document.getElementById(
-    "changeUsernameLabel"
-  ).innerText =
+  document.getElementById("changeUsernameLabel").innerText =
     text[lang].username;
 
-
-  document.getElementById(
-    "oldPasswordLabel"
-  ).innerText =
+  document.getElementById("oldPasswordLabel").innerText =
     text[lang].oldPassword;
 
-
-  document.getElementById(
-    "newPasswordLabel"
-  ).innerText =
+  document.getElementById("newPasswordLabel").innerText =
     text[lang].newPassword;
 
-
-  document.getElementById(
-    "changePasswordBtn"
-  ).innerText =
+  document.getElementById("changePasswordBtn").innerText =
     text[lang].changePassword;
 
-
-  document.getElementById(
-    "logoutBtn"
-  ).innerHTML =
+  document.getElementById("logoutBtn").innerHTML =
     powerIcon();
 
-
-  document.getElementById(
-    "logoutBtn"
-  ).title =
+  document.getElementById("logoutBtn").title =
     text[lang].logout;
 
-
-  document.getElementById(
-    "logoutBtn"
-  ).setAttribute(
-    "aria-label",
-    text[lang].logout
-  );
-
-
-  document.getElementById(
-    "pharmacyFilterLabel"
-  ).innerText =
+  document.getElementById("pharmacyFilterLabel").innerText =
     text[lang].pharmacyFilter;
 
-
-  document.getElementById(
-    "bookingIdHeader"
-  ).innerText =
+  document.getElementById("bookingIdHeader").innerText =
     text[lang].bookingId;
 
-
-  document.getElementById(
-    "patientHeader"
-  ).innerText =
+  document.getElementById("patientHeader").innerText =
     text[lang].patient;
 
-
-  document.getElementById(
-    "fileHeader"
-  ).innerText =
+  document.getElementById("fileHeader").innerText =
     text[lang].file;
 
-
-  document.getElementById(
-    "mobileHeader"
-  ).innerText =
+  document.getElementById("mobileHeader").innerText =
     text[lang].mobile;
 
-
-  document.getElementById(
-    "pharmacyHeader"
-  ).innerText =
+  document.getElementById("pharmacyHeader").innerText =
     text[lang].pharmacy;
 
-
-  document.getElementById(
-    "timeHeader"
-  ).innerText =
+  document.getElementById("timeHeader").innerText =
     text[lang].pickupTime;
 
-
-  document.getElementById(
-    "statusHeader"
-  ).innerText =
+  document.getElementById("statusHeader").innerText =
     text[lang].status;
 
-
-  document.getElementById(
-    "actionsHeader"
-  ).innerText =
+  document.getElementById("actionsHeader").innerText =
     text[lang].actions;
 
-
-  document.getElementById(
-    "languageToggle"
-  ).innerText =
+  document.getElementById("languageToggle").innerText =
     "🌐 ع | E";
 
-
   renderDate();
-
   renderPharmacyFilter();
-
   renderBookings();
-
 }
 
 
 function toggleLanguage() {
-
   setLanguage(
     currentLang === "ar"
       ? "en"
       : "ar"
   );
-
 }
 
 
 function loginIcon() {
-
-  return '<svg class="login-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path><path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path></svg>';
-
+  return '<svg class="login-svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path><path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path></svg>';
 }
 
 
 function powerIcon() {
-
-  return '<svg class="power-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9"></path><path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path></svg>';
-
+  return '<svg class="power-svg" viewBox="0 0 24 24"><path d="M12 3v9"></path><path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path></svg>';
 }
 
 
@@ -735,7 +512,6 @@ function renderDate() {
   const now =
     new Date();
 
-
   const date =
     new Intl.DateTimeFormat(
       "en-CA",
@@ -747,7 +523,6 @@ function renderDate() {
       now
     );
 
-
   const dayName =
     new Intl.DateTimeFormat(
       currentLang === "ar"
@@ -756,7 +531,6 @@ function renderDate() {
       {
         timeZone:
           "Asia/Riyadh",
-
         weekday:
           "long"
       }
@@ -764,12 +538,8 @@ function renderDate() {
       now
     );
 
-
-  document.getElementById(
-    "dateBox"
-  ).innerText =
+  document.getElementById("dateBox").innerText =
     `${dayName} - ${date}`;
-
 }
 
 
@@ -784,35 +554,25 @@ function renderPharmacyFilter() {
       "pharmacyFilter"
     );
 
-
   const selected =
     select.value;
-
 
   select.innerHTML =
     "";
 
-
   PHARMACIES.forEach(
-    function(
-      pharmacy
-    ) {
+    function(pharmacy) {
 
       const option =
         document.createElement(
           "option"
         );
 
-
       option.value =
         pharmacy.value;
 
-
       option.textContent =
-        pharmacy[
-          currentLang
-        ];
-
+        pharmacy[currentLang];
 
       select.appendChild(
         option
@@ -821,16 +581,14 @@ function renderPharmacyFilter() {
     }
   );
 
-
   select.value =
     selected ||
     "";
-
 }
 
 
 /* =========================================================
-   SESSION STORAGE
+   SESSION
 ========================================================= */
 
 function saveSession() {
@@ -849,7 +607,6 @@ function saveSession() {
     SESSION_USERNAME_KEY,
     currentUsername
   );
-
 }
 
 
@@ -867,25 +624,9 @@ function clearStoredSession() {
     SESSION_USERNAME_KEY
   );
 
-
-  sessionStorage.removeItem(
-    "employeeName"
-  );
-
-  sessionStorage.removeItem(
-    "employeeUsername"
-  );
-
-
-  currentEmployee =
-    "";
-
-  currentUsername =
-    "";
-
-  currentSessionToken =
-    "";
-
+  currentEmployee = "";
+  currentUsername = "";
+  currentSessionToken = "";
 }
 
 
@@ -904,10 +645,7 @@ async function postApi(
     ...payload
   };
 
-
-  if (
-    includeSession
-  ) {
+  if (includeSession) {
 
     currentSessionToken =
       localStorage.getItem(
@@ -915,31 +653,23 @@ async function postApi(
       ) ||
       currentSessionToken;
 
-
     if (
       currentSessionToken
     ) {
-
       requestData.sessionToken =
         currentSessionToken;
-
     }
-
   }
-
 
   const response =
     await fetch(
       API_BASE_URL,
       {
-        method:
-          "POST",
-
+        method:"POST",
         headers:{
           "Content-Type":
             "text/plain;charset=utf-8"
         },
-
         body:
           JSON.stringify(
             requestData
@@ -947,21 +677,16 @@ async function postApi(
       }
     );
 
-
   if (
     !response.ok
   ) {
-
     throw new Error(
       "HTTP_" +
       response.status
     );
-
   }
 
-
   return await response.json();
-
 }
 
 
@@ -976,12 +701,10 @@ async function loginEmployee() {
       "username"
     ).value.trim();
 
-
   const password =
     document.getElementById(
       "password"
     ).value.trim();
-
 
   try {
 
@@ -995,7 +718,6 @@ async function loginEmployee() {
         false
       );
 
-
     if (
       !result.success ||
       !result.employee ||
@@ -1004,29 +726,23 @@ async function loginEmployee() {
 
       showLoginResult(
         "error",
-        text[
-          currentLang
-        ].invalidLogin
+        text[currentLang].invalidLogin
       );
 
       return;
     }
-
 
     currentEmployee =
       result.employee.name ||
       result.employee.username ||
       username;
 
-
     currentUsername =
       result.employee.username ||
       username;
 
-
     currentSessionToken =
       result.sessionToken;
-
 
     saveSession();
 
@@ -1038,13 +754,9 @@ async function loginEmployee() {
 
     showLoginResult(
       "error",
-      text[
-        currentLang
-      ].invalidLogin
+      text[currentLang].invalidLogin
     );
-
   }
-
 }
 
 
@@ -1059,28 +771,22 @@ async function restoreSession() {
       SESSION_TOKEN_KEY
     ) || "";
 
-
   currentEmployee =
     localStorage.getItem(
       SESSION_NAME_KEY
     ) || "";
-
 
   currentUsername =
     localStorage.getItem(
       SESSION_USERNAME_KEY
     ) || "";
 
-
   if (
     !currentSessionToken
   ) {
-
     showLoginView();
-
     return;
   }
-
 
   try {
 
@@ -1088,12 +794,10 @@ async function restoreSession() {
       await postApi(
         "validateSession",
         {
-          service:
-            "med"
+          service:"med"
         },
         true
       );
-
 
     if (
       !result.success ||
@@ -1101,23 +805,18 @@ async function restoreSession() {
     ) {
 
       clearStoredSession();
-
       showLoginView();
-
       return;
     }
-
 
     currentUsername =
       result.user.username ||
       currentUsername;
 
-
     currentEmployee =
       result.user.name ||
       result.user.username ||
       currentEmployee;
-
 
     saveSession();
 
@@ -1126,11 +825,8 @@ async function restoreSession() {
   } catch(error) {
 
     clearStoredSession();
-
     showLoginView();
-
   }
-
 }
 
 
@@ -1145,16 +841,12 @@ function togglePasswordPanel() {
       "changePasswordPanel"
     );
 
-
   panel.style.display =
-    panel.style.display ===
-      "block"
+    panel.style.display === "block"
       ? "none"
       : "block";
 
-
   clearLoginResult();
-
 }
 
 
@@ -1165,33 +857,25 @@ async function changePassword() {
       "changeUsername"
     ).value.trim();
 
-
   const oldPassword =
     document.getElementById(
       "oldPassword"
     ).value.trim();
-
 
   const newPassword =
     document.getElementById(
       "newPassword"
     ).value.trim();
 
-
-  if (
-    !newPassword
-  ) {
+  if (!newPassword) {
 
     showLoginResult(
       "error",
-      text[
-        currentLang
-      ].passwordTooShort
+      text[currentLang].passwordTooShort
     );
 
     return;
   }
-
 
   try {
 
@@ -1206,44 +890,30 @@ async function changePassword() {
         false
       );
 
-
-    if (
-      !result.success
-    ) {
+    if (!result.success) {
 
       showLoginResult(
         "error",
-        text[
-          currentLang
-        ].passwordMismatch
+        text[currentLang].passwordMismatch
       );
 
       return;
     }
 
-
     document.getElementById(
       "oldPassword"
-    ).value =
-      "";
-
+    ).value = "";
 
     document.getElementById(
       "newPassword"
-    ).value =
-      "";
-
+    ).value = "";
 
     clearStoredSession();
 
-
     showLoginResult(
       "success",
-      text[
-        currentLang
-      ].passwordChanged
+      text[currentLang].passwordChanged
     );
-
 
     showLoginView();
 
@@ -1251,13 +921,9 @@ async function changePassword() {
 
     showLoginResult(
       "error",
-      text[
-        currentLang
-      ].passwordMismatch
+      text[currentLang].passwordMismatch
     );
-
   }
-
 }
 
 
@@ -1267,31 +933,17 @@ async function changePassword() {
 
 async function logoutEmployee() {
 
-  const token =
-    currentSessionToken ||
-    localStorage.getItem(
-      SESSION_TOKEN_KEY
-    ) ||
-    "";
-
-
   if (
-    token
+    currentSessionToken
   ) {
-
     try {
-
       await postApi(
         "revokeSession",
         {},
         true
       );
-
-    } catch(error) {
-    }
-
+    } catch(error) {}
   }
-
 
   clearStoredSession();
 
@@ -1299,29 +951,16 @@ async function logoutEmployee() {
 
   stopEmployeeInactivityWatcher();
 
-  bookings =
-    [];
+  bookings = [];
 
-
-  document.getElementById(
-    "bookingsTable"
-  ).style.display =
-    "none";
-
-
-  document.getElementById(
-    "emptyBox"
-  ).style.display =
-    "none";
-
+  renderBookings();
 
   showLoginView();
-
 }
 
 
 /* =========================================================
-   VIEW
+   VIEWS
 ========================================================= */
 
 function showLoginView() {
@@ -1331,12 +970,10 @@ function showLoginView() {
   ).style.display =
     "none";
 
-
   document.getElementById(
     "loginView"
   ).style.display =
     "block";
-
 }
 
 
@@ -1347,25 +984,21 @@ function showEmployeeView() {
   ).style.display =
     "none";
 
-
   document.getElementById(
     "employeeView"
   ).style.display =
     "block";
-
 
   document.getElementById(
     "employeeName"
   ).innerText =
     currentEmployee;
 
-
   loadBookings();
 
   startAutoRefresh();
 
   startEmployeeInactivityWatcher();
-
 }
 
 
@@ -1385,31 +1018,24 @@ function startEmployeeInactivityWatcher() {
       "touchstart",
       "mousemove"
     ].forEach(
-      function(
-        eventName
-      ) {
+      function(eventName) {
 
         window.addEventListener(
           eventName,
           resetEmployeeInactivityTimer,
           {
-            passive:
-              true
+            passive:true
           }
         );
 
       }
     );
 
-
     inactivityWatcherStarted =
       true;
-
   }
 
-
   resetEmployeeInactivityTimer();
-
 }
 
 
@@ -1418,7 +1044,6 @@ function stopEmployeeInactivityWatcher() {
   window.clearTimeout(
     employeeInactivityTimer
   );
-
 }
 
 
@@ -1427,7 +1052,6 @@ function resetEmployeeInactivityTimer() {
   window.clearTimeout(
     employeeInactivityTimer
   );
-
 
   employeeInactivityTimer =
     window.setTimeout(
@@ -1438,15 +1062,12 @@ function resetEmployeeInactivityTimer() {
             SESSION_TOKEN_KEY
           )
         ) {
-
           logoutEmployee();
-
         }
 
       },
       EMPLOYEE_INACTIVITY_LIMIT_MS
     );
-
 }
 
 
@@ -1458,25 +1079,22 @@ function startAutoRefresh() {
 
   stopAutoRefresh();
 
-
   refreshTimer =
     setInterval(
       function() {
 
         if (
-          currentSessionToken
+          currentSessionToken &&
+          pendingBookings.size === 0
         ) {
-
           loadBookings(
             true
           );
-
         }
 
       },
       10000
     );
-
 }
 
 
@@ -1492,9 +1110,7 @@ function stopAutoRefresh() {
 
     refreshTimer =
       null;
-
   }
-
 }
 
 
@@ -1512,14 +1128,11 @@ function showResult(
       "result"
     );
 
-
   result.className =
     type;
 
-
   result.innerText =
     message;
-
 }
 
 
@@ -1533,14 +1146,11 @@ function showLoginResult(
       "loginResult"
     );
 
-
   result.className =
     type;
 
-
   result.innerText =
     message;
-
 }
 
 
@@ -1551,14 +1161,8 @@ function clearLoginResult() {
       "loginResult"
     );
 
-
-  result.className =
-    "";
-
-
-  result.innerText =
-    "";
-
+  result.className = "";
+  result.innerText = "";
 }
 
 
@@ -1569,14 +1173,8 @@ function clearResult() {
       "result"
     );
 
-
-  result.className =
-    "";
-
-
-  result.innerText =
-    "";
-
+  result.className = "";
+  result.innerText = "";
 }
 
 
@@ -1588,25 +1186,18 @@ function isSessionError(
   data
 ) {
 
-  if (
-    !data
-  ) {
-
-    return false;
-
-  }
-
-
-  return [
-    "INVALID_SESSION",
-    "MISSING_SESSION",
-    "NO_PERMISSION",
-    "USER_INACTIVE",
-    "UNAUTHORIZED"
-  ].includes(
-    data.code
+  return Boolean(
+    data &&
+    [
+      "INVALID_SESSION",
+      "MISSING_SESSION",
+      "NO_PERMISSION",
+      "USER_INACTIVE",
+      "UNAUTHORIZED"
+    ].includes(
+      data.code
+    )
   );
-
 }
 
 
@@ -1618,20 +1209,14 @@ function handleSessionExpired() {
 
   stopEmployeeInactivityWatcher();
 
-  bookings =
-    [];
-
+  bookings = [];
 
   showLoginView();
 
-
   showLoginResult(
     "error",
-    text[
-      currentLang
-    ].sessionExpired
+    text[currentLang].sessionExpired
   );
-
 }
 
 
@@ -1646,47 +1231,37 @@ async function loadBookings(
   if (
     !currentSessionToken
   ) {
-
-    handleSessionExpired();
-
     return;
   }
 
-
-  clearResult();
-
-
   if (
-    !isSilent
+    pendingBookings.size > 0
   ) {
+    return;
+  }
+
+  if (!isSilent) {
 
     document.getElementById(
       "emptyBox"
     ).style.display =
       "block";
 
-
     document.getElementById(
       "emptyBox"
     ).innerText =
-      text[
-        currentLang
-      ].loading;
-
+      text[currentLang].loading;
 
     document.getElementById(
       "bookingsTable"
     ).style.display =
       "none";
-
   }
-
 
   const pharmacy =
     document.getElementById(
       "pharmacyFilter"
     ).value;
-
 
   try {
 
@@ -1699,7 +1274,6 @@ async function loadBookings(
         true
       );
 
-
     if (
       !data ||
       !data.success
@@ -1710,56 +1284,28 @@ async function loadBookings(
           data
         )
       ) {
-
         handleSessionExpired();
-
         return;
       }
 
-
-      bookings =
-        [];
-
-
-      showResult(
-        "error",
-        formatUpdateError(
-          data
-        )
-      );
-
-
-      renderBookings();
-
       return;
     }
-
 
     bookings =
       data.bookings ||
       [];
 
-
     renderBookings();
 
   } catch(error) {
 
-    bookings =
-      [];
-
-
-    showResult(
-      "error",
-      text[
-        currentLang
-      ].updateFailed
-    );
-
-
-    renderBookings();
-
+    if (!isSilent) {
+      showResult(
+        "error",
+        text[currentLang].updateFailed
+      );
+    }
   }
-
 }
 
 
@@ -1774,94 +1320,69 @@ function renderBookings() {
       "bookingsBody"
     );
 
-
   const table =
     document.getElementById(
       "bookingsTable"
     );
-
 
   const empty =
     document.getElementById(
       "emptyBox"
     );
 
+  body.innerHTML = "";
 
-  if (
-    !body
-  ) {
-
-    return;
-
-  }
-
-
-  body.innerHTML =
-    "";
-
-
-  if (
-    !bookings.length
-  ) {
+  if (!bookings.length) {
 
     table.style.display =
       "none";
 
-
     empty.style.display =
       "block";
 
-
     empty.innerText =
-      text[
-        currentLang
-      ].noBookings;
-
+      text[currentLang].noBookings;
 
     return;
-
   }
-
 
   empty.style.display =
     "none";
 
-
   table.style.display =
     "table";
 
-
   bookings.forEach(
-    function(
-      booking
-    ) {
+    function(booking) {
 
       const status =
         normalizeClientStatus(
           booking.status
         );
 
+      const isPending =
+        pendingBookings.has(
+          booking.bookingId
+        );
 
       const receiveDisabled =
+        isPending ||
         status === "Received" ||
         status === "Delivered";
 
-
       const deliverDisabled =
+        isPending ||
         status === "Delivered";
-
 
       const deliverClass =
         status === "Delivered"
           ? " delivered-complete"
           : "";
 
-
       const tr =
         document.createElement(
           "tr"
         );
-
 
       tr.innerHTML = `
         <td>${escapeHtml(booking.bookingId)}</td>
@@ -1871,6 +1392,7 @@ function renderBookings() {
         <td>${escapeHtml(getPharmacyName(booking.pharmacy))}</td>
         <td>${escapeHtml(booking.pickupTime)}</td>
         <td>${statusBadge(status)}</td>
+
         <td>
           <div class="row-actions">
 
@@ -1878,7 +1400,6 @@ function renderBookings() {
               type="button"
               class="action-btn icon-btn print-btn"
               title="${escapeHtml(text[currentLang].print)}"
-              aria-label="${escapeHtml(text[currentLang].print)}"
               onclick="printLabel('${escapeJs(booking.bookingId)}')">
               🖨️
             </button>
@@ -1887,7 +1408,6 @@ function renderBookings() {
               type="button"
               class="action-btn icon-btn receive-btn"
               title="${escapeHtml(text[currentLang].receive)}"
-              aria-label="${escapeHtml(text[currentLang].receive)}"
               ${receiveDisabled ? "disabled" : ""}
               onclick="updateStatus('${escapeJs(booking.bookingId)}','markReceived')">
               📦
@@ -1897,7 +1417,6 @@ function renderBookings() {
               type="button"
               class="action-btn icon-btn deliver-btn${deliverClass}"
               title="${escapeHtml(text[currentLang].deliver)}"
-              aria-label="${escapeHtml(text[currentLang].deliver)}"
               ${deliverDisabled ? "disabled" : ""}
               onclick="updateStatus('${escapeJs(booking.bookingId)}','markDelivered')">
               ✅
@@ -1907,14 +1426,11 @@ function renderBookings() {
         </td>
       `;
 
-
       body.appendChild(
         tr
       );
-
     }
   );
-
 }
 
 
@@ -1930,14 +1446,10 @@ function normalizeClientStatus(
     !status ||
     status === "Confirmed"
   ) {
-
     return "Booked";
-
   }
 
-
   return status;
-
 }
 
 
@@ -1948,7 +1460,6 @@ function statusBadge(
   const normalized =
     status ||
     "Booked";
-
 
   const labelMap = {
     Booked:
@@ -1961,7 +1472,6 @@ function statusBadge(
       text[currentLang].delivered
   };
 
-
   const classMap = {
     Booked:
       "status-booked",
@@ -1973,25 +1483,19 @@ function statusBadge(
       "status-delivered"
   };
 
-
   return (
     '<span class="status ' +
     (
-      classMap[
-        normalized
-      ] ||
+      classMap[normalized] ||
       "status-booked"
     ) +
     '">' +
     escapeHtml(
-      labelMap[
-        normalized
-      ] ||
+      labelMap[normalized] ||
       normalized
     ) +
     "</span>"
   );
-
 }
 
 
@@ -2005,25 +1509,17 @@ function getPharmacyName(
 
   const pharmacy =
     PHARMACIES.find(
-      function(
-        item
-      ) {
-
+      function(item) {
         return (
           item.value ===
           value
         );
-
       }
     );
 
-
   return pharmacy
-    ? pharmacy[
-        currentLang
-      ]
+    ? pharmacy[currentLang]
     : value;
-
 }
 
 
@@ -2037,60 +1533,44 @@ function printLabel(
 
   const booking =
     bookings.find(
-      function(
-        item
-      ) {
-
+      function(item) {
         return (
           item.bookingId ===
           bookingId
         );
-
       }
     );
 
-
-  if (
-    !booking
-  ) {
-
+  if (!booking) {
     return;
-
   }
-
 
   document.getElementById(
     "printBookingId"
   ).innerText =
     booking.bookingId;
 
-
   document.getElementById(
     "printPatientName"
   ).innerText =
     booking.fullName;
 
-
   document.getElementById(
     "printEmployeeName"
   ).innerText =
-    text[
-      currentLang
-    ].employeeLabel +
+    text[currentLang].employeeLabel +
     ": " +
     (
       currentUsername ||
       currentEmployee
     );
 
-
   window.print();
-
 }
 
 
 /* =========================================================
-   UPDATE STATUS
+   FAST STATUS UPDATE
 ========================================================= */
 
 async function updateStatus(
@@ -2098,22 +1578,50 @@ async function updateStatus(
   action
 ) {
 
-  clearResult();
-
+  if (
+    pendingBookings.has(
+      bookingId
+    )
+  ) {
+    return;
+  }
 
   const booking =
     bookings.find(
-      function(
-        item
-      ) {
-
+      function(item) {
         return (
           item.bookingId ===
           bookingId
         );
-
       }
     );
+
+  if (!booking) {
+    return;
+  }
+
+  clearResult();
+
+  const oldStatus =
+    booking.status;
+
+  const newStatus =
+    action === "markReceived"
+      ? "Received"
+      : "Delivered";
+
+
+  /*
+  التغيير يظهر فوراً للموظف.
+  */
+  booking.status =
+    newStatus;
+
+  pendingBookings.add(
+    bookingId
+  );
+
+  renderBookings();
 
 
   try {
@@ -2122,22 +1630,17 @@ async function updateStatus(
       await postApi(
         action,
         {
-          bookingId,
+          bookingId:
+            booking.bookingId,
 
           pickupDate:
-            booking
-              ? booking.pickupDate
-              : "",
+            booking.pickupDate,
 
           pickupTime:
-            booking
-              ? booking.pickupTime
-              : "",
+            booking.pickupTime,
 
           pharmacy:
-            booking
-              ? booking.pharmacy
-              : ""
+            booking.pharmacy
         },
         true
       );
@@ -2148,16 +1651,27 @@ async function updateStatus(
       !data.success
     ) {
 
+      /*
+      إذا السيرفر رفض العملية،
+      نرجع للحالة السابقة.
+      */
+      booking.status =
+        oldStatus;
+
+      pendingBookings.delete(
+        bookingId
+      );
+
+      renderBookings();
+
+
       if (
         isSessionError(
           data
         )
       ) {
-
         handleSessionExpired();
-
         return;
-
       }
 
 
@@ -2168,56 +1682,51 @@ async function updateStatus(
         )
       );
 
-
       return;
-
     }
 
 
-    if (
-      booking
-    ) {
-
-      booking.status =
-        action ===
-          "markReceived"
-          ? "Received"
-          : "Delivered";
-
-    }
-
-
-    showResult(
-      "success",
-      text[
-        currentLang
-      ].updated
+    /*
+    تمت العملية بنجاح.
+    لا نعيد تحميل كل الحجوزات.
+    */
+    pendingBookings.delete(
+      bookingId
     );
-
 
     renderBookings();
 
-
-    await loadBookings(
-      true
+    showResult(
+      "success",
+      text[currentLang].updated
     );
+
 
   } catch(error) {
 
-    showResult(
-      "error",
-      text[
-        currentLang
-      ].updateFailed
+    /*
+    لو انقطع الاتصال أو حدث خطأ،
+    نرجع للحالة القديمة.
+    */
+    booking.status =
+      oldStatus;
+
+    pendingBookings.delete(
+      bookingId
     );
 
-  }
+    renderBookings();
 
+    showResult(
+      "error",
+      text[currentLang].updateFailed
+    );
+  }
 }
 
 
 /* =========================================================
-   ERROR FORMAT
+   ERROR
 ========================================================= */
 
 function formatUpdateError(
@@ -2236,27 +1745,16 @@ function formatUpdateError(
         )
       : "";
 
-
-  if (
-    !reason
-  ) {
-
-    return text[
-      currentLang
-    ].updateFailed;
-
+  if (!reason) {
+    return text[currentLang].updateFailed;
   }
 
-
   return (
-    text[
-      currentLang
-    ].updateFailed +
+    text[currentLang].updateFailed +
     " (" +
     reason +
     ")"
   );
-
 }
 
 
@@ -2275,22 +1773,17 @@ function escapeHtml(
       : value
   ).replace(
     /[&<>"]/g,
-    function(
-      ch
-    ) {
+    function(ch) {
 
       return {
         "&":"&amp;",
         "<":"&lt;",
         ">":"&gt;",
         "\"":"&quot;"
-      }[
-        ch
-      ];
+      }[ch];
 
     }
   );
-
 }
 
 
@@ -2320,7 +1813,6 @@ function escapeJs(
       /\n/g,
       "\\n"
     );
-
 }
 
 
@@ -2334,9 +1826,7 @@ async function init() {
     "ar"
   );
 
-
   await restoreSession();
-
 }
 
 
