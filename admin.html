@@ -195,10 +195,6 @@ table{min-width:760px}
 
 <script>
 
-/*
-  قاعدة المستخدمين المركزية أصبحت في
-  Medication Booking Apps Script فقط.
-*/
 const UNIFIED_API_URL =
 "https://script.google.com/macros/s/AKfycbw9JM87uiSHihWDP0N1gn4IskEG_8O-fWleathLZW9Wwbs915UQz8Gq5k2dIwAGImCF/exec";
 
@@ -207,12 +203,8 @@ let currentLang = "ar";
 let adminUsername =
   sessionStorage.getItem("unifiedAdminUsername") || "";
 
-let adminSessionToken =
-  sessionStorage.getItem("unifiedAdminSessionToken") || "";
-
-sessionStorage.removeItem(
-  "unifiedAdminPin"
-);
+let adminPin =
+  sessionStorage.getItem("unifiedAdminPin") || "";
 
 let editingUsername = "";
 let users = [];
@@ -224,194 +216,71 @@ const INACTIVITY_LIMIT_MS =
 const text = {
 
   ar: {
-    officialLine1:
-      "تجمع المدينة المنورة الصحي",
-
-    officialLine2:
-      "مستشفى الملك فهد بالمدينة المنورة",
-
-    officialLine3:
-      "إدارة الرعاية الصيدلانية",
-
-    pageTitle:
-      "إدارة المستخدمين الموحدة",
-
-    username:
-      "اسم المستخدم",
-
-    pin:
-      "PIN",
-
-    name:
-      "الاسم",
-
-    login:
-      "تسجيل الدخول",
-
-    invalidLogin:
-      "اسم المستخدم أو PIN غير صحيح، أو ليس لديك صلاحية الأدمن.",
-
-    logout:
-      "تسجيل الخروج",
-
-    medAccess:
-      "حجز المواعيد",
-
-    mailAccess:
-      "وصفات البريد",
-
-    kidneyAccess:
-      "صيدلية الكلى",
-
-    active:
-      "نشط",
-
-    inactive:
-      "غير نشط",
-
-    noAccess:
-      "لا يوجد",
-
-    save:
-      "إضافة مستخدم",
-
-    update:
-      "تحديث المستخدم",
-
-    clear:
-      "مسح الحقول",
-
-    edit:
-      "تعديل",
-
-    delete:
-      "حذف",
-
-    loading:
-      "جاري التحميل...",
-
-    noUsers:
-      "لا يوجد مستخدمون.",
-
-    saved:
-      "تم حفظ بيانات المستخدم.",
-
-    deleted:
-      "تم حذف المستخدم.",
-
-    failed:
-      "تعذر تنفيذ العملية.",
-
-    confirmDelete:
-      "هل تريد حذف هذا المستخدم من البوابة؟",
-
-    pinRequired:
-      "أدخل PIN للمستخدم.",
-
-    permissionRequired:
-      "اختر صلاحية واحدة على الأقل.",
-
-    pinChanged:
-      "تم تغيير PIN بنجاح.",
-
-    pinMismatch:
-      "PIN الجديد غير متطابق."
+    officialLine1:"تجمع المدينة المنورة الصحي",
+    officialLine2:"مستشفى الملك فهد بالمدينة المنورة",
+    officialLine3:"إدارة الرعاية الصيدلانية",
+    pageTitle:"إدارة المستخدمين الموحدة",
+    username:"اسم المستخدم",
+    pin:"PIN",
+    name:"الاسم",
+    login:"تسجيل الدخول",
+    invalidLogin:"اسم المستخدم أو PIN غير صحيح، أو ليس لديك صلاحية الأدمن.",
+    logout:"تسجيل الخروج",
+    medAccess:"حجز المواعيد",
+    mailAccess:"وصفات البريد",
+    kidneyAccess:"صيدلية الكلى",
+    active:"نشط",
+    inactive:"غير نشط",
+    noAccess:"لا يوجد",
+    save:"إضافة مستخدم",
+    update:"تحديث المستخدم",
+    clear:"مسح الحقول",
+    edit:"تعديل",
+    delete:"حذف",
+    loading:"جاري التحميل...",
+    noUsers:"لا يوجد مستخدمون.",
+    saved:"تم حفظ بيانات المستخدم.",
+    deleted:"تم حذف المستخدم.",
+    failed:"تعذر تنفيذ العملية.",
+    confirmDelete:"هل تريد حذف هذا المستخدم من البوابة؟",
+    pinRequired:"أدخل PIN للمستخدم.",
+    permissionRequired:"اختر صلاحية واحدة على الأقل.",
+    pinChanged:"تم تغيير PIN بنجاح.",
+    pinMismatch:"PIN الجديد غير متطابق."
   },
 
   en: {
-
-    officialLine1:
-      "Madinah Health Cluster",
-
-    officialLine2:
-      "King Fahad Hospital - Madinah",
-
-    officialLine3:
-      "Pharmaceutical Care Administration",
-
-    pageTitle:
-      "Unified User Management",
-
-    username:
-      "Username",
-
-    pin:
-      "PIN",
-
-    name:
-      "Name",
-
-    login:
-      "Login",
-
-    invalidLogin:
-      "Invalid username/PIN or no administrator permission.",
-
-    logout:
-      "Logout",
-
-    medAccess:
-      "Appointments",
-
-    mailAccess:
-      "Prescription Mail",
-
-    kidneyAccess:
-      "Kidney Pharmacy",
-
-    active:
-      "Active",
-
-    inactive:
-      "Inactive",
-
-    noAccess:
-      "No Access",
-
-    save:
-      "Add User",
-
-    update:
-      "Update User",
-
-    clear:
-      "Clear Form",
-
-    edit:
-      "Edit",
-
-    delete:
-      "Delete",
-
-    loading:
-      "Loading...",
-
-    noUsers:
-      "No users found.",
-
-    saved:
-      "User data saved.",
-
-    deleted:
-      "User deleted.",
-
-    failed:
-      "Unable to complete the action.",
-
-    confirmDelete:
-      "Delete this user from the portal?",
-
-    pinRequired:
-      "Enter a PIN for the user.",
-
-    permissionRequired:
-      "Select at least one permission.",
-
-    pinChanged:
-      "PIN changed successfully.",
-
-    pinMismatch:
-      "The new PIN values do not match."
+    officialLine1:"Madinah Health Cluster",
+    officialLine2:"King Fahad Hospital - Madinah",
+    officialLine3:"Pharmaceutical Care Administration",
+    pageTitle:"Unified User Management",
+    username:"Username",
+    pin:"PIN",
+    name:"Name",
+    login:"Login",
+    invalidLogin:"Invalid username/PIN or no administrator permission.",
+    logout:"Logout",
+    medAccess:"Appointments",
+    mailAccess:"Prescription Mail",
+    kidneyAccess:"Kidney Pharmacy",
+    active:"Active",
+    inactive:"Inactive",
+    noAccess:"No Access",
+    save:"Add User",
+    update:"Update User",
+    clear:"Clear Form",
+    edit:"Edit",
+    delete:"Delete",
+    loading:"Loading...",
+    noUsers:"No users found.",
+    saved:"User data saved.",
+    deleted:"User deleted.",
+    failed:"Unable to complete the action.",
+    confirmDelete:"Delete this user from the portal?",
+    pinRequired:"Enter a PIN for the user.",
+    permissionRequired:"Select at least one permission.",
+    pinChanged:"PIN changed successfully.",
+    pinMismatch:"The new PIN values do not match."
   }
 
 };
@@ -428,151 +297,93 @@ function setLanguage(lang) {
       ? "rtl"
       : "ltr";
 
-  document.getElementById(
-    "officialLine1"
-  ).innerText =
+  document.getElementById("officialLine1").innerText =
     text[lang].officialLine1;
 
-  document.getElementById(
-    "officialLine2"
-  ).innerText =
+  document.getElementById("officialLine2").innerText =
     text[lang].officialLine2;
 
-  document.getElementById(
-    "officialLine3"
-  ).innerText =
+  document.getElementById("officialLine3").innerText =
     text[lang].officialLine3;
 
-  document.getElementById(
-    "pageTitle"
-  ).innerText =
+  document.getElementById("pageTitle").innerText =
     text[lang].pageTitle;
 
-  document.getElementById(
-    "adminUsernameLabel"
-  ).innerText =
+  document.getElementById("adminUsernameLabel").innerText =
     text[lang].username;
 
-  document.getElementById(
-    "loginBtn"
-  ).innerHTML =
+  document.getElementById("loginBtn").innerHTML =
     loginIcon();
 
-  document.getElementById(
-    "loginBtn"
-  ).title =
+  document.getElementById("loginBtn").title =
     text[lang].login;
 
-  document.getElementById(
-    "changePinBtn"
-  ).title =
+  document.getElementById("changePinBtn").title =
     "PIN";
 
-  document.getElementById(
-    "logoutBtn"
-  ).innerHTML =
+  document.getElementById("logoutBtn").innerHTML =
     powerIcon();
 
-  document.getElementById(
-    "logoutBtn"
-  ).title =
+  document.getElementById("logoutBtn").title =
     text[lang].logout;
 
-  document.getElementById(
-    "usernameLabel"
-  ).innerText =
+  document.getElementById("usernameLabel").innerText =
     text[lang].username;
 
-  document.getElementById(
-    "pinLabel"
-  ).innerText =
+  document.getElementById("pinLabel").innerText =
     text[lang].pin;
 
-  document.getElementById(
-    "nameLabel"
-  ).innerText =
+  document.getElementById("nameLabel").innerText =
     text[lang].name;
 
-  document.getElementById(
-    "medAccessLabel"
-  ).innerText =
+  document.getElementById("medAccessLabel").innerText =
     text[lang].medAccess;
 
-  document.getElementById(
-    "mailAccessLabel"
-  ).innerText =
+  document.getElementById("mailAccessLabel").innerText =
     text[lang].mailAccess;
 
-  document.getElementById(
-    "kidneyAccessLabel"
-  ).innerText =
+  document.getElementById("kidneyAccessLabel").innerText =
     text[lang].kidneyAccess;
 
-  document.getElementById(
-    "activeLabel"
-  ).innerText =
+  document.getElementById("activeLabel").innerText =
     text[lang].active;
 
-  document.getElementById(
-    "saveUserBtn"
-  ).innerText =
+  document.getElementById("saveUserBtn").innerText =
     editingUsername
       ? text[lang].update
       : text[lang].save;
 
-  document.getElementById(
-    "clearFormBtn"
-  ).innerText =
+  document.getElementById("clearFormBtn").innerText =
     text[lang].clear;
 
-  document.getElementById(
-    "nameHeader"
-  ).innerText =
+  document.getElementById("nameHeader").innerText =
     text[lang].name;
 
-  document.getElementById(
-    "usernameHeader"
-  ).innerText =
+  document.getElementById("usernameHeader").innerText =
     text[lang].username;
 
-  document.getElementById(
-    "pinHeader"
-  ).innerText =
+  document.getElementById("pinHeader").innerText =
     text[lang].pin;
 
-  document.getElementById(
-    "medHeader"
-  ).innerText =
+  document.getElementById("medHeader").innerText =
     text[lang].medAccess;
 
-  document.getElementById(
-    "mailHeader"
-  ).innerText =
+  document.getElementById("mailHeader").innerText =
     text[lang].mailAccess;
 
-  document.getElementById(
-    "kidneyHeader"
-  ).innerText =
+  document.getElementById("kidneyHeader").innerText =
     text[lang].kidneyAccess;
 
-  document.getElementById(
-    "activeHeader"
-  ).innerText =
+  document.getElementById("activeHeader").innerText =
     text[lang].active;
 
-  document.getElementById(
-    "editHeader"
-  ).innerText =
+  document.getElementById("editHeader").innerText =
     text[lang].edit;
 
-  document.getElementById(
-    "deleteHeader"
-  ).innerText =
+  document.getElementById("deleteHeader").innerText =
     text[lang].delete;
 
-  document.getElementById(
-    "languageToggle"
-  ).innerText =
+  document.getElementById("languageToggle").innerText =
     "🌐 ع | E";
 
   renderDate();
@@ -580,7 +391,6 @@ function setLanguage(lang) {
 }
 
 function toggleLanguage() {
-
   setLanguage(
     currentLang === "ar"
       ? "en"
@@ -589,29 +399,23 @@ function toggleLanguage() {
 }
 
 function loginIcon() {
-
   return `
   <svg class="login-svg"
        viewBox="0 0 24 24"
        aria-hidden="true">
-
     <path d="M10 17l5-5-5-5"></path>
     <path d="M15 12H3"></path>
     <path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path>
-
   </svg>`;
 }
 
 function powerIcon() {
-
   return `
   <svg class="power-svg"
        viewBox="0 0 24 24"
        aria-hidden="true">
-
     <path d="M12 3v9"></path>
     <path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path>
-
   </svg>`;
 }
 
@@ -642,27 +446,17 @@ function renderDate() {
       }
     ).format(now);
 
-  document.getElementById(
-    "dateBox"
-  ).innerText =
+  document.getElementById("dateBox").innerText =
     `${dayName} - ${date}`;
 }
-
-/* ================================
-   ADMIN LOGIN
-================================ */
 
 async function loginAdmin() {
 
   const username =
-    document.getElementById(
-      "adminUsername"
-    ).value.trim();
+    document.getElementById("adminUsername").value.trim();
 
   const pin =
-    document.getElementById(
-      "adminPin"
-    ).value.trim();
+    document.getElementById("adminPin").value.trim();
 
   if (!username || !pin) {
     showLoginResult(
@@ -676,21 +470,16 @@ async function loginAdmin() {
 
     const result =
       await unifiedApi({
-        action:
-          "adminLogin",
-        username:
-          username,
-        pin:
-          pin
+        action:"adminLogin",
+        username:username,
+        pin:pin
       });
 
     if (!result.success) {
-
       showLoginResult(
         "error",
         text[currentLang].invalidLogin
       );
-
       return;
     }
 
@@ -700,17 +489,8 @@ async function loginAdmin() {
         ? result.admin.username
         : username;
 
-    adminSessionToken =
-      result.sessionToken || "";
-
-    if (!adminSessionToken) {
-      showLoginResult(
-        "error",
-        text[currentLang].invalidLogin
-      );
-
-      return;
-    }
+    adminPin =
+      pin;
 
     sessionStorage.setItem(
       "unifiedAdminUsername",
@@ -718,14 +498,9 @@ async function loginAdmin() {
     );
 
     sessionStorage.setItem(
-      "unifiedAdminSessionToken",
-      adminSessionToken
+      "unifiedAdminPin",
+      adminPin
     );
-
-    document.getElementById(
-      "adminPin"
-    ).value =
-      "";
 
     resetInactivityTimer();
 
@@ -740,25 +515,18 @@ async function loginAdmin() {
   }
 }
 
-/* ================================
-   LOGOUT
-================================ */
-
 function logoutAdmin() {
-
-  const tokenToRevoke =
-    adminSessionToken;
 
   sessionStorage.removeItem(
     "unifiedAdminUsername"
   );
 
   sessionStorage.removeItem(
-    "unifiedAdminSessionToken"
+    "unifiedAdminPin"
   );
 
   adminUsername = "";
-  adminSessionToken = "";
+  adminPin = "";
   users = [];
 
   document.getElementById(
@@ -775,22 +543,7 @@ function logoutAdmin() {
     "adminPin"
   ).value =
     "";
-
-  if (tokenToRevoke) {
-    unifiedApi({
-      action:
-        "revokeSession",
-      sessionToken:
-        tokenToRevoke
-    }).catch(
-      function() {}
-    );
-  }
 }
-
-/* ================================
-   ADMIN VIEW
-================================ */
 
 function showAdminView() {
 
@@ -813,10 +566,6 @@ function showAdminView() {
 
   loadUsers();
 }
-
-/* ================================
-   CHANGE MAIN ADMIN PIN
-================================ */
 
 async function changeLoginPin() {
 
@@ -871,14 +620,10 @@ async function changeLoginPin() {
 
     const result =
       await unifiedApi({
-        action:
-          "changeLoginPin",
-        username:
-          username,
-        currentPin:
-          currentPin,
-        newPin:
-          newPin
+        action:"changeLoginPin",
+        username:username,
+        currentPin:currentPin,
+        newPin:newPin
       });
 
     if (!result.success) {
@@ -891,6 +636,14 @@ async function changeLoginPin() {
 
       return;
     }
+
+    adminPin =
+      newPin;
+
+    sessionStorage.setItem(
+      "unifiedAdminPin",
+      adminPin
+    );
 
     showLoginResult(
       "success",
@@ -906,10 +659,6 @@ async function changeLoginPin() {
   }
 }
 
-/* ================================
-   INACTIVITY
-================================ */
-
 function startInactivityWatcher() {
 
   [
@@ -924,7 +673,7 @@ function startInactivityWatcher() {
         eventName,
         resetInactivityTimer,
         {
-          passive: true
+          passive:true
         }
       );
     }
@@ -945,7 +694,7 @@ function resetInactivityTimer() {
 
         if (
           adminUsername &&
-          adminSessionToken
+          adminPin
         ) {
           logoutAdmin();
         }
@@ -954,10 +703,6 @@ function resetInactivityTimer() {
       INACTIVITY_LIMIT_MS
     );
 }
-
-/* ================================
-   LOAD USERS
-================================ */
 
 async function loadUsers() {
 
@@ -982,8 +727,7 @@ async function loadUsers() {
 
     const result =
       await unifiedApi({
-        action:
-          "adminListUsers"
+        action:"adminListUsers"
       });
 
     if (!result.success) {
@@ -1005,7 +749,7 @@ async function loadUsers() {
       [];
 
     users.sort(
-      function(a, b) {
+      function(a,b) {
 
         return String(
           a.username || ""
@@ -1031,10 +775,6 @@ async function loadUsers() {
     renderUsers();
   }
 }
-
-/* ================================
-   SAVE USER
-================================ */
 
 async function saveUser() {
 
@@ -1103,13 +843,6 @@ async function saveUser() {
     return;
   }
 
-  /*
-    مستخدم جديد:
-    PIN إلزامي.
-
-    تعديل مستخدم:
-    PIN فاضي = لا يتغير.
-  */
   if (
     !editingUsername &&
     !pin
@@ -1133,61 +866,29 @@ async function saveUser() {
 
       result =
         await unifiedApi({
-          action:
-            "adminUpdateUser",
-
-          originalUsername:
-            editingUsername,
-
-          username:
-            username,
-
-          pin:
-            pin,
-
-          name:
-            name,
-
-          active:
-            active,
-
-          medAccess:
-            medAccess,
-
-          mailAccess:
-            mailAccess,
-
-          kidneyAccess:
-            kidneyAccess
+          action:"adminUpdateUser",
+          originalUsername:editingUsername,
+          username:username,
+          pin:pin,
+          name:name,
+          active:active,
+          medAccess:medAccess,
+          mailAccess:mailAccess,
+          kidneyAccess:kidneyAccess
         });
 
     } else {
 
       result =
         await unifiedApi({
-          action:
-            "adminAddUser",
-
-          username:
-            username,
-
-          pin:
-            pin,
-
-          name:
-            name,
-
-          active:
-            active,
-
-          medAccess:
-            medAccess,
-
-          mailAccess:
-            mailAccess,
-
-          kidneyAccess:
-            kidneyAccess
+          action:"adminAddUser",
+          username:username,
+          pin:pin,
+          name:name,
+          active:active,
+          medAccess:medAccess,
+          mailAccess:mailAccess,
+          kidneyAccess:kidneyAccess
         });
     }
 
@@ -1220,16 +921,11 @@ async function saveUser() {
   }
 }
 
-/* ================================
-   EDIT USER
-================================ */
-
 function editUser(username) {
 
   const user =
     users.find(
       function(item) {
-
         return (
           item.username ===
           username
@@ -1247,11 +943,6 @@ function editUser(username) {
   ).value =
     user.username || "";
 
-  /*
-    لا نظهر PIN القديم في الفورم.
-    تركه فارغاً يعني:
-    لا تغير PIN.
-  */
   document.getElementById(
     "pinInput"
   ).value =
@@ -1296,13 +987,7 @@ function editUser(username) {
     ].update;
 }
 
-/* ================================
-   DELETE USER
-================================ */
-
-async function deleteUser(
-  username
-) {
+async function deleteUser(username) {
 
   if (
     !confirm(
@@ -1318,11 +1003,8 @@ async function deleteUser(
 
     const result =
       await unifiedApi({
-        action:
-          "adminDeleteUser",
-
-        username:
-          username
+        action:"adminDeleteUser",
+        username:username
       });
 
     if (!result.success) {
@@ -1351,10 +1033,6 @@ async function deleteUser(
     );
   }
 }
-
-/* ================================
-   CLEAR FORM
-================================ */
 
 function clearForm() {
 
@@ -1401,10 +1079,6 @@ function clearForm() {
   ).innerText =
     text[currentLang].save;
 }
-
-/* ================================
-   RENDER USERS
-================================ */
 
 function renderUsers() {
 
@@ -1575,34 +1249,26 @@ function activeStatus(active) {
       `;
 }
 
-/* ================================
-   UNIFIED API
-================================ */
-
-async function unifiedApi(
-  payload
-) {
+async function unifiedApi(payload) {
 
   const response =
     await fetch(
       UNIFIED_API_URL,
       {
-        method:
-          "POST",
+        method:"POST",
 
-        headers: {
+        headers:{
           "Content-Type":
             "text/plain;charset=utf-8"
         },
 
         body:
           JSON.stringify({
-            sessionToken:
-              payload.sessionToken ||
-              adminSessionToken,
-
             adminUsername:
               adminUsername,
+
+            adminPin:
+              adminPin,
 
             ...payload
           })
@@ -1611,10 +1277,6 @@ async function unifiedApi(
 
   return response.json();
 }
-
-/* ================================
-   UI HELPERS
-================================ */
 
 function showResult(
   type,
@@ -1691,9 +1353,7 @@ function escapeHtml(value) {
   );
 }
 
-function escapeAttribute(
-  value
-) {
+function escapeAttribute(value) {
 
   return String(
     value ?? ""
@@ -1708,36 +1368,24 @@ function escapeAttribute(
   );
 }
 
-/* ================================
-   INITIALIZE
-================================ */
-
 setLanguage("ar");
 
 if (
   adminUsername &&
-  adminSessionToken
+  adminPin
 ) {
 
-  /*
-    نتحقق من جلسة الأدمن
-    قبل إظهار الإدارة.
-  */
   unifiedApi({
-    action:
-      "validateSession",
-
-    service:
-      "admin"
+    action:"adminLogin",
+    username:adminUsername,
+    pin:adminPin
   })
   .then(
     function(result) {
 
       if (
         result &&
-        result.success &&
-        result.user &&
-        result.user.isAdmin
+        result.success
       ) {
         showAdminView();
       } else {
