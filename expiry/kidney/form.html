@@ -130,12 +130,14 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
     </div>
 
     <div id="loginResult"></div>
+
   </div>
 
 
   <div id="employeeView" style="display:none">
 
     <div class="employee-toolbar">
+
       <span class="employee-name" id="employeeName"></span>
 
       <button type="button" class="logout-icon" id="logoutBtn" onclick="logoutEmployee()" title="تسجيل الخروج" aria-label="تسجيل الخروج">
@@ -144,25 +146,39 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
           <path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path>
         </svg>
       </button>
+
     </div>
 
 
     <div class="conflict-box" id="conflictBox">
+
       <div id="conflictText"></div>
+
       <ul id="conflictList"></ul>
 
       <div class="conflict-actions">
-        <button type="button" class="danger-btn" id="confirmSaveBtn" onclick="confirmSave()">متابعة الحفظ رغم ذلك</button>
-        <button type="button" class="secondary-btn" id="cancelConflictBtn" onclick="cancelConflict()">إلغاء</button>
+
+        <button type="button" class="danger-btn" id="confirmSaveBtn" onclick="confirmSave()">
+          متابعة الحفظ رغم ذلك
+        </button>
+
+        <button type="button" class="secondary-btn" id="cancelConflictBtn" onclick="cancelConflict()">
+          إلغاء
+        </button>
+
       </div>
+
     </div>
 
 
     <div class="form-panel">
 
-      <label id="medNameLabel" for="medName">اسم الدواء</label>
+      <label id="medNameLabel" for="medName">
+        اسم الدواء
+      </label>
 
       <div class="combo-wrap">
+
         <input
           type="text"
           id="medName"
@@ -170,16 +186,24 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
           dir="ltr"
           lang="en"
           inputmode="text"
-          pattern="[A-Za-z0-9\s\-_/().,+%]*"
-        >
+          pattern="[A-Za-z0-9\s\-_/().,+%]*">
+
         <div class="combo-options" id="medNameOptions"></div>
+
       </div>
 
-      <label id="medExpiryLabel" for="medExpiry">تاريخ الانتهاء</label>
+      <label id="medExpiryLabel" for="medExpiry">
+        تاريخ الانتهاء
+      </label>
+
       <input type="date" id="medExpiry">
 
       <div class="form-actions">
-        <button type="button" class="primary-btn" id="submitBtn" onclick="submitMedication()">تسجيل</button>
+
+        <button type="button" class="primary-btn" id="submitBtn" onclick="submitMedication()">
+          تسجيل
+        </button>
+
       </div>
 
     </div>
@@ -195,6 +219,7 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
 
 const KIDNEY_API_URL =
   "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wCZnp6OPiKVurOOL8YG_Ma1mPMhgmzWFadYGxWV4CDejgcIw/exec";
+
 
 const KIDNEY_SESSION_NAME_KEY =
   "kidneyEmployeeName";
@@ -373,20 +398,87 @@ const MEDICATIONS = [
 let currentLang =
   "en";
 
+
+/*
+  نقل أي جلسة قديمة من sessionStorage إلى localStorage.
+*/
+function migrateOldSession(){
+
+  const oldToken =
+    sessionStorage.getItem(
+      KIDNEY_SESSION_TOKEN_KEY
+    );
+
+  const oldName =
+    sessionStorage.getItem(
+      KIDNEY_SESSION_NAME_KEY
+    );
+
+  const oldUsername =
+    sessionStorage.getItem(
+      KIDNEY_SESSION_USERNAME_KEY
+    );
+
+
+  if (
+    oldToken &&
+    !localStorage.getItem(
+      KIDNEY_SESSION_TOKEN_KEY
+    )
+  ) {
+    localStorage.setItem(
+      KIDNEY_SESSION_TOKEN_KEY,
+      oldToken
+    );
+  }
+
+
+  if (
+    oldName &&
+    !localStorage.getItem(
+      KIDNEY_SESSION_NAME_KEY
+    )
+  ) {
+    localStorage.setItem(
+      KIDNEY_SESSION_NAME_KEY,
+      oldName
+    );
+  }
+
+
+  if (
+    oldUsername &&
+    !localStorage.getItem(
+      KIDNEY_SESSION_USERNAME_KEY
+    )
+  ) {
+    localStorage.setItem(
+      KIDNEY_SESSION_USERNAME_KEY,
+      oldUsername
+    );
+  }
+
+}
+
+
+migrateOldSession();
+
+
 let currentEmployeeName =
-  sessionStorage.getItem(
+  localStorage.getItem(
     KIDNEY_SESSION_NAME_KEY
   ) || "";
 
 let currentEmployeeUsername =
-  sessionStorage.getItem(
+  localStorage.getItem(
     KIDNEY_SESSION_USERNAME_KEY
   ) || "";
 
 let currentSessionToken =
-  sessionStorage.getItem(
+  localStorage.getItem(
     KIDNEY_SESSION_TOKEN_KEY
   ) || "";
+
 
 let pendingMedication =
   null;
@@ -402,6 +494,7 @@ const INACTIVITY_LIMIT_MS =
 
 
 const text = {
+
   ar: {
     title:"الفحص الشهري",
     officialLine1:"تجمع المدينة المنورة الصحي",
@@ -430,7 +523,8 @@ const text = {
     conflictTitle:"يوجد تسجيل سابق لنفس الدواء بتاريخ أقدم:",
     confirmSave:"متابعة الحفظ رغم ذلك",
     cancel:"إلغاء",
-    sessionExpired:"انتهت الجلسة. سجّل الدخول مرة أخرى."
+    sessionExpired:"انتهت الجلسة. سجّل الدخول مرة أخرى.",
+    checkFailed:"تعذر التحقق من التسجيلات السابقة."
   },
 
   en: {
@@ -461,8 +555,10 @@ const text = {
     conflictTitle:"An earlier expiry date is already registered for this medication:",
     confirmSave:"Save Anyway",
     cancel:"Cancel",
-    sessionExpired:"Session expired. Please sign in again."
+    sessionExpired:"Session expired. Please sign in again.",
+    checkFailed:"Could not verify previous medication records."
   }
+
 };
 
 
@@ -592,13 +688,105 @@ function renderDate(){
 }
 
 
+/* =========================================================
+   SESSION STORAGE
+========================================================= */
+
+function saveStoredSession(){
+
+  localStorage.setItem(
+    KIDNEY_SESSION_NAME_KEY,
+    currentEmployeeName
+  );
+
+  localStorage.setItem(
+    KIDNEY_SESSION_USERNAME_KEY,
+    currentEmployeeUsername
+  );
+
+  localStorage.setItem(
+    KIDNEY_SESSION_TOKEN_KEY,
+    currentSessionToken
+  );
+
+
+  /*
+    مؤقت للتوافق مع أي صفحة قديمة ما زالت تقرأ sessionStorage.
+  */
+  sessionStorage.setItem(
+    KIDNEY_SESSION_NAME_KEY,
+    currentEmployeeName
+  );
+
+  sessionStorage.setItem(
+    KIDNEY_SESSION_USERNAME_KEY,
+    currentEmployeeUsername
+  );
+
+  sessionStorage.setItem(
+    KIDNEY_SESSION_TOKEN_KEY,
+    currentSessionToken
+  );
+
+}
+
+
+function clearStoredSession(){
+
+  localStorage.removeItem(
+    KIDNEY_SESSION_NAME_KEY
+  );
+
+  localStorage.removeItem(
+    KIDNEY_SESSION_USERNAME_KEY
+  );
+
+  localStorage.removeItem(
+    KIDNEY_SESSION_TOKEN_KEY
+  );
+
+
+  sessionStorage.removeItem(
+    KIDNEY_SESSION_NAME_KEY
+  );
+
+  sessionStorage.removeItem(
+    KIDNEY_SESSION_USERNAME_KEY
+  );
+
+  sessionStorage.removeItem(
+    KIDNEY_SESSION_TOKEN_KEY
+  );
+
+
+  currentEmployeeName =
+    "";
+
+  currentEmployeeUsername =
+    "";
+
+  currentSessionToken =
+    "";
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
 async function loginEmployee(){
 
   const username =
-    document.getElementById("username").value.trim();
+    document.getElementById(
+      "username"
+    ).value.trim();
 
   const password =
-    document.getElementById("password").value.trim();
+    document.getElementById(
+      "password"
+    ).value.trim();
+
 
   try {
 
@@ -612,45 +800,41 @@ async function loginEmployee(){
         false
       );
 
+
     if (
       !result.success ||
       !result.employee ||
       !result.sessionToken
     ) {
+
       showLoginResult(
         "error",
         text[currentLang].invalidLogin +
-        diagnosticText(result)
+        diagnosticText(
+          result
+        )
       );
+
       return;
     }
+
 
     currentEmployeeName =
       result.employee.name ||
       result.employee.username ||
       username;
 
+
     currentEmployeeUsername =
       result.employee.username ||
       username;
 
+
     currentSessionToken =
       result.sessionToken;
 
-    sessionStorage.setItem(
-      KIDNEY_SESSION_NAME_KEY,
-      currentEmployeeName
-    );
 
-    sessionStorage.setItem(
-      KIDNEY_SESSION_USERNAME_KEY,
-      currentEmployeeUsername
-    );
-
-    sessionStorage.setItem(
-      KIDNEY_SESSION_TOKEN_KEY,
-      currentSessionToken
-    );
+    saveStoredSession();
 
     clearLoginResult();
 
@@ -663,19 +847,46 @@ async function loginEmployee(){
       text[currentLang].invalidLogin +
       " [NETWORK_ERROR]"
     );
+
   }
 }
 
 
+/* =========================================================
+   RESTORE SESSION
+========================================================= */
+
 async function restoreSession(){
+
+  currentSessionToken =
+    localStorage.getItem(
+      KIDNEY_SESSION_TOKEN_KEY
+    ) || "";
+
+
+  currentEmployeeName =
+    localStorage.getItem(
+      KIDNEY_SESSION_NAME_KEY
+    ) || "";
+
+
+  currentEmployeeUsername =
+    localStorage.getItem(
+      KIDNEY_SESSION_USERNAME_KEY
+    ) || "";
+
 
   if (
     !currentSessionToken
   ) {
+
     clearStoredSession();
+
     showLoginView();
+
     return;
   }
+
 
   try {
 
@@ -686,48 +897,55 @@ async function restoreSession(){
         true
       );
 
+
     if (
       !result.success ||
       !result.user
     ) {
+
       clearStoredSession();
+
       showLoginView();
+
       return;
     }
+
 
     currentEmployeeUsername =
       result.user.username ||
       currentEmployeeUsername;
+
 
     currentEmployeeName =
       result.user.name ||
       result.user.username ||
       currentEmployeeName;
 
-    sessionStorage.setItem(
-      KIDNEY_SESSION_USERNAME_KEY,
-      currentEmployeeUsername
-    );
 
-    sessionStorage.setItem(
-      KIDNEY_SESSION_NAME_KEY,
-      currentEmployeeName
-    );
+    saveStoredSession();
 
     showEmployeeView();
 
   } catch(error){
 
     clearStoredSession();
+
     showLoginView();
+
   }
 }
 
 
+/* =========================================================
+   CHANGE PIN
+========================================================= */
+
 function togglePasswordPanel(){
 
   const panel =
-    document.getElementById("changePasswordPanel");
+    document.getElementById(
+      "changePasswordPanel"
+    );
 
   panel.style.display =
     panel.style.display === "block"
@@ -741,23 +959,33 @@ function togglePasswordPanel(){
 async function changePassword(){
 
   const username =
-    document.getElementById("changeUsername").value.trim();
+    document.getElementById(
+      "changeUsername"
+    ).value.trim();
 
   const oldPassword =
-    document.getElementById("oldPassword").value.trim();
+    document.getElementById(
+      "oldPassword"
+    ).value.trim();
 
   const newPassword =
-    document.getElementById("newPassword").value.trim();
+    document.getElementById(
+      "newPassword"
+    ).value.trim();
+
 
   if (
     !newPassword
   ) {
+
     showLoginResult(
       "error",
       text[currentLang].passwordTooShort
     );
+
     return;
   }
+
 
   try {
 
@@ -772,24 +1000,37 @@ async function changePassword(){
         false
       );
 
+
     if (
       !result.success
     ) {
+
       showLoginResult(
         "error",
         text[currentLang].passwordMismatch +
-        diagnosticText(result)
+        diagnosticText(
+          result
+        )
       );
+
       return;
     }
 
-    document.getElementById("oldPassword").value =
+
+    document.getElementById(
+      "oldPassword"
+    ).value =
       "";
 
-    document.getElementById("newPassword").value =
+
+    document.getElementById(
+      "newPassword"
+    ).value =
       "";
+
 
     clearStoredSession();
+
 
     showLoginResult(
       "success",
@@ -803,34 +1044,14 @@ async function changePassword(){
       text[currentLang].passwordMismatch +
       " [NETWORK_ERROR]"
     );
+
   }
 }
 
 
-function clearStoredSession(){
-
-  sessionStorage.removeItem(
-    KIDNEY_SESSION_NAME_KEY
-  );
-
-  sessionStorage.removeItem(
-    KIDNEY_SESSION_USERNAME_KEY
-  );
-
-  sessionStorage.removeItem(
-    KIDNEY_SESSION_TOKEN_KEY
-  );
-
-  currentEmployeeName =
-    "";
-
-  currentEmployeeUsername =
-    "";
-
-  currentSessionToken =
-    "";
-}
-
+/* =========================================================
+   LOGOUT
+========================================================= */
 
 function logoutEmployee(){
 
@@ -843,7 +1064,9 @@ function logoutEmployee(){
   pendingMedication =
     null;
 
-  document.getElementById("conflictBox").style.display =
+  document.getElementById(
+    "conflictBox"
+  ).style.display =
     "none";
 
   showLoginView();
@@ -852,28 +1075,42 @@ function logoutEmployee(){
 
 function showLoginView(){
 
-  document.getElementById("employeeView").style.display =
+  document.getElementById(
+    "employeeView"
+  ).style.display =
     "none";
 
-  document.getElementById("loginView").style.display =
+  document.getElementById(
+    "loginView"
+  ).style.display =
     "block";
 }
 
 
 function showEmployeeView(){
 
-  document.getElementById("loginView").style.display =
+  document.getElementById(
+    "loginView"
+  ).style.display =
     "none";
 
-  document.getElementById("employeeView").style.display =
+  document.getElementById(
+    "employeeView"
+  ).style.display =
     "block";
 
-  document.getElementById("employeeName").innerText =
+  document.getElementById(
+    "employeeName"
+  ).innerText =
     currentEmployeeName;
 
   startInactivityWatcher();
 }
 
+
+/* =========================================================
+   INACTIVITY
+========================================================= */
 
 function startInactivityWatcher(){
 
@@ -896,6 +1133,7 @@ function startInactivityWatcher(){
             passive:true
           }
         );
+
       }
     );
 
@@ -926,37 +1164,59 @@ function resetInactivityTimer(){
       },
       INACTIVITY_LIMIT_MS
     );
+
 }
 
 
-function renderMedOptions(filterText){
+/* =========================================================
+   MEDICATION COMBO
+========================================================= */
+
+function renderMedOptions(
+  filterText
+){
 
   const box =
-    document.getElementById("medNameOptions");
+    document.getElementById(
+      "medNameOptions"
+    );
+
 
   const q =
-    (filterText || "")
+    (
+      filterText ||
+      ""
+    )
       .trim()
       .toLowerCase();
+
 
   const matches =
     q
       ? MEDICATIONS.filter(
           function(m){
-            return m.toLowerCase().includes(q);
+            return m
+              .toLowerCase()
+              .includes(
+                q
+              );
           }
         )
       : MEDICATIONS;
 
+
   box.innerHTML =
     "";
+
 
   if (
     !matches.length
   ) {
 
     const empty =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
     empty.className =
       "combo-empty";
@@ -964,17 +1224,24 @@ function renderMedOptions(filterText){
     empty.innerText =
       text[currentLang].noMatches;
 
-    box.appendChild(empty);
+    box.appendChild(
+      empty
+    );
 
   } else {
 
     matches
-      .slice(0,50)
+      .slice(
+        0,
+        50
+      )
       .forEach(
         function(name){
 
           const opt =
-            document.createElement("div");
+            document.createElement(
+              "div"
+            );
 
           opt.className =
             "combo-option";
@@ -987,99 +1254,177 @@ function renderMedOptions(filterText){
 
               e.preventDefault();
 
-              selectMedication(name);
+              selectMedication(
+                name
+              );
+
             };
 
-          box.appendChild(opt);
+          box.appendChild(
+            opt
+          );
+
         }
       );
   }
 
+
   box.style.display =
     "block";
+
 }
 
 
-function selectMedication(name){
+function selectMedication(
+  name
+){
 
-  document.getElementById("medName").value =
+  document.getElementById(
+    "medName"
+  ).value =
     name;
 
-  document.getElementById("medNameOptions").style.display =
+  document.getElementById(
+    "medNameOptions"
+  ).style.display =
     "none";
+
 }
 
 
-function isEnglishMedicationName(value){
+function isEnglishMedicationName(
+  value
+){
 
   return /^[A-Za-z0-9][A-Za-z0-9\s\-_/().,+%]*$/.test(
     value
   );
+
 }
 
+
+/* =========================================================
+   REGISTER
+========================================================= */
 
 async function submitMedication(){
 
   clearResult();
 
+
   if (
     !currentSessionToken
   ) {
+
     handleSessionExpired();
+
     return;
   }
 
+
   const name =
-    document.getElementById("medName").value.trim();
+    document.getElementById(
+      "medName"
+    ).value.trim();
+
 
   const expiry =
-    document.getElementById("medExpiry").value;
+    document.getElementById(
+      "medExpiry"
+    ).value;
+
 
   if (
     !name ||
     !expiry
   ) {
+
     showResult(
       "error",
       text[currentLang].missingFields
     );
+
     return;
   }
 
+
   if (
-    !isEnglishMedicationName(name)
+    !isEnglishMedicationName(
+      name
+    )
   ) {
+
     showResult(
       "error",
       text[currentLang].englishNameOnly
     );
+
     return;
   }
 
+
+  /*
+    checkMedication أصبح الآن POST محمي.
+  */
   try {
 
-    const res =
-      await fetch(
-        KIDNEY_API_URL +
-        "?action=checkMedication&name=" +
-        encodeURIComponent(name)
+    const data =
+      await postApi(
+        "checkMedication",
+        {
+          name
+        },
+        true
       );
 
-    const data =
-      await res.json();
+
+    if (
+      !data ||
+      !data.success
+    ) {
+
+      if (
+        isSessionError(
+          data
+        )
+      ) {
+
+        handleSessionExpired();
+
+        return;
+      }
+
+
+      showResult(
+        "error",
+        text[currentLang].checkFailed +
+        diagnosticText(
+          data
+        )
+      );
+
+      return;
+    }
+
 
     const matches =
-      (data && data.matches) || [];
+      data.matches ||
+      [];
+
 
     const older =
       matches.filter(
         function(m){
+
           return (
             m.expiry &&
-            m.expiry < expiry
+            m.expiry <
+              expiry
           );
+
         }
       );
+
 
     if (
       older.length
@@ -1090,6 +1435,7 @@ async function submitMedication(){
         expiry
       };
 
+
       showConflict(
         older
       );
@@ -1098,43 +1444,72 @@ async function submitMedication(){
     }
 
   } catch(error){
+
+    showResult(
+      "error",
+      text[currentLang].checkFailed +
+      " [NETWORK_ERROR]"
+    );
+
+    return;
   }
+
 
   await saveMedication(
     name,
     expiry
   );
+
 }
 
 
-function showConflict(older){
+/* =========================================================
+   CONFLICT
+========================================================= */
+
+function showConflict(
+  older
+){
 
   const list =
-    document.getElementById("conflictList");
+    document.getElementById(
+      "conflictList"
+    );
 
   list.innerHTML =
     "";
+
 
   older.forEach(
     function(m){
 
       const li =
-        document.createElement("li");
+        document.createElement(
+          "li"
+        );
 
       li.innerText =
         m.expiry +
         (
           m.registeredBy
-            ? " — " + m.registeredBy
+            ? " — " +
+              m.registeredBy
             : ""
         );
 
-      list.appendChild(li);
+      list.appendChild(
+        li
+      );
+
     }
   );
 
-  document.getElementById("conflictBox").style.display =
+
+  document.getElementById(
+    "conflictBox"
+  ).style.display =
     "block";
+
 }
 
 
@@ -1143,8 +1518,11 @@ function cancelConflict(){
   pendingMedication =
     null;
 
-  document.getElementById("conflictBox").style.display =
+  document.getElementById(
+    "conflictBox"
+  ).style.display =
     "none";
+
 }
 
 
@@ -1156,23 +1534,36 @@ async function confirmSave(){
     return;
   }
 
+
   const {
     name,
     expiry
   } =
     pendingMedication;
 
-  document.getElementById("conflictBox").style.display =
+
+  document.getElementById(
+    "conflictBox"
+  ).style.display =
     "none";
+
 
   await saveMedication(
     name,
     expiry
   );
+
 }
 
 
-async function saveMedication(name, expiry){
+/* =========================================================
+   SAVE
+========================================================= */
+
+async function saveMedication(
+  name,
+  expiry
+){
 
   try {
 
@@ -1186,36 +1577,52 @@ async function saveMedication(name, expiry){
         true
       );
 
+
     if (
       !result.success
     ) {
 
       if (
-        isSessionError(result)
+        isSessionError(
+          result
+        )
       ) {
+
         handleSessionExpired();
+
         return;
       }
+
 
       showResult(
         "error",
         text[currentLang].saveFailed +
-        diagnosticText(result)
+        diagnosticText(
+          result
+        )
       );
 
       return;
     }
+
 
     showResult(
       "success",
       text[currentLang].saved
     );
 
-    document.getElementById("medName").value =
+
+    document.getElementById(
+      "medName"
+    ).value =
       "";
 
-    document.getElementById("medExpiry").value =
+
+    document.getElementById(
+      "medExpiry"
+    ).value =
       "";
+
 
     pendingMedication =
       null;
@@ -1226,12 +1633,21 @@ async function saveMedication(name, expiry){
       "error",
       text[currentLang].saveFailed +
       " [NETWORK_ERROR: " +
-      String(error.message || error) +
+      String(
+        error.message ||
+        error
+      ) +
       "]"
     );
+
   }
+
 }
 
+
+/* =========================================================
+   API
+========================================================= */
 
 async function postApi(
   action,
@@ -1244,23 +1660,41 @@ async function postApi(
     ...payload
   };
 
+
   if (
-    includeSession &&
-    currentSessionToken
+    includeSession
   ) {
-    requestData.sessionToken =
+
+    currentSessionToken =
+      localStorage.getItem(
+        KIDNEY_SESSION_TOKEN_KEY
+      ) ||
       currentSessionToken;
+
+
+    if (
+      currentSessionToken
+    ) {
+
+      requestData.sessionToken =
+        currentSessionToken;
+
+    }
+
   }
+
 
   const response =
     await fetch(
       KIDNEY_API_URL,
       {
         method:"POST",
+
         headers:{
           "Content-Type":
             "text/plain;charset=utf-8"
         },
+
         body:
           JSON.stringify(
             requestData
@@ -1268,20 +1702,31 @@ async function postApi(
       }
     );
 
+
   if (
     !response.ok
   ) {
+
     throw new Error(
       "HTTP_" +
       response.status
     );
+
   }
 
+
   return await response.json();
+
 }
 
 
-function diagnosticText(result){
+/* =========================================================
+   ERRORS
+========================================================= */
+
+function diagnosticText(
+  result
+){
 
   if (
     !result
@@ -1289,44 +1734,60 @@ function diagnosticText(result){
     return " [NO_RESPONSE]";
   }
 
+
   const parts =
     [];
+
 
   if (
     result.code
   ) {
+
     parts.push(
       "CODE=" +
       result.code
     );
+
   }
+
 
   if (
     result.message
   ) {
+
     parts.push(
       "MESSAGE=" +
       result.message
     );
+
   }
+
 
   if (
     !parts.length
   ) {
+
     parts.push(
       "UNKNOWN_ERROR"
     );
+
   }
+
 
   return (
     " [" +
-    parts.join(" | ") +
+    parts.join(
+      " | "
+    ) +
     "]"
   );
+
 }
 
 
-function isSessionError(result){
+function isSessionError(
+  result
+){
 
   if (
     !result
@@ -1334,14 +1795,17 @@ function isSessionError(result){
     return false;
   }
 
+
   return [
     "INVALID_SESSION",
     "MISSING_SESSION",
     "NO_PERMISSION",
-    "USER_INACTIVE"
+    "USER_INACTIVE",
+    "SESSION_REQUIRED"
   ].includes(
     result.code
   );
+
 }
 
 
@@ -1352,97 +1816,158 @@ function handleSessionExpired(){
   pendingMedication =
     null;
 
-  document.getElementById("conflictBox").style.display =
+
+  document.getElementById(
+    "conflictBox"
+  ).style.display =
     "none";
 
+
   showLoginView();
+
 
   showLoginResult(
     "error",
     text[currentLang].sessionExpired
   );
+
 }
 
 
-function showResult(type,message){
+/* =========================================================
+   UI RESULTS
+========================================================= */
+
+function showResult(
+  type,
+  message
+){
 
   const result =
-    document.getElementById("result");
+    document.getElementById(
+      "result"
+    );
+
 
   result.className =
     type;
 
   result.innerText =
     message;
+
 }
 
 
 function clearResult(){
 
   const result =
-    document.getElementById("result");
+    document.getElementById(
+      "result"
+    );
+
 
   result.className =
     "";
 
   result.innerText =
     "";
+
 }
 
 
-function showLoginResult(type,message){
+function showLoginResult(
+  type,
+  message
+){
 
   const result =
-    document.getElementById("loginResult");
+    document.getElementById(
+      "loginResult"
+    );
+
 
   result.className =
     type;
 
   result.innerText =
     message;
+
 }
 
 
 function clearLoginResult(){
 
   const result =
-    document.getElementById("loginResult");
+    document.getElementById(
+      "loginResult"
+    );
+
 
   result.className =
     "";
 
   result.innerText =
     "";
+
 }
 
 
-document.getElementById("medName").addEventListener(
+/* =========================================================
+   EVENTS
+========================================================= */
+
+document.getElementById(
+  "medName"
+).addEventListener(
   "input",
   function(){
-    renderMedOptions(this.value);
+
+    renderMedOptions(
+      this.value
+    );
+
   }
 );
 
-document.getElementById("medName").addEventListener(
+
+document.getElementById(
+  "medName"
+).addEventListener(
   "focus",
   function(){
-    renderMedOptions(this.value);
+
+    renderMedOptions(
+      this.value
+    );
+
   }
 );
+
 
 document.addEventListener(
   "click",
   function(e){
 
     if (
-      !e.target.closest(".combo-wrap")
+      !e.target.closest(
+        ".combo-wrap"
+      )
     ) {
-      document.getElementById("medNameOptions").style.display =
+
+      document.getElementById(
+        "medNameOptions"
+      ).style.display =
         "none";
+
     }
+
   }
 );
 
+
+/* =========================================================
+   START
+========================================================= */
 
 async function init(){
 
@@ -1451,6 +1976,7 @@ async function init(){
   );
 
   await restoreSession();
+
 }
 
 
