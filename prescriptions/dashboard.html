@@ -8,9 +8,7 @@
   <script src="dashboard.js?v=20260614-report-date" defer></script>
 </head>
 <body class="prescription-dashboard-body">
-  <main class="app-shell employee-shell dashboard-shell">
-    <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">‹</button>
-    <header class="official-top">
+  <main class="app-shell employee-shell dashboard-shell"><header class="official-top">
       <img class="official-logo" src="logo.png" alt="Logo">
       <div class="official-header">
         <h2 id="officialLine1">تجمع المدينة المنورة الصحي</h2>
@@ -50,6 +48,7 @@
     <section id="supervisorPanel" class="view supervisor-panel hidden">
       <header class="topbar employee-toolbar upload-toolbar">
         <div class="user-chip">
+          <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">↩</button>
           <strong>Admin</strong>
           <button id="dashboardLogoutBtn" class="logout-icon" type="button" title="خروج" aria-label="خروج"><svg class="power-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9"></path><path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path></svg></button>
         </div>
@@ -146,6 +145,8 @@
 </main>
 </body>
 </html>
+
+
 
 
 

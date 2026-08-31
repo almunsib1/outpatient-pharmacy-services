@@ -9,9 +9,7 @@
   <script src="script.js?v=20260614-today-prepared-only" defer></script>
 </head>
 <body class="prep-body">
-  <main class="app-shell employee-shell prep-shell">
-    <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">‹</button>
-    <header class="official-top">
+  <main class="app-shell employee-shell prep-shell"><header class="official-top">
       <img class="official-logo" src="logo.png" alt="Logo">
       <div class="official-header">
         <h2 id="officialLine1">تجمع المدينة المنورة الصحي</h2>
@@ -48,6 +46,7 @@
     <section id="prepView" class="view prep-view hidden">
       <header class="topbar employee-toolbar">
         <div class="user-chip">
+          <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">↩</button>
           <strong id="currentUser"></strong>
           <button id="logoutBtn" class="logout-icon" type="button" title="خروج" aria-label="خروج"><svg class="power-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9"></path><path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path></svg></button>
         </div>
@@ -83,5 +82,7 @@
 </main>
 </body>
 </html>
+
+
 
 

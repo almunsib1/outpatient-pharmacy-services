@@ -39,12 +39,14 @@ input,select{width:100%;height:36px;padding:7px 10px;margin-top:5px;margin-botto
 .toolbar > div{min-width:0}
 .pharmacy-tools{flex:0 0 auto}
 .pharmacy-tools select{width:auto;min-width:230px;height:38px;margin-bottom:0;font-size:14px}
-.employee-name{font-weight:bold;color:#168fb3;font-size:24px;line-height:1.2}
-.employee-tools{flex:1 1 100%;display:flex;align-items:center;justify-content:center;gap:12px;text-align:center;min-height:42px;color:#168fb3}
-.employee-line{display:flex;align-items:center;justify-content:center;gap:6px;min-height:38px}
-.logout-icon{width:34px;height:34px;padding:0;border:none;background:transparent;color:#168fb3;font-size:0;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border-radius:0}
+.employee-name{font-weight:bold;color:#168fb3;font-size:24px;line-height:1.2;white-space:nowrap}
+.employee-tools{flex:1 1 100%;display:grid;grid-template-columns:36px auto 36px;align-items:center;justify-content:center;gap:14px;text-align:center;min-height:42px;color:#168fb3;background:transparent;border:0;padding:0}
+.employee-line{display:flex;align-items:center;justify-content:center;gap:6px;min-height:38px;grid-column:2;grid-row:1}
+.logout-icon{width:34px;height:34px;padding:0;border:none;background:transparent;color:#168fb3;font-size:0;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border-radius:0;grid-column:1;grid-row:1}
 .power-svg{width:30px;height:30px;display:block;fill:none;stroke:currentColor;stroke-width:2.35;stroke-linecap:round;stroke-linejoin:round}
 .logout-icon:hover{background:transparent;transform:scale(1.06)}
+.back-button{width:34px;height:34px;margin:0;padding:0;border:0;background:transparent;color:#168fb3;font-size:26px;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-family:Arial,sans-serif;border-radius:0;grid-column:3;grid-row:1}
+.back-button:hover{background:transparent;color:#0f7592;transform:translateX(-1px)}
 .table-wrap{overflow-x:auto;margin-top:16px}
 table{width:100%;border-collapse:collapse;min-width:980px}
 th,td{padding:8px;border:1px solid #e5e7eb;text-align:center;color:#111827;font-size:13px}
@@ -95,11 +97,11 @@ body{padding:10px;background:#fff}
 .date-box,.language-btn{font-size:12px;padding:6px 9px}
 .toolbar{display:block}
 .pharmacy-tools select{width:100%;min-width:0}
-.employee-tools{margin-top:10px;align-items:center;justify-content:center;text-align:center;gap:10px;min-height:40px}
+.employee-tools{margin-top:10px;display:grid;grid-template-columns:34px auto 34px;align-items:center;justify-content:center;text-align:center;gap:10px;min-height:40px}
 .employee-line{justify-content:center;min-height:auto}
 .primary-btn,.secondary-btn{width:100%;margin-top:6px}
 .employee-name{font-size:22px}
-.logout-icon{width:32px;height:32px}
+.logout-icon{width:32px;height:32px}.back-button{width:32px;height:32px;font-size:24px}
 .power-svg{width:28px;height:28px}
 .login-card{max-width:280px;padding:12px}
 .login-card .primary-btn{width:auto}
@@ -116,10 +118,7 @@ th,td{padding:5px 4px;font-size:11px}
 
 <body>
 
-<div class="container">
-  <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">‹</button>
-
-<div class="top-bar">
+<div class="container"><div class="top-bar">
   <div class="official-header">
     <h2 id="officialLine1"></h2>
     <h3 id="officialLine2"></h3>
@@ -202,6 +201,7 @@ th,td{padding:5px 4px;font-size:11px}
     </div>
 
     <div class="employee-tools">
+      <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">↩</button>
       <div class="employee-line">
         <span class="employee-name" id="employeeName"></span>
       </div>
@@ -1842,3 +1842,6 @@ document.addEventListener(
 
 </body>
 </html>
+
+
+

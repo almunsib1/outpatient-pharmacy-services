@@ -22,6 +22,8 @@ hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
 .date-box{color:#168fb3;padding:6px 10px;font-size:13px;font-weight:bold;text-align:center}
 .language-btn{border:none;background:transparent;cursor:pointer;font-size:13px;font-weight:bold;color:#168fb3;padding:4px 0;border-radius:0}
 .language-btn:hover{background:transparent}
+.back-button{width:34px;height:34px;margin:0 auto 8px 0;padding:0;border:0;background:transparent;color:#168fb3;font-size:26px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:Arial,sans-serif;border-radius:0}
+.back-button:hover{background:transparent;color:#0f7592;transform:translateX(-1px)}
 
 .cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-bottom:16px}
 .card{background:#168fb3;color:#fff;padding:10px 8px;border-radius:8px;text-align:center;min-width:0}
@@ -43,7 +45,7 @@ body{padding:10px;background:#fff}
 .official-header{transform:translateY(10px)}
 .official-header h2,.official-header h3{font-size:12px}
 .page-title{font-size:20px}
-.date-box,.language-btn{font-size:12px;padding:6px 9px}
+.date-box,.language-btn{font-size:12px;padding:6px 9px}.back-button{width:32px;height:32px;margin-bottom:6px;font-size:24px}
 .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
 .card{padding:9px 6px}
 .card h2{font-size:15px}
@@ -57,7 +59,7 @@ th,td{padding:6px 5px;font-size:11px}
 <body>
 
 <div class="container">
-  <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">‹</button>
+  <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">↩</button>
 
 <div class="top-bar">
 
@@ -584,3 +586,4 @@ setInterval(
 
 </body>
 </html>
+

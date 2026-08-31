@@ -32,9 +32,9 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
 .login-actions .primary-btn,.login-actions .secondary-btn{width:40px;height:40px;margin:0;padding:0;display:inline-flex;align-items:center;justify-content:center;font-size:18px;line-height:1}
 .login-svg{width:20px;height:20px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .change-password-panel{display:none;border-top:1px solid #e5e7eb;margin-top:14px;padding-top:14px}
-.employee-toolbar{display:flex;align-items:center;justify-content:center;gap:12px;background:transparent;border:none;border-radius:0;padding:4px 0 2px;margin:8px auto 18px;color:#168fb3;text-align:center}
-.employee-name{font-weight:bold;color:#168fb3;font-size:24px;line-height:1.2}
-.logout-icon{width:34px;height:34px;padding:0;border:none;background:transparent;color:#168fb3;font-size:0;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border-radius:0}
+.employee-toolbar{display:grid;grid-template-columns:36px auto 36px;align-items:center;justify-content:center;gap:14px;background:transparent;border:none;border-radius:0;padding:4px 0 2px;margin:8px auto 18px;color:#168fb3;text-align:center}
+.employee-name{font-weight:bold;color:#168fb3;font-size:24px;line-height:1.2;grid-column:2;white-space:nowrap}
+.logout-icon{width:34px;height:34px;padding:0;border:none;background:transparent;color:#168fb3;font-size:0;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border-radius:0;grid-column:1;grid-row:1}
 .logout-icon:hover{background:transparent;transform:scale(1.06)}
 .power-svg{width:30px;height:30px;display:block;fill:none;stroke:currentColor;stroke-width:2.35;stroke-linecap:round;stroke-linejoin:round}
 .form-panel{width:min(100%,360px);margin:0 auto;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:16px}
@@ -53,7 +53,7 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
 #result.error,#loginResult.error{display:block;background:#fef2f2;color:#991b1b}
 #result.success,#loginResult.success{display:block;background:#ecfdf5;color:#065f46}
 
-.back-button{width:38px;height:38px;margin:0 auto 8px 0;padding:0;border:0;background:transparent;color:#168fb3;font-size:31px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:Arial,sans-serif;border-radius:0}
+.back-button{width:34px;height:34px;margin:0;padding:0;border:0;background:transparent;color:#168fb3;font-size:28px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:Arial,sans-serif;border-radius:0;grid-column:3;grid-row:1}
 .back-button:hover{background:transparent;color:#0f7592;transform:translateX(-1px)}@media (max-width:700px){.back-button{width:34px;height:34px;margin-bottom:6px;font-size:28px}
   body{padding:10px;background:#fff}
   .container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}
@@ -74,10 +74,7 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
 
 <body>
 
-<div class="container">
-  <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">‹</button>
-
-  <div class="top-bar">
+<div class="container"><div class="top-bar">
     <img class="logo" src="../../logo.png" alt="Logo">
 
     <div class="official-header">
@@ -144,7 +141,8 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
 
     <div class="employee-toolbar">
 
-      <span class="employee-name" id="employeeName"></span>
+      <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">↩</button>
+    <span class="employee-name" id="employeeName"></span>
 
       <button type="button" class="logout-icon" id="logoutBtn" onclick="logoutEmployee()" title="تسجيل الخروج" aria-label="تسجيل الخروج">
         <svg class="power-svg" viewBox="0 0 24 24" aria-hidden="true">
@@ -2057,3 +2055,5 @@ document.addEventListener(
 
 </body>
 </html>
+
+

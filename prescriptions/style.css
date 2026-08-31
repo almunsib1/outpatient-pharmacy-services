@@ -3440,3 +3440,77 @@ button:disabled {
 .prescription-dashboard-body .status-filter {
   display: none !important;
 }
+
+/* Unified user action strip: logout left, username center, back right. */
+.user-chip .logout-icon {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.user-chip strong {
+  grid-column: 2;
+  grid-row: 1;
+  white-space: nowrap;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.user-chip .back-button {
+  grid-column: 3;
+  grid-row: 1;
+  width: 34px;
+  height: 34px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #168fb3;
+  font-size: 28px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  border-radius: 0;
+}
+
+.user-chip .back-button:hover {
+  background: transparent;
+  color: #0f7592;
+  transform: translateX(-1px);
+}
+
+@media (max-width: 720px) {
+  .user-chip strong {
+    font-size: 22px;
+  }
+
+  .user-chip .back-button {
+    width: 32px;
+    height: 32px;
+    font-size: 26px;
+  }
+}
+
+/* Final override for unified username strip placement. */
+.user-chip {
+  direction: ltr;
+  display: grid !important;
+  grid-template-columns: 36px auto 36px;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: #168fb3;
+  text-align: center;
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+@media (max-width: 720px) {
+  .user-chip {
+    grid-template-columns: 34px auto 34px;
+    gap: 10px;
+  }
+}
