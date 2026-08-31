@@ -32,11 +32,11 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
 .login-actions .primary-btn,.login-actions .secondary-btn{width:40px;height:40px;margin:0;padding:0;display:inline-flex;align-items:center;justify-content:center;font-size:18px;line-height:1}
 .login-svg{width:20px;height:20px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
 .change-password-panel{display:none;border-top:1px solid #e5e7eb;margin-top:14px;padding-top:14px}
-.employee-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;margin-bottom:12px}
-.employee-name{font-weight:bold;color:#168fb3;font-size:14px}
-.logout-icon{width:30px;height:30px;padding:0;border:none;background:transparent;color:#168fb3;font-size:22px;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
-.logout-icon:hover{transform:scale(1.08)}
-.power-svg{width:20px;height:20px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.employee-toolbar{display:flex;align-items:center;justify-content:center;gap:12px;background:transparent;border:none;border-radius:0;padding:4px 0 2px;margin:8px auto 18px;color:#168fb3;text-align:center}
+.employee-name{font-weight:bold;color:#168fb3;font-size:24px;line-height:1.2}
+.logout-icon{width:34px;height:34px;padding:0;border:none;background:transparent;color:#168fb3;font-size:0;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border-radius:0}
+.logout-icon:hover{background:transparent;transform:scale(1.06)}
+.power-svg{width:30px;height:30px;display:block;fill:none;stroke:currentColor;stroke-width:2.35;stroke-linecap:round;stroke-linejoin:round}
 .form-panel{width:min(100%,360px);margin:0 auto;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:16px}
 .combo-wrap{position:relative;width:100%;margin:0 auto}
 .combo-options{position:absolute;top:100%;right:0;left:0;background:#fff;border:1px solid #cbd5e1;border-radius:8px;margin-top:-6px;max-height:190px;overflow-y:auto;box-shadow:0 10px 20px rgba(0,0,0,.1);z-index:20;display:none}
@@ -53,7 +53,8 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
 #result.error,#loginResult.error{display:block;background:#fef2f2;color:#991b1b}
 #result.success,#loginResult.success{display:block;background:#ecfdf5;color:#065f46}
 
-@media (max-width:700px){
+.back-button{width:38px;height:38px;margin:0 auto 8px 0;padding:0;border:0;background:transparent;color:#168fb3;font-size:31px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:Arial,sans-serif;border-radius:0}
+.back-button:hover{background:transparent;color:#0f7592;transform:translateX(-1px)}@media (max-width:700px){.back-button{width:34px;height:34px;margin-bottom:6px;font-size:28px}
   body{padding:10px;background:#fff}
   .container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}
   .logo{width:84px;height:84px}
@@ -61,6 +62,10 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
   .official-header h2,.official-header h3{font-size:12px}
   .title-row{gap:8px;margin-bottom:20px}
   .page-title{font-size:20px}
+  .employee-toolbar{gap:10px;margin:8px auto 16px}
+  .employee-name{font-size:22px}
+  .logout-icon{width:32px;height:32px}
+  .power-svg{width:28px;height:28px}
   .form-panel{width:min(100%,320px);padding:14px}
   .login-actions .primary-btn,.login-actions .secondary-btn{width:44px!important;height:44px!important}
 }
@@ -70,6 +75,7 @@ input,select{width:100%;height:34px;padding:6px 9px;margin-top:4px;margin-bottom
 <body>
 
 <div class="container">
+  <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">‹</button>
 
   <div class="top-bar">
     <img class="logo" src="../../logo.png" alt="Logo">

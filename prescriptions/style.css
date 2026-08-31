@@ -438,6 +438,13 @@ input {
 }
 
 @media (max-width: 720px) {
+  .back-button {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 6px;
+    font-size: 28px;
+  }
+
   .portal-body {
     background: #fff;
     padding: 10px;
@@ -567,17 +574,43 @@ input {
   background: #0f7898;
 }
 
+
+.back-button {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 8px 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #168fb3;
+  font-size: 31px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  border-radius: 0;
+}
+
+.back-button:hover {
+  background: transparent;
+  color: #0f7592;
+  transform: translateX(-1px);
+}
 .employee-toolbar {
-  width: min(100%, 360px);
+  width: min(100%, 560px);
   margin-left: auto;
   margin-right: auto;
   direction: ltr;
-  justify-content: flex-start;
+  justify-content: center;
   margin-top: 16px;
-  padding: 0;
+  padding: 4px 0 2px;
   background: transparent;
   border: 0;
   border-radius: 0;
+  color: #168fb3;
+  text-align: center;
 }
 
 .employee-toolbar .muted {
@@ -586,45 +619,50 @@ input {
 
 .employee-toolbar strong {
   color: #168fb3;
+  font-size: 24px;
+  line-height: 1.2;
 }
 
 .user-chip {
-  direction: rtl;
+  direction: ltr;
   display: inline-flex !important;
   align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
+  justify-content: center;
+  gap: 12px;
+  color: #168fb3;
+  text-align: center;
 }
 
 .logout-icon {
-  width: 28px;
-  height: 28px;
-  min-height: 28px;
+  width: 34px;
+  height: 34px;
+  min-height: 34px;
   padding: 0;
   border: 0;
   background: transparent;
   color: #168fb3;
-  font-size: 22px;
+  font-size: 0;
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  border-radius: 0;
 }
 
 .power-svg {
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
   display: block;
   fill: none;
   stroke: currentColor;
-  stroke-width: 2.4;
+  stroke-width: 2.35;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
 .logout-icon:hover {
   background: transparent;
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 .employee-shell .ghost-btn {
@@ -1373,6 +1411,13 @@ button:disabled {
 }
 
 @media (max-width: 720px) {
+  .back-button {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 6px;
+    font-size: 28px;
+  }
+
   body {
     overflow-x: hidden;
     background: #fff;
@@ -1523,10 +1568,28 @@ button:disabled {
   .icon-action,
   .logout-icon,
   .dashboard-search-btn {
-    width: 30px;
-    min-width: 30px;
-    min-height: 30px;
+    width: 32px;
+    min-width: 32px;
+    min-height: 32px;
     font-size: 18px;
+  }
+
+  .user-chip {
+    gap: 10px;
+  }
+
+  .user-chip strong,
+  .employee-toolbar strong {
+    font-size: 22px;
+  }
+
+  .logout-icon {
+    height: 32px;
+  }
+
+  .power-svg {
+    width: 28px;
+    height: 28px;
   }
 
   .login-actions {
@@ -1561,7 +1624,31 @@ button:disabled {
   }
 
   .topbar,
-  .employee-toolbar {
+  
+.back-button {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 8px 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #168fb3;
+  font-size: 31px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  border-radius: 0;
+}
+
+.back-button:hover {
+  background: transparent;
+  color: #0f7592;
+  transform: translateX(-1px);
+}
+.employee-toolbar {
     justify-content: center;
   }
 
@@ -2299,6 +2386,13 @@ button:disabled {
 }
 
 @media (max-width: 720px) {
+  .back-button {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 6px;
+    font-size: 28px;
+  }
+
   .portal-body {
     background: #fff;
     padding: 10px;
@@ -2329,6 +2423,13 @@ button:disabled {
 
 /* Mobile dashboard table: keep it as a real table with clean horizontal scrolling. */
 @media (max-width: 720px) {
+  .back-button {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 6px;
+    font-size: 28px;
+  }
+
   .prescription-dashboard-body .summary-grid {
     gap: 8px;
   }
@@ -2545,7 +2646,31 @@ button:disabled {
   margin-right: auto;
 }
 
-.prep-shell .employee-toolbar {
+.prep-shell 
+.back-button {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 8px 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #168fb3;
+  font-size: 31px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  border-radius: 0;
+}
+
+.back-button:hover {
+  background: transparent;
+  color: #0f7592;
+  transform: translateX(-1px);
+}
+.employee-toolbar {
   display: flex;
   justify-content: center;
   margin-top: 0;
@@ -2578,6 +2703,13 @@ button:disabled {
 }
 
 @media (max-width: 720px) {
+  .back-button {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 6px;
+    font-size: 28px;
+  }
+
   .prep-body {
     padding: 10px;
     background: #fff;
@@ -2709,6 +2841,13 @@ button:disabled {
 }
 
 @media (max-width: 720px) {
+  .back-button {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 6px;
+    font-size: 28px;
+  }
+
   .upload-body {
     padding: 10px;
     background: #fff;
@@ -2815,7 +2954,31 @@ button:disabled {
   margin-right: auto;
 }
 
-.prescription-dashboard-body .employee-toolbar {
+.prescription-dashboard-body 
+.back-button {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 8px 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #168fb3;
+  font-size: 31px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  border-radius: 0;
+}
+
+.back-button:hover {
+  background: transparent;
+  color: #0f7592;
+  transform: translateX(-1px);
+}
+.employee-toolbar {
   display: flex;
   justify-content: center;
   margin-top: 0;
@@ -2886,6 +3049,13 @@ button:disabled {
 }
 
 @media (max-width: 720px) {
+  .back-button {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 6px;
+    font-size: 28px;
+  }
+
   .prescription-dashboard-body {
     padding: 10px;
     background: #fff;
@@ -2983,6 +3153,13 @@ button:disabled {
 }
 
 @media (max-width: 720px) {
+  .back-button {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 6px;
+    font-size: 28px;
+  }
+
   .portal-shell .portal-card {
     min-height: 92px;
     padding: 12px;

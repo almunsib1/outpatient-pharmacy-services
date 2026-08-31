@@ -39,12 +39,12 @@ input,select{width:100%;height:36px;padding:7px 10px;margin-top:5px;margin-botto
 .toolbar > div{min-width:0}
 .pharmacy-tools{flex:0 0 auto}
 .pharmacy-tools select{width:auto;min-width:230px;height:38px;margin-bottom:0;font-size:14px}
-.employee-name{font-weight:bold;color:#168fb3}
-.employee-tools{flex:0 0 auto;display:flex;align-items:center;justify-content:flex-end;gap:8px;text-align:end;min-height:38px}
-.employee-line{display:flex;align-items:center;justify-content:flex-end;gap:6px;min-height:38px}
-.logout-icon{width:28px;height:28px;padding:0;border:none;background:transparent;color:#168fb3;font-size:22px;line-height:1;display:inline-flex;align-items:center;justify-content:center}
-.power-svg{width:22px;height:22px;display:block;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.logout-icon:hover{background:transparent;transform:scale(1.08)}
+.employee-name{font-weight:bold;color:#168fb3;font-size:24px;line-height:1.2}
+.employee-tools{flex:1 1 100%;display:flex;align-items:center;justify-content:center;gap:12px;text-align:center;min-height:42px;color:#168fb3}
+.employee-line{display:flex;align-items:center;justify-content:center;gap:6px;min-height:38px}
+.logout-icon{width:34px;height:34px;padding:0;border:none;background:transparent;color:#168fb3;font-size:0;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border-radius:0}
+.power-svg{width:30px;height:30px;display:block;fill:none;stroke:currentColor;stroke-width:2.35;stroke-linecap:round;stroke-linejoin:round}
+.logout-icon:hover{background:transparent;transform:scale(1.06)}
 .table-wrap{overflow-x:auto;margin-top:16px}
 table{width:100%;border-collapse:collapse;min-width:980px}
 th,td{padding:8px;border:1px solid #e5e7eb;text-align:center;color:#111827;font-size:13px}
@@ -95,10 +95,12 @@ body{padding:10px;background:#fff}
 .date-box,.language-btn{font-size:12px;padding:6px 9px}
 .toolbar{display:block}
 .pharmacy-tools select{width:100%;min-width:0}
-.employee-tools{margin-top:8px;align-items:center;justify-content:center;text-align:center}
+.employee-tools{margin-top:10px;align-items:center;justify-content:center;text-align:center;gap:10px;min-height:40px}
 .employee-line{justify-content:center;min-height:auto}
 .primary-btn,.secondary-btn{width:100%;margin-top:6px}
-.logout-icon{width:28px}
+.employee-name{font-size:22px}
+.logout-icon{width:32px;height:32px}
+.power-svg{width:28px;height:28px}
 .login-card{max-width:280px;padding:12px}
 .login-card .primary-btn{width:auto}
 .login-actions{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:10px;width:fit-content;margin:8px auto 0}
@@ -115,6 +117,7 @@ th,td{padding:5px 4px;font-size:11px}
 <body>
 
 <div class="container">
+  <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">‹</button>
 
 <div class="top-bar">
   <div class="official-header">
