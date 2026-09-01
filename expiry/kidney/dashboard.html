@@ -6,9 +6,7 @@
 <title>Inspection Indicator</title>
 
 <style>
-*{
-  box-sizing:border-box
-}
+*{box-sizing:border-box}
 
 body{
   font-family:Arial,sans-serif;
@@ -46,24 +44,11 @@ body{
 .official-header{
   width:fit-content;
   max-width:100%;
-  transform:translateY(14px);
-  border-left:4px solid #168fb3
-}
-
-/* العربي مثل ما هو */
-html[dir="rtl"] .official-header{
   text-align:right;
-  direction:rtl;
+  transform:translateY(14px);
   padding-left:8px;
-  padding-right:0
-}
-
-/* الإنجليزي يبدأ مباشرة من الخط */
-html[dir="ltr"] .official-header{
-  text-align:left;
-  direction:ltr;
-  padding-left:6px;
-  padding-right:0
+  border-left:4px solid #168fb3;
+  direction:rtl
 }
 
 .official-header h2,
@@ -109,47 +94,12 @@ hr{
   font-family:inherit
 }
 
-.title-row{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-  margin:18px 0 10px;
-  direction:rtl
-}
-
 .page-title{
   text-align:center;
   font-size:23px;
   font-weight:bold;
-  margin:0;
+  margin:18px 0 10px;
   color:#168fb3
-}
-
-.back-button{
-  width:38px;
-  height:38px;
-  margin:0;
-  padding:0;
-  border:0;
-  outline:0;
-  background:transparent;
-  color:#168fb3;
-  font-size:34px;
-  font-weight:400;
-  line-height:1;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  font-family:Arial,sans-serif;
-  flex:0 0 auto;
-  transition:.15s ease
-}
-
-.back-button:hover{
-  color:#0f7592;
-  transform:translateX(-2px)
 }
 
 .report-controls{
@@ -181,7 +131,7 @@ hr{
 .stats{
   display:flex;
   gap:10px;
-  margin-bottom:18px;
+  margin-bottom:14px;
   flex-wrap:wrap;
   justify-content:center
 }
@@ -215,17 +165,9 @@ hr{
   font-weight:bold
 }
 
-.stat-card.red .num{
-  color:#a12727
-}
-
-.stat-card.orange .num{
-  color:#eab308
-}
-
-.stat-card.green .num{
-  color:#0f7592
-}
+.stat-card.red .num{color:#a12727}
+.stat-card.orange .num{color:#eab308}
+.stat-card.green .num{color:#0f7592}
 
 .stat-card:hover{
   transform:translateY(-1px);
@@ -251,6 +193,83 @@ hr{
   background:#e6f2f5;
   border-color:#0f7592
 }
+
+/* =========================================================
+   MEDICATION SEARCH
+========================================================= */
+
+.search-row{
+  display:flex;
+  justify-content:center;
+  margin:0 auto 14px
+}
+
+.combo-wrap{
+  position:relative;
+  width:100%;
+  max-width:360px
+}
+
+.medicine-search{
+  width:100%;
+  height:38px;
+  padding:7px 12px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  background:#fff;
+  color:#111827;
+  font-size:14px;
+  font-family:inherit;
+  text-align:left;
+  direction:ltr;
+  outline:none
+}
+
+.medicine-search:focus{
+  border-color:#168fb3;
+  box-shadow:0 0 0 2px rgba(22,143,179,.12)
+}
+
+.combo-options{
+  position:absolute;
+  top:100%;
+  right:0;
+  left:0;
+  background:#fff;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  margin-top:3px;
+  max-height:190px;
+  overflow-y:auto;
+  box-shadow:0 10px 20px rgba(0,0,0,.1);
+  z-index:30;
+  display:none
+}
+
+.combo-option{
+  padding:8px 10px;
+  font-size:13px;
+  cursor:pointer;
+  text-align:left;
+  direction:ltr;
+  color:#111827
+}
+
+.combo-option:hover{
+  background:#e0f2fe
+}
+
+.combo-empty{
+  padding:9px 12px;
+  font-size:12px;
+  color:#94a3b8;
+  text-align:left;
+  direction:ltr
+}
+
+/* =========================================================
+   ACTIONS
+========================================================= */
 
 .action-row{
   display:flex;
@@ -281,6 +300,10 @@ hr{
 .action-btn:hover{
   transform:scale(1.08)
 }
+
+/* =========================================================
+   SCREEN TABLE
+========================================================= */
 
 .table-wrap{
   overflow-x:auto;
@@ -373,7 +396,6 @@ tr:last-child td{
   margin-top:10px
 }
 
-
 /* =========================================================
    PRINT LAYOUT
 ========================================================= */
@@ -401,7 +423,6 @@ tr:last-child td{
   break-after:auto
 }
 
-
 /* =========================================================
    PRINT HEADER
 ========================================================= */
@@ -427,14 +448,12 @@ tr:last-child td{
   border-left:3px solid #168fb3
 }
 
-/* العربي في الطباعة مثل ما هو */
 html[dir="rtl"] .print-official{
   text-align:right;
   direction:rtl;
   padding:2mm 0 2mm 10px
 }
 
-/* الإنجليزي في الطباعة يبدأ من الخط */
 html[dir="ltr"] .print-official{
   text-align:left;
   direction:ltr;
@@ -463,7 +482,6 @@ html[dir="ltr"] .print-official{
   margin:0 0 3mm
 }
 
-
 /* =========================================================
    PRINT REPORT INFO
 ========================================================= */
@@ -484,7 +502,6 @@ html[dir="ltr"] .print-official{
   font-weight:700;
   margin:0 0 4mm
 }
-
 
 /* =========================================================
    PRINT TABLE
@@ -582,7 +599,6 @@ html[dir="ltr"] .print-official{
   print-color-adjust:exact
 }
 
-
 /* =========================================================
    PRINT FOOTER
 ========================================================= */
@@ -605,7 +621,6 @@ html[dir="ltr"] .print-official{
   font-weight:600;
   text-align:center
 }
-
 
 /* =========================================================
    MOBILE
@@ -639,19 +654,9 @@ html[dir="ltr"] .print-official{
     font-size:12px
   }
 
-  .title-row{
-    gap:8px;
-    margin:16px 0 20px
-  }
-
   .page-title{
-    font-size:20px
-  }
-
-  .back-button{
-    width:34px;
-    height:34px;
-    font-size:31px
+    font-size:20px;
+    margin-bottom:10px
   }
 
   .report-controls{
@@ -673,6 +678,14 @@ html[dir="ltr"] .print-official{
     font-size:18px
   }
 
+  .combo-wrap{
+    max-width:300px
+  }
+
+  .medicine-search{
+    height:40px
+  }
+
   th,
   td{
     padding:8px;
@@ -685,9 +698,7 @@ html[dir="ltr"] .print-official{
     min-height:40px;
     font-size:22px
   }
-
 }
-
 
 /* =========================================================
    A4
@@ -719,9 +730,7 @@ html[dir="ltr"] .print-official{
   .print-page{
     box-shadow:none !important
   }
-
 }
-
 </style>
 </head>
 
@@ -731,7 +740,10 @@ html[dir="ltr"] .print-official{
 
   <div class="top-bar">
 
-    <img class="logo" src="../../logo.png" alt="Logo">
+    <img
+      class="logo"
+      src="../../logo.png"
+      alt="Logo">
 
     <div class="official-header">
       <h2 id="officialLine1">تجمع المدينة المنورة الصحي</h2>
@@ -745,7 +757,10 @@ html[dir="ltr"] .print-official{
 
   <div class="meta-row">
 
-    <div class="date-box" id="dateBox"></div>
+    <div
+      class="date-box"
+      id="dateBox">
+    </div>
 
     <button
       type="button"
@@ -757,22 +772,11 @@ html[dir="ltr"] .print-official{
 
   </div>
 
-  <div class="title-row">
-
-    <button
-      type="button"
-      class="back-button"
-      onclick="history.back()"
-      title="رجوع"
-      aria-label="رجوع">
-      ↩
-    </button>
-
-    <h1 class="page-title" id="pageTitle">
-      Inspection Indicator
-    </h1>
-
-  </div>
+  <h1
+    class="page-title"
+    id="pageTitle">
+    Inspection Indicator
+  </h1>
 
   <div class="report-controls">
 
@@ -808,11 +812,15 @@ html[dir="ltr"] .print-official{
       aria-pressed="false"
       onclick="setFilter('expired')">
 
-      <div class="label" id="labelExpired">
-        هذا الشهر
+      <div
+        class="label"
+        id="labelExpired">
+        This Month
       </div>
 
-      <div class="num" id="countExpired">
+      <div
+        class="num"
+        id="countExpired">
         -
       </div>
 
@@ -827,11 +835,15 @@ html[dir="ltr"] .print-official{
       aria-pressed="false"
       onclick="setFilter('soon')">
 
-      <div class="label" id="labelSoon">
-        خلال 3 أشهر
+      <div
+        class="label"
+        id="labelSoon">
+        Within 3 Months
       </div>
 
-      <div class="num" id="countSoon">
+      <div
+        class="num"
+        id="countSoon">
         -
       </div>
 
@@ -846,11 +858,15 @@ html[dir="ltr"] .print-official{
       aria-pressed="false"
       onclick="setFilter('ok')">
 
-      <div class="label" id="labelOk">
-        ضمن المدة الآمنة
+      <div
+        class="label"
+        id="labelOk">
+        Within Safe Range
       </div>
 
-      <div class="num" id="countOk">
+      <div
+        class="num"
+        id="countOk">
         -
       </div>
 
@@ -865,18 +881,35 @@ html[dir="ltr"] .print-official{
       class="action-btn"
       id="printBtn"
       onclick="printReport()"
-      title="طباعة"
-      aria-label="طباعة">
+      title="Print"
+      aria-label="Print">
       🖨️
     </button>
+
+    <div class="combo-wrap">
+
+      <input
+        type="text"
+        class="medicine-search"
+        id="medicineSearch"
+        autocomplete="off"
+        dir="ltr"
+        placeholder="Search by medication name">
+
+      <div
+        class="combo-options"
+        id="medicineSearchOptions">
+      </div>
+
+    </div>
 
     <button
       type="button"
       class="action-btn"
       id="refreshBtn"
-      onclick="refreshData()"
-      title="تحديث"
-      aria-label="تحديث">
+      onclick="window.location.reload()"
+      title="Refresh"
+      aria-label="Refresh">
       🔄
     </button>
 
@@ -888,10 +921,10 @@ html[dir="ltr"] .print-official{
 
       <thead>
         <tr>
-          <th id="colName">اسم الدواء</th>
-          <th id="colExpiry">تاريخ الانتهاء</th>
-          <th id="colStatus">الحالة</th>
-          <th id="colEmployee">اسم الموظف</th>
+          <th id="colName">Medication Name</th>
+          <th id="colExpiry">Expiry Date</th>
+          <th id="colStatus">Status</th>
+          <th id="colEmployee">Employee Name</th>
         </tr>
       </thead>
 
@@ -905,26 +938,200 @@ html[dir="ltr"] .print-official{
     class="empty-note"
     id="emptyNote"
     style="display:none">
-    لا توجد بيانات لعرضها حالياً.
   </div>
 
   <div
     class="refresh-note"
     id="refreshNote">
-    يتحدث تلقائياً كل 10 ثواني
+    Auto-refreshes every 10 seconds
   </div>
 
 </div>
 
 <div id="printPages"></div>
 
-
 <script>
 
 const API_URL =
   "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wCZnp6OPiKVurOOL8YG_Ma1mPMhgmzWFadYGxWV4CDejgcIw/exec";
 
-let currentLang = "en";
+
+const MEDICATIONS = [
+  "Adenosine inj",
+  "Adrenaline inj",
+  "Alfacalcidol 0.25mcg",
+  "Alfacalcidol 1mcg",
+  "Allopurinol 100mg",
+  "Amiodarone inj",
+  "Amlodipine 10mg",
+  "Amlodipine 5mg",
+  "Amoxicilline 500mg",
+  "Amydramine syp",
+  "Apihist drops",
+  "Apixapan 2.5mg",
+  "Aspirin 81mg",
+  "Atenolol 50mg",
+  "Atorvastatine 20mg",
+  "Atropine solution",
+  "Atrovent Solution",
+  "Augmentin 625mg",
+  "Avopan Eye ointment",
+  "Azithromycine 250mg",
+  "Bactrim tab",
+  "Betahestine 8mg",
+  "Bethisten 16mg",
+  "Bisoprolol 5mg",
+  "Buscopan inj",
+  "Calcium Carbonate Tab",
+  "Calcium Chloride inj",
+  "Calcium Gluconate inj",
+  "Captopril 25mg",
+  "Carvedilol 25mg",
+  "Carvedilol 6.25mg",
+  "Caspofungin inj",
+  "Cefazolin inj",
+  "Cefepime inj",
+  "Ceftazidime inj",
+  "Celecoxib 200mg",
+  "Cinacalcet 30mg",
+  "Cinacalcet 60mg",
+  "Ciprofloxacin 500mg",
+  "Clexan inj 40",
+  "Clopidogrel 75mg",
+  "Darbepoetin 40",
+  "Darbepoetin 60",
+  "Darbepoetin 80",
+  "Defelikefalin 50",
+  "Dextromethorphan syp",
+  "Digoxine inj",
+  "Dimocrone MR 30mg",
+  "Diphenhydramine",
+  "Dobutamine inj",
+  "Dopamine inj",
+  "Enalapril 10mg",
+  "Eprex 2000",
+  "Eprex 4000",
+  "Esomeprazole 20mg",
+  "Ferinject inj",
+  "Finasteride 5mg",
+  "Fleet Enema",
+  "Fluconazole 50mg",
+  "Folic Acid 1mg",
+  "Fucibact Cream",
+  "Fucidine ointment",
+  "Furosemide 40mg",
+  "Gentamycin inj",
+  "Gentamycin oint",
+  "Heparine sodium inj",
+  "Histop 4mg",
+  "Hydralazine 25mg",
+  "Hydralazine inj",
+  "Hydrocortisone Cream",
+  "Hydrocortisone inj",
+  "Hydroxychloroquine 200mg",
+  "Innohep inj",
+  "Iron inj",
+  "Isosorbide 20mg",
+  "Isosorbide 5mg",
+  "Keppra tab",
+  "L.Thyroxine 100mcg",
+  "L.Thyroxine 25mcg",
+  "L.Thyroxine 50mcg",
+  "Labetalol 100mg",
+  "Labetalol inj",
+  "Lactulose syp",
+  "Lasix inj",
+  "Lidocaine 1% vial",
+  "Lidocaine 2% syringe",
+  "Lidocaine 2% vial",
+  "Loperamide 2mg",
+  "Loratadine 10mg",
+  "Losartan 50mg",
+  "Magnisium Sulphate inj",
+  "Mebeverine 200mg",
+  "Mebo",
+  "Meloxicam 7.5mg",
+  "Meropenem inj",
+  "Methyldopa 250mg",
+  "Metoclopramide 10mg",
+  "Metocloprmide inj",
+  "Metolazone",
+  "Metoprolol 50mg",
+  "Metoprolol inj",
+  "Metronidazole 500mg",
+  "Mircera 100",
+  "Mircera 50",
+  "Mouth wash",
+  "Moxifloxacin 400mg",
+  "Multivitamine",
+  "Nalaxone inj",
+  "Naphazoline Drops",
+  "Neurobion",
+  "Nifedipine 30mg LA",
+  "Nifedipine 60mg LA",
+  "Nitroglycerine Inj",
+  "Noradrenaline inj",
+  "Omeprazole 20mg",
+  "Omeprazole inj",
+  "One alpha",
+  "Paracetamol 500mg",
+  "Paracetamol inj",
+  "Paraffin",
+  "Paricalcitol 2mcg",
+  "Parsabiv",
+  "Perindopril 5mg",
+  "Plasma Protein 250ml",
+  "Potassium Chloride inj",
+  "Potassium chloride tab",
+  "Prazosin 1mg",
+  "Prazosin 5mg",
+  "Prednisolone 5mg",
+  "Procainamide inj",
+  "Promethazine inj",
+  "Pulmicort Solution",
+  "Renagel 800mg",
+  "Rosuvastatine 10mg",
+  "Salinose Nasal Spray",
+  "Senna",
+  "Sodium Bicarbonate 325mg",
+  "Sodium Bicarbonate vial",
+  "Sympicort inh",
+  "Tamsulosine 0.4mg",
+  "Telmisartan 40mg",
+  "Telmisartan 80mg",
+  "Tpa 18mg",
+  "Urea Cream",
+  "Valsartan 80mg",
+  "Vancomycin inj",
+  "Vasopressine inj",
+  "Veltasa",
+  "Veltasa 8.4",
+  "Ventoline inh",
+  "Ventoline Solution",
+  "Verapamil 80mg",
+  "Verapamil inj",
+  "Vit D 10.000",
+  "Voltaren Gel",
+  "Warfarine 1mg tab",
+  "Warfarine 2mg tab",
+  "Warfarine 5mg tab",
+  "Zemplar 1mcg",
+  "Zemplar inj"
+];
+
+
+let currentLang =
+  "en";
+
+let lastItems =
+  [];
+
+let activeFilter =
+  null;
+
+let medicineSearchTerm =
+  "";
+
 
 const text = {
 
@@ -938,6 +1145,8 @@ const text = {
     labelExpired:"هذا الشهر",
     labelSoon:"خلال 3 أشهر",
     labelOk:"ضمن المدة الآمنة",
+    searchPlaceholder:"البحث باسم الدواء",
+    noMatches:"لا يوجد دواء مطابق في القائمة.",
     colName:"اسم الدواء",
     colExpiry:"تاريخ الانتهاء",
     colStatus:"الحالة",
@@ -946,7 +1155,6 @@ const text = {
     refreshBtnText:"تحديث",
     refreshNote:"يتحدث تلقائياً كل 10 ثواني",
     emptyNote:"لا توجد بيانات لعرضها حالياً.",
-    notConfigured:"لم يتم ربط مصدر البيانات بعد.",
     loadError:"تعذر تحميل البيانات، حاول لاحقاً.",
     expiredSince:" يوم منتهي منذ ",
     daysLeft:" يوم متبقي "
@@ -962,6 +1170,8 @@ const text = {
     labelExpired:"This Month",
     labelSoon:"Within 3 Months",
     labelOk:"Within Safe Range",
+    searchPlaceholder:"Search by medication name",
+    noMatches:"No matching medication in the list.",
     colName:"Medication Name",
     colExpiry:"Expiry Date",
     colStatus:"Status",
@@ -970,7 +1180,6 @@ const text = {
     refreshBtnText:"Refresh",
     refreshNote:"Auto-refreshes every 10 seconds",
     emptyNote:"No data to display yet.",
-    notConfigured:"Data source is not connected yet.",
     loadError:"Could not load data, try again later.",
     expiredSince:" days expired",
     daysLeft:"Days left: "
@@ -979,11 +1188,17 @@ const text = {
 };
 
 
+/* =========================================================
+   LANGUAGE
+========================================================= */
+
 function setLanguage(lang){
 
-  currentLang = lang;
+  currentLang =
+    lang;
 
-  document.documentElement.lang = lang;
+  document.documentElement.lang =
+    lang;
 
   document.documentElement.dir =
     lang === "ar"
@@ -1026,6 +1241,15 @@ function setLanguage(lang){
   document.getElementById("refreshNote").innerText =
     text[lang].refreshNote;
 
+  document.getElementById("medicineSearch").placeholder =
+    text[lang].searchPlaceholder;
+
+  document.getElementById("reportType").options[0].textContent =
+    text[lang].inspectionReport;
+
+  document.getElementById("reportType").options[1].textContent =
+    text[lang].removalReport;
+
   document.getElementById("printBtn").title =
     text[lang].printBtnText;
 
@@ -1042,21 +1266,16 @@ function setLanguage(lang){
     text[lang].refreshBtnText
   );
 
-  const reportType =
-    document.getElementById("reportType");
-
-  reportType.options[0].textContent =
-    text[lang].inspectionReport;
-
-  reportType.options[1].textContent =
-    text[lang].removalReport;
-
   document.getElementById("languageToggle").innerText =
     "🌐 ع | E";
 
   renderDate();
+
   updateReportTitle();
-  renderRows(lastItems);
+
+  renderRows(
+    lastItems
+  );
 
 }
 
@@ -1072,6 +1291,10 @@ function toggleLanguage(){
 }
 
 
+/* =========================================================
+   DATE
+========================================================= */
+
 function renderDate(){
 
   const now =
@@ -1083,7 +1306,9 @@ function renderDate(){
       {
         timeZone:"Asia/Riyadh"
       }
-    ).format(now);
+    ).format(
+      now
+    );
 
   const dayName =
     new Intl.DateTimeFormat(
@@ -1094,33 +1319,28 @@ function renderDate(){
         timeZone:"Asia/Riyadh",
         weekday:"long"
       }
-    ).format(now);
+    ).format(
+      now
+    );
 
-  document.getElementById("dateBox").innerText =
+  document.getElementById(
+    "dateBox"
+  ).innerText =
     `${dayName} - ${date}`;
 
 }
 
 
-function getCurrentMonthValue(){
-
-  const today =
-    new Intl.DateTimeFormat(
-      "en-CA",
-      {
-        timeZone:"Asia/Riyadh"
-      }
-    ).format(new Date());
-
-  return today.substring(0,7);
-
-}
-
+/* =========================================================
+   REPORT MONTH
+========================================================= */
 
 function buildReportMonthOptions(){
 
   const select =
-    document.getElementById("reportMonth");
+    document.getElementById(
+      "reportMonth"
+    );
 
   if (
     !select ||
@@ -1150,11 +1370,16 @@ function buildReportMonthOptions(){
       {
         timeZone:"Asia/Riyadh"
       }
-    ).format(new Date());
+    ).format(
+      new Date()
+    );
 
   const currentYear =
     Number(
-      today.substring(0,4)
+      today.substring(
+        0,
+        4
+      )
     );
 
   for (
@@ -1163,26 +1388,41 @@ function buildReportMonthOptions(){
     year++
   ){
 
-    monthNames.forEach(function(
-      monthName,
-      index
-    ){
+    monthNames.forEach(
+      function(
+        monthName,
+        index
+      ){
 
-      const monthNumber =
-        String(index + 1).padStart(2,"0");
+        const monthNumber =
+          String(
+            index + 1
+          ).padStart(
+            2,
+            "0"
+          );
 
-      const option =
-        document.createElement("option");
+        const option =
+          document.createElement(
+            "option"
+          );
 
-      option.value =
-        year + "-" + monthNumber;
+        option.value =
+          year +
+          "-" +
+          monthNumber;
 
-      option.textContent =
-        monthName + " " + year;
+        option.textContent =
+          monthName +
+          " " +
+          year;
 
-      select.appendChild(option);
+        select.appendChild(
+          option
+        );
 
-    });
+      }
+    );
 
   }
 
@@ -1192,12 +1432,37 @@ function buildReportMonthOptions(){
 }
 
 
+function getCurrentMonthValue(){
+
+  const today =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:"Asia/Riyadh"
+      }
+    ).format(
+      new Date()
+    );
+
+  return today.substring(
+    0,
+    7
+  );
+
+}
+
+
 function getReportMonth(){
 
   const select =
-    document.getElementById("reportMonth");
+    document.getElementById(
+      "reportMonth"
+    );
 
-  return select && select.value
+  return (
+    select &&
+    select.value
+  )
     ? select.value
     : getCurrentMonthValue();
 
@@ -1207,9 +1472,14 @@ function getReportMonth(){
 function getReportType(){
 
   const select =
-    document.getElementById("reportType");
+    document.getElementById(
+      "reportType"
+    );
 
-  return select && select.value
+  return (
+    select &&
+    select.value
+  )
     ? select.value
     : "inspection";
 
@@ -1219,7 +1489,9 @@ function getReportType(){
 function getReportMonthLabel(){
 
   const select =
-    document.getElementById("reportMonth");
+    document.getElementById(
+      "reportMonth"
+    );
 
   return (
     select &&
@@ -1238,7 +1510,9 @@ function updateReportTitle(){
       ? text[currentLang].removalReport
       : text[currentLang].inspectionReport;
 
-  document.getElementById("pageTitle").innerText =
+  document.getElementById(
+    "pageTitle"
+  ).innerText =
     title +
     " - " +
     getReportMonthLabel();
@@ -1252,11 +1526,19 @@ function refreshReportView(){
     null;
 
   updateFilterCardsUI();
+
   updateReportTitle();
-  renderRows(lastItems);
+
+  renderRows(
+    lastItems
+  );
 
 }
 
+
+/* =========================================================
+   REPORT FILTER
+========================================================= */
 
 function reportBaseItems(){
 
@@ -1266,54 +1548,35 @@ function reportBaseItems(){
   const reportType =
     getReportType();
 
-  return lastItems.filter(function(item){
+  return lastItems.filter(
+    function(item){
 
-    const itemMonth =
-      String(
-        item.expiry ||
-        ""
-      ).substring(0,7);
+      const itemMonth =
+        String(
+          item.expiry ||
+          ""
+        ).substring(
+          0,
+          7
+        );
 
-    if (
-      reportType === "removal"
-    ){
-      return itemMonth === month;
+      if (
+        reportType === "removal"
+      ){
+
+        return (
+          itemMonth ===
+          month
+        );
+
+      }
+
+      return (
+        itemMonth >=
+        month
+      );
+
     }
-
-    return itemMonth >= month;
-
-  });
-
-}
-
-
-function monthDistance(
-  fromMonth,
-  toMonth
-){
-
-  const from =
-    String(fromMonth || "").split("-");
-
-  const to =
-    String(toMonth || "").split("-");
-
-  if (
-    from.length < 2 ||
-    to.length < 2
-  ){
-    return 999;
-  }
-
-  return (
-    (
-      Number(to[0]) -
-      Number(from[0])
-    ) * 12
-  ) +
-  (
-    Number(to[1]) -
-    Number(from[1])
   );
 
 }
@@ -1325,23 +1588,28 @@ function itemBucket(item){
     String(
       item.expiry ||
       ""
-    ).substring(0,7);
+    ).substring(
+      0,
+      7
+    );
 
   const reportMonth =
     getReportMonth();
 
   if (
-    getReportType() ===
-    "removal"
+    getReportType() === "removal"
   ){
+
     return "expired";
+
   }
 
   if (
-    itemMonth ===
-    reportMonth
+    itemMonth === reportMonth
   ){
+
     return "expired";
+
   }
 
   const distance =
@@ -1354,7 +1622,9 @@ function itemBucket(item){
     distance > 0 &&
     distance <= 3
   ){
+
     return "soon";
+
   }
 
   return "ok";
@@ -1362,15 +1632,278 @@ function itemBucket(item){
 }
 
 
-function statusLabel(daysLeft){
+function monthDistance(
+  fromMonth,
+  toMonth
+){
+
+  const from =
+    String(
+      fromMonth ||
+      ""
+    ).split(
+      "-"
+    );
+
+  const to =
+    String(
+      toMonth ||
+      ""
+    ).split(
+      "-"
+    );
 
   if (
-    Number(daysLeft) < 0
+    from.length < 2 ||
+    to.length < 2
+  ){
+
+    return 999;
+
+  }
+
+  return (
+    (
+      Number(
+        to[0]
+      ) -
+      Number(
+        from[0]
+      )
+    ) * 12
+  ) +
+  (
+    Number(
+      to[1]
+    ) -
+    Number(
+      from[1]
+    )
+  );
+
+}
+
+
+function setFilter(status){
+
+  activeFilter =
+    activeFilter === status
+      ? null
+      : status;
+
+  updateFilterCardsUI();
+
+  renderTable();
+
+}
+
+
+function updateFilterCardsUI(){
+
+  document.querySelectorAll(
+    ".stat-card"
+  ).forEach(
+    function(card){
+
+      const isActive =
+        activeFilter &&
+        card.getAttribute(
+          "data-filter"
+        ) === activeFilter;
+
+      card.classList.toggle(
+        "active-filter",
+        Boolean(
+          isActive
+        )
+      );
+
+      card.setAttribute(
+        "aria-pressed",
+        isActive
+          ? "true"
+          : "false"
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   MEDICATION SEARCH
+========================================================= */
+
+function renderMedicationOptions(
+  filterText
+){
+
+  const box =
+    document.getElementById(
+      "medicineSearchOptions"
+    );
+
+  const q =
+    String(
+      filterText ||
+      ""
+    )
+      .trim()
+      .toLowerCase();
+
+  const matches =
+    q
+      ? MEDICATIONS.filter(
+          function(name){
+
+            return name
+              .toLowerCase()
+              .includes(
+                q
+              );
+
+          }
+        )
+      : MEDICATIONS;
+
+  box.innerHTML =
+    "";
+
+  if (
+    !matches.length
+  ){
+
+    const empty =
+      document.createElement(
+        "div"
+      );
+
+    empty.className =
+      "combo-empty";
+
+    empty.innerText =
+      text[currentLang].noMatches;
+
+    box.appendChild(
+      empty
+    );
+
+  }else{
+
+    matches
+      .slice(
+        0,
+        50
+      )
+      .forEach(
+        function(name){
+
+          const option =
+            document.createElement(
+              "div"
+            );
+
+          option.className =
+            "combo-option";
+
+          option.innerText =
+            name;
+
+          option.onmousedown =
+            function(event){
+
+              event.preventDefault();
+
+              selectMedicationSearch(
+                name
+              );
+
+            };
+
+          box.appendChild(
+            option
+          );
+
+        }
+      );
+
+  }
+
+  box.style.display =
+    "block";
+
+}
+
+
+function selectMedicationSearch(
+  name
+){
+
+  const input =
+    document.getElementById(
+      "medicineSearch"
+    );
+
+  input.value =
+    name;
+
+  medicineSearchTerm =
+    name.toLowerCase();
+
+  document.getElementById(
+    "medicineSearchOptions"
+  ).style.display =
+    "none";
+
+  renderTable();
+
+}
+
+
+function matchesMedicineSearch(
+  item
+){
+
+  if (
+    !medicineSearchTerm
+  ){
+
+    return true;
+
+  }
+
+  return String(
+    item.name ||
+    ""
+  )
+    .toLowerCase()
+    .includes(
+      medicineSearchTerm
+    );
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function statusLabel(
+  daysLeft
+){
+
+  if (
+    Number(
+      daysLeft
+    ) < 0
   ){
 
     return (
       Math.abs(
-        Number(daysLeft)
+        Number(
+          daysLeft
+        )
       ) +
       text[currentLang].expiredSince
     );
@@ -1388,18 +1921,24 @@ function statusLabel(daysLeft){
 function rowClass(item){
 
   const bucket =
-    itemBucket(item);
+    itemBucket(
+      item
+    );
 
   if (
     bucket === "expired"
   ){
+
     return "row-expired";
+
   }
 
   if (
     bucket === "soon"
   ){
+
     return "row-soon";
+
   }
 
   return "";
@@ -1410,18 +1949,24 @@ function rowClass(item){
 function dateClass(item){
 
   const bucket =
-    itemBucket(item);
+    itemBucket(
+      item
+    );
 
   if (
     bucket === "expired"
   ){
+
     return "date-expired";
+
   }
 
   if (
     bucket === "soon"
   ){
+
     return "date-soon";
+
   }
 
   return "date-ok";
@@ -1430,93 +1975,57 @@ function dateClass(item){
 
 
 function pillClass(item){
-  return itemBucket(item);
-}
 
-
-let lastItems =
-  [];
-
-let activeFilter =
-  null;
-
-
-function matchesFilter(item){
-
-  if (
-    !activeFilter
-  ){
-    return true;
-  }
-
-  return (
-    itemBucket(item) ===
-    activeFilter
+  return itemBucket(
+    item
   );
 
 }
 
 
-function setFilter(status){
-
-  activeFilter =
-    activeFilter === status
-      ? null
-      : status;
-
-  updateFilterCardsUI();
-  renderTable();
-
-}
-
-
-function updateFilterCardsUI(){
-
-  document.querySelectorAll(
-    ".stat-card"
-  ).forEach(function(card){
-
-    const isActive =
-      activeFilter &&
-      card.getAttribute(
-        "data-filter"
-      ) === activeFilter;
-
-    card.classList.toggle(
-      "active-filter",
-      !!isActive
-    );
-
-    card.setAttribute(
-      "aria-pressed",
-      isActive
-        ? "true"
-        : "false"
-    );
-
-  });
-
-}
-
+/* =========================================================
+   VISIBLE ITEMS
+========================================================= */
 
 function getVisibleItems(){
 
   return reportBaseItems().filter(
     function(item){
-      return matchesFilter(item);
+
+      const statusMatch =
+        !activeFilter ||
+        itemBucket(
+          item
+        ) === activeFilter;
+
+      return (
+        statusMatch &&
+        matchesMedicineSearch(
+          item
+        )
+      );
+
     }
   );
 
 }
 
 
+/* =========================================================
+   TABLE
+========================================================= */
+
 function renderTable(){
 
   const tbody =
-    document.getElementById("tableBody");
+    document.getElementById(
+      "tableBody"
+    );
 
   const emptyNote =
-    document.getElementById("emptyNote");
+    document.getElementById(
+      "emptyNote"
+    );
 
   tbody.innerHTML =
     "";
@@ -1524,43 +2033,61 @@ function renderTable(){
   const filtered =
     getVisibleItems();
 
-  filtered.forEach(function(m){
+  filtered.forEach(
+    function(m){
 
-    const tr =
-      document.createElement("tr");
+      const tr =
+        document.createElement(
+          "tr"
+        );
 
-    tr.className =
-      rowClass(m);
+      tr.className =
+        rowClass(
+          m
+        );
 
-    tr.innerHTML =
-      "<td>" +
-      escapeHtml(m.name) +
-      "</td>" +
+      tr.innerHTML =
+        "<td>" +
+        escapeHtml(
+          m.name
+        ) +
+        "</td>" +
 
-      "<td class=\"" +
-      dateClass(m) +
-      "\">" +
-      escapeHtml(m.expiry) +
-      "</td>" +
+        "<td class=\"" +
+        dateClass(
+          m
+        ) +
+        "\">" +
+        escapeHtml(
+          m.expiry
+        ) +
+        "</td>" +
 
-      "<td><span class=\"status-pill " +
-      pillClass(m) +
-      "\">" +
-      escapeHtml(
-        statusLabel(m.daysLeft)
-      ) +
-      "</span></td>" +
+        "<td><span class=\"status-pill " +
+        pillClass(
+          m
+        ) +
+        "\">" +
+        escapeHtml(
+          statusLabel(
+            m.daysLeft
+          )
+        ) +
+        "</span></td>" +
 
-      "<td>" +
-      escapeHtml(
-        m.registeredBy ||
-        "-"
-      ) +
-      "</td>";
+        "<td>" +
+        escapeHtml(
+          m.registeredBy ||
+          "-"
+        ) +
+        "</td>";
 
-    tbody.appendChild(tr);
+      tbody.appendChild(
+        tr
+      );
 
-  });
+    }
+  );
 
   emptyNote.style.display =
     filtered.length
@@ -1576,56 +2103,63 @@ function renderTable(){
 function renderRows(items){
 
   lastItems =
-    items || [];
+    items ||
+    [];
 
-  let expired = 0;
-  let soon = 0;
-  let ok = 0;
+  let expired =
+    0;
 
-  reportBaseItems().forEach(function(m){
+  let soon =
+    0;
 
-    const bucket =
-      itemBucket(m);
+  let ok =
+    0;
 
-    if (
-      bucket === "expired"
-    ){
-      expired++;
+  reportBaseItems().forEach(
+    function(m){
+
+      const bucket =
+        itemBucket(
+          m
+        );
+
+      if (
+        bucket === "expired"
+      ){
+
+        expired++;
+
+      }else if (
+        bucket === "soon"
+      ){
+
+        soon++;
+
+      }else{
+
+        ok++;
+
+      }
+
     }
+  );
 
-    else if (
-      bucket === "soon"
-    ){
-      soon++;
-    }
-
-    else{
-      ok++;
-    }
-
-  });
-
-  document.getElementById("countExpired").textContent =
+  document.getElementById(
+    "countExpired"
+  ).textContent =
     expired;
 
-  document.getElementById("countSoon").textContent =
+  document.getElementById(
+    "countSoon"
+  ).textContent =
     soon;
 
-  document.getElementById("countOk").textContent =
+  document.getElementById(
+    "countOk"
+  ).textContent =
     ok;
 
   renderTable();
-
-}
-
-
-function refreshData(){
-
-  activeFilter =
-    null;
-
-  updateFilterCardsUI();
-  loadData();
 
 }
 
@@ -1746,20 +2280,28 @@ function createPrintPage(
 
     '</div>';
 
-  page.appendChild(header);
+  page.appendChild(
+    header
+  );
 
 
   const divider =
-    document.createElement("hr");
+    document.createElement(
+      "hr"
+    );
 
   divider.className =
     "print-divider";
 
-  page.appendChild(divider);
+  page.appendChild(
+    divider
+  );
 
 
   const date =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   date.className =
     "print-date";
@@ -1769,11 +2311,15 @@ function createPrintPage(
       "dateBox"
     ).innerText;
 
-  page.appendChild(date);
+  page.appendChild(
+    date
+  );
 
 
   const title =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   title.className =
     "print-title";
@@ -1783,18 +2329,24 @@ function createPrintPage(
       "pageTitle"
     ).innerText;
 
-  page.appendChild(title);
+  page.appendChild(
+    title
+  );
 
 
   const tableWrap =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   tableWrap.className =
     "print-table-wrap";
 
 
   const table =
-    document.createElement("table");
+    document.createElement(
+      "table"
+    );
 
   table.className =
     "print-table";
@@ -1802,33 +2354,40 @@ function createPrintPage(
   table.innerHTML =
     "<thead>" +
       "<tr>" +
+
         "<th>" +
         escapeHtml(
           text[currentLang].colName
         ) +
         "</th>" +
+
         "<th>" +
         escapeHtml(
           text[currentLang].colExpiry
         ) +
         "</th>" +
+
         "<th>" +
         escapeHtml(
           text[currentLang].colStatus
         ) +
         "</th>" +
+
         "<th>" +
         escapeHtml(
           text[currentLang].colEmployee
         ) +
         "</th>" +
+
       "</tr>" +
     "</thead>" +
     "<tbody></tbody>";
 
 
   const tbody =
-    table.querySelector("tbody");
+    table.querySelector(
+      "tbody"
+    );
 
 
   if (
@@ -1836,7 +2395,9 @@ function createPrintPage(
   ){
 
     const tr =
-      document.createElement("tr");
+      document.createElement(
+        "tr"
+      );
 
     tr.innerHTML =
       '<td colspan="4">' +
@@ -1845,67 +2406,89 @@ function createPrintPage(
       ) +
       '</td>';
 
-    tbody.appendChild(tr);
+    tbody.appendChild(
+      tr
+    );
+
+  }else{
+
+    pageItems.forEach(
+      function(item){
+
+        const tr =
+          document.createElement(
+            "tr"
+          );
+
+        tr.className =
+          rowClass(
+            item
+          );
+
+        tr.innerHTML =
+          "<td>" +
+          escapeHtml(
+            item.name
+          ) +
+          "</td>" +
+
+          "<td class=\"" +
+          dateClass(
+            item
+          ) +
+          "\">" +
+          escapeHtml(
+            item.expiry
+          ) +
+          "</td>" +
+
+          "<td>" +
+          escapeHtml(
+            statusLabel(
+              item.daysLeft
+            )
+          ) +
+          "</td>" +
+
+          "<td>" +
+          escapeHtml(
+            item.registeredBy ||
+            "-"
+          ) +
+          "</td>";
+
+        tbody.appendChild(
+          tr
+        );
+
+      }
+    );
 
   }
 
-  else{
 
-    pageItems.forEach(function(item){
+  tableWrap.appendChild(
+    table
+  );
 
-      const tr =
-        document.createElement("tr");
-
-      tr.className =
-        rowClass(item);
-
-      tr.innerHTML =
-        "<td>" +
-        escapeHtml(item.name) +
-        "</td>" +
-
-        "<td class=\"" +
-        dateClass(item) +
-        "\">" +
-        escapeHtml(item.expiry) +
-        "</td>" +
-
-        "<td>" +
-        escapeHtml(
-          statusLabel(
-            item.daysLeft
-          )
-        ) +
-        "</td>" +
-
-        "<td>" +
-        escapeHtml(
-          item.registeredBy ||
-          "-"
-        ) +
-        "</td>";
-
-      tbody.appendChild(tr);
-
-    });
-
-  }
-
-
-  tableWrap.appendChild(table);
-
-  page.appendChild(tableWrap);
+  page.appendChild(
+    tableWrap
+  );
 
 
   const footer =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   footer.className =
     "print-footer";
 
 
   const pageNumberBox =
-    document.createElement("div");
+    document.createElement(
+      "div"
+    );
 
   pageNumberBox.className =
     "print-page-number";
@@ -1931,6 +2514,69 @@ function createPrintPage(
 }
 
 
+/* =========================================================
+   REFRESH
+========================================================= */
+
+function refreshData(){
+
+  activeFilter =
+    null;
+
+  updateFilterCardsUI();
+
+  loadData();
+
+}
+
+
+function loadData(){
+
+  fetch(
+    API_URL +
+    "?action=dashboard"
+  )
+    .then(
+      function(response){
+
+        return response.json();
+
+      }
+    )
+    .then(
+      function(data){
+
+        renderRows(
+          data.items ||
+          data.medications ||
+          []
+        );
+
+      }
+    )
+    .catch(
+      function(){
+
+        document.getElementById(
+          "emptyNote"
+        ).style.display =
+          "block";
+
+        document.getElementById(
+          "emptyNote"
+        ).innerText =
+          text[currentLang].loadError;
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
 function escapeHtml(value){
 
   return String(
@@ -1939,76 +2585,88 @@ function escapeHtml(value){
       ? ""
       : value
   )
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
 
 /* =========================================================
-   API
+   SEARCH EVENTS
 ========================================================= */
 
-function loadData(){
+document.getElementById(
+  "medicineSearch"
+).addEventListener(
+  "input",
+  function(){
 
-  if (
-    !API_URL
-  ){
+    medicineSearchTerm =
+      this.value
+        .trim()
+        .toLowerCase();
 
-    document.getElementById(
-      "emptyNote"
-    ).style.display =
-      "block";
-
-    document.getElementById(
-      "emptyNote"
-    ).innerText =
-      text[currentLang].notConfigured;
-
-    return;
-
-  }
-
-
-  fetch(
-    API_URL +
-    "?action=dashboard"
-  )
-
-  .then(function(res){
-
-    return res.json();
-
-  })
-
-  .then(function(data){
-
-    renderRows(
-      data.items ||
-      data.medications ||
-      []
+    renderMedicationOptions(
+      this.value
     );
 
-  })
+    renderTable();
 
-  .catch(function(){
+  }
+);
 
-    document.getElementById(
-      "emptyNote"
-    ).style.display =
-      "block";
 
-    document.getElementById(
-      "emptyNote"
-    ).innerText =
-      text[currentLang].loadError;
+document.getElementById(
+  "medicineSearch"
+).addEventListener(
+  "focus",
+  function(){
 
-  });
+    renderMedicationOptions(
+      this.value
+    );
 
-}
+  }
+);
+
+
+document.addEventListener(
+  "click",
+  function(event){
+
+    if (
+      !event.target.closest(
+        ".combo-wrap"
+      )
+    ){
+
+      document.getElementById(
+        "medicineSearchOptions"
+      ).style.display =
+        "none";
+
+    }
+
+  }
+);
 
 
 /* =========================================================
@@ -2019,7 +2677,9 @@ function init(){
 
   buildReportMonthOptions();
 
-  setLanguage("en");
+  setLanguage(
+    "en"
+  );
 
   loadData();
 
