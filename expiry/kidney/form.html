@@ -860,7 +860,7 @@ const KIDNEY_API_URL =
   "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wCZnp6OPiKVurOOL8YG_Ma1mPMhgmzWFadYGxWV4CDejgcIw/exec";
 
 const CENTRAL_MEDICATIONS_API_URL =
-  "PUT_CENTRAL_MEDICATIONS_APPS_SCRIPT_URL_HERE";
+  "https://script.google.com/macros/s/AKfycbyqhW-qr6u8In0gEp8UtDrKmkUyJ4xdYBIl6QyV6MQyMBdPudy_XS8tv6TqCT3rGrQjUw/exec";
 
 const KIDNEY_SESSION_NAME_KEY =
   "kidneyEmployeeName";
@@ -871,171 +871,6 @@ const KIDNEY_SESSION_USERNAME_KEY =
 const KIDNEY_SESSION_TOKEN_KEY =
   "kidneySessionToken";
 
-
-const MEDICATIONS = [
-  "Losartan 50mg",
-  "Atorvastatin 20mg",
-  "Prazosin 1mg",
-  "Metolazone",
-  "Carvedilol 25mg",
-  "Telmisartan 80mg",
-  "Hydralazine 25mg",
-  "Atenolol 50mg",
-  "Telmisartan 40mg",
-  "Bisoprolol 5mg",
-  "Nifedipine 30mg LA",
-  "Perindopril 5mg",
-  "Nifedipine 60mg LA",
-  "Valsartan 80mg",
-  "Carvedilol 6.25mg",
-  "Enalapril 10mg",
-  "Prazosin 5mg",
-  "Isosorbide 20mg",
-  "Amlodipine 5mg",
-  "Metoprolol 50mg",
-  "Isosorbide 5mg",
-  "Labetalol 100mg",
-  "Methyldopa 250mg",
-  "Aspirin 81mg",
-  "Furosemide 40mg",
-  "Captopril 25mg",
-  "Amlodipine 10mg",
-  "Mebeverine 200mg",
-  "Senna",
-  "Loperamide 2mg",
-  "Metoclopramide 10mg",
-  "Allopurinol 100mg",
-  "Fluconazole 50mg",
-  "Neurobion",
-  "Folic Acid 1mg",
-  "Clopidogrel 75mg",
-  "Loratadine 10mg",
-  "Histop 4mg",
-  "Hydroxychloroquine 200mg",
-  "Sodium Bicarbonate 325mg",
-  "Multivitamine",
-  "Meloxicam 7.5mg",
-  "Celecoxib 200mg",
-  "Betahistine 8mg",
-  "Paracetamol 500mg",
-  "Paricalcitol 2mcg",
-  "Alfacalcidol 1mcg",
-  "L.Thyroxine 100mcg",
-  "Zemplar 1mcg",
-  "Vit D 10,000",
-  "Apixaban 2.5mg",
-  "Bethisten 16mg",
-  "L.Thyroxine 50mcg",
-  "Esomeprazole 20mg",
-  "Cinacalcet 30mg",
-  "Tamsulosine 0.4mg",
-  "L.Thyroxine 25mcg",
-  "Moxifloxacin 400mg",
-  "Finasteride 5mg",
-  "Omeprazole 20mg",
-  "Ciprofloxacin 500mg",
-  "Azithromycine 250mg",
-  "Amoxicilline 500mg",
-  "Metronidazole 500mg",
-  "Augmentin 625mg",
-  "Ferinject inj",
-  "Ventoline Solution",
-  "Pulmicort Solution",
-  "Atrovent Solution",
-  "Hydralazine inj",
-  "Nitroglycerine inj",
-  "Lasix inj",
-  "Metoclopramide inj",
-  "Hydrocortisone inj",
-  "Omeprazole inj",
-  "Buscopan inj",
-  "Atropine solution",
-  "Naloxone inj",
-  "Bactrim tab",
-  "Naphazoline Drops",
-  "Salinose Nasal Spray",
-  "Fleet Enema",
-  "Hydrocortisone Cream",
-  "Fucidine ointment",
-  "Avopan Eye ointment",
-  "Voltaren Gel",
-  "Paraffin",
-  "Calcium Carbonate Tab",
-  "Fucibact Cream",
-  "Gentamycin inj",
-  "Vancomycin inj",
-  "Ceftazidime inj",
-  "Cefazolin inj",
-  "Diphenhydramine",
-  "Dimocrone MR 30mg",
-  "Prednisolone 5mg",
-  "Potassium chloride tab",
-  "Keppra tab",
-  "Renagel 800mg",
-  "Alfacalcidol 0.25mcg",
-  "Cefepime 1g inj",
-  "Amydramine syp",
-  "Dextromethorphan syp",
-  "Lactulose syp",
-  "Mouth wash",
-  "Ventoline inh",
-  "Sympicort inh",
-  "Mebo",
-  "Urea Cream",
-  "Plasma Protein 250ml",
-  "Paracetamol inj",
-  "Iron inj",
-  "Zemplar inj",
-  "Clexan inj 40mg",
-  "Gentamycin oint",
-  "Promethazine inj",
-  "Labetalol inj",
-  "Noradrenaline inj",
-  "Adrenaline inj",
-  "Adenosine inj",
-  "Procainamide inj",
-  "Dobutamine inj",
-  "Warfarine 5mg tab",
-  "Magnisium Sulphate inj",
-  "Lidocaine 1% vial",
-  "Amiodarone inj",
-  "Calcium Chloride inj",
-  "Warfarine 2mg tab",
-  "Potassium Chloride inj",
-  "Lidocaine 2% syringe",
-  "Calcium Gluconate inj",
-  "Warfarine 1mg tab",
-  "Heparine sodium inj",
-  "Heparin Sodium 25,000 IU/5ml in 5ml vial",
-  "Lidocaine 2% vial",
-  "Caspofungin 50mg inj",
-  "Darbepoetin 40",
-  "Darbepoetin 60",
-  "Darbepoetin 80",
-  "Tpa 18mg",
-  "Mircera 100",
-  "Eprex 2000",
-  "One alpha",
-  "Veltasa 8.4",
-  "Meropenem 1g inj",
-  "Buscopan tab",
-  "Paricalcitol (Zemplar) 5mcg amp",
-  "Budesonide/Formoterol 160/4.5 mcg/dose (Symbicort)",
-  "Calcium Carbonate 600mg",
-  "Enoxaparin 2000 IU (20mg) inj",
-  "Enoxaparin 4000 IU (40mg) inj",
-  "Diclofenac Gel 1%",
-  "White Paraffin 30g tube",
-  "Zemplar 2mcg",
-  "Amiodarone",
-  "Concord",
-  "Isokit",
-  "Atodol",
-  "Velphoro 500",
-  "Sodium Bicarbonate vial",
-  "Metoprolol inj",
-  "Lidocaine gel"
-];
 
 let centralMedicationList =
   [];
@@ -1377,7 +1212,6 @@ function buildExpirySelectors(){
       "expiryYear"
     );
 
-
   const currentYear =
     getExpiryCurrentYear();
 
@@ -1428,10 +1262,8 @@ function updateExpiryDays(){
       "expiryYear"
     ).value;
 
-
   const previousDay =
     daySelect.value;
-
 
   daySelect.innerHTML =
     '<option value="">Day</option>';
@@ -2225,9 +2057,7 @@ function renderMedOptions(
 
 function getMedicationSource(){
 
-  return centralMedicationList.length
-    ? centralMedicationList
-    : MEDICATIONS;
+  return centralMedicationList;
 
 }
 

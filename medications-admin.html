@@ -4,364 +4,2084 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>إدارة الأدوية الموحدة</title>
+
 <style>
 *{box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
-.container{max-width:980px;margin:auto;background:#fff;padding:22px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,.1);min-height:calc(100vh - 32px)}
-.top-bar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px;direction:ltr}
-.logo{width:120px;height:120px;object-fit:contain}
-.official-header{width:fit-content;max-width:100%;text-align:right;transform:translateY(14px);padding-left:8px;border-left:4px solid #168fb3;direction:rtl}
-.official-header h2,.official-header h3{margin:2px 0;font-size:13px;line-height:1.4;color:#168fb3}
-hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
-.meta-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;direction:ltr}
-.date-box,.language-chip{color:#168fb3;padding:4px 0;font-size:13px;font-weight:bold;background:transparent;border:0;font-family:inherit}
-.language-chip{cursor:pointer;white-space:nowrap}
-.title-row{display:grid;grid-template-columns:36px auto 36px;align-items:center;justify-content:center;gap:10px;margin:18px 0 8px}
-.page-title{text-align:center;font-size:24px;font-weight:bold;margin:0;color:#168fb3;grid-column:2}
-.title-back-button{grid-column:1;width:34px;height:34px;border:0;background:transparent;color:#168fb3;display:flex;align-items:center;justify-content:center;padding:0;text-decoration:none;font-size:28px;line-height:1}
-.title-back-button:hover{color:#0f7592;transform:translateX(-1px)}
-.subtitle{text-align:center;color:#334155;font-size:15px;line-height:1.7;margin:0 auto 18px;max-width:620px}
-.login-card,.panel{max-width:760px;margin:18px auto 0;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:16px}
-.login-card{max-width:360px}
-label{display:block;margin:0 0 5px;font-size:14px;font-weight:bold;color:#168fb3}
-input,select{width:100%;height:38px;padding:8px 10px;margin-bottom:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:14px;background:#fff}
-.form-grid{display:grid;grid-template-columns:2fr 1fr auto;gap:10px;align-items:end}
-.actions{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
-.primary-btn,.secondary-btn,.danger-btn{height:38px;padding:0 16px;border:0;border-radius:8px;font-weight:bold;font-size:14px;cursor:pointer;white-space:nowrap}
-.primary-btn{background:#168fb3;color:#fff}
-.secondary-btn{background:#e0f2fe;color:#168fb3}
-.danger-btn{background:#fee2e2;color:#b91c1c}
-.primary-btn:hover{background:#0f7592}
-#loginResult,#result{min-height:22px;text-align:center;margin-top:10px;font-size:13px;font-weight:bold}
-.error{color:#b91c1c}.success{color:#047857}
-.admin-strip{display:none;grid-template-columns:36px auto 36px;align-items:center;justify-content:center;gap:14px;margin:10px auto 18px;max-width:340px;color:#168fb3}
-.admin-name{grid-column:2;text-align:center;font-size:24px;font-weight:bold;white-space:nowrap}
-.logout-btn,.back-button{width:34px;height:34px;border:0;background:transparent;color:#168fb3;display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer}
-.logout-btn{grid-column:1}
-.back-button{grid-column:3;text-decoration:none;font-size:28px;line-height:1}
-.power-svg{width:25px;height:25px;stroke:currentColor;stroke-width:2.3;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.tools{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-.search{max-width:260px;margin:0}
-.table-wrap{overflow-x:auto;border:1px solid #e5e7eb;border-radius:8px;background:#fff}
-table{width:100%;border-collapse:collapse;min-width:620px}
-th{background:#168fb3;color:#fff;font-size:13px;padding:10px;text-align:center}
-td{font-size:13px;padding:9px;border-bottom:1px solid #e5e7eb;text-align:center;color:#334155}
-td:first-child{text-align:start;color:#036987;font-weight:bold}
-.row-actions{display:flex;gap:6px;justify-content:center}
-.icon-btn{width:32px;height:32px;border:0;border-radius:8px;background:#e0f2fe;color:#168fb3;cursor:pointer;font-size:16px}
-.icon-btn.danger{background:#fee2e2;color:#b91c1c}
-.status-pill{display:inline-flex;align-items:center;justify-content:center;min-width:54px;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:bold}
-.status-pill.active{background:#dcfce7;color:#166534}
-.status-pill.inactive{background:#fee2e2;color:#991b1b}
-@media (max-width:700px){
-body{padding:10px;background:#fff}
-.container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}
-.logo{width:84px;height:84px}
-.official-header{transform:translateY(10px)}
-.official-header h2,.official-header h3{font-size:12px}
-.page-title{font-size:20px}
-.title-row{grid-template-columns:34px auto 34px}
-.title-back-button{width:32px;height:32px;font-size:26px}
-.subtitle{font-size:13px}
-.login-card,.panel{max-width:100%;padding:14px}
-.form-grid{grid-template-columns:1fr}
-.admin-name{font-size:22px}
-th,td{font-size:12px;padding:8px}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f3f4f6;
+  margin:0;
+  padding:16px;
+  color:#168fb3
 }
+
+.container{
+  max-width:980px;
+  margin:auto;
+  background:#fff;
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
+  min-height:calc(100vh - 32px)
+}
+
+.top-bar{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;
+  direction:ltr
+}
+
+.logo{
+  width:120px;
+  height:120px;
+  object-fit:contain
+}
+
+.official-header{
+  width:fit-content;
+  max-width:100%;
+  text-align:right;
+  transform:translateY(14px);
+  padding-left:8px;
+  border-left:4px solid #168fb3;
+  direction:rtl
+}
+
+.official-header h2,
+.official-header h3{
+  margin:2px 0;
+  font-size:13px;
+  line-height:1.4;
+  color:#168fb3
+}
+
+hr{
+  border:none;
+  border-top:1px solid #e5e7eb;
+  margin:14px 0
+}
+
+.meta-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
+  direction:ltr
+}
+
+.date-box,
+.language-chip{
+  color:#168fb3;
+  padding:4px 0;
+  font-size:13px;
+  font-weight:bold;
+  background:transparent;
+  border:0;
+  font-family:inherit
+}
+
+.language-chip{
+  cursor:pointer;
+  white-space:nowrap
+}
+
+.title-row{
+  display:grid;
+  grid-template-columns:36px auto 36px;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin:18px 0 8px
+}
+
+.page-title{
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+  margin:0;
+  color:#168fb3;
+  grid-column:2
+}
+
+.title-back-button{
+  grid-column:1;
+  width:34px;
+  height:34px;
+  border:0;
+  background:transparent;
+  color:#168fb3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  text-decoration:none;
+  font-size:28px;
+  line-height:1
+}
+
+.title-back-button:hover{
+  color:#0f7592;
+  transform:translateX(-1px)
+}
+
+.subtitle{
+  text-align:center;
+  color:#334155;
+  font-size:15px;
+  line-height:1.7;
+  margin:0 auto 18px;
+  max-width:620px
+}
+
+.login-card,
+.panel{
+  max-width:760px;
+  margin:18px auto 0;
+  background:#f9fafb;
+  border:1px solid #e5e7eb;
+  border-radius:8px;
+  padding:16px
+}
+
+.login-card{
+  max-width:360px
+}
+
+label{
+  display:block;
+  margin:0 0 5px;
+  font-size:14px;
+  font-weight:bold;
+  color:#168fb3
+}
+
+input,
+select{
+  width:100%;
+  height:38px;
+  padding:8px 10px;
+  margin-bottom:12px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:14px;
+  background:#fff
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr auto;
+  gap:10px;
+  align-items:end
+}
+
+.actions{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap
+}
+
+.primary-btn,
+.secondary-btn,
+.danger-btn{
+  height:38px;
+  padding:0 16px;
+  border:0;
+  border-radius:8px;
+  font-weight:bold;
+  font-size:14px;
+  cursor:pointer;
+  white-space:nowrap
+}
+
+.primary-btn{
+  background:#168fb3;
+  color:#fff
+}
+
+.secondary-btn{
+  background:#e0f2fe;
+  color:#168fb3
+}
+
+.danger-btn{
+  background:#fee2e2;
+  color:#b91c1c
+}
+
+.primary-btn:hover{
+  background:#0f7592
+}
+
+#loginResult,
+#result{
+  min-height:22px;
+  text-align:center;
+  margin-top:10px;
+  font-size:13px;
+  font-weight:bold
+}
+
+.error{
+  color:#b91c1c
+}
+
+.success{
+  color:#047857
+}
+
+
+/* =========================================
+   ADMIN NAME + LOGOUT
+========================================= */
+
+.admin-strip{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin:10px auto 18px;
+  color:#168fb3;
+  direction:ltr
+}
+
+.admin-name{
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+  white-space:nowrap
+}
+
+.logout-btn{
+  width:34px;
+  height:34px;
+  border:0;
+  background:transparent;
+  color:#168fb3;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0;
+  cursor:pointer;
+  flex:0 0 auto
+}
+
+.power-svg{
+  width:25px;
+  height:25px;
+  stroke:currentColor;
+  stroke-width:2.3;
+  fill:none;
+  stroke-linecap:round;
+  stroke-linejoin:round
+}
+
+.tools{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:10px
+}
+
+.search{
+  max-width:260px;
+  margin:0
+}
+
+.table-wrap{
+  overflow-x:auto;
+  border:1px solid #e5e7eb;
+  border-radius:8px;
+  background:#fff
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:620px
+}
+
+th{
+  background:#168fb3;
+  color:#fff;
+  font-size:13px;
+  padding:10px;
+  text-align:center
+}
+
+td{
+  font-size:13px;
+  padding:9px;
+  border-bottom:1px solid #e5e7eb;
+  text-align:center;
+  color:#334155
+}
+
+td:first-child{
+  text-align:start;
+  color:#036987;
+  font-weight:bold
+}
+
+.row-actions{
+  display:flex;
+  gap:6px;
+  justify-content:center
+}
+
+.icon-btn{
+  width:32px;
+  height:32px;
+  border:0;
+  border-radius:8px;
+  background:#e0f2fe;
+  color:#168fb3;
+  cursor:pointer;
+  font-size:16px
+}
+
+.icon-btn.danger{
+  background:#fee2e2;
+  color:#b91c1c
+}
+
+.status-pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:54px;
+  border-radius:999px;
+  padding:4px 8px;
+  font-size:12px;
+  font-weight:bold
+}
+
+.status-pill.active{
+  background:#dcfce7;
+  color:#166534
+}
+
+.status-pill.inactive{
+  background:#fee2e2;
+  color:#991b1b
+}
+
+@media (max-width:700px){
+
+  body{
+    padding:10px;
+    background:#fff
+  }
+
+  .container{
+    padding:14px;
+    border-radius:0;
+    box-shadow:none;
+    min-height:100vh
+  }
+
+  .logo{
+    width:84px;
+    height:84px
+  }
+
+  .official-header{
+    transform:translateY(10px)
+  }
+
+  .official-header h2,
+  .official-header h3{
+    font-size:12px
+  }
+
+  .page-title{
+    font-size:20px
+  }
+
+  .title-row{
+    grid-template-columns:34px auto 34px
+  }
+
+  .title-back-button{
+    width:32px;
+    height:32px;
+    font-size:26px
+  }
+
+  .subtitle{
+    font-size:13px
+  }
+
+  .login-card,
+  .panel{
+    max-width:100%;
+    padding:14px
+  }
+
+  .form-grid{
+    grid-template-columns:1fr
+  }
+
+  .admin-name{
+    font-size:22px
+  }
+
+  th,
+  td{
+    font-size:12px;
+    padding:8px
+  }
+
+}
+
 </style>
 </head>
+
+
 <body>
+
 <div class="container">
+
+
   <div class="top-bar">
-    <img class="logo" src="logo.png" alt="Logo">
+
+    <img
+      class="logo"
+      src="logo.png"
+      alt="Logo">
+
     <div class="official-header">
-      <h2 id="officialLine1">تجمع المدينة المنورة الصحي</h2>
-      <h3 id="officialLine2">مستشفى الملك فهد بالمدينة المنورة</h3>
-      <h3 id="officialLine3">إدارة الرعاية الصيدلانية</h3>
+
+      <h2 id="officialLine1">
+        تجمع المدينة المنورة الصحي
+      </h2>
+
+      <h3 id="officialLine2">
+        مستشفى الملك فهد بالمدينة المنورة
+      </h3>
+
+      <h3 id="officialLine3">
+        إدارة الرعاية الصيدلانية
+      </h3>
+
     </div>
+
   </div>
+
+
   <hr>
+
+
   <div class="meta-row">
-    <div class="date-box" id="dateBox"></div>
-    <button type="button" class="language-chip" id="languageToggle" onclick="toggleLanguage()">🌐 ع | E</button>
-  </div>
-  <div class="title-row">
-    <a class="title-back-button" href="control-panel.html" title="رجوع" aria-label="رجوع">↩</a>
-    <h1 class="page-title" id="pageTitle">إدارة الأدوية الموحدة</h1>
-  </div>
-  <p class="subtitle" id="subtitle">قاعدة مركزية لأسماء الأدوية المستخدمة في القوائم المنسدلة.</p>
 
-  <div class="login-card" id="loginCard">
-    <label id="usernameLabel" for="adminUsername">اسم المستخدم</label>
-    <input id="adminUsername" type="text" autocomplete="username">
-    <label id="pinLabel" for="adminPin">PIN</label>
-    <input id="adminPin" type="password" inputmode="numeric" autocomplete="current-password">
-    <div class="actions">
-      <button type="button" class="primary-btn" id="loginBtn" onclick="loginAdmin()">دخول</button>
+    <div
+      class="date-box"
+      id="dateBox">
     </div>
-    <div id="loginResult"></div>
-  </div>
 
-  <div class="admin-strip" id="adminStrip">
-    <button type="button" class="logout-btn" id="logoutBtn" onclick="logoutAdmin()" title="خروج" aria-label="خروج">
-      <svg class="power-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9"></path><path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path></svg>
+    <button
+      type="button"
+      class="language-chip"
+      id="languageToggle"
+      onclick="toggleLanguage()">
+      🌐 ع | E
     </button>
-    <div class="admin-name" id="adminName">Admin</div>
-    <a class="back-button" href="control-panel.html" title="رجوع" aria-label="رجوع">↩</a>
+
   </div>
 
-  <div class="panel" id="adminPanel" style="display:none">
-    <div class="form-grid">
-      <div>
-        <label id="medNameLabel" for="medNameInput">اسم الدواء</label>
-        <input id="medNameInput" type="text" dir="ltr" lang="en" placeholder="Medication name">
-      </div>
-      <div>
-        <label id="serviceLabel" for="serviceInput">الخدمة</label>
-        <select id="serviceInput">
-          <option value="kidney">Kidney Pharmacy</option>
-          <option value="all">All Future Services</option>
-        </select>
-      </div>
-      <div class="actions">
-        <button type="button" class="primary-btn" id="saveBtn" onclick="saveMedication()">إضافة</button>
-        <button type="button" class="secondary-btn" id="clearBtn" onclick="clearForm()">مسح</button>
-      </div>
-    </div>
-    <div id="result"></div>
-    <div class="tools">
-      <input class="search" id="searchInput" type="search" placeholder="Search" oninput="renderRows()">
-      <button type="button" class="secondary-btn" id="refreshBtn" onclick="loadMedications()">تحديث</button>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th id="nameHeader">اسم الدواء</th>
-            <th id="serviceHeader">الخدمة</th>
-            <th id="statusHeader">الحالة</th>
-            <th id="actionsHeader">الإجراء</th>
-          </tr>
-        </thead>
-        <tbody id="medicationsBody"></tbody>
-      </table>
-    </div>
+
+  <div class="title-row">
+
+    <a
+      class="title-back-button"
+      href="control-panel.html"
+      title="رجوع"
+      aria-label="رجوع">
+      ↩
+    </a>
+
+    <h1
+      class="page-title"
+      id="pageTitle">
+      إدارة الأدوية الموحدة
+    </h1>
+
   </div>
+
+
+  <p
+    class="subtitle"
+    id="subtitle">
+    قاعدة مركزية لأسماء الأدوية المستخدمة في القوائم المنسدلة.
+  </p>
+
+
+  <div
+    class="login-card"
+    id="loginCard">
+
+    <label
+      id="usernameLabel"
+      for="adminUsername">
+      اسم المستخدم
+    </label>
+
+    <input
+      id="adminUsername"
+      type="text"
+      autocomplete="username">
+
+
+    <label
+      id="pinLabel"
+      for="adminPin">
+      PIN
+    </label>
+
+    <input
+      id="adminPin"
+      type="password"
+      inputmode="numeric"
+      autocomplete="current-password">
+
+
+    <div class="actions">
+
+      <button
+        type="button"
+        class="primary-btn"
+        id="loginBtn"
+        onclick="loginAdmin()">
+        دخول
+      </button>
+
+    </div>
+
+
+    <div id="loginResult"></div>
+
+  </div>
+
+
+
+  <div
+    class="admin-strip"
+    id="adminStrip">
+
+    <button
+      type="button"
+      class="logout-btn"
+      id="logoutBtn"
+      onclick="logoutAdmin()"
+      title="خروج"
+      aria-label="خروج">
+
+      <svg
+        class="power-svg"
+        viewBox="0 0 24 24"
+        aria-hidden="true">
+
+        <path d="M12 3v9"></path>
+        <path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path>
+
+      </svg>
+
+    </button>
+
+
+    <div
+      class="admin-name"
+      id="adminName">
+      Admin
+    </div>
+
+  </div>
+
+
+
+  <div
+    class="panel"
+    id="adminPanel"
+    style="display:none">
+
+
+    <div class="form-grid">
+
+
+      <div>
+
+        <label
+          id="medNameLabel"
+          for="medNameInput">
+          اسم الدواء
+        </label>
+
+        <input
+          id="medNameInput"
+          type="text"
+          dir="ltr"
+          lang="en"
+          placeholder="Medication name">
+
+      </div>
+
+
+      <div>
+
+        <label
+          id="serviceLabel"
+          for="serviceInput">
+          الخدمة
+        </label>
+
+        <select id="serviceInput">
+
+          <option value="kidney">
+            Kidney Pharmacy
+          </option>
+
+          <option value="all">
+            All Future Services
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="actions">
+
+        <button
+          type="button"
+          class="primary-btn"
+          id="saveBtn"
+          onclick="saveMedication()">
+          إضافة
+        </button>
+
+        <button
+          type="button"
+          class="secondary-btn"
+          id="clearBtn"
+          onclick="clearForm()">
+          مسح
+        </button>
+
+      </div>
+
+
+    </div>
+
+
+    <div id="result"></div>
+
+
+    <div class="tools">
+
+      <input
+        class="search"
+        id="searchInput"
+        type="search"
+        placeholder="Search"
+        oninput="renderRows()">
+
+      <button
+        type="button"
+        class="secondary-btn"
+        id="refreshBtn"
+        onclick="loadMedications()">
+        تحديث
+      </button>
+
+    </div>
+
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th id="nameHeader">
+              اسم الدواء
+            </th>
+
+            <th id="serviceHeader">
+              الخدمة
+            </th>
+
+            <th id="statusHeader">
+              الحالة
+            </th>
+
+            <th id="actionsHeader">
+              الإجراء
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="medicationsBody"></tbody>
+
+
+      </table>
+
+    </div>
+
+
+  </div>
+
+
 </div>
 
+
 <script>
+
 const UNIFIED_API_URL =
   "https://script.google.com/macros/s/AKfycbw9JM87uiSHihWDP0N1gn4IskEG_8O-fWleathLZW9Wwbs915UQz8Gq5k2dIwAGImCF/exec";
+
+
 const MEDICATIONS_API_URL =
-  "PUT_CENTRAL_MEDICATIONS_APPS_SCRIPT_URL_HERE";
-let currentLang = "ar";
-let adminUsername = sessionStorage.getItem("unifiedAdminUsername") || "";
-let adminSessionToken = sessionStorage.getItem("unifiedAdminSessionToken") || "";
-let medications = [];
-let editingId = "";
+  "https://script.google.com/macros/s/AKfycbyqhW-qr6u8In0gEp8UtDrKmkUyJ4xdYBIl6QyV6MQyMBdPudy_XS8tv6TqCT3rGrQjUw/exec";
+
+
+let currentLang =
+  "ar";
+
+
+let adminUsername =
+  sessionStorage.getItem(
+    "unifiedAdminUsername"
+  ) || "";
+
+
+let adminSessionToken =
+  sessionStorage.getItem(
+    "unifiedAdminSessionToken"
+  ) || "";
+
+
+let medications =
+  [];
+
+
+let editingId =
+  "";
+
+
+const MAIN_ADMIN_USERNAME =
+  "Admin";
+
+
 const text = {
+
   ar:{
-    title:"إدارة الأدوية الموحدة",
-    subtitle:"قاعدة مركزية لأسماء الأدوية المستخدمة في القوائم المنسدلة.",
-    officialLine1:"تجمع المدينة المنورة الصحي",
-    officialLine2:"مستشفى الملك فهد بالمدينة المنورة",
-    officialLine3:"إدارة الرعاية الصيدلانية",
-    username:"اسم المستخدم", pin:"PIN", login:"دخول",
-    invalid:"بيانات الدخول غير صحيحة أو ليس لديك صلاحيات المستخدم الرئيسي.",
-    medName:"اسم الدواء", service:"الخدمة", status:"الحالة", actions:"الإجراء",
-    add:"إضافة", update:"تحديث", clear:"مسح", refresh:"تحديث",
-    active:"فعال", inactive:"متوقف", saved:"تم الحفظ", deleted:"تم الحذف",
-    missing:"اكتب اسم الدواء.", scriptMissing:"ضع رابط سكربت إدارة الأدوية أولًا.",
-    failed:"تعذر تنفيذ العملية."
+
+    title:
+      "إدارة الأدوية الموحدة",
+
+    subtitle:
+      "قاعدة مركزية لأسماء الأدوية المستخدمة في القوائم المنسدلة.",
+
+    officialLine1:
+      "تجمع المدينة المنورة الصحي",
+
+    officialLine2:
+      "مستشفى الملك فهد بالمدينة المنورة",
+
+    officialLine3:
+      "إدارة الرعاية الصيدلانية",
+
+    username:
+      "اسم المستخدم",
+
+    pin:
+      "PIN",
+
+    login:
+      "دخول",
+
+    invalid:
+      "بيانات الدخول غير صحيحة أو ليس لديك صلاحيات المستخدم الرئيسي.",
+
+    medName:
+      "اسم الدواء",
+
+    service:
+      "الخدمة",
+
+    status:
+      "الحالة",
+
+    actions:
+      "الإجراء",
+
+    add:
+      "إضافة",
+
+    update:
+      "تحديث",
+
+    clear:
+      "مسح",
+
+    refresh:
+      "تحديث",
+
+    active:
+      "فعال",
+
+    inactive:
+      "متوقف",
+
+    saved:
+      "تم الحفظ",
+
+    deleted:
+      "تم الحذف",
+
+    missing:
+      "اكتب اسم الدواء.",
+
+    scriptMissing:
+      "ضع رابط سكربت إدارة الأدوية أولًا.",
+
+    failed:
+      "تعذر تنفيذ العملية."
+
   },
+
+
   en:{
-    title:"Unified Medication Management",
-    subtitle:"Central medication database for dropdown lists.",
-    officialLine1:"Madinah Health Cluster",
-    officialLine2:"King Fahad Hospital - Madinah",
-    officialLine3:"Pharmaceutical Care Administration",
-    username:"Username", pin:"PIN", login:"Login",
-    invalid:"Invalid login or main admin permission is required.",
-    medName:"Medication Name", service:"Service", status:"Status", actions:"Action",
-    add:"Add", update:"Update", clear:"Clear", refresh:"Refresh",
-    active:"Active", inactive:"Inactive", saved:"Saved", deleted:"Deleted",
-    missing:"Enter medication name.", scriptMissing:"Add the medication Apps Script URL first.",
-    failed:"Operation failed."
+
+    title:
+      "Unified Medication Management",
+
+    subtitle:
+      "Central medication database for dropdown lists.",
+
+    officialLine1:
+      "Madinah Health Cluster",
+
+    officialLine2:
+      "King Fahad Hospital - Madinah",
+
+    officialLine3:
+      "Pharmaceutical Care Administration",
+
+    username:
+      "Username",
+
+    pin:
+      "PIN",
+
+    login:
+      "Login",
+
+    invalid:
+      "Invalid login or main admin permission is required.",
+
+    medName:
+      "Medication Name",
+
+    service:
+      "Service",
+
+    status:
+      "Status",
+
+    actions:
+      "Action",
+
+    add:
+      "Add",
+
+    update:
+      "Update",
+
+    clear:
+      "Clear",
+
+    refresh:
+      "Refresh",
+
+    active:
+      "Active",
+
+    inactive:
+      "Inactive",
+
+    saved:
+      "Saved",
+
+    deleted:
+      "Deleted",
+
+    missing:
+      "Enter medication name.",
+
+    scriptMissing:
+      "Add the medication Apps Script URL first.",
+
+    failed:
+      "Operation failed."
+
   }
+
 };
-function setLanguage(lang){
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-  document.title = text[lang].title;
-  ["officialLine1","officialLine2","officialLine3"].forEach(id => document.getElementById(id).innerText = text[lang][id]);
-  document.getElementById("pageTitle").innerText = text[lang].title;
-  document.getElementById("subtitle").innerText = text[lang].subtitle;
-  document.getElementById("usernameLabel").innerText = text[lang].username;
-  document.getElementById("pinLabel").innerText = text[lang].pin;
-  document.getElementById("loginBtn").innerText = text[lang].login;
-  document.getElementById("medNameLabel").innerText = text[lang].medName;
-  document.getElementById("serviceLabel").innerText = text[lang].service;
-  document.getElementById("nameHeader").innerText = text[lang].medName;
-  document.getElementById("serviceHeader").innerText = text[lang].service;
-  document.getElementById("statusHeader").innerText = text[lang].status;
-  document.getElementById("actionsHeader").innerText = text[lang].actions;
-  document.getElementById("saveBtn").innerText = editingId ? text[lang].update : text[lang].add;
-  document.getElementById("clearBtn").innerText = text[lang].clear;
-  document.getElementById("refreshBtn").innerText = text[lang].refresh;
+
+
+
+function setLanguage(
+  lang
+){
+
+  currentLang =
+    lang;
+
+
+  document.documentElement.lang =
+    lang;
+
+
+  document.documentElement.dir =
+    lang === "ar"
+      ? "rtl"
+      : "ltr";
+
+
+  document.title =
+    text[lang].title;
+
+
+  [
+    "officialLine1",
+    "officialLine2",
+    "officialLine3"
+  ].forEach(
+    function(id){
+
+      document.getElementById(
+        id
+      ).innerText =
+        text[lang][id];
+
+    }
+  );
+
+
+  document.getElementById(
+    "pageTitle"
+  ).innerText =
+    text[lang].title;
+
+
+  document.getElementById(
+    "subtitle"
+  ).innerText =
+    text[lang].subtitle;
+
+
+  document.getElementById(
+    "usernameLabel"
+  ).innerText =
+    text[lang].username;
+
+
+  document.getElementById(
+    "pinLabel"
+  ).innerText =
+    text[lang].pin;
+
+
+  document.getElementById(
+    "loginBtn"
+  ).innerText =
+    text[lang].login;
+
+
+  document.getElementById(
+    "medNameLabel"
+  ).innerText =
+    text[lang].medName;
+
+
+  document.getElementById(
+    "serviceLabel"
+  ).innerText =
+    text[lang].service;
+
+
+  document.getElementById(
+    "nameHeader"
+  ).innerText =
+    text[lang].medName;
+
+
+  document.getElementById(
+    "serviceHeader"
+  ).innerText =
+    text[lang].service;
+
+
+  document.getElementById(
+    "statusHeader"
+  ).innerText =
+    text[lang].status;
+
+
+  document.getElementById(
+    "actionsHeader"
+  ).innerText =
+    text[lang].actions;
+
+
+  document.getElementById(
+    "saveBtn"
+  ).innerText =
+    editingId
+      ? text[lang].update
+      : text[lang].add;
+
+
+  document.getElementById(
+    "clearBtn"
+  ).innerText =
+    text[lang].clear;
+
+
+  document.getElementById(
+    "refreshBtn"
+  ).innerText =
+    text[lang].refresh;
+
+
   renderDate();
+
   renderRows();
+
 }
-function toggleLanguage(){setLanguage(currentLang === "ar" ? "en" : "ar")}
+
+
+
+function toggleLanguage(){
+
+  setLanguage(
+    currentLang === "ar"
+      ? "en"
+      : "ar"
+  );
+
+}
+
+
+
 function renderDate(){
-  const now = new Date();
-  const date = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Riyadh"}).format(now);
-  const day = new Intl.DateTimeFormat(currentLang === "ar" ? "ar-SA" : "en-US",{timeZone:"Asia/Riyadh",weekday:"long"}).format(now);
-  document.getElementById("dateBox").innerText = `${day} - ${date}`;
+
+  const now =
+    new Date();
+
+
+  const date =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:
+          "Asia/Riyadh"
+      }
+    ).format(
+      now
+    );
+
+
+  const day =
+    new Intl.DateTimeFormat(
+      currentLang === "ar"
+        ? "ar-SA"
+        : "en-US",
+      {
+        timeZone:
+          "Asia/Riyadh",
+
+        weekday:
+          "long"
+      }
+    ).format(
+      now
+    );
+
+
+  document.getElementById(
+    "dateBox"
+  ).innerText =
+    `${day} - ${date}`;
+
 }
+
+
+
 async function loginAdmin(){
-  const username = document.getElementById("adminUsername").value.trim();
-  const pin = document.getElementById("adminPin").value.trim();
-  if(!username || !pin){showLoginError();return}
+
+  const username =
+    document.getElementById(
+      "adminUsername"
+    ).value.trim();
+
+
+  const pin =
+    document.getElementById(
+      "adminPin"
+    ).value.trim();
+
+
+  if (
+    !username ||
+    !pin
+  ){
+
+    showLoginError();
+
+    return;
+
+  }
+
+
   try{
-    const result = await unifiedApi({action:"adminLogin",username,pin});
-    if(!result.success || !result.sessionToken){showLoginError();return}
-    adminUsername = result.admin && result.admin.username ? result.admin.username : username;
-    adminSessionToken = result.sessionToken;
-    sessionStorage.setItem("unifiedAdminUsername",adminUsername);
-    sessionStorage.setItem("unifiedAdminSessionToken",adminSessionToken);
-    document.getElementById("adminPin").value = "";
+
+    const result =
+      await unifiedApi({
+
+        action:
+          "adminLogin",
+
+        username:
+          username,
+
+        pin:
+          pin
+
+      });
+
+
+    if (
+      !result ||
+      !result.success ||
+      !result.sessionToken ||
+      !result.admin ||
+      !result.admin.username ||
+      String(
+        result.admin.username
+      ).toLowerCase() !==
+        MAIN_ADMIN_USERNAME.toLowerCase()
+    ){
+
+      showLoginError();
+
+      return;
+
+    }
+
+
+    adminUsername =
+      result.admin.username;
+
+
+    adminSessionToken =
+      result.sessionToken;
+
+
+    sessionStorage.setItem(
+      "unifiedAdminUsername",
+      adminUsername
+    );
+
+
+    sessionStorage.setItem(
+      "unifiedAdminSessionToken",
+      adminSessionToken
+    );
+
+
+    document.getElementById(
+      "adminPin"
+    ).value =
+      "";
+
+
     showAdmin();
-  }catch(e){showLoginError()}
+
+
+  }catch(error){
+
+    showLoginError();
+
+  }
+
 }
+
+
+
 function showLoginError(){
-  const el = document.getElementById("loginResult");
-  el.className = "error";
-  el.innerText = text[currentLang].invalid;
+
+  const el =
+    document.getElementById(
+      "loginResult"
+    );
+
+
+  el.className =
+    "error";
+
+
+  el.innerText =
+    text[currentLang].invalid;
+
 }
+
+
+
 function showAdmin(){
-  document.getElementById("loginCard").style.display = "none";
-  document.getElementById("adminStrip").style.display = "grid";
-  document.getElementById("adminPanel").style.display = "block";
-  document.getElementById("adminName").innerText = adminUsername || "Admin";
+
+  document.getElementById(
+    "loginCard"
+  ).style.display =
+    "none";
+
+
+  document.getElementById(
+    "adminStrip"
+  ).style.display =
+    "flex";
+
+
+  document.getElementById(
+    "adminPanel"
+  ).style.display =
+    "block";
+
+
+  document.getElementById(
+    "adminName"
+  ).innerText =
+    adminUsername || "Admin";
+
+
   loadMedications();
+
 }
+
+
+
 function logoutAdmin(){
-  sessionStorage.removeItem("unifiedAdminUsername");
-  sessionStorage.removeItem("unifiedAdminSessionToken");
-  adminUsername = "";
-  adminSessionToken = "";
-  medications = [];
-  document.getElementById("loginCard").style.display = "block";
-  document.getElementById("adminStrip").style.display = "none";
-  document.getElementById("adminPanel").style.display = "none";
+
+  sessionStorage.removeItem(
+    "unifiedAdminUsername"
+  );
+
+
+  sessionStorage.removeItem(
+    "unifiedAdminSessionToken"
+  );
+
+
+  adminUsername =
+    "";
+
+
+  adminSessionToken =
+    "";
+
+
+  medications =
+    [];
+
+
+  document.getElementById(
+    "loginCard"
+  ).style.display =
+    "block";
+
+
+  document.getElementById(
+    "adminStrip"
+  ).style.display =
+    "none";
+
+
+  document.getElementById(
+    "adminPanel"
+  ).style.display =
+    "none";
+
 }
-async function unifiedApi(payload){
-  const response = await fetch(UNIFIED_API_URL,{method:"POST",body:JSON.stringify(payload)});
+
+
+
+async function unifiedApi(
+  payload
+){
+
+  const response =
+    await fetch(
+      UNIFIED_API_URL,
+      {
+
+        method:
+          "POST",
+
+        headers: {
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+
+        body:
+          JSON.stringify({
+
+            sessionToken:
+              payload.sessionToken ||
+              adminSessionToken,
+
+            adminUsername:
+              adminUsername,
+
+            ...payload
+
+          })
+
+      }
+    );
+
+
   return response.json();
+
 }
+
+
+
 function medicationsApiReady(){
-  return MEDICATIONS_API_URL && !MEDICATIONS_API_URL.includes("PUT_CENTRAL_MEDICATIONS");
+
+  return (
+    MEDICATIONS_API_URL &&
+    !MEDICATIONS_API_URL.includes(
+      "PUT_CENTRAL_MEDICATIONS"
+    )
+  );
+
 }
-async function medicationsApi(payload){
-  if(!medicationsApiReady()) throw new Error("missing-url");
-  const response = await fetch(MEDICATIONS_API_URL,{method:"POST",body:JSON.stringify({...payload,sessionToken:adminSessionToken,adminUsername})});
+
+
+
+async function medicationsApi(
+  payload
+){
+
+  if (
+    !medicationsApiReady()
+  ){
+
+    throw new Error(
+      "missing-url"
+    );
+
+  }
+
+
+  const response =
+    await fetch(
+      MEDICATIONS_API_URL,
+      {
+
+        method:
+          "POST",
+
+        headers: {
+          "Content-Type":
+            "text/plain;charset=utf-8"
+        },
+
+        body:
+          JSON.stringify({
+
+            ...payload,
+
+            sessionToken:
+              adminSessionToken,
+
+            adminUsername:
+              adminUsername
+
+          })
+
+      }
+    );
+
+
   return response.json();
+
 }
+
+
+
 async function validateExistingSession(){
-  if(!adminSessionToken) return;
+
+  if (
+    !adminSessionToken ||
+    !adminUsername
+  ){
+
+    return;
+
+  }
+
+
   try{
-    const result = await unifiedApi({action:"validateSession",sessionToken:adminSessionToken,service:"admin"});
-    if(result.success && result.user && result.user.isAdmin){showAdmin();return}
-  }catch(e){}
+
+    const result =
+      await unifiedApi({
+
+        action:
+          "validateSession",
+
+        sessionToken:
+          adminSessionToken,
+
+        service:
+          "admin"
+
+      });
+
+
+    if (
+      result &&
+      result.success &&
+      result.user &&
+      result.user.isAdmin &&
+      result.user.username &&
+      String(
+        result.user.username
+      ).toLowerCase() ===
+        MAIN_ADMIN_USERNAME.toLowerCase()
+    ){
+
+      adminUsername =
+        result.user.username;
+
+
+      showAdmin();
+
+      return;
+
+    }
+
+
+  }catch(error){
+  }
+
+
   logoutAdmin();
+
 }
+
+
+
 async function loadMedications(){
+
   clearResult();
-  if(!medicationsApiReady()){showResult("error",text[currentLang].scriptMissing);return}
+
+
+  if (
+    !medicationsApiReady()
+  ){
+
+    showResult(
+      "error",
+      text[currentLang].scriptMissing
+    );
+
+    return;
+
+  }
+
+
   try{
-    const result = await medicationsApi({action:"listMedications"});
-    if(!result.success){showResult("error",text[currentLang].failed);return}
-    medications = result.medications || [];
+
+    const result =
+      await medicationsApi({
+        action:
+          "listMedications"
+      });
+
+
+    if (
+      !result.success
+    ){
+
+      showResult(
+        "error",
+        text[currentLang].failed
+      );
+
+      return;
+
+    }
+
+
+    medications =
+      result.medications || [];
+
+
     renderRows();
-  }catch(e){showResult("error",text[currentLang].failed)}
+
+
+  }catch(error){
+
+    showResult(
+      "error",
+      text[currentLang].failed
+    );
+
+  }
+
 }
+
+
+
 async function saveMedication(){
-  const name = document.getElementById("medNameInput").value.trim();
-  const service = document.getElementById("serviceInput").value;
-  if(!name){showResult("error",text[currentLang].missing);return}
+
+  const name =
+    document.getElementById(
+      "medNameInput"
+    ).value.trim();
+
+
+  const service =
+    document.getElementById(
+      "serviceInput"
+    ).value;
+
+
+  if (
+    !name
+  ){
+
+    showResult(
+      "error",
+      text[currentLang].missing
+    );
+
+    return;
+
+  }
+
+
   try{
-    const result = await medicationsApi({action:editingId ? "updateMedication" : "addMedication",id:editingId,medicationName:name,service,active:true});
-    if(!result.success){showResult("error",text[currentLang].failed);return}
+
+    const result =
+      await medicationsApi({
+
+        action:
+          editingId
+            ? "updateMedication"
+            : "addMedication",
+
+        id:
+          editingId,
+
+        medicationName:
+          name,
+
+        service:
+          service,
+
+        active:
+          true
+
+      });
+
+
+    if (
+      !result.success
+    ){
+
+      showResult(
+        "error",
+        text[currentLang].failed
+      );
+
+      return;
+
+    }
+
+
     clearForm();
-    showResult("success",text[currentLang].saved);
+
+
+    showResult(
+      "success",
+      text[currentLang].saved
+    );
+
+
     await loadMedications();
-  }catch(e){showResult("error",medicationsApiReady() ? text[currentLang].failed : text[currentLang].scriptMissing)}
+
+
+  }catch(error){
+
+    showResult(
+      "error",
+      medicationsApiReady()
+        ? text[currentLang].failed
+        : text[currentLang].scriptMissing
+    );
+
+  }
+
 }
-function editMedication(id){
-  const item = medications.find(m => m.id === id);
-  if(!item) return;
-  editingId = item.id;
-  document.getElementById("medNameInput").value = item.name;
-  document.getElementById("serviceInput").value = item.service || "kidney";
-  document.getElementById("saveBtn").innerText = text[currentLang].update;
+
+
+
+function editMedication(
+  id
+){
+
+  const item =
+    medications.find(
+      function(m){
+        return m.id === id;
+      }
+    );
+
+
+  if (
+    !item
+  ){
+
+    return;
+
+  }
+
+
+  editingId =
+    item.id;
+
+
+  document.getElementById(
+    "medNameInput"
+  ).value =
+    item.name;
+
+
+  document.getElementById(
+    "serviceInput"
+  ).value =
+    item.service || "kidney";
+
+
+  document.getElementById(
+    "saveBtn"
+  ).innerText =
+    text[currentLang].update;
+
 }
-async function toggleMedication(id){
-  const item = medications.find(m => m.id === id);
-  if(!item) return;
+
+
+
+async function toggleMedication(
+  id
+){
+
+  const item =
+    medications.find(
+      function(m){
+        return m.id === id;
+      }
+    );
+
+
+  if (
+    !item
+  ){
+
+    return;
+
+  }
+
+
   try{
-    const result = await medicationsApi({action:"updateMedication",id:item.id,medicationName:item.name,service:item.service,active:!item.active});
-    if(!result.success){showResult("error",text[currentLang].failed);return}
+
+    const result =
+      await medicationsApi({
+
+        action:
+          "updateMedication",
+
+        id:
+          item.id,
+
+        medicationName:
+          item.name,
+
+        service:
+          item.service,
+
+        active:
+          !item.active
+
+      });
+
+
+    if (
+      !result.success
+    ){
+
+      showResult(
+        "error",
+        text[currentLang].failed
+      );
+
+      return;
+
+    }
+
+
     await loadMedications();
-  }catch(e){showResult("error",text[currentLang].failed)}
+
+
+  }catch(error){
+
+    showResult(
+      "error",
+      text[currentLang].failed
+    );
+
+  }
+
 }
-async function deleteMedication(id){
-  if(!confirm(currentLang === "ar" ? "حذف الدواء؟" : "Delete medication?")) return;
+
+
+
+async function deleteMedication(
+  id
+){
+
+  if (
+    !confirm(
+      currentLang === "ar"
+        ? "حذف الدواء؟"
+        : "Delete medication?"
+    )
+  ){
+
+    return;
+
+  }
+
+
   try{
-    const result = await medicationsApi({action:"deleteMedication",id});
-    if(!result.success){showResult("error",text[currentLang].failed);return}
-    showResult("success",text[currentLang].deleted);
+
+    const result =
+      await medicationsApi({
+
+        action:
+          "deleteMedication",
+
+        id:
+          id
+
+      });
+
+
+    if (
+      !result.success
+    ){
+
+      showResult(
+        "error",
+        text[currentLang].failed
+      );
+
+      return;
+
+    }
+
+
+    showResult(
+      "success",
+      text[currentLang].deleted
+    );
+
+
     await loadMedications();
-  }catch(e){showResult("error",text[currentLang].failed)}
+
+
+  }catch(error){
+
+    showResult(
+      "error",
+      text[currentLang].failed
+    );
+
+  }
+
 }
+
+
+
 function clearForm(){
-  editingId = "";
-  document.getElementById("medNameInput").value = "";
-  document.getElementById("serviceInput").value = "kidney";
-  document.getElementById("saveBtn").innerText = text[currentLang].add;
+
+  editingId =
+    "";
+
+
+  document.getElementById(
+    "medNameInput"
+  ).value =
+    "";
+
+
+  document.getElementById(
+    "serviceInput"
+  ).value =
+    "kidney";
+
+
+  document.getElementById(
+    "saveBtn"
+  ).innerText =
+    text[currentLang].add;
+
 }
+
+
+
 function renderRows(){
-  const body = document.getElementById("medicationsBody");
-  if(!body) return;
-  const q = (document.getElementById("searchInput")?.value || "").trim().toLowerCase();
-  const rows = medications.filter(m => !q || String(m.name || "").toLowerCase().includes(q));
-  body.innerHTML = rows.map(item => `
-    <tr>
-      <td>${escapeHtml(item.name || "")}</td>
-      <td>${escapeHtml(item.service || "")}</td>
-      <td><span class="status-pill ${item.active ? "active" : "inactive"}">${item.active ? text[currentLang].active : text[currentLang].inactive}</span></td>
-      <td>
-        <div class="row-actions">
-          <button class="icon-btn" type="button" onclick="editMedication('${escapeAttr(item.id)}')" title="Edit">✎</button>
-          <button class="icon-btn" type="button" onclick="toggleMedication('${escapeAttr(item.id)}')" title="Toggle">⏻</button>
-          <button class="icon-btn danger" type="button" onclick="deleteMedication('${escapeAttr(item.id)}')" title="Delete">×</button>
-        </div>
-      </td>
-    </tr>
-  `).join("");
+
+  const body =
+    document.getElementById(
+      "medicationsBody"
+    );
+
+
+  if (
+    !body
+  ){
+
+    return;
+
+  }
+
+
+  const q =
+    (
+      document.getElementById(
+        "searchInput"
+      )?.value || ""
+    )
+      .trim()
+      .toLowerCase();
+
+
+  const rows =
+    medications.filter(
+      function(m){
+
+        return (
+          !q ||
+          String(
+            m.name || ""
+          )
+            .toLowerCase()
+            .includes(
+              q
+            )
+        );
+
+      }
+    );
+
+
+  body.innerHTML =
+    rows.map(
+      function(item){
+
+        return `
+          <tr>
+
+            <td>
+              ${escapeHtml(
+                item.name || ""
+              )}
+            </td>
+
+            <td>
+              ${escapeHtml(
+                item.service || ""
+              )}
+            </td>
+
+            <td>
+
+              <span
+                class="status-pill ${
+                  item.active
+                    ? "active"
+                    : "inactive"
+                }">
+
+                ${
+                  item.active
+                    ? text[currentLang].active
+                    : text[currentLang].inactive
+                }
+
+              </span>
+
+            </td>
+
+            <td>
+
+              <div class="row-actions">
+
+                <button
+                  class="icon-btn"
+                  type="button"
+                  onclick="editMedication('${escapeAttr(item.id)}')"
+                  title="Edit">
+                  ✎
+                </button>
+
+                <button
+                  class="icon-btn"
+                  type="button"
+                  onclick="toggleMedication('${escapeAttr(item.id)}')"
+                  title="Toggle">
+                  ⏻
+                </button>
+
+                <button
+                  class="icon-btn danger"
+                  type="button"
+                  onclick="deleteMedication('${escapeAttr(item.id)}')"
+                  title="Delete">
+                  ×
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+        `;
+
+      }
+    ).join("");
+
 }
-function showResult(type,message){
-  const el = document.getElementById("result");
-  el.className = type;
-  el.innerText = message;
+
+
+
+function showResult(
+  type,
+  message
+){
+
+  const el =
+    document.getElementById(
+      "result"
+    );
+
+
+  el.className =
+    type;
+
+
+  el.innerText =
+    message;
+
 }
-function clearResult(){showResult("","")}
-function escapeHtml(value){
-  return String(value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+
+
+
+function clearResult(){
+
+  showResult(
+    "",
+    ""
+  );
+
 }
-function escapeAttr(value){return escapeHtml(value).replace(/`/g,"&#96;")}
-setLanguage("ar");
+
+
+
+function escapeHtml(
+  value
+){
+
+  return String(
+    value
+  ).replace(
+    /[&<>"']/g,
+    function(c){
+
+      return {
+        "&":
+          "&amp;",
+
+        "<":
+          "&lt;",
+
+        ">":
+          "&gt;",
+
+        "\"":
+          "&quot;",
+
+        "'":
+          "&#39;"
+      }[c];
+
+    }
+  );
+
+}
+
+
+
+function escapeAttr(
+  value
+){
+
+  return escapeHtml(
+    value
+  ).replace(
+    /`/g,
+    "&#96;"
+  );
+
+}
+
+
+
+setLanguage(
+  "ar"
+);
+
+
 validateExistingSession();
+
 </script>
+
 </body>
 </html>
