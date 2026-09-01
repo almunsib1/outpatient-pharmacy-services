@@ -1347,12 +1347,24 @@ function renderDate(){
    EXPIRY DATE
 ========================================================= */
 
-function buildExpirySelectors(){
+function getExpiryCurrentYear(){
 
-  const daySelect =
-    document.getElementById(
-      "expiryDay"
-    );
+  return Number(
+    new Intl.DateTimeFormat(
+      "en",
+      {
+        timeZone:"Asia/Riyadh",
+        year:"numeric"
+      }
+    ).format(
+      new Date()
+    )
+  );
+
+}
+
+
+function buildExpirySelectors(){
 
   const yearSelect =
     document.getElementById(
@@ -1360,9 +1372,89 @@ function buildExpirySelectors(){
     );
 
 
+  const currentYear =
+    getExpiryCurrentYear();
+
+
+  for (
+    let year = currentYear;
+    year <= currentYear + 15;
+    year++
+  ){
+
+    const option =
+      document.createElement(
+        "option"
+      );
+
+    option.value =
+      String(year);
+
+    option.textContent =
+      String(year);
+
+    yearSelect.appendChild(
+      option
+    );
+
+  }
+
+
+  updateExpiryDays();
+
+}
+
+
+function updateExpiryDays(){
+
+  const daySelect =
+    document.getElementById(
+      "expiryDay"
+    );
+
+  const month =
+    document.getElementById(
+      "expiryMonth"
+    ).value;
+
+  const year =
+    document.getElementById(
+      "expiryYear"
+    ).value;
+
+
+  const previousDay =
+    daySelect.value;
+
+
+  daySelect.innerHTML =
+    '<option value="">Day</option>';
+
+
+  if (
+    !month
+  ){
+    return;
+  }
+
+
+  const effectiveYear =
+    year
+      ? Number(year)
+      : getExpiryCurrentYear();
+
+
+  const daysInMonth =
+    new Date(
+      effectiveYear,
+      Number(month),
+      0
+    ).getDate();
+
+
   for (
     let day = 1;
-    day <= 31;
+    day <= daysInMonth;
     day++
   ){
 
@@ -1390,40 +1482,13 @@ function buildExpirySelectors(){
   }
 
 
-  const currentYear =
-    Number(
-      new Intl.DateTimeFormat(
-        "en",
-        {
-          timeZone:"Asia/Riyadh",
-          year:"numeric"
-        }
-      ).format(
-        new Date()
-      )
-    );
-
-
-  for (
-    let year = currentYear;
-    year <= currentYear + 15;
-    year++
+  if (
+    previousDay &&
+    Number(previousDay) <= daysInMonth
   ){
 
-    const option =
-      document.createElement(
-        "option"
-      );
-
-    option.value =
-      String(year);
-
-    option.textContent =
-      String(year);
-
-    yearSelect.appendChild(
-      option
-    );
+    daySelect.value =
+      previousDay;
 
   }
 
@@ -1509,6 +1574,8 @@ function clearExpiryDate(){
     "expiryYear"
   ).value =
     "";
+
+  updateExpiryDays();
 
 }
 
@@ -2870,6 +2937,22 @@ document.addEventListener(
     }
 
   }
+);
+
+
+document.getElementById(
+  "expiryMonth"
+).addEventListener(
+  "change",
+  updateExpiryDays
+);
+
+
+document.getElementById(
+  "expiryYear"
+).addEventListener(
+  "change",
+  updateExpiryDays
 );
 
 
