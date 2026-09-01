@@ -101,10 +101,10 @@ body{padding:10px;background:#fff}
       </div>
     </div>
 
-    <a class="portal-card" href="admin.html" target="_blank" rel="noopener">
+    <a class="portal-card" href="control-panel.html" target="_blank" rel="noopener">
       <div class="card-text">
-        <p class="card-title" id="adminTitle">إدارة المستخدمين</p>
-        <p class="card-desc" id="adminDesc">إدارة المستخدمين والصلاحيات للمشروعين من صفحة واحدة.</p>
+        <p class="card-title" id="controlTitle">لوحة التحكم</p>
+        <p class="card-desc" id="controlDesc">دخول الأدمن الرئيسي لإدارة المستخدمين والأدوية المركزية.</p>
       </div>
       <div class="card-icon">⚙</div>
     </a>
@@ -132,8 +132,8 @@ const text = {
     medTitle: "صرف الأدوية الشهرية بموعد",
     medDesc: "بوابة خدمة حجز ومتابعة مواعيد صرف الأدوية الشهرية.",
     bookingLink: "رابط الحجز",
-    adminTitle: "إدارة المستخدمين",
-    adminDesc: "إدارة المستخدمين والصلاحيات للمشروعين من صفحة واحدة.",
+    controlTitle: "لوحة التحكم",
+    controlDesc: "دخول الأدمن الرئيسي لإدارة المستخدمين والأدوية المركزية.",
     expiryTitle: "متابعة تواريخ صلاحية الأدوية",
     expiryDesc: "متابعة تواريخ انتهاء الأدوية والتنبيه قبل قرب انتهاء الصلاحية."
   },
@@ -148,8 +148,8 @@ const text = {
     medTitle: "Monthly Medication Pickup by Appointment",
     medDesc: "A portal for booking and managing monthly medication pickup appointments.",
     bookingLink: "Booking Link",
-    adminTitle: "User Management",
-    adminDesc: "Manage users and permissions for both services from one page.",
+    controlTitle: "Control Panel",
+    controlDesc: "Main admin access for unified users and central medications.",
     expiryTitle: "Medication Expiry Monitoring",
     expiryDesc: "Track medication expiry dates and highlight items before they expire."
   }
@@ -170,8 +170,8 @@ function setLanguage(lang) {
   document.getElementById("medTitle").innerText = text[lang].medTitle;
   document.getElementById("medDesc").innerText = text[lang].medDesc;
   document.getElementById("bookingLink").innerText = text[lang].bookingLink;
-  document.getElementById("adminTitle").innerText = text[lang].adminTitle;
-  document.getElementById("adminDesc").innerText = text[lang].adminDesc;
+  document.getElementById("controlTitle").innerText = text[lang].controlTitle;
+  document.getElementById("controlDesc").innerText = text[lang].controlDesc;
   document.getElementById("expiryTitle").innerText = text[lang].expiryTitle;
   document.getElementById("expiryDesc").innerText = text[lang].expiryDesc;
   document.getElementById("medPortal").setAttribute("aria-label", text[lang].medTitle);

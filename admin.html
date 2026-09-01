@@ -20,7 +20,10 @@ hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
 .date-box{color:#168fb3;padding:6px 10px;font-size:13px;font-weight:bold;text-align:center}
 .language-btn{border:none;background:transparent;cursor:pointer;font-size:13px;font-weight:bold;color:#168fb3;padding:4px 0}
 .secondary-btn{border:1px solid #cbd5e1;background:#fff;cursor:pointer;font-size:13px;font-weight:bold;color:#168fb3;padding:7px 10px;border-radius:8px}
-.page-title{text-align:center;font-size:24px;font-weight:bold;margin:14px 0 10px;color:#168fb3}
+.title-row{display:grid;grid-template-columns:36px auto 36px;align-items:center;justify-content:center;gap:10px;margin:14px 0 10px}
+.page-title{text-align:center;font-size:24px;font-weight:bold;margin:0;color:#168fb3;grid-column:2}
+.title-back-button{grid-column:1;width:34px;height:34px;border:0;background:transparent;color:#168fb3;display:flex;align-items:center;justify-content:center;padding:0;text-decoration:none;font-size:28px;line-height:1}
+.title-back-button:hover{color:#0f7592;transform:translateX(-1px)}
 .login-card,.panel,.empty-box{border:1px solid #e5e7eb;background:#f9fafb;border-radius:8px;padding:14px;margin-top:14px}
 .login-card{max-width:280px;margin:16px auto 0;background:#f9fafb;box-shadow:none;padding:12px}
 label{font-weight:bold;display:block;margin-bottom:3px;color:#111827;font-size:13px}
@@ -64,6 +67,8 @@ body{padding:10px;background:#fff}
 .official-header{transform:translateY(10px)}
 .official-header h2,.official-header h3{font-size:12px}
 .page-title{font-size:20px}
+.title-row{grid-template-columns:34px auto 34px}
+.title-back-button{width:32px;height:32px;font-size:26px}
 .form-grid{grid-template-columns:1fr;max-width:320px}
 .form-actions{flex-wrap:wrap}
 .login-card{max-width:280px;padding:12px}
@@ -95,7 +100,10 @@ table{min-width:760px}
   <button type="button" class="language-btn" id="languageToggle" onclick="toggleLanguage()"></button>
 </div>
 
-<div class="page-title" id="pageTitle"></div>
+<div class="title-row">
+  <a class="title-back-button" href="control-panel.html" title="رجوع" aria-label="رجوع">↩</a>
+  <div class="page-title" id="pageTitle"></div>
+</div>
 
 <div id="loginView" class="login-card">
   <label id="adminUsernameLabel" for="adminUsername"></label>

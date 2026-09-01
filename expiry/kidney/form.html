@@ -859,6 +859,9 @@ select{
 const KIDNEY_API_URL =
   "https://script.google.com/macros/s/AKfycbxtrOZPua0dmMEtXCHJQ7wCZnp6OPiKVurOOL8YG_Ma1mPMhgmzWFadYGxWV4CDejgcIw/exec";
 
+const CENTRAL_MEDICATIONS_API_URL =
+  "PUT_CENTRAL_MEDICATIONS_APPS_SCRIPT_URL_HERE";
+
 const KIDNEY_SESSION_NAME_KEY =
   "kidneyEmployeeName";
 
@@ -1033,6 +1036,9 @@ const MEDICATIONS = [
   "Metoprolol inj",
   "Lidocaine gel"
 ];
+
+let centralMedicationList =
+  [];
 
 
 let currentLang =
@@ -2129,10 +2135,12 @@ function renderMedOptions(
       .trim()
       .toLowerCase();
 
+  const medicationSource =
+    getMedicationSource();
 
   const matches =
     q
-      ? MEDICATIONS.filter(
+      ? medicationSource.filter(
           function(m){
             return m
               .toLowerCase()
@@ -2141,7 +2149,7 @@ function renderMedOptions(
               );
           }
         )
-      : MEDICATIONS;
+      : medicationSource;
 
 
   box.innerHTML =
@@ -2211,6 +2219,78 @@ function renderMedOptions(
 
   box.style.display =
     "block";
+
+}
+
+
+function getMedicationSource(){
+
+  return centralMedicationList.length
+    ? centralMedicationList
+    : MEDICATIONS;
+
+}
+
+
+function centralMedicationsApiReady(){
+
+  return CENTRAL_MEDICATIONS_API_URL &&
+    !CENTRAL_MEDICATIONS_API_URL.includes(
+      "PUT_CENTRAL_MEDICATIONS"
+    );
+
+}
+
+
+async function loadCentralMedicationList(){
+
+  if (
+    !centralMedicationsApiReady()
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    const response =
+      await fetch(
+        CENTRAL_MEDICATIONS_API_URL +
+          "?action=listMedications&service=kidney"
+      );
+
+    const data =
+      await response.json();
+
+    if (
+      data &&
+      data.success &&
+      Array.isArray(
+        data.medications
+      )
+    ){
+
+      centralMedicationList =
+        data.medications
+          .map(
+            function(item){
+              return item && item.name
+                ? String(item.name).trim()
+                : "";
+            }
+          )
+          .filter(Boolean);
+
+    }
+
+  }catch(error){
+
+    centralMedicationList =
+      [];
+
+  }
 
 }
 
@@ -2967,6 +3047,8 @@ async function init(){
   setLanguage(
     "en"
   );
+
+  await loadCentralMedicationList();
 
   await restoreSession();
 
