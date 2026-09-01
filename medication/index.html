@@ -7,578 +7,1755 @@
 
 <style>
 *{box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
-.container{max-width:700px;margin:auto;background:#fff;padding:22px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,.1)}
-.top-bar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px;direction:rtl}
-.logo{width:140px;height:140px;object-fit:contain;margin-top:-24px}
-.header{width:fit-content;max-width:100%;text-align:start;margin-block-end:14px;margin-inline-start:0;margin-inline-end:auto;transform:translateY(18px)}
-.header h2,.header h3{margin:2px 0;font-size:13px;line-height:1.4;color:#168fb3}
-[dir="rtl"] .header{padding-left:8px;border-left:4px solid #168fb3}
-[dir="ltr"] .header{padding-right:8px;border-right:4px solid #168fb3}
-.service-title{text-align:center;font-size:23px;font-weight:bold;margin:14px 0 8px;line-height:1.4;cursor:pointer;color:#168fb3}
-.trial{display:table;background:#fff7ed;color:#9a3412;padding:7px 18px;border-radius:8px;margin:0 auto 14px;font-weight:bold;text-align:center}
-.meta-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;direction:ltr}
-.date-box{color:#168fb3;padding:6px 10px;font-size:13px;font-weight:bold;text-align:center}
-.language-box{text-align:center}
-.language-btn{border:none;background:transparent;cursor:pointer;font-size:15px;font-weight:bold;color:#168fb3;padding:4px 0;border-radius:0}
-.language-btn:hover{background:transparent}
-.subtitle{text-align:center;color:#168fb3;margin-bottom:18px;line-height:1.7}
-label{font-weight:bold;display:block}
-form{max-width:560px;margin:18px auto 0;text-align:start}
-.form-row{display:grid;grid-template-columns:110px 1fr;align-items:center;gap:2px;margin-bottom:9px}
-[dir="rtl"] .form-row{grid-template-columns:110px 1fr}
-[dir="rtl"] .form-row label{grid-column:1;text-align:right}
-[dir="rtl"] .form-row input,[dir="rtl"] .form-row select{grid-column:2;grid-row:1}
-[dir="ltr"] .form-row label{text-align:left}
-input,select{width:100%;height:40px;padding:8px 11px;margin-top:6px;margin-bottom:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;background:#fff;text-align:start}
-select:disabled{background:#f9fafb;color:#6b7280}
-button[type="submit"],.save-btn{padding:12px 24px;background:#168fb3;color:#fff;border:none;border-radius:8px;font-size:17px;cursor:pointer}
-button[type="submit"]{display:table;width:auto;margin:6px auto 0}
-.save-btn{display:table;width:auto;margin-left:auto;margin-right:auto}
-button[type="submit"]:disabled,.save-btn:disabled{background:#6b7280;cursor:not-allowed}
-#result{display:none;margin-top:20px;padding:15px;border-radius:8px;line-height:1.7;text-align:center}
-#result.error{display:block;background:#fef2f2;color:#991b1b}
-.confirmation-wrap{display:none;margin-top:18px}
-.appointment-card{max-width:430px;margin:0 auto;background:#fff;border:1px solid #dbeafe;border-radius:12px;padding:18px;box-shadow:0 8px 20px rgba(15,23,42,.08);color:#168fb3}
-.appointment-card h2{margin:0 0 8px;text-align:center;color:#1e40af;font-size:22px;line-height:1.4}
-.appointment-card .success-text{text-align:center;background:#ecfdf5;color:#065f46;border-radius:8px;padding:10px;margin:0 0 16px;line-height:1.7;font-weight:bold}
-.card-grid{display:block}
-.card-field{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #e5e7eb;padding:9px 2px;min-width:0;text-align:start}
-.card-field:last-child{border-bottom:none}
-.booking-id-field{display:block;width:fit-content;margin:0 auto 10px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:10px 18px;text-align:center}
-.booking-id-field .card-value{font-size:24px;color:#1e40af;letter-spacing:1px}
-.card-label{display:block;color:#6b7280;font-size:13px;white-space:nowrap}
-.card-value{display:block;color:#168fb3;font-weight:bold;font-size:15px;line-height:1.5;word-break:break-word;text-align:end}
-.save-btn{margin-top:12px}
-hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
-@media (max-width:600px){
-body{padding:10px;background:#fff}
-.container{padding:14px;border-radius:0;box-shadow:none;max-width:100%}
-.logo{width:104px;height:104px;margin-top:-16px}
-.header h2,.header h3{font-size:12px}
-.header{transform:translateY(12px)}
-.service-title{font-size:20px}
-.subtitle{font-size:15px}
-.meta-row{gap:8px}
-.date-box,.language-btn{font-size:12px;padding:6px 9px}
-form{max-width:100%;margin-top:16px}
-.form-row{grid-template-columns:1fr;gap:4px;margin-bottom:10px}
-[dir="rtl"] .form-row{grid-template-columns:1fr}
-[dir="rtl"] .form-row label,[dir="rtl"] .form-row input,[dir="rtl"] .form-row select{grid-column:auto;grid-row:auto}
-[dir="rtl"] .form-row label{text-align:right}
-[dir="ltr"] .form-row label{text-align:left}
-input,select{height:42px;font-size:16px;padding:9px 10px}
-button[type="submit"],.save-btn{font-size:17px;padding:15px}
-.appointment-card{padding:16px}
-.appointment-card h2{font-size:19px}
-.card-grid{display:block}
-.card-field{display:block;text-align:start}
-.card-value{text-align:start}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f3f4f6;
+  margin:0;
+  padding:16px;
+  color:#168fb3
 }
-.appointment-card{max-width:390px;padding:15px;border-radius:10px}
-.appointment-card h2{font-size:19px;margin-bottom:6px}
-.appointment-card .success-text{padding:8px;margin-bottom:12px;font-size:13px}
-.booking-id-field{padding:8px 15px;margin-bottom:8px}
-.booking-id-field .card-value{font-size:21px}
-.card-field{padding:7px 2px}
-.card-label{font-size:12px}
-.card-value{font-size:14px}
+
+.container{
+  max-width:700px;
+  margin:auto;
+  background:#fff;
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 10px 25px rgba(0,0,0,.1)
+}
+
+.top-bar{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;
+  direction:rtl
+}
+
+.logo{
+  width:140px;
+  height:140px;
+  object-fit:contain;
+  margin-top:-24px
+}
+
+.header{
+  width:fit-content;
+  max-width:100%;
+  text-align:start;
+  margin-block-end:14px;
+  margin-inline-start:0;
+  margin-inline-end:auto;
+  transform:translateY(18px)
+}
+
+.header h2,
+.header h3{
+  margin:2px 0;
+  font-size:13px;
+  line-height:1.4;
+  color:#168fb3
+}
+
+/* العربي كما هو */
+[dir="rtl"] .header{
+  padding-left:8px;
+  border-left:4px solid #168fb3
+}
+
+/* الإنجليزي: نفس مكان الترويسة، فقط الخط والمحاذاة */
+[dir="ltr"] .header{
+  padding-left:6px;
+  padding-right:0;
+  border-left:4px solid #168fb3;
+  border-right:0;
+  text-align:left
+}
+
+[dir="ltr"] .header h2,
+[dir="ltr"] .header h3{
+  direction:ltr;
+  text-align:left
+}
+
+.service-title{
+  text-align:center;
+  font-size:23px;
+  font-weight:bold;
+  margin:14px 0 8px;
+  line-height:1.4;
+  cursor:pointer;
+  color:#168fb3
+}
+
+.trial{
+  display:table;
+  background:#fff7ed;
+  color:#9a3412;
+  padding:7px 18px;
+  border-radius:8px;
+  margin:0 auto 14px;
+  font-weight:bold;
+  text-align:center
+}
+
+.meta-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
+  direction:ltr
+}
+
+.date-box{
+  color:#168fb3;
+  padding:6px 10px;
+  font-size:13px;
+  font-weight:bold;
+  text-align:center
+}
+
+.language-box{
+  text-align:center
+}
+
+.language-btn{
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:bold;
+  color:#168fb3;
+  padding:4px 0;
+  border-radius:0
+}
+
+.language-btn:hover{
+  background:transparent
+}
+
+.subtitle{
+  text-align:center;
+  color:#168fb3;
+  margin-bottom:18px;
+  line-height:1.7
+}
+
+label{
+  font-weight:bold;
+  display:block
+}
+
+form{
+  max-width:560px;
+  margin:18px auto 0;
+  text-align:start
+}
+
+.form-row{
+  display:grid;
+  grid-template-columns:110px 1fr;
+  align-items:center;
+  gap:2px;
+  margin-bottom:9px
+}
+
+[dir="rtl"] .form-row{
+  grid-template-columns:110px 1fr
+}
+
+[dir="rtl"] .form-row label{
+  grid-column:1;
+  text-align:right
+}
+
+[dir="rtl"] .form-row input,
+[dir="rtl"] .form-row select{
+  grid-column:2;
+  grid-row:1
+}
+
+[dir="ltr"] .form-row label{
+  text-align:left
+}
+
+input,
+select{
+  width:100%;
+  height:40px;
+  padding:8px 11px;
+  margin-top:6px;
+  margin-bottom:12px;
+  border:1px solid #cbd5e1;
+  border-radius:8px;
+  font-size:15px;
+  background:#fff;
+  text-align:start
+}
+
+select:disabled{
+  background:#f9fafb;
+  color:#6b7280
+}
+
+button[type="submit"],
+.save-btn{
+  padding:12px 24px;
+  background:#168fb3;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  font-size:17px;
+  cursor:pointer
+}
+
+button[type="submit"]{
+  display:table;
+  width:auto;
+  margin:6px auto 0
+}
+
+.save-btn{
+  display:table;
+  width:auto;
+  margin-left:auto;
+  margin-right:auto
+}
+
+button[type="submit"]:disabled,
+.save-btn:disabled{
+  background:#6b7280;
+  cursor:not-allowed
+}
+
+#result{
+  display:none;
+  margin-top:20px;
+  padding:15px;
+  border-radius:8px;
+  line-height:1.7;
+  text-align:center
+}
+
+#result.error{
+  display:block;
+  background:#fef2f2;
+  color:#991b1b
+}
+
+.confirmation-wrap{
+  display:none;
+  margin-top:18px
+}
+
+.appointment-card{
+  max-width:430px;
+  margin:0 auto;
+  background:#fff;
+  border:1px solid #dbeafe;
+  border-radius:12px;
+  padding:18px;
+  box-shadow:0 8px 20px rgba(15,23,42,.08);
+  color:#168fb3
+}
+
+.appointment-card h2{
+  margin:0 0 8px;
+  text-align:center;
+  color:#1e40af;
+  font-size:22px;
+  line-height:1.4
+}
+
+.appointment-card .success-text{
+  text-align:center;
+  background:#ecfdf5;
+  color:#065f46;
+  border-radius:8px;
+  padding:10px;
+  margin:0 0 16px;
+  line-height:1.7;
+  font-weight:bold
+}
+
+.card-grid{
+  display:block
+}
+
+.card-field{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  border-bottom:1px solid #e5e7eb;
+  padding:9px 2px;
+  min-width:0;
+  text-align:start
+}
+
+.card-field:last-child{
+  border-bottom:none
+}
+
+.booking-id-field{
+  display:block;
+  width:fit-content;
+  margin:0 auto 10px;
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+  border-radius:8px;
+  padding:10px 18px;
+  text-align:center
+}
+
+.booking-id-field .card-value{
+  font-size:24px;
+  color:#1e40af;
+  letter-spacing:1px
+}
+
+.card-label{
+  display:block;
+  color:#6b7280;
+  font-size:13px;
+  white-space:nowrap
+}
+
+.card-value{
+  display:block;
+  color:#168fb3;
+  font-weight:bold;
+  font-size:15px;
+  line-height:1.5;
+  word-break:break-word;
+  text-align:end
+}
+
+.save-btn{
+  margin-top:12px
+}
+
+hr{
+  border:none;
+  border-top:1px solid #e5e7eb;
+  margin:14px 0
+}
+
 @media (max-width:600px){
-.appointment-card{max-width:340px;padding:13px}
-.appointment-card h2{font-size:17px}
-.appointment-card .success-text{font-size:12px;line-height:1.55}
-.booking-id-field .card-value{font-size:19px}
-.card-field{padding:6px 2px}
-.card-label,.card-value{font-size:12px}
+
+  body{
+    padding:10px;
+    background:#fff
+  }
+
+  .container{
+    padding:14px;
+    border-radius:0;
+    box-shadow:none;
+    max-width:100%
+  }
+
+  .logo{
+    width:104px;
+    height:104px;
+    margin-top:-16px
+  }
+
+  .header h2,
+  .header h3{
+    font-size:12px
+  }
+
+  .header{
+    transform:translateY(12px)
+  }
+
+  .service-title{
+    font-size:20px
+  }
+
+  .subtitle{
+    font-size:15px
+  }
+
+  .meta-row{
+    gap:8px
+  }
+
+  .date-box,
+  .language-btn{
+    font-size:12px;
+    padding:6px 9px
+  }
+
+  form{
+    max-width:100%;
+    margin-top:16px
+  }
+
+  .form-row{
+    grid-template-columns:1fr;
+    gap:4px;
+    margin-bottom:10px
+  }
+
+  [dir="rtl"] .form-row{
+    grid-template-columns:1fr
+  }
+
+  [dir="rtl"] .form-row label,
+  [dir="rtl"] .form-row input,
+  [dir="rtl"] .form-row select{
+    grid-column:auto;
+    grid-row:auto
+  }
+
+  [dir="rtl"] .form-row label{
+    text-align:right
+  }
+
+  [dir="ltr"] .form-row label{
+    text-align:left
+  }
+
+  input,
+  select{
+    height:42px;
+    font-size:16px;
+    padding:9px 10px
+  }
+
+  button[type="submit"],
+  .save-btn{
+    font-size:17px;
+    padding:15px
+  }
+
+  .appointment-card{
+    padding:16px
+  }
+
+  .appointment-card h2{
+    font-size:19px
+  }
+
+  .card-grid{
+    display:block
+  }
+
+  .card-field{
+    display:block;
+    text-align:start
+  }
+
+  .card-value{
+    text-align:start
+  }
+}
+
+.appointment-card{
+  max-width:390px;
+  padding:15px;
+  border-radius:10px
+}
+
+.appointment-card h2{
+  font-size:19px;
+  margin-bottom:6px
+}
+
+.appointment-card .success-text{
+  padding:8px;
+  margin-bottom:12px;
+  font-size:13px
+}
+
+.booking-id-field{
+  padding:8px 15px;
+  margin-bottom:8px
+}
+
+.booking-id-field .card-value{
+  font-size:21px
+}
+
+.card-field{
+  padding:7px 2px
+}
+
+.card-label{
+  font-size:12px
+}
+
+.card-value{
+  font-size:14px
+}
+
+@media (max-width:600px){
+
+  .appointment-card{
+    max-width:340px;
+    padding:13px
+  }
+
+  .appointment-card h2{
+    font-size:17px
+  }
+
+  .appointment-card .success-text{
+    font-size:12px;
+    line-height:1.55
+  }
+
+  .booking-id-field .card-value{
+    font-size:19px
+  }
+
+  .card-field{
+    padding:6px 2px
+  }
+
+  .card-label,
+  .card-value{
+    font-size:12px
+  }
 }
 </style>
 </head>
 
 <body>
+
 <div class="container">
+
 <div class="top-bar">
+
   <div class="header">
     <h2 id="hospitalName"></h2>
     <h3 id="departmentName"></h3>
     <h3 id="pharmacyName"></h3>
   </div>
+
   <img class="logo" src="logo.png" alt="Logo">
+
 </div>
 
 <hr>
 
 <div class="meta-row">
+
   <div class="date-box" id="dateBox"></div>
+
   <div class="language-box">
-    <button type="button" class="language-btn" id="languageToggle" onclick="toggleLanguage()"></button>
+
+    <button
+      type="button"
+      class="language-btn"
+      id="languageToggle"
+      onclick="toggleLanguage()">
+    </button>
+
   </div>
+
 </div>
 
-<div class="service-title" id="title" onclick="goToBookingPage()"></div>
-<div class="trial" id="trial"></div>
-<p class="subtitle" id="subtitle"></p>
+<div
+  class="service-title"
+  id="title"
+  onclick="goToBookingPage()">
+</div>
+
+<div
+  class="trial"
+  id="trial">
+</div>
+
+<p
+  class="subtitle"
+  id="subtitle">
+</p>
 
 <form id="bookingForm">
+
 <div class="form-row">
-<label id="fullNameLabel" for="fullName"></label>
-<input type="text" id="fullName" autocomplete="name" required>
+
+  <label
+    id="fullNameLabel"
+    for="fullName">
+  </label>
+
+  <input
+    type="text"
+    id="fullName"
+    autocomplete="name"
+    required>
+
 </div>
 
 <div class="form-row">
-<label id="nationalIdLabel" for="nationalId"></label>
-<input type="text" id="nationalId" inputmode="numeric" required>
+
+  <label
+    id="nationalIdLabel"
+    for="nationalId">
+  </label>
+
+  <input
+    type="text"
+    id="nationalId"
+    inputmode="numeric"
+    required>
+
 </div>
 
 <div class="form-row">
-<label id="fileNumberLabel" for="fileNumber"></label>
-<input type="text" id="fileNumber" inputmode="numeric" required>
+
+  <label
+    id="fileNumberLabel"
+    for="fileNumber">
+  </label>
+
+  <input
+    type="text"
+    id="fileNumber"
+    inputmode="numeric"
+    required>
+
 </div>
 
 <div class="form-row">
-<label id="mobileLabel" for="mobileNumber"></label>
-<input type="tel" id="mobileNumber" autocomplete="tel" required>
+
+  <label
+    id="mobileLabel"
+    for="mobileNumber">
+  </label>
+
+  <input
+    type="tel"
+    id="mobileNumber"
+    autocomplete="tel"
+    required>
+
 </div>
 
 <div class="form-row">
-<label id="pharmacyLabel" for="pharmacy"></label>
-<select id="pharmacy" required></select>
+
+  <label
+    id="pharmacyLabel"
+    for="pharmacy">
+  </label>
+
+  <select
+    id="pharmacy"
+    required>
+  </select>
+
 </div>
 
 <div class="form-row">
-<label id="pickupLabel" for="pickupTime"></label>
-<select id="pickupTime" required disabled></select>
+
+  <label
+    id="pickupLabel"
+    for="pickupTime">
+  </label>
+
+  <select
+    id="pickupTime"
+    required
+    disabled>
+  </select>
+
 </div>
 
-<button type="submit" id="submitBtn"></button>
+<button
+  type="submit"
+  id="submitBtn">
+</button>
+
 </form>
 
 <div id="result"></div>
 
-<div class="confirmation-wrap" id="confirmationWrap">
-  <div class="appointment-card" id="appointmentCard">
+<div
+  class="confirmation-wrap"
+  id="confirmationWrap">
+
+  <div
+    class="appointment-card"
+    id="appointmentCard">
+
     <h2 id="cardTitle"></h2>
-    <p class="success-text" id="cardMessage"></p>
+
+    <p
+      class="success-text"
+      id="cardMessage">
+    </p>
+
     <div class="card-grid">
+
       <div class="card-field booking-id-field">
-        <span class="card-label" id="cardBookingIdLabel"></span>
-        <span class="card-value" id="cardBookingId"></span>
+
+        <span
+          class="card-label"
+          id="cardBookingIdLabel">
+        </span>
+
+        <span
+          class="card-value"
+          id="cardBookingId">
+        </span>
+
       </div>
+
       <div class="card-field">
-        <span class="card-label" id="cardNameLabel"></span>
-        <span class="card-value" id="cardName"></span>
+
+        <span
+          class="card-label"
+          id="cardNameLabel">
+        </span>
+
+        <span
+          class="card-value"
+          id="cardName">
+        </span>
+
       </div>
+
       <div class="card-field">
-        <span class="card-label" id="cardFileLabel"></span>
-        <span class="card-value" id="cardFile"></span>
+
+        <span
+          class="card-label"
+          id="cardFileLabel">
+        </span>
+
+        <span
+          class="card-value"
+          id="cardFile">
+        </span>
+
       </div>
+
       <div class="card-field">
-        <span class="card-label" id="cardPharmacyLabel"></span>
-        <span class="card-value" id="cardPharmacy"></span>
+
+        <span
+          class="card-label"
+          id="cardPharmacyLabel">
+        </span>
+
+        <span
+          class="card-value"
+          id="cardPharmacy">
+        </span>
+
       </div>
+
       <div class="card-field">
-        <span class="card-label" id="cardDateLabel"></span>
-        <span class="card-value" id="cardDate"></span>
+
+        <span
+          class="card-label"
+          id="cardDateLabel">
+        </span>
+
+        <span
+          class="card-value"
+          id="cardDate">
+        </span>
+
       </div>
+
       <div class="card-field">
-        <span class="card-label" id="cardTimeLabel"></span>
-        <span class="card-value" id="cardTime"></span>
+
+        <span
+          class="card-label"
+          id="cardTimeLabel">
+        </span>
+
+        <span
+          class="card-value"
+          id="cardTime">
+        </span>
+
       </div>
+
     </div>
+
   </div>
-  <button type="button" class="save-btn" id="saveCardBtn" onclick="saveAppointmentCard()"></button>
+
+  <button
+    type="button"
+    class="save-btn"
+    id="saveCardBtn"
+    onclick="saveAppointmentCard()">
+  </button>
+
 </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbw9JM87uiSHihWDP0N1gn4IskEG_8O-fWleathLZW9Wwbs915UQz8Gq5k2dIwAGImCF/exec";
+
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbw9JM87uiSHihWDP0N1gn4IskEG_8O-fWleathLZW9Wwbs915UQz8Gq5k2dIwAGImCF/exec";
 
 let currentLang = "ar";
 let latestSlotsData = null;
 let confirmedBooking = null;
 
 const PHARMACIES = [
+
   {
-    value: "Outpatient Pharmacy",
-    ar: "صيدلية العيادات الدور الأرضي",
-    en: "Outpatient Pharmacy - Ground Floor"
+    value:"Outpatient Pharmacy",
+    ar:"صيدلية العيادات الدور الأرضي",
+    en:"Outpatient Pharmacy - Ground Floor"
   },
+
   {
-    value: "Diabetes Center Pharmacy",
-    ar: "صيدلية مركز السكر الدور الأول",
-    en: "Diabetes Center Pharmacy - First Floor"
+    value:"Diabetes Center Pharmacy",
+    ar:"صيدلية مركز السكر الدور الأول",
+    en:"Diabetes Center Pharmacy - First Floor"
   }
+
 ];
 
 const text = {
-  ar: {
-    hospitalName: "تجمع المدينة المنورة الصحي",
-    departmentName: "مستشفى الملك فهد بالمدينة المنورة",
-    pharmacyName: "إدارة الرعاية الصيدلانية",
-    title: "حجز موعد صرف الأدوية الشهرية",
-    trial: "خدمة تجريبية",
-    subtitle: "هذه الخدمة مخصصة لإعادة صرف الأدوية فقط، وتهدف إلى تقليل وقت الانتظار وضمان جاهزية الدواء قبل حضورك.",
-    fullName: "الاسم الثلاثي",
-    nationalId: "رقم الهوية",
-    fileNumber: "رقم الملف",
-    mobile: "رقم الجوال",
-    pharmacy: "مكان الاستلام",
-    choosePharmacy: "اختر مكان الاستلام",
-    pickup: "وقت الاستلام المتاح",
-    chooseFirst: "اختر مكان الاستلام أولًا",
-    loading: "جاري تحميل المواعيد...",
-    noSlots: "لا توجد مواعيد متاحة لهذه الصيدلية اليوم",
-    todayLabel: "اليوم",
-    remaining: "المتبقي",
-    submit: "تأكيد الموعد",
-    submitting: "جاري الحجز...",
-    noBooking: "لا يوجد موعد متاح للحجز.",
-    full: "تم اكتمال العدد لهذه الفترة، يرجى اختيار وقت آخر.",
-    invalid: "البيانات المرسلة غير صحيحة، يرجى تحديث الصفحة والمحاولة مرة أخرى.",
-    closed: "انتهى وقت هذه الفترة، يرجى اختيار فترة أخرى.",
-    missingPharmacy: "يرجى اختيار مكان الاستلام.",
-    error: "حدث خطأ أثناء الحجز، يرجى المحاولة مرة أخرى.",
-    success: "تم حجز الموعد بنجاح، مع تمنياتنا لكم بالشفاء العاجل.",
-    saveCard: "💊 حفظ بطاقة الموعد",
-    savingCard: "جاري حفظ البطاقة...",
-    saveError: "تعذر حفظ البطاقة، يرجى المحاولة مرة أخرى.",
-    cardTitle: "بطاقة تأكيد حجز الموعد",
-    bookingId: "رقم الانتظار",
-    pickupDate: "تاريخ الاستلام",
-    pickupTime: "وقت الاستلام"
+
+  ar:{
+    hospitalName:"تجمع المدينة المنورة الصحي",
+    departmentName:"مستشفى الملك فهد بالمدينة المنورة",
+    pharmacyName:"إدارة الرعاية الصيدلانية",
+    title:"حجز موعد صرف الأدوية الشهرية",
+    trial:"خدمة تجريبية",
+    subtitle:"هذه الخدمة مخصصة لإعادة صرف الأدوية فقط، وتهدف إلى تقليل وقت الانتظار وضمان جاهزية الدواء قبل حضورك.",
+    fullName:"الاسم الثلاثي",
+    nationalId:"رقم الهوية",
+    fileNumber:"رقم الملف",
+    mobile:"رقم الجوال",
+    pharmacy:"مكان الاستلام",
+    choosePharmacy:"اختر مكان الاستلام",
+    pickup:"وقت الاستلام المتاح",
+    chooseFirst:"اختر مكان الاستلام أولًا",
+    loading:"جاري تحميل المواعيد...",
+    noSlots:"لا توجد مواعيد متاحة لهذه الصيدلية اليوم",
+    todayLabel:"اليوم",
+    remaining:"المتبقي",
+    submit:"تأكيد الموعد",
+    submitting:"جاري الحجز...",
+    noBooking:"لا يوجد موعد متاح للحجز.",
+    full:"تم اكتمال العدد لهذه الفترة، يرجى اختيار وقت آخر.",
+    invalid:"البيانات المرسلة غير صحيحة، يرجى تحديث الصفحة والمحاولة مرة أخرى.",
+    closed:"انتهى وقت هذه الفترة، يرجى اختيار فترة أخرى.",
+    missingPharmacy:"يرجى اختيار مكان الاستلام.",
+    error:"حدث خطأ أثناء الحجز، يرجى المحاولة مرة أخرى.",
+    success:"تم حجز الموعد بنجاح، مع تمنياتنا لكم بالشفاء العاجل.",
+    saveCard:"💊 حفظ بطاقة الموعد",
+    savingCard:"جاري حفظ البطاقة...",
+    saveError:"تعذر حفظ البطاقة، يرجى المحاولة مرة أخرى.",
+    cardTitle:"بطاقة تأكيد حجز الموعد",
+    bookingId:"رقم الانتظار",
+    pickupDate:"تاريخ الاستلام",
+    pickupTime:"وقت الاستلام"
   },
-  en: {
-    hospitalName: "Madinah Health Cluster",
-    departmentName: "King Fahad Hospital - Madinah",
-    pharmacyName: "Pharmaceutical Care Administration",
-    title: "Monthly Medication Pickup Appointment",
-    trial: "Trial Service",
-    subtitle: "This service is for medication refills only. It aims to reduce waiting time and ensure your medication is ready before you arrive.",
-    fullName: "Full Name",
-    nationalId: "National ID",
-    fileNumber: "File Number",
-    mobile: "Mobile Number",
-    pharmacy: "Pickup Location",
-    choosePharmacy: "Select pickup location",
-    pickup: "Available Pickup Time",
-    chooseFirst: "Select pickup location first",
-    loading: "Loading appointments...",
-    noSlots: "No appointments available for this pharmacy today",
-    todayLabel: "Today",
-    remaining: "remaining",
-    submit: "Confirm Appointment",
-    submitting: "Booking...",
-    noBooking: "No appointment is available for booking.",
-    full: "This time slot is fully booked. Please select another time.",
-    invalid: "The submitted booking data is invalid. Please refresh the page and try again.",
-    closed: "This time slot is closed. Please select another time.",
-    missingPharmacy: "Please select a pickup location.",
-    error: "An error occurred while booking. Please try again.",
-    success: "Your appointment has been booked successfully. We wish you a speedy recovery.",
-    saveCard: "💊 Save Appointment Card",
-    savingCard: "Saving card...",
-    saveError: "Unable to save the card. Please try again.",
-    cardTitle: "Appointment Confirmation Card",
-    bookingId: "Waiting Number",
-    pickupDate: "Pickup Date",
-    pickupTime: "Pickup Time"
+
+  en:{
+    hospitalName:"Madinah Health Cluster",
+    departmentName:"King Fahad Hospital - Madinah",
+    pharmacyName:"Pharmaceutical Care Administration",
+    title:"Monthly Medication Pickup Appointment",
+    trial:"Trial Service",
+    subtitle:"This service is for medication refills only. It aims to reduce waiting time and ensure your medication is ready before you arrive.",
+    fullName:"Full Name",
+    nationalId:"National ID",
+    fileNumber:"File Number",
+    mobile:"Mobile Number",
+    pharmacy:"Pickup Location",
+    choosePharmacy:"Select pickup location",
+    pickup:"Available Pickup Time",
+    chooseFirst:"Select pickup location first",
+    loading:"Loading appointments...",
+    noSlots:"No appointments available for this pharmacy today",
+    todayLabel:"Today",
+    remaining:"remaining",
+    submit:"Confirm Appointment",
+    submitting:"Booking...",
+    noBooking:"No appointment is available for booking.",
+    full:"This time slot is fully booked. Please select another time.",
+    invalid:"The submitted booking data is invalid. Please refresh the page and try again.",
+    closed:"This time slot is closed. Please select another time.",
+    missingPharmacy:"Please select a pickup location.",
+    error:"An error occurred while booking. Please try again.",
+    success:"Your appointment has been booked successfully. We wish you a speedy recovery.",
+    saveCard:"💊 Save Appointment Card",
+    savingCard:"Saving card...",
+    saveError:"Unable to save the card. Please try again.",
+    cardTitle:"Appointment Confirmation Card",
+    bookingId:"Waiting Number",
+    pickupDate:"Pickup Date",
+    pickupTime:"Pickup Time"
   }
+
 };
 
-function setLanguage(lang) {
-  const selectedPharmacy = document.getElementById("pharmacy").value;
+function setLanguage(lang){
 
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  const selectedPharmacy =
+    document.getElementById(
+      "pharmacy"
+    ).value;
 
-  document.getElementById("hospitalName").innerText = text[lang].hospitalName;
-  document.getElementById("departmentName").innerText = text[lang].departmentName;
-  document.getElementById("pharmacyName").innerText = text[lang].pharmacyName;
-  document.getElementById("title").innerText = text[lang].title;
-  document.getElementById("trial").innerText = text[lang].trial;
-  document.getElementById("subtitle").innerText = text[lang].subtitle;
-  document.getElementById("fullNameLabel").innerText = text[lang].fullName;
-  document.getElementById("nationalIdLabel").innerText = text[lang].nationalId;
-  document.getElementById("fileNumberLabel").innerText = text[lang].fileNumber;
-  document.getElementById("mobileLabel").innerText = text[lang].mobile;
-  document.getElementById("pharmacyLabel").innerText = text[lang].pharmacy;
-  document.getElementById("pickupLabel").innerText = text[lang].pickup;
-  document.getElementById("submitBtn").innerText = text[lang].submit;
-  document.getElementById("saveCardBtn").innerText = text[lang].saveCard;
-  document.getElementById("languageToggle").innerText = "🌐 ع | E";
+  currentLang =
+    lang;
 
-  renderPharmacyOptions(selectedPharmacy);
+  document.documentElement.lang =
+    lang;
+
+  document.documentElement.dir =
+    lang === "ar"
+      ? "rtl"
+      : "ltr";
+
+  document.getElementById("hospitalName").innerText =
+    text[lang].hospitalName;
+
+  document.getElementById("departmentName").innerText =
+    text[lang].departmentName;
+
+  document.getElementById("pharmacyName").innerText =
+    text[lang].pharmacyName;
+
+  document.getElementById("title").innerText =
+    text[lang].title;
+
+  document.getElementById("trial").innerText =
+    text[lang].trial;
+
+  document.getElementById("subtitle").innerText =
+    text[lang].subtitle;
+
+  document.getElementById("fullNameLabel").innerText =
+    text[lang].fullName;
+
+  document.getElementById("nationalIdLabel").innerText =
+    text[lang].nationalId;
+
+  document.getElementById("fileNumberLabel").innerText =
+    text[lang].fileNumber;
+
+  document.getElementById("mobileLabel").innerText =
+    text[lang].mobile;
+
+  document.getElementById("pharmacyLabel").innerText =
+    text[lang].pharmacy;
+
+  document.getElementById("pickupLabel").innerText =
+    text[lang].pickup;
+
+  document.getElementById("submitBtn").innerText =
+    text[lang].submit;
+
+  document.getElementById("saveCardBtn").innerText =
+    text[lang].saveCard;
+
+  document.getElementById("languageToggle").innerText =
+    "🌐 ع | E";
+
+  renderPharmacyOptions(
+    selectedPharmacy
+  );
+
   updatePickupPlaceholder();
 
-  if (selectedPharmacy) {
+  if (
+    selectedPharmacy
+  ){
+
     loadSlots();
-  } else if (latestSlotsData && latestSlotsData.date) {
-    updateDateBox(latestSlotsData.date, latestSlotsData);
-  } else {
+
+  }else if (
+    latestSlotsData &&
+    latestSlotsData.date
+  ){
+
+    updateDateBox(
+      latestSlotsData.date,
+      latestSlotsData
+    );
+
+  }else{
+
     updateDateBoxFromToday();
+
   }
 
-  if (confirmedBooking) {
+  if (
+    confirmedBooking
+  ){
+
     renderConfirmationCard();
+
   }
+
 }
 
-function toggleLanguage() {
-  setLanguage(currentLang === "ar" ? "en" : "ar");
+
+function toggleLanguage(){
+
+  setLanguage(
+    currentLang === "ar"
+      ? "en"
+      : "ar"
+  );
+
 }
 
-function goToBookingPage() {
-  window.open("index.html", "_blank", "noopener");
+
+function goToBookingPage(){
+
+  window.open(
+    "index.html",
+    "_blank",
+    "noopener"
+  );
+
 }
 
-function renderPharmacyOptions(selectedValue) {
-  const select = document.getElementById("pharmacy");
-  select.innerHTML = `<option value="">${text[currentLang].choosePharmacy}</option>`;
 
-  PHARMACIES.forEach(pharmacy => {
-    const option = document.createElement("option");
-    option.value = pharmacy.value;
-    option.textContent = pharmacy[currentLang];
-    select.appendChild(option);
-  });
+function renderPharmacyOptions(
+  selectedValue
+){
 
-  select.value = selectedValue || "";
+  const select =
+    document.getElementById(
+      "pharmacy"
+    );
+
+  select.innerHTML =
+    `<option value="">${text[currentLang].choosePharmacy}</option>`;
+
+  PHARMACIES.forEach(
+    function(pharmacy){
+
+      const option =
+        document.createElement(
+          "option"
+        );
+
+      option.value =
+        pharmacy.value;
+
+      option.textContent =
+        pharmacy[currentLang];
+
+      select.appendChild(
+        option
+      );
+
+    }
+  );
+
+  select.value =
+    selectedValue ||
+    "";
+
 }
 
-function getPharmacyName(value) {
-  const pharmacy = PHARMACIES.find(item => item.value === value);
-  return pharmacy ? pharmacy[currentLang] : value;
+
+function getPharmacyName(
+  value
+){
+
+  const pharmacy =
+    PHARMACIES.find(
+      function(item){
+
+        return (
+          item.value ===
+          value
+        );
+
+      }
+    );
+
+  return pharmacy
+    ? pharmacy[currentLang]
+    : value;
+
 }
 
-function updatePickupPlaceholder() {
-  const select = document.getElementById("pickupTime");
-  const hasPharmacy = !!document.getElementById("pharmacy").value;
-  select.disabled = !hasPharmacy;
-  select.innerHTML = `<option value="">${hasPharmacy ? text[currentLang].loading : text[currentLang].chooseFirst}</option>`;
+
+function updatePickupPlaceholder(){
+
+  const select =
+    document.getElementById(
+      "pickupTime"
+    );
+
+  const hasPharmacy =
+    !!document.getElementById(
+      "pharmacy"
+    ).value;
+
+  select.disabled =
+    !hasPharmacy;
+
+  select.innerHTML =
+    `<option value="">${hasPharmacy ? text[currentLang].loading : text[currentLang].chooseFirst}</option>`;
+
 }
 
-function showResult(type, message) {
-  const result = document.getElementById("result");
-  result.className = type;
-  result.innerText = message;
+
+function showResult(
+  type,
+  message
+){
+
+  const result =
+    document.getElementById(
+      "result"
+    );
+
+  result.className =
+    type;
+
+  result.innerText =
+    message;
+
 }
 
-function clearResult() {
-  const result = document.getElementById("result");
-  result.className = "";
-  result.innerText = "";
+
+function clearResult(){
+
+  const result =
+    document.getElementById(
+      "result"
+    );
+
+  result.className =
+    "";
+
+  result.innerText =
+    "";
+
 }
 
-async function loadSlots() {
-  const pharmacy = document.getElementById("pharmacy").value;
-  const select = document.getElementById("pickupTime");
+
+async function loadSlots(){
+
+  const pharmacy =
+    document.getElementById(
+      "pharmacy"
+    ).value;
+
+  const select =
+    document.getElementById(
+      "pickupTime"
+    );
 
   clearResult();
 
-  if (!pharmacy) {
+  if (
+    !pharmacy
+  ){
+
     updatePickupPlaceholder();
+
     return;
+
   }
 
-  select.disabled = true;
-  select.innerHTML = `<option value="">${text[currentLang].loading}</option>`;
+  select.disabled =
+    true;
 
-  try {
-    const response = await fetch(`${API_URL}?action=slots&pharmacy=${encodeURIComponent(pharmacy)}`);
-    const data = await response.json();
-    latestSlotsData = data;
+  select.innerHTML =
+    `<option value="">${text[currentLang].loading}</option>`;
 
-    if (data.date) {
-      updateDateBox(data.date, data);
+  try{
+
+    const response =
+      await fetch(
+        `${API_URL}?action=slots&pharmacy=${encodeURIComponent(pharmacy)}`
+      );
+
+    const data =
+      await response.json();
+
+    latestSlotsData =
+      data;
+
+    if (
+      data.date
+    ){
+
+      updateDateBox(
+        data.date,
+        data
+      );
+
     }
 
-    select.innerHTML = "";
+    select.innerHTML =
+      "";
 
-    if (!data.success || !data.slots || data.slots.length === 0) {
-      select.innerHTML = `<option value="">${text[currentLang].noSlots}</option>`;
-      select.disabled = true;
+    if (
+      !data.success ||
+      !data.slots ||
+      data.slots.length === 0
+    ){
+
+      select.innerHTML =
+        `<option value="">${text[currentLang].noSlots}</option>`;
+
+      select.disabled =
+        true;
+
       return;
+
     }
 
-    data.slots.forEach(slot => {
-      const option = document.createElement("option");
-      option.value = slot.time;
-      option.dataset.date = slot.date;
-      option.textContent = `${slot.date} - ${slot.time} - ${text[currentLang].remaining}: ${slot.remaining}`;
-      select.appendChild(option);
-    });
+    data.slots.forEach(
+      function(slot){
 
-    select.disabled = false;
-  } catch (error) {
-    select.innerHTML = `<option value="">${text[currentLang].noSlots}</option>`;
-    select.disabled = true;
+        const option =
+          document.createElement(
+            "option"
+          );
+
+        option.value =
+          slot.time;
+
+        option.dataset.date =
+          slot.date;
+
+        option.textContent =
+          `${slot.date} - ${slot.time} - ${text[currentLang].remaining}: ${slot.remaining}`;
+
+        select.appendChild(
+          option
+        );
+
+      }
+    );
+
+    select.disabled =
+      false;
+
+  }catch(error){
+
+    select.innerHTML =
+      `<option value="">${text[currentLang].noSlots}</option>`;
+
+    select.disabled =
+      true;
+
   }
+
 }
 
-function updateDateBox(date, data) {
-  const dayName = getDisplayDayName(date, data || {});
-  document.getElementById("dateBox").innerText = `${dayName} - ${date}`;
+
+function updateDateBox(
+  date,
+  data
+){
+
+  const dayName =
+    getDisplayDayName(
+      date,
+      data ||
+      {}
+    );
+
+  document.getElementById(
+    "dateBox"
+  ).innerText =
+    `${dayName} - ${date}`;
+
 }
 
-function updateDateBoxFromToday() {
-  const date = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Asia/Riyadh",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit"
-  }).format(new Date());
-  updateDateBox(date, {});
+
+function updateDateBoxFromToday(){
+
+  const date =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:"Asia/Riyadh",
+        year:"numeric",
+        month:"2-digit",
+        day:"2-digit"
+      }
+    ).format(
+      new Date()
+    );
+
+  updateDateBox(
+    date,
+    {}
+  );
+
 }
 
-function getDisplayDayName(date, data) {
-  const apiDayName = currentLang === "ar" ? data.dayNameAr : data.dayNameEn;
 
-  if (apiDayName) {
+function getDisplayDayName(
+  date,
+  data
+){
+
+  const apiDayName =
+    currentLang === "ar"
+      ? data.dayNameAr
+      : data.dayNameEn;
+
+  if (
+    apiDayName
+  ){
+
     return apiDayName;
+
   }
 
-  const dayNames = currentLang === "ar"
-    ? ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"]
-    : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const dayNames =
+    currentLang === "ar"
+      ? [
+          "الأحد",
+          "الإثنين",
+          "الثلاثاء",
+          "الأربعاء",
+          "الخميس",
+          "الجمعة",
+          "السبت"
+        ]
+      : [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ];
 
-  const parsedDate = new Date(`${date}T12:00:00`);
-  return dayNames[parsedDate.getDay()];
+  const parsedDate =
+    new Date(
+      `${date}T12:00:00`
+    );
+
+  return dayNames[
+    parsedDate.getDay()
+  ];
+
 }
 
-document.getElementById("pharmacy").addEventListener("change", loadSlots);
 
-document.getElementById("bookingForm").addEventListener("submit", async function(e) {
-  e.preventDefault();
+document.getElementById(
+  "pharmacy"
+).addEventListener(
+  "change",
+  loadSlots
+);
 
-  const submitBtn = document.getElementById("submitBtn");
-  const pharmacy = document.getElementById("pharmacy").value;
-  const pickupSelect = document.getElementById("pickupTime");
-  const selectedOption = pickupSelect.selectedOptions[0];
-  const selectedDate = selectedOption ? selectedOption.dataset.date : "";
 
-  if (!pharmacy) {
-    showResult("error", text[currentLang].missingPharmacy);
-    return;
-  }
+document.getElementById(
+  "bookingForm"
+).addEventListener(
+  "submit",
+  async function(e){
 
-  if (!pickupSelect.value || !selectedDate) {
-    showResult("error", text[currentLang].noBooking);
-    return;
-  }
+    e.preventDefault();
 
-  const payload = {
-    fullName: document.getElementById("fullName").value,
-    nationalId: document.getElementById("nationalId").value,
-    fileNumber: document.getElementById("fileNumber").value,
-    mobileNumber: document.getElementById("mobileNumber").value,
-    pharmacy: pharmacy,
-    pickupDate: selectedDate,
-    pickupTime: pickupSelect.value
-  };
+    const submitBtn =
+      document.getElementById(
+        "submitBtn"
+      );
 
-  submitBtn.disabled = true;
-  submitBtn.innerText = text[currentLang].submitting;
+    const pharmacy =
+      document.getElementById(
+        "pharmacy"
+      ).value;
 
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      body: JSON.stringify(payload)
-    });
+    const pickupSelect =
+      document.getElementById(
+        "pickupTime"
+      );
 
-    const result = await response.json();
+    const selectedOption =
+      pickupSelect.selectedOptions[0];
 
-    if (result.success) {
-      confirmedBooking = {
-        bookingId: result.bookingId || (result.booking && result.booking.bookingId) || "",
-        fullName: payload.fullName,
-        fileNumber: payload.fileNumber,
-        pharmacy: payload.pharmacy,
-        pickupDate: payload.pickupDate,
-        pickupTime: payload.pickupTime
-      };
-      clearResult();
-      document.getElementById("bookingForm").style.display = "none";
-      document.getElementById("confirmationWrap").style.display = "block";
-      renderConfirmationCard();
+    const selectedDate =
+      selectedOption
+        ? selectedOption.dataset.date
+        : "";
+
+    if (
+      !pharmacy
+    ){
+
+      showResult(
+        "error",
+        text[currentLang].missingPharmacy
+      );
+
       return;
+
     }
 
-    if (result.code === "FULL") {
-      showResult("error", text[currentLang].full);
-      await loadSlots();
-    } else if (result.code === "INVALID_DATE" || result.code === "INVALID_SLOT" || result.code === "MISSING_FIELDS") {
-      showResult("error", text[currentLang].invalid);
-      await loadSlots();
-    } else if (result.code === "CLOSED_SLOT") {
-      showResult("error", text[currentLang].closed);
-      await loadSlots();
-    } else {
-      showResult("error", text[currentLang].error);
+    if (
+      !pickupSelect.value ||
+      !selectedDate
+    ){
+
+      showResult(
+        "error",
+        text[currentLang].noBooking
+      );
+
+      return;
+
     }
-  } catch (error) {
-    showResult("error", text[currentLang].error);
-  } finally {
-    submitBtn.disabled = false;
-    submitBtn.innerText = text[currentLang].submit;
+
+    const payload = {
+
+      fullName:
+        document.getElementById(
+          "fullName"
+        ).value,
+
+      nationalId:
+        document.getElementById(
+          "nationalId"
+        ).value,
+
+      fileNumber:
+        document.getElementById(
+          "fileNumber"
+        ).value,
+
+      mobileNumber:
+        document.getElementById(
+          "mobileNumber"
+        ).value,
+
+      pharmacy:
+        pharmacy,
+
+      pickupDate:
+        selectedDate,
+
+      pickupTime:
+        pickupSelect.value
+
+    };
+
+    submitBtn.disabled =
+      true;
+
+    submitBtn.innerText =
+      text[currentLang].submitting;
+
+    try{
+
+      const response =
+        await fetch(
+          API_URL,
+          {
+            method:"POST",
+            body:JSON.stringify(
+              payload
+            )
+          }
+        );
+
+      const result =
+        await response.json();
+
+      if (
+        result.success
+      ){
+
+        confirmedBooking = {
+
+          bookingId:
+            result.bookingId ||
+            (
+              result.booking &&
+              result.booking.bookingId
+            ) ||
+            "",
+
+          fullName:
+            payload.fullName,
+
+          fileNumber:
+            payload.fileNumber,
+
+          pharmacy:
+            payload.pharmacy,
+
+          pickupDate:
+            payload.pickupDate,
+
+          pickupTime:
+            payload.pickupTime
+
+        };
+
+        clearResult();
+
+        document.getElementById(
+          "bookingForm"
+        ).style.display =
+          "none";
+
+        document.getElementById(
+          "confirmationWrap"
+        ).style.display =
+          "block";
+
+        renderConfirmationCard();
+
+        return;
+
+      }
+
+      if (
+        result.code === "FULL"
+      ){
+
+        showResult(
+          "error",
+          text[currentLang].full
+        );
+
+        await loadSlots();
+
+      }else if (
+        result.code === "INVALID_DATE" ||
+        result.code === "INVALID_SLOT" ||
+        result.code === "MISSING_FIELDS"
+      ){
+
+        showResult(
+          "error",
+          text[currentLang].invalid
+        );
+
+        await loadSlots();
+
+      }else if (
+        result.code === "CLOSED_SLOT"
+      ){
+
+        showResult(
+          "error",
+          text[currentLang].closed
+        );
+
+        await loadSlots();
+
+      }else{
+
+        showResult(
+          "error",
+          text[currentLang].error
+        );
+
+      }
+
+    }catch(error){
+
+      showResult(
+        "error",
+        text[currentLang].error
+      );
+
+    }finally{
+
+      submitBtn.disabled =
+        false;
+
+      submitBtn.innerText =
+        text[currentLang].submit;
+
+    }
+
   }
-});
+);
 
-function renderConfirmationCard() {
-  if (!confirmedBooking) {
+
+function renderConfirmationCard(){
+
+  if (
+    !confirmedBooking
+  ){
+
     return;
+
   }
 
-  document.getElementById("cardTitle").innerText = text[currentLang].cardTitle;
-  document.getElementById("cardMessage").innerText = text[currentLang].success;
-  document.getElementById("cardBookingIdLabel").innerText = text[currentLang].bookingId;
-  document.getElementById("cardNameLabel").innerText = text[currentLang].fullName;
-  document.getElementById("cardFileLabel").innerText = text[currentLang].fileNumber;
-  document.getElementById("cardPharmacyLabel").innerText = text[currentLang].pharmacy;
-  document.getElementById("cardDateLabel").innerText = text[currentLang].pickupDate;
-  document.getElementById("cardTimeLabel").innerText = text[currentLang].pickupTime;
-  document.getElementById("cardBookingId").innerText = confirmedBooking.bookingId;
-  document.getElementById("cardName").innerText = confirmedBooking.fullName;
-  document.getElementById("cardFile").innerText = confirmedBooking.fileNumber;
-  document.getElementById("cardPharmacy").innerText = getPharmacyName(confirmedBooking.pharmacy);
-  document.getElementById("cardDate").innerText = confirmedBooking.pickupDate;
-  document.getElementById("cardTime").innerText = confirmedBooking.pickupTime;
-  document.getElementById("saveCardBtn").innerText = text[currentLang].saveCard;
+  document.getElementById(
+    "cardTitle"
+  ).innerText =
+    text[currentLang].cardTitle;
+
+  document.getElementById(
+    "cardMessage"
+  ).innerText =
+    text[currentLang].success;
+
+  document.getElementById(
+    "cardBookingIdLabel"
+  ).innerText =
+    text[currentLang].bookingId;
+
+  document.getElementById(
+    "cardNameLabel"
+  ).innerText =
+    text[currentLang].fullName;
+
+  document.getElementById(
+    "cardFileLabel"
+  ).innerText =
+    text[currentLang].fileNumber;
+
+  document.getElementById(
+    "cardPharmacyLabel"
+  ).innerText =
+    text[currentLang].pharmacy;
+
+  document.getElementById(
+    "cardDateLabel"
+  ).innerText =
+    text[currentLang].pickupDate;
+
+  document.getElementById(
+    "cardTimeLabel"
+  ).innerText =
+    text[currentLang].pickupTime;
+
+  document.getElementById(
+    "cardBookingId"
+  ).innerText =
+    confirmedBooking.bookingId;
+
+  document.getElementById(
+    "cardName"
+  ).innerText =
+    confirmedBooking.fullName;
+
+  document.getElementById(
+    "cardFile"
+  ).innerText =
+    confirmedBooking.fileNumber;
+
+  document.getElementById(
+    "cardPharmacy"
+  ).innerText =
+    getPharmacyName(
+      confirmedBooking.pharmacy
+    );
+
+  document.getElementById(
+    "cardDate"
+  ).innerText =
+    confirmedBooking.pickupDate;
+
+  document.getElementById(
+    "cardTime"
+  ).innerText =
+    confirmedBooking.pickupTime;
+
+  document.getElementById(
+    "saveCardBtn"
+  ).innerText =
+    text[currentLang].saveCard;
+
 }
 
-async function saveAppointmentCard() {
-  const saveBtn = document.getElementById("saveCardBtn");
-  const card = document.getElementById("appointmentCard");
 
-  if (!window.html2canvas) {
-    showResult("error", text[currentLang].saveError);
+async function saveAppointmentCard(){
+
+  const saveBtn =
+    document.getElementById(
+      "saveCardBtn"
+    );
+
+  const card =
+    document.getElementById(
+      "appointmentCard"
+    );
+
+  if (
+    !window.html2canvas
+  ){
+
+    showResult(
+      "error",
+      text[currentLang].saveError
+    );
+
     return;
+
   }
 
-  saveBtn.disabled = true;
-  saveBtn.innerText = text[currentLang].savingCard;
+  saveBtn.disabled =
+    true;
 
-  try {
-    const canvas = await html2canvas(card, {
-      scale: 2,
-      backgroundColor: "#ffffff",
-      useCORS: true
-    });
+  saveBtn.innerText =
+    text[currentLang].savingCard;
 
-    const link = document.createElement("a");
-    link.download = `appointment-card-${confirmedBooking.bookingId || confirmedBooking.fileNumber || "booking"}.png`;
-    link.href = canvas.toDataURL("image/png");
+  try{
+
+    const canvas =
+      await html2canvas(
+        card,
+        {
+          scale:2,
+          backgroundColor:"#ffffff",
+          useCORS:true
+        }
+      );
+
+    const link =
+      document.createElement(
+        "a"
+      );
+
+    link.download =
+      `appointment-card-${confirmedBooking.bookingId || confirmedBooking.fileNumber || "booking"}.png`;
+
+    link.href =
+      canvas.toDataURL(
+        "image/png"
+      );
+
     link.click();
-  } catch (error) {
-    showResult("error", text[currentLang].saveError);
-  } finally {
-    saveBtn.disabled = false;
-    saveBtn.innerText = text[currentLang].saveCard;
+
+  }catch(error){
+
+    showResult(
+      "error",
+      text[currentLang].saveError
+    );
+
+  }finally{
+
+    saveBtn.disabled =
+      false;
+
+    saveBtn.innerText =
+      text[currentLang].saveCard;
+
   }
+
 }
 
-setLanguage("ar");
+
+setLanguage(
+  "ar"
+);
+
 </script>
+
 </body>
 </html>
-

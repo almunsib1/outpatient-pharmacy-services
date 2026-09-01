@@ -7,51 +7,263 @@
 
 <style>
 *{box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
-.container{max-width:1100px;margin:auto;background:#fff;padding:22px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,.1)}
-.top-bar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px;direction:rtl}
-.logo{width:120px;height:120px;object-fit:contain}
-.official-header{width:fit-content;max-width:100%;text-align:start;margin-inline-start:0;margin-inline-end:auto;transform:translateY(14px)}
-.official-header h2,.official-header h3{margin:2px 0;font-size:13px;line-height:1.4;color:#168fb3}
-[dir="rtl"] .official-header{padding-left:8px;border-left:4px solid #168fb3}
-[dir="ltr"] .official-header{padding-right:8px;border-right:4px solid #168fb3}
-hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
-.page-title{text-align:center;font-size:24px;font-weight:bold;margin:14px 0 10px;color:#168fb3}
-.subtitle{text-align:center;color:#168fb3;margin-bottom:18px;line-height:1.7}
-.meta-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;direction:ltr}
-.date-box{color:#168fb3;padding:6px 10px;font-size:13px;font-weight:bold;text-align:center}
-.language-btn{border:none;background:transparent;cursor:pointer;font-size:13px;font-weight:bold;color:#168fb3;padding:4px 0;border-radius:0}
-.language-btn:hover{background:transparent}
-.back-button{width:34px;height:34px;margin:0 auto 8px 0;padding:0;border:0;background:transparent;color:#168fb3;font-size:26px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:Arial,sans-serif;border-radius:0}
-.back-button:hover{background:transparent;color:#0f7592;transform:translateX(-1px)}
 
-.cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-bottom:16px}
-.card{background:#168fb3;color:#fff;padding:10px 8px;border-radius:8px;text-align:center;min-width:0}
-.card h2{margin:0;font-size:16px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.card p{margin:5px 0 0;font-size:11px;line-height:1.35}
-.insight{background:#f9fafb;color:#168fb3;border:1px solid #e5e7eb}
+body{
+  font-family:Arial,sans-serif;
+  background:#f3f4f6;
+  margin:0;
+  padding:16px;
+  color:#168fb3
+}
 
-.table-wrap{max-width:760px;margin:0 auto;overflow-x:auto}
-table{width:100%;border-collapse:collapse;margin-top:12px;min-width:520px}
-th,td{padding:8px 6px;border:1px solid #e5e7eb;text-align:center;color:#111827;font-size:12px}
-th{background:#168fb3;color:#fff}
+.container{
+  max-width:1100px;
+  margin:auto;
+  background:#fff;
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 10px 25px rgba(0,0,0,.1)
+}
 
-.loading{text-align:center;font-size:20px;padding:30px;color:#168fb3}
+.top-bar{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;
+  direction:rtl
+}
+
+.logo{
+  width:120px;
+  height:120px;
+  object-fit:contain
+}
+
+.official-header{
+  width:fit-content;
+  max-width:100%;
+  text-align:start;
+  margin-inline-start:0;
+  margin-inline-end:auto;
+  transform:translateY(14px)
+}
+
+.official-header h2,
+.official-header h3{
+  margin:2px 0;
+  font-size:13px;
+  line-height:1.4;
+  color:#168fb3
+}
+
+/* العربي كما هو */
+html[dir="rtl"] .official-header{
+  padding-left:8px;
+  border-left:4px solid #168fb3
+}
+
+/* الإنجليزي: نفس مكان الترويسة، فقط الخط والمحاذاة */
+html[dir="ltr"] .official-header{
+  padding-left:6px;
+  padding-right:0;
+  border-left:4px solid #168fb3;
+  border-right:0;
+  text-align:left
+}
+
+html[dir="ltr"] .official-header h2,
+html[dir="ltr"] .official-header h3{
+  direction:ltr;
+  text-align:left
+}
+
+hr{
+  border:none;
+  border-top:1px solid #e5e7eb;
+  margin:14px 0
+}
+
+.page-title{
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+  margin:14px 0 10px;
+  color:#168fb3
+}
+
+.subtitle{
+  text-align:center;
+  color:#168fb3;
+  margin-bottom:18px;
+  line-height:1.7
+}
+
+.meta-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:18px;
+  direction:ltr
+}
+
+.date-box{
+  color:#168fb3;
+  padding:6px 10px;
+  font-size:13px;
+  font-weight:bold;
+  text-align:center
+}
+
+.language-btn{
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:bold;
+  color:#168fb3;
+  padding:4px 0;
+  border-radius:0
+}
+
+.language-btn:hover{
+  background:transparent
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:8px;
+  margin-bottom:16px
+}
+
+.card{
+  background:#168fb3;
+  color:#fff;
+  padding:10px 8px;
+  border-radius:8px;
+  text-align:center;
+  min-width:0
+}
+
+.card h2{
+  margin:0;
+  font-size:16px;
+  line-height:1.2;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+.card p{
+  margin:5px 0 0;
+  font-size:11px;
+  line-height:1.35
+}
+
+.insight{
+  background:#f9fafb;
+  color:#168fb3;
+  border:1px solid #e5e7eb
+}
+
+.table-wrap{
+  max-width:760px;
+  margin:0 auto;
+  overflow-x:auto
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:12px;
+  min-width:520px
+}
+
+th,
+td{
+  padding:8px 6px;
+  border:1px solid #e5e7eb;
+  text-align:center;
+  color:#111827;
+  font-size:12px
+}
+
+th{
+  background:#168fb3;
+  color:#fff
+}
+
+.loading{
+  text-align:center;
+  font-size:20px;
+  padding:30px;
+  color:#168fb3
+}
 
 @media (max-width:600px){
-body{padding:10px;background:#fff}
-.container{padding:14px;border-radius:0;box-shadow:none}
-.logo{width:84px;height:84px}
-.official-header{transform:translateY(10px)}
-.official-header h2,.official-header h3{font-size:12px}
-.page-title{font-size:20px}
-.date-box,.language-btn{font-size:12px;padding:6px 9px}.back-button{width:32px;height:32px;margin-bottom:6px;font-size:24px}
-.cards{grid-template-columns:repeat(2,minmax(0,1fr))}
-.card{padding:9px 6px}
-.card h2{font-size:15px}
-.card p{font-size:10px}
-table{min-width:440px}
-th,td{padding:6px 5px;font-size:11px}
+
+  body{
+    padding:10px;
+    background:#fff
+  }
+
+  .container{
+    padding:14px;
+    border-radius:0;
+    box-shadow:none
+  }
+
+  .logo{
+    width:84px;
+    height:84px
+  }
+
+  .official-header{
+    transform:translateY(10px)
+  }
+
+  .official-header h2,
+  .official-header h3{
+    font-size:12px
+  }
+
+  .page-title{
+    font-size:20px
+  }
+
+  .date-box,
+  .language-btn{
+    font-size:12px;
+    padding:6px 9px
+  }
+
+  .cards{
+    grid-template-columns:repeat(2,minmax(0,1fr))
+  }
+
+  .card{
+    padding:9px 6px
+  }
+
+  .card h2{
+    font-size:15px
+  }
+
+  .card p{
+    font-size:10px
+  }
+
+  table{
+    min-width:440px
+  }
+
+  th,
+  td{
+    padding:6px 5px;
+    font-size:11px
+  }
 }
 </style>
 </head>
@@ -59,98 +271,123 @@ th,td{padding:6px 5px;font-size:11px}
 <body>
 
 <div class="container">
-  <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">↩</button>
-
-<div class="top-bar">
-
-  <div class="official-header">
-    <h2 id="officialLine1"></h2>
-    <h3 id="officialLine2"></h3>
-    <h3 id="officialLine3"></h3>
-  </div>
-
-  <img class="logo" src="logo.png" alt="Logo">
-
-</div>
-
-<hr>
-
-<div class="meta-row">
-
-  <div class="date-box" id="dateBox"></div>
 
   <button
     type="button"
-    class="language-btn"
-    id="languageToggle"
-    onclick="toggleLanguage()">
+    class="back-button"
+    onclick="history.back()"
+    title="رجوع"
+    aria-label="رجوع">
+    ‹
   </button>
 
-</div>
+  <div class="top-bar">
 
-<div class="page-title" id="pageTitle"></div>
-<p class="subtitle" id="pageSubtitle"></p>
-
-<div id="loading" class="loading">
-  Loading dashboard...
-</div>
-
-<div id="dashboard" style="display:none">
-
-  <div class="cards">
-
-    <div class="card">
-      <h2 id="totalBookings">0</h2>
-      <p id="totalBookingsLabel">Total Bookings Today</p>
+    <div class="official-header">
+      <h2 id="officialLine1"></h2>
+      <h3 id="officialLine2"></h3>
+      <h3 id="officialLine3"></h3>
     </div>
 
-    <div class="card">
-      <h2 id="remainingToday">0</h2>
-      <p id="remainingTodayLabel">Remaining Capacity</p>
-    </div>
-
-    <div class="card">
-      <h2 id="occupancyRate">0%</h2>
-      <p id="occupancyRateLabel">Occupancy Rate</p>
-    </div>
-
-    <div class="card insight">
-      <h2 id="statusText">Low</h2>
-      <p id="statusLabel">Daily Status</p>
-    </div>
-
-    <div class="card insight">
-      <h2 id="busiestSlot">-</h2>
-      <p id="busiestSlotLabel">Busiest Slot</p>
-    </div>
-
-    <div class="card insight">
-      <h2 id="leastBusySlot">-</h2>
-      <p id="leastBusySlotLabel">Least Busy Slot</p>
-    </div>
+    <img
+      class="logo"
+      src="logo.png"
+      alt="Logo">
 
   </div>
 
-  <div class="table-wrap">
+  <hr>
 
-    <table>
+  <div class="meta-row">
 
-      <thead>
-        <tr>
-          <th id="timeHeader">Time Slot</th>
-          <th id="bookedHeader">Booked</th>
-          <th id="remainingHeader">Remaining</th>
-          <th id="slotOccupancyHeader">Occupancy</th>
-        </tr>
-      </thead>
+    <div
+      class="date-box"
+      id="dateBox">
+    </div>
 
-      <tbody id="slotsTable"></tbody>
-
-    </table>
+    <button
+      type="button"
+      class="language-btn"
+      id="languageToggle"
+      onclick="toggleLanguage()">
+    </button>
 
   </div>
 
-</div>
+  <div
+    class="page-title"
+    id="pageTitle">
+  </div>
+
+  <p
+    class="subtitle"
+    id="pageSubtitle">
+  </p>
+
+  <div
+    id="loading"
+    class="loading">
+    Loading dashboard...
+  </div>
+
+  <div
+    id="dashboard"
+    style="display:none">
+
+    <div class="cards">
+
+      <div class="card">
+        <h2 id="totalBookings">0</h2>
+        <p id="totalBookingsLabel">Total Bookings Today</p>
+      </div>
+
+      <div class="card">
+        <h2 id="remainingToday">0</h2>
+        <p id="remainingTodayLabel">Remaining Capacity</p>
+      </div>
+
+      <div class="card">
+        <h2 id="occupancyRate">0%</h2>
+        <p id="occupancyRateLabel">Occupancy Rate</p>
+      </div>
+
+      <div class="card insight">
+        <h2 id="statusText">Low</h2>
+        <p id="statusLabel">Daily Status</p>
+      </div>
+
+      <div class="card insight">
+        <h2 id="busiestSlot">-</h2>
+        <p id="busiestSlotLabel">Busiest Slot</p>
+      </div>
+
+      <div class="card insight">
+        <h2 id="leastBusySlot">-</h2>
+        <p id="leastBusySlotLabel">Least Busy Slot</p>
+      </div>
+
+    </div>
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th id="timeHeader">Time Slot</th>
+            <th id="bookedHeader">Booked</th>
+            <th id="remainingHeader">Remaining</th>
+            <th id="slotOccupancyHeader">Occupancy</th>
+          </tr>
+        </thead>
+
+        <tbody id="slotsTable"></tbody>
+
+      </table>
+
+    </div>
+
+  </div>
 
 </div>
 
@@ -164,7 +401,7 @@ let dashboardData = null;
 
 const text = {
 
-  en: {
+  en:{
     officialLine1:"Madinah Health Cluster",
     officialLine2:"King Fahad Hospital - Madinah",
     officialLine3:"Pharmaceutical Care Administration",
@@ -187,7 +424,7 @@ const text = {
     high:"High"
   },
 
-  ar: {
+  ar:{
     officialLine1:"تجمع المدينة المنورة الصحي",
     officialLine2:"مستشفى الملك فهد بالمدينة المنورة",
     officialLine3:"إدارة الرعاية الصيدلانية",
@@ -217,81 +454,125 @@ const text = {
    LANGUAGE
 ========================================================= */
 
-function setLanguage(lang) {
+function setLanguage(lang){
 
-  currentLang = lang;
+  currentLang =
+    lang;
 
-  document.documentElement.lang = lang;
+  document.documentElement.lang =
+    lang;
 
   document.documentElement.dir =
     lang === "ar"
       ? "rtl"
       : "ltr";
 
-  document.getElementById("officialLine1").innerText =
+  document.getElementById(
+    "officialLine1"
+  ).innerText =
     text[lang].officialLine1;
 
-  document.getElementById("officialLine2").innerText =
+  document.getElementById(
+    "officialLine2"
+  ).innerText =
     text[lang].officialLine2;
 
-  document.getElementById("officialLine3").innerText =
+  document.getElementById(
+    "officialLine3"
+  ).innerText =
     text[lang].officialLine3;
 
-  document.getElementById("pageTitle").innerText =
+  document.getElementById(
+    "pageTitle"
+  ).innerText =
     text[lang].pageTitle;
 
-  document.getElementById("pageSubtitle").innerText =
+  document.getElementById(
+    "pageSubtitle"
+  ).innerText =
     text[lang].pageSubtitle;
 
-  document.getElementById("totalBookingsLabel").innerText =
+  document.getElementById(
+    "totalBookingsLabel"
+  ).innerText =
     text[lang].totalBookings;
 
-  document.getElementById("remainingTodayLabel").innerText =
+  document.getElementById(
+    "remainingTodayLabel"
+  ).innerText =
     text[lang].remainingToday;
 
-  document.getElementById("occupancyRateLabel").innerText =
+  document.getElementById(
+    "occupancyRateLabel"
+  ).innerText =
     text[lang].occupancyRate;
 
-  document.getElementById("statusLabel").innerText =
+  document.getElementById(
+    "statusLabel"
+  ).innerText =
     text[lang].dailyStatus;
 
-  document.getElementById("busiestSlotLabel").innerText =
+  document.getElementById(
+    "busiestSlotLabel"
+  ).innerText =
     text[lang].busiestSlot;
 
-  document.getElementById("leastBusySlotLabel").innerText =
+  document.getElementById(
+    "leastBusySlotLabel"
+  ).innerText =
     text[lang].leastBusySlot;
 
-  document.getElementById("timeHeader").innerText =
+  document.getElementById(
+    "timeHeader"
+  ).innerText =
     text[lang].timeSlot;
 
-  document.getElementById("bookedHeader").innerText =
+  document.getElementById(
+    "bookedHeader"
+  ).innerText =
     text[lang].booked;
 
-  document.getElementById("remainingHeader").innerText =
+  document.getElementById(
+    "remainingHeader"
+  ).innerText =
     text[lang].remaining;
 
-  document.getElementById("slotOccupancyHeader").innerText =
+  document.getElementById(
+    "slotOccupancyHeader"
+  ).innerText =
     text[lang].occupancy;
 
-  document.getElementById("languageToggle").innerText =
+  document.getElementById(
+    "languageToggle"
+  ).innerText =
     "🌐 ع | E";
 
-  if (dashboardData) {
+  if (
+    dashboardData
+  ){
+
     renderDashboard();
-  } else {
-    document.getElementById("loading").innerText =
+
+  }else{
+
+    document.getElementById(
+      "loading"
+    ).innerText =
       text[lang].loading;
+
   }
+
 }
 
 
-function toggleLanguage() {
+function toggleLanguage(){
 
   setLanguage(
     currentLang === "ar"
       ? "en"
       : "ar"
   );
+
 }
 
 
@@ -299,17 +580,26 @@ function toggleLanguage() {
    STATUS
 ========================================================= */
 
-function statusLabel(status) {
+function statusLabel(status){
 
-  if (status === "HIGH") {
+  if (
+    status === "HIGH"
+  ){
+
     return text[currentLang].high;
+
   }
 
-  if (status === "MEDIUM") {
+  if (
+    status === "MEDIUM"
+  ){
+
     return text[currentLang].medium;
+
   }
 
   return text[currentLang].low;
+
 }
 
 
@@ -317,9 +607,9 @@ function statusLabel(status) {
    LOAD DASHBOARD
 ========================================================= */
 
-async function loadDashboard() {
+async function loadDashboard(){
 
-  try {
+  try{
 
     const response =
       await fetch(
@@ -329,11 +619,15 @@ async function loadDashboard() {
         }
       );
 
-    if (!response.ok) {
+    if (
+      !response.ok
+    ){
+
       throw new Error(
         "HTTP_" +
         response.status
       );
+
     }
 
     const data =
@@ -342,10 +636,12 @@ async function loadDashboard() {
     if (
       !data.success ||
       !data.dashboard
-    ) {
+    ){
+
       throw new Error(
         "INVALID_DASHBOARD_RESPONSE"
       );
+
     }
 
     dashboardData =
@@ -363,13 +659,15 @@ async function loadDashboard() {
 
     renderDashboard();
 
-  } catch (error) {
+  }catch(error){
 
     document.getElementById(
       "loading"
     ).innerText =
       text[currentLang].failed;
+
   }
+
 }
 
 
@@ -377,23 +675,29 @@ async function loadDashboard() {
    RENDER
 ========================================================= */
 
-function renderDashboard() {
+function renderDashboard(){
 
   const d =
     dashboardData;
 
-  if (!d) {
+  if (
+    !d
+  ){
+
     return;
+
   }
 
   const busiestSlot =
-    d.busiestSlot || {
+    d.busiestSlot ||
+    {
       time:"-",
       booked:0
     };
 
   const leastBusySlot =
-    d.leastBusySlot || {
+    d.leastBusySlot ||
+    {
       time:"-",
       booked:0
     };
@@ -407,14 +711,16 @@ function renderDashboard() {
     "totalBookings"
   ).innerText =
     Number(
-      d.totalBookings || 0
+      d.totalBookings ||
+      0
     );
 
   document.getElementById(
     "remainingToday"
   ).innerText =
     Number(
-      d.remainingToday || 0
+      d.remainingToday ||
+      0
     );
 
   document.getElementById(
@@ -455,7 +761,7 @@ function renderDashboard() {
     "";
 
   slots.forEach(
-    function(slot) {
+    function(slot){
 
       const tr =
         document.createElement(
@@ -468,7 +774,8 @@ function renderDashboard() {
         );
 
       tdTime.textContent =
-        slot.time || "";
+        slot.time ||
+        "";
 
       const tdBooked =
         document.createElement(
@@ -477,7 +784,8 @@ function renderDashboard() {
 
       tdBooked.textContent =
         Number(
-          slot.booked || 0
+          slot.booked ||
+          0
         );
 
       const tdRemaining =
@@ -487,7 +795,8 @@ function renderDashboard() {
 
       tdRemaining.textContent =
         Number(
-          slot.remaining || 0
+          slot.remaining ||
+          0
         );
 
       const tdOccupancy =
@@ -517,8 +826,10 @@ function renderDashboard() {
       tbody.appendChild(
         tr
       );
+
     }
   );
+
 }
 
 
@@ -526,15 +837,19 @@ function renderDashboard() {
    DAY NAME
 ========================================================= */
 
-function getDisplayDayName(data) {
+function getDisplayDayName(data){
 
   const apiDayName =
     currentLang === "ar"
       ? data.dayNameAr
       : data.dayNameEn;
 
-  if (apiDayName) {
+  if (
+    apiDayName
+  ){
+
     return apiDayName;
+
   }
 
   const dayNames =
@@ -566,6 +881,7 @@ function getDisplayDayName(data) {
   return dayNames[
     parsedDate.getDay()
   ] || "";
+
 }
 
 
@@ -573,7 +889,9 @@ function getDisplayDayName(data) {
    START
 ========================================================= */
 
-setLanguage("en");
+setLanguage(
+  "en"
+);
 
 loadDashboard();
 
@@ -586,4 +904,3 @@ setInterval(
 
 </body>
 </html>
-

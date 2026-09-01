@@ -4,100 +4,477 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>صرف الأدوية الشهرية بموعد</title>
+
 <style>
 *{box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color:#168fb3}
-.container{max-width:980px;margin:auto;background:#fff;padding:22px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,.1);min-height:calc(100vh - 32px)}
-.top-bar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px;direction:ltr}
-.logo{width:120px;height:120px;object-fit:contain}
-.official-header{width:fit-content;max-width:100%;text-align:right;transform:translateY(14px);padding-left:8px;border-left:4px solid #168fb3;direction:rtl}
-.official-header h2,.official-header h3{margin:2px 0;font-size:13px;line-height:1.4;color:#168fb3}
-hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
-.meta-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;direction:ltr}
-.date-box{color:#168fb3;padding:4px 0;font-size:13px;font-weight:bold;text-align:center}
-.language-chip{color:#168fb3;font-size:13px;font-weight:bold;padding:4px 0;white-space:nowrap}
-.page-title{text-align:center;font-size:24px;font-weight:bold;margin:18px 0 8px;color:#168fb3}
-.subtitle{text-align:center;color:#334155;font-size:15px;line-height:1.7;margin:0 auto 22px;max-width:620px}
-.portal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:680px;margin:30px auto 0}
-.portal-card{background:#168fb3;border:1px solid #168fb3;border-radius:8px;padding:18px;text-decoration:none;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:118px;transition:.15s ease}
-.portal-card:hover{border-color:#0f7592;transform:translateY(-1px);box-shadow:0 8px 18px rgba(22,143,179,.28);filter:brightness(1.05)}
-.card-text{text-align:start}
-.card-title{font-size:18px;font-weight:bold;color:#fff;margin:0 0 7px}
-.card-desc{font-size:13px;color:rgba(255,255,255,.85);line-height:1.6;margin:0}
-.card-icon{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;flex:0 0 auto}
-.main-home-link{display:flex;align-items:center;justify-content:center;width:fit-content;margin:20px auto 0;color:#168fb3;text-decoration:none;font-size:28px;line-height:1;background:transparent;border:none;padding:4px}
-.main-home-link:hover{color:#0f7592}
-.portal-grid{gap:12px;max-width:580px;margin-top:28px}
-.portal-card{min-height:100px;padding:14px;gap:12px}
-.card-title{font-size:16px;margin-bottom:5px}
-.card-desc{font-size:12px;line-height:1.55}
-.card-icon{width:38px;height:38px;border-radius:8px;font-size:21px}
-.back-button{width:38px;height:38px;margin:0 auto 8px 0;padding:0;border:0;background:transparent;color:#168fb3;font-size:31px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;font-family:Arial,sans-serif;border-radius:0}
-.back-button:hover{background:transparent;color:#0f7592;transform:translateX(-1px)}@media (max-width:700px){.back-button{width:34px;height:34px;margin-bottom:6px;font-size:28px}
-body{padding:10px;background:#fff}
-.container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}
-.logo{width:84px;height:84px}
-.official-header{transform:translateY(10px)}
-.official-header h2,.official-header h3{font-size:12px}
-.page-title{font-size:20px}
-.portal-grid{grid-template-columns:1fr}
-.portal-card{min-height:88px;padding:12px}
-.card-title{font-size:15px}
-.card-desc{font-size:12px}
-.card-icon{width:34px;height:34px;font-size:19px}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f3f4f6;
+  margin:0;
+  padding:16px;
+  color:#168fb3
+}
+
+.container{
+  max-width:980px;
+  margin:auto;
+  background:#fff;
+  padding:22px;
+  border-radius:14px;
+  box-shadow:0 10px 25px rgba(0,0,0,.1);
+  min-height:calc(100vh - 32px)
+}
+
+.top-bar{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;
+  direction:ltr
+}
+
+.logo{
+  width:120px;
+  height:120px;
+  object-fit:contain
+}
+
+.official-header{
+  width:fit-content;
+  max-width:100%;
+  text-align:right;
+  transform:translateY(14px);
+  padding-left:8px;
+  border-left:4px solid #168fb3;
+  direction:rtl
+}
+
+.official-header h2,
+.official-header h3{
+  margin:2px 0;
+  font-size:13px;
+  line-height:1.4;
+  color:#168fb3
+}
+
+/* العربي كما هو */
+html[dir="rtl"] .official-header{
+  text-align:right;
+  padding-left:8px;
+  padding-right:0;
+  border-left:4px solid #168fb3;
+  border-right:0
+}
+
+/* في حال استخدام الإنجليزية لاحقاً:
+   نفس مكان الترويسة، فقط النص يكون محاذياً للخط */
+html[dir="ltr"] .official-header{
+  text-align:left;
+  padding-left:6px;
+  padding-right:0;
+  border-left:4px solid #168fb3;
+  border-right:0
+}
+
+html[dir="ltr"] .official-header h2,
+html[dir="ltr"] .official-header h3{
+  direction:ltr;
+  text-align:left
+}
+
+hr{
+  border:none;
+  border-top:1px solid #e5e7eb;
+  margin:14px 0
+}
+
+.meta-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
+  direction:ltr
+}
+
+.date-box{
+  color:#168fb3;
+  padding:4px 0;
+  font-size:13px;
+  font-weight:bold;
+  text-align:center
+}
+
+.language-chip{
+  color:#168fb3;
+  font-size:13px;
+  font-weight:bold;
+  padding:4px 0;
+  white-space:nowrap
+}
+
+.page-title{
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+  margin:18px 0 8px;
+  color:#168fb3
+}
+
+.subtitle{
+  text-align:center;
+  color:#334155;
+  font-size:15px;
+  line-height:1.7;
+  margin:0 auto 22px;
+  max-width:620px
+}
+
+.portal-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  max-width:680px;
+  margin:30px auto 0
+}
+
+.portal-card{
+  background:#168fb3;
+  border:1px solid #168fb3;
+  border-radius:8px;
+  padding:18px;
+  text-decoration:none;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  min-height:118px;
+  transition:.15s ease
+}
+
+.portal-card:hover{
+  border-color:#0f7592;
+  transform:translateY(-1px);
+  box-shadow:0 8px 18px rgba(22,143,179,.28);
+  filter:brightness(1.05)
+}
+
+.card-text{
+  text-align:start
+}
+
+.card-title{
+  font-size:18px;
+  font-weight:bold;
+  color:#fff;
+  margin:0 0 7px
+}
+
+.card-desc{
+  font-size:13px;
+  color:rgba(255,255,255,.85);
+  line-height:1.6;
+  margin:0
+}
+
+.card-icon{
+  width:44px;
+  height:44px;
+  border-radius:10px;
+  background:rgba(255,255,255,.2);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  flex:0 0 auto
+}
+
+.main-home-link{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:fit-content;
+  margin:20px auto 0;
+  color:#168fb3;
+  text-decoration:none;
+  font-size:28px;
+  line-height:1;
+  background:transparent;
+  border:none;
+  padding:4px
+}
+
+.main-home-link:hover{
+  color:#0f7592
+}
+
+.portal-grid{
+  gap:12px;
+  max-width:580px;
+  margin-top:28px
+}
+
+.portal-card{
+  min-height:100px;
+  padding:14px;
+  gap:12px
+}
+
+.card-title{
+  font-size:16px;
+  margin-bottom:5px
+}
+
+.card-desc{
+  font-size:12px;
+  line-height:1.55
+}
+
+.card-icon{
+  width:38px;
+  height:38px;
+  border-radius:8px;
+  font-size:21px
+}
+
+.back-button{
+  width:38px;
+  height:38px;
+  margin:0 auto 8px 0;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#168fb3;
+  font-size:31px;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-family:Arial,sans-serif;
+  border-radius:0
+}
+
+.back-button:hover{
+  background:transparent;
+  color:#0f7592;
+  transform:translateX(-1px)
+}
+
+@media (max-width:700px){
+
+  .back-button{
+    width:34px;
+    height:34px;
+    margin-bottom:6px;
+    font-size:28px
+  }
+
+  body{
+    padding:10px;
+    background:#fff
+  }
+
+  .container{
+    padding:14px;
+    border-radius:0;
+    box-shadow:none;
+    min-height:100vh
+  }
+
+  .logo{
+    width:84px;
+    height:84px
+  }
+
+  .official-header{
+    transform:translateY(10px)
+  }
+
+  .official-header h2,
+  .official-header h3{
+    font-size:12px
+  }
+
+  .page-title{
+    font-size:20px
+  }
+
+  .portal-grid{
+    grid-template-columns:1fr
+  }
+
+  .portal-card{
+    min-height:88px;
+    padding:12px
+  }
+
+  .card-title{
+    font-size:15px
+  }
+
+  .card-desc{
+    font-size:12px
+  }
+
+  .card-icon{
+    width:34px;
+    height:34px;
+    font-size:19px
+  }
 }
 </style>
 </head>
+
 <body>
+
 <div class="container">
-  <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">↩</button>
+
+  <button
+    type="button"
+    class="back-button"
+    onclick="history.back()"
+    title="رجوع"
+    aria-label="رجوع">
+    ‹
+  </button>
+
   <div class="top-bar">
-    <img class="logo" src="../logo.png" alt="Logo">
+
+    <img
+      class="logo"
+      src="../logo.png"
+      alt="Logo">
+
     <div class="official-header">
-      <h2>تجمع المدينة المنورة الصحي</h2>
-      <h3>مستشفى الملك فهد بالمدينة المنورة</h3>
-      <h3>إدارة الرعاية الصيدلانية</h3>
+
+      <h2>
+        تجمع المدينة المنورة الصحي
+      </h2>
+
+      <h3>
+        مستشفى الملك فهد بالمدينة المنورة
+      </h3>
+
+      <h3>
+        إدارة الرعاية الصيدلانية
+      </h3>
+
     </div>
+
   </div>
 
   <hr>
 
   <div class="meta-row">
-    <div class="date-box" id="dateBox"></div>
-    <div class="language-chip">🌐 ع | E</div>
+
+    <div
+      class="date-box"
+      id="dateBox">
+    </div>
+
+    <div class="language-chip">
+      🌐 ع | E
+    </div>
+
   </div>
 
-  <h1 class="page-title">صرف الأدوية الشهرية بموعد</h1>
+  <h1 class="page-title">
+    صرف الأدوية الشهرية بموعد
+  </h1>
 
   <div class="portal-grid">
-    <a class="portal-card" href="employee.html">
+
+    <a
+      class="portal-card"
+      href="employee.html">
+
       <div class="card-text">
-        <p class="card-title">إدارة المواعيد</p>
-        <p class="card-desc">متابعة الحجوزات اليومية وتحديث الاستلام والتسليم.</p>
+
+        <p class="card-title">
+          إدارة المواعيد
+        </p>
+
+        <p class="card-desc">
+          متابعة الحجوزات اليومية وتحديث الاستلام والتسليم.
+        </p>
+
       </div>
-      <div class="card-icon">✓</div>
+
+      <div class="card-icon">
+        ✓
+      </div>
+
     </a>
 
-    <a class="portal-card" href="dashboard.html">
+    <a
+      class="portal-card"
+      href="dashboard.html">
+
       <div class="card-text">
-        <p class="card-title">مؤشر المواعيد</p>
-        <p class="card-desc">عرض مؤشرات الحجوزات والسعة المتاحة خلال اليوم.</p>
+
+        <p class="card-title">
+          مؤشر المواعيد
+        </p>
+
+        <p class="card-desc">
+          عرض مؤشرات الحجوزات والسعة المتاحة خلال اليوم.
+        </p>
+
       </div>
-      <div class="card-icon">▦</div>
+
+      <div class="card-icon">
+        ▦
+      </div>
+
     </a>
+
   </div>
+
 </div>
 
 <script>
-function renderDate() {
-  const now = new Date();
-  const date = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Riyadh" }).format(now);
-  const dayName = new Intl.DateTimeFormat("ar-SA", { timeZone: "Asia/Riyadh", weekday: "long" }).format(now);
-  document.getElementById("dateBox").innerText = `${dayName} - ${date}`;
+
+function renderDate(){
+
+  const now =
+    new Date();
+
+  const date =
+    new Intl.DateTimeFormat(
+      "en-CA",
+      {
+        timeZone:"Asia/Riyadh"
+      }
+    ).format(
+      now
+    );
+
+  const dayName =
+    new Intl.DateTimeFormat(
+      "ar-SA",
+      {
+        timeZone:"Asia/Riyadh",
+        weekday:"long"
+      }
+    ).format(
+      now
+    );
+
+  document.getElementById(
+    "dateBox"
+  ).innerText =
+    `${dayName} - ${date}`;
+
 }
+
 renderDate();
+
 </script>
+
 </body>
 </html>
-
-

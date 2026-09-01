@@ -44,11 +44,24 @@ body{
 .official-header{
   width:fit-content;
   max-width:100%;
-  text-align:right;
   transform:translateY(14px);
+  border-left:4px solid #168fb3
+}
+
+/* العربي يبقى مثل ما هو */
+html[dir="rtl"] .official-header{
+  text-align:right;
+  direction:rtl;
   padding-left:8px;
-  border-left:4px solid #168fb3;
-  direction:rtl
+  padding-right:0
+}
+
+/* الإنجليزي يبدأ مباشرة من عند الخط */
+html[dir="ltr"] .official-header{
+  text-align:left;
+  direction:ltr;
+  padding-left:6px;
+  padding-right:0
 }
 
 .official-header h2,
@@ -484,9 +497,10 @@ a.portal-card:hover,
 let currentLang =
   "ar";
 
+
 const text = {
 
-  ar: {
+  ar:{
     title:"صيدلية مركز الكلى",
     officialLine1:"تجمع المدينة المنورة الصحي",
     officialLine2:"مستشفى الملك فهد بالمدينة المنورة",
@@ -499,7 +513,7 @@ const text = {
     back:"العودة إلى اختيار الصيدلية"
   },
 
-  en: {
+  en:{
     title:"Kidney Center Pharmacy",
     officialLine1:"Madinah Health Cluster",
     officialLine2:"King Fahad Hospital - Madinah",
@@ -531,6 +545,7 @@ function setLanguage(lang){
   document.title =
     text[lang].title;
 
+
   [
     "officialLine1",
     "officialLine2",
@@ -541,7 +556,7 @@ function setLanguage(lang){
     "dashboardDesc",
     "formTitle",
     "formDesc"
-  ].forEach(id=>{
+  ].forEach(function(id){
 
     document.getElementById(id).innerText =
       text[lang][
@@ -553,12 +568,15 @@ function setLanguage(lang){
 
   });
 
+
   const homeLink =
     document.querySelector(
       ".main-home-link"
     );
 
-  if (homeLink) {
+  if (
+    homeLink
+  ){
 
     homeLink.title =
       text[lang].back;
@@ -570,12 +588,15 @@ function setLanguage(lang){
 
   }
 
+
   document.getElementById(
     "languageToggle"
   ).innerText =
     "🌐 ع | E";
 
+
   renderDate();
+
 }
 
 
@@ -599,8 +620,7 @@ function renderDate(){
     new Intl.DateTimeFormat(
       "en-CA",
       {
-        timeZone:
-          "Asia/Riyadh"
+        timeZone:"Asia/Riyadh"
       }
     ).format(
       now
@@ -612,14 +632,13 @@ function renderDate(){
         ? "ar-SA"
         : "en-US",
       {
-        timeZone:
-          "Asia/Riyadh",
-        weekday:
-          "long"
+        timeZone:"Asia/Riyadh",
+        weekday:"long"
       }
     ).format(
       now
     );
+
 
   document.getElementById(
     "dateBox"

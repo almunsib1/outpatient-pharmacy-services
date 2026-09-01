@@ -44,11 +44,22 @@ body{
 .official-header{
   width:fit-content;
   max-width:100%;
-  text-align:right;
   transform:translateY(14px);
+  border-left:4px solid #168fb3
+}
+
+html[dir="rtl"] .official-header{
+  text-align:right;
+  direction:rtl;
   padding-left:8px;
-  border-left:4px solid #168fb3;
-  direction:rtl
+  padding-right:0
+}
+
+html[dir="ltr"] .official-header{
+  text-align:left;
+  direction:ltr;
+  padding-left:6px;
+  padding-right:0
 }
 
 .official-header h2,
@@ -100,7 +111,7 @@ hr{
   justify-content:center;
   gap:10px;
   margin:18px auto 22px;
-  flex-wrap:wrap
+  direction:rtl
 }
 
 .page-title{
@@ -109,6 +120,30 @@ hr{
   font-weight:bold;
   margin:0;
   color:#168fb3
+}
+
+.back-button{
+  width:34px;
+  height:34px;
+  margin:0;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#168fb3;
+  font-size:28px;
+  line-height:1;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  font-family:Arial,sans-serif;
+  flex:0 0 auto
+}
+
+.back-button:hover{
+  background:transparent;
+  color:#0f7592;
+  transform:translateX(-1px)
 }
 
 label{
@@ -169,8 +204,14 @@ select{
   font-family:inherit
 }
 
-.primary-btn:hover{filter:brightness(1.05)}
-.primary-btn:disabled{background:#94a3b8;cursor:not-allowed}
+.primary-btn:hover{
+  filter:brightness(1.05)
+}
+
+.primary-btn:disabled{
+  background:#94a3b8;
+  cursor:not-allowed
+}
 
 .secondary-btn{
   border:1px solid #cbd5e1;
@@ -184,7 +225,9 @@ select{
   font-family:inherit
 }
 
-.secondary-btn:hover{background:#f9fafb}
+.secondary-btn:hover{
+  background:#f9fafb
+}
 
 .login-card{
   max-width:280px;
@@ -372,7 +415,9 @@ select{
   margin-top:10px
 }
 
-.conflict-actions button{min-width:120px}
+.conflict-actions button{
+  min-width:120px
+}
 
 .conflict-actions .danger-btn{
   background:#eab308;
@@ -410,46 +455,72 @@ select{
   color:#065f46
 }
 
-.back-button{
-  width:34px;
-  height:34px;
-  margin:0;
-  padding:0;
-  border:0;
-  background:transparent;
-  color:#168fb3;
-  font-size:28px;
-  line-height:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  font-family:Arial,sans-serif;
-  border-radius:0;
-  grid-column:3;
-  grid-row:1
-}
-
-.back-button:hover{
-  background:transparent;
-  color:#0f7592;
-  transform:translateX(-1px)
-}
-
 @media (max-width:700px){
-  .back-button{width:34px;height:34px;margin-bottom:6px;font-size:28px}
-  body{padding:10px;background:#fff}
-  .container{padding:14px;border-radius:0;box-shadow:none;min-height:100vh}
-  .logo{width:84px;height:84px}
-  .official-header{transform:translateY(10px)}
-  .official-header h2,.official-header h3{font-size:12px}
-  .title-row{gap:8px;margin-bottom:20px}
-  .page-title{font-size:20px}
-  .employee-toolbar{gap:10px;margin:8px auto 16px}
-  .employee-name{font-size:22px}
-  .logout-icon{width:32px;height:32px}
-  .power-svg{width:28px;height:28px}
-  .form-panel{width:min(100%,320px);padding:14px}
+
+  body{
+    padding:10px;
+    background:#fff
+  }
+
+  .container{
+    padding:14px;
+    border-radius:0;
+    box-shadow:none;
+    min-height:100vh
+  }
+
+  .logo{
+    width:84px;
+    height:84px
+  }
+
+  .official-header{
+    transform:translateY(10px)
+  }
+
+  .official-header h2,
+  .official-header h3{
+    font-size:12px
+  }
+
+  .title-row{
+    gap:8px;
+    margin-bottom:20px
+  }
+
+  .page-title{
+    font-size:20px
+  }
+
+  .back-button{
+    width:34px;
+    height:34px;
+    font-size:28px
+  }
+
+  .employee-toolbar{
+    gap:10px;
+    margin:8px auto 16px
+  }
+
+  .employee-name{
+    font-size:22px
+  }
+
+  .logout-icon{
+    width:32px;
+    height:32px
+  }
+
+  .power-svg{
+    width:28px;
+    height:28px
+  }
+
+  .form-panel{
+    width:min(100%,320px);
+    padding:14px
+  }
 
   .expiry-row{
     grid-template-columns:68px minmax(110px,1fr) 84px;
@@ -475,6 +546,7 @@ select{
 <div class="container">
 
   <div class="top-bar">
+
     <img class="logo" src="../../logo.png" alt="Logo">
 
     <div class="official-header">
@@ -482,11 +554,13 @@ select{
       <h3 id="officialLine2">مستشفى الملك فهد بالمدينة المنورة</h3>
       <h3 id="officialLine3">إدارة الرعاية الصيدلانية</h3>
     </div>
+
   </div>
 
   <hr>
 
   <div class="meta-row">
+
     <div class="date-box" id="dateBox"></div>
 
     <button
@@ -496,19 +570,47 @@ select{
       onclick="toggleLanguage()">
       🌐 ع | E
     </button>
+
   </div>
 
   <div class="title-row">
-    <h1 class="page-title" id="pageTitle">Monthly Inspection</h1>
+
+    <button
+      type="button"
+      class="back-button"
+      id="loginBackButton"
+      onclick="history.back()"
+      title="رجوع"
+      aria-label="رجوع">
+      ↩
+    </button>
+
+    <h1 class="page-title" id="pageTitle">
+      Monthly Inspection
+    </h1>
+
   </div>
 
   <div id="loginView" class="login-card">
 
-    <label id="usernameLabel" for="username">اسم المستخدم</label>
-    <input type="text" id="username" autocomplete="username">
+    <label id="usernameLabel" for="username">
+      اسم المستخدم
+    </label>
 
-    <label id="passwordLabel" for="password">PIN</label>
-    <input type="password" id="password" inputmode="numeric" autocomplete="current-password">
+    <input
+      type="text"
+      id="username"
+      autocomplete="username">
+
+    <label id="passwordLabel" for="password">
+      PIN
+    </label>
+
+    <input
+      type="password"
+      id="password"
+      inputmode="numeric"
+      autocomplete="current-password">
 
     <div class="login-actions">
 
@@ -520,10 +622,15 @@ select{
         title="تسجيل الدخول"
         aria-label="تسجيل الدخول">
 
-        <svg class="login-svg" viewBox="0 0 24 24" aria-hidden="true">
+        <svg
+          class="login-svg"
+          viewBox="0 0 24 24"
+          aria-hidden="true">
+
           <path d="M10 17l5-5-5-5"></path>
           <path d="M15 12H3"></path>
           <path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path>
+
         </svg>
 
       </button>
@@ -540,16 +647,42 @@ select{
 
     </div>
 
-    <div class="change-password-panel" id="changePasswordPanel">
+    <div
+      class="change-password-panel"
+      id="changePasswordPanel">
 
-      <label id="changeUsernameLabel" for="changeUsername">اسم المستخدم</label>
-      <input type="text" id="changeUsername" autocomplete="username">
+      <label
+        id="changeUsernameLabel"
+        for="changeUsername">
+        اسم المستخدم
+      </label>
 
-      <label id="oldPasswordLabel" for="oldPassword">PIN الحالي</label>
-      <input type="password" id="oldPassword" autocomplete="current-password">
+      <input
+        type="text"
+        id="changeUsername"
+        autocomplete="username">
 
-      <label id="newPasswordLabel" for="newPassword">PIN الجديد</label>
-      <input type="password" id="newPassword" autocomplete="new-password">
+      <label
+        id="oldPasswordLabel"
+        for="oldPassword">
+        PIN الحالي
+      </label>
+
+      <input
+        type="password"
+        id="oldPassword"
+        autocomplete="current-password">
+
+      <label
+        id="newPasswordLabel"
+        for="newPassword">
+        PIN الجديد
+      </label>
+
+      <input
+        type="password"
+        id="newPassword"
+        autocomplete="new-password">
 
       <button
         type="button"
@@ -569,16 +702,10 @@ select{
 
     <div class="employee-toolbar">
 
-      <button
-        type="button"
-        class="back-button"
-        onclick="history.back()"
-        title="رجوع"
-        aria-label="رجوع">
-        ↩
-      </button>
-
-      <span class="employee-name" id="employeeName"></span>
+      <span
+        class="employee-name"
+        id="employeeName">
+      </span>
 
       <button
         type="button"
@@ -588,18 +715,26 @@ select{
         title="تسجيل الخروج"
         aria-label="تسجيل الخروج">
 
-        <svg class="power-svg" viewBox="0 0 24 24" aria-hidden="true">
+        <svg
+          class="power-svg"
+          viewBox="0 0 24 24"
+          aria-hidden="true">
+
           <path d="M12 3v9"></path>
           <path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path>
+
         </svg>
 
       </button>
 
     </div>
 
-    <div class="conflict-box" id="conflictBox">
+    <div
+      class="conflict-box"
+      id="conflictBox">
 
       <div id="conflictText"></div>
+
       <ul id="conflictList"></ul>
 
       <div class="conflict-actions">
@@ -626,7 +761,11 @@ select{
 
     <div class="form-panel">
 
-      <label id="medNameLabel" for="medName">اسم الدواء</label>
+      <label
+        id="medNameLabel"
+        for="medName">
+        اسم الدواء
+      </label>
 
       <div class="combo-wrap">
 
@@ -639,19 +778,33 @@ select{
           inputmode="text"
           pattern="[A-Za-z0-9\s\-_/().,+%]*">
 
-        <div class="combo-options" id="medNameOptions"></div>
+        <div
+          class="combo-options"
+          id="medNameOptions">
+        </div>
 
       </div>
 
-      <label id="medExpiryLabel">تاريخ الانتهاء</label>
+      <label id="medExpiryLabel">
+        تاريخ الانتهاء
+      </label>
 
       <div class="expiry-row">
 
-        <select id="expiryDay" aria-label="Day">
-          <option value="">Day</option>
+        <select
+          id="expiryDay"
+          aria-label="Day">
+
+          <option value="">
+            Day
+          </option>
+
         </select>
 
-        <select id="expiryMonth" aria-label="Month">
+        <select
+          id="expiryMonth"
+          aria-label="Month">
+
           <option value="">Month</option>
           <option value="01">January</option>
           <option value="02">February</option>
@@ -665,10 +818,17 @@ select{
           <option value="10">October</option>
           <option value="11">November</option>
           <option value="12">December</option>
+
         </select>
 
-        <select id="expiryYear" aria-label="Year">
-          <option value="">Year</option>
+        <select
+          id="expiryYear"
+          aria-label="Year">
+
+          <option value="">
+            Year
+          </option>
+
         </select>
 
       </div>
@@ -692,6 +852,7 @@ select{
   </div>
 
 </div>
+
 
 <script>
 
@@ -971,7 +1132,7 @@ const INACTIVITY_LIMIT_MS =
 
 const text = {
 
-  ar: {
+  ar:{
     title:"الفحص الشهري",
     officialLine1:"تجمع المدينة المنورة الصحي",
     officialLine2:"مستشفى الملك فهد بالمدينة المنورة",
@@ -1003,7 +1164,7 @@ const text = {
     checkFailed:"تعذر التحقق من التسجيلات السابقة."
   },
 
-  en: {
+  en:{
     title:"Monthly Inspection",
     officialLine1:"Madinah Health Cluster",
     officialLine2:"King Fahad Hospital - Madinah",
@@ -1131,12 +1292,13 @@ function setLanguage(lang){
 
   if (
     currentEmployeeName
-  ) {
+  ){
     document.getElementById("employeeName").innerText =
       currentEmployeeName;
   }
 
   renderDate();
+
 }
 
 
@@ -1147,6 +1309,7 @@ function toggleLanguage(){
       ? "en"
       : "ar"
   );
+
 }
 
 
@@ -1176,6 +1339,7 @@ function renderDate(){
 
   document.getElementById("dateBox").innerText =
     `${dayName} - ${date}`;
+
 }
 
 
@@ -1200,7 +1364,7 @@ function buildExpirySelectors(){
     let day = 1;
     day <= 31;
     day++
-  ) {
+  ){
 
     const value =
       String(day).padStart(
@@ -1222,6 +1386,7 @@ function buildExpirySelectors(){
     daySelect.appendChild(
       option
     );
+
   }
 
 
@@ -1243,7 +1408,7 @@ function buildExpirySelectors(){
     let year = currentYear;
     year <= currentYear + 15;
     year++
-  ) {
+  ){
 
     const option =
       document.createElement(
@@ -1259,6 +1424,7 @@ function buildExpirySelectors(){
     yearSelect.appendChild(
       option
     );
+
   }
 
 }
@@ -1286,7 +1452,7 @@ function getExpiryDate(){
     !day ||
     !month ||
     !year
-  ) {
+  ){
     return "";
   }
 
@@ -1317,12 +1483,13 @@ function getExpiryDate(){
     check.getFullYear() !== Number(year) ||
     check.getMonth() + 1 !== Number(month) ||
     check.getDate() !== Number(day)
-  ) {
+  ){
     return "";
   }
 
 
   return expiry;
+
 }
 
 
@@ -1446,7 +1613,7 @@ async function loginEmployee(){
   if (
     !username ||
     !password
-  ) {
+  ){
 
     showLoginResult(
       "error",
@@ -1454,10 +1621,11 @@ async function loginEmployee(){
     );
 
     return;
+
   }
 
 
-  try {
+  try{
 
     const result =
       await postApi(
@@ -1475,7 +1643,7 @@ async function loginEmployee(){
       !result.success ||
       !result.employee ||
       !result.sessionToken
-    ) {
+    ){
 
       showLoginResult(
         "error",
@@ -1486,6 +1654,7 @@ async function loginEmployee(){
       );
 
       return;
+
     }
 
 
@@ -1517,7 +1686,7 @@ async function loginEmployee(){
 
     showEmployeeView();
 
-  } catch(error){
+  }catch(error){
 
     showLoginResult(
       "error",
@@ -1556,17 +1725,18 @@ async function restoreSession(){
 
   if (
     !currentSessionToken
-  ) {
+  ){
 
     clearStoredSession();
 
     showLoginView();
 
     return;
+
   }
 
 
-  try {
+  try{
 
     const result =
       await postApi(
@@ -1581,13 +1751,14 @@ async function restoreSession(){
     if (
       !result.success ||
       !result.user
-    ) {
+    ){
 
       clearStoredSession();
 
       showLoginView();
 
       return;
+
     }
 
 
@@ -1606,7 +1777,7 @@ async function restoreSession(){
 
     showEmployeeView();
 
-  } catch(error){
+  }catch(error){
 
     clearStoredSession();
 
@@ -1634,6 +1805,7 @@ function togglePasswordPanel(){
       : "block";
 
   clearLoginResult();
+
 }
 
 
@@ -1659,7 +1831,7 @@ async function changePassword(){
     !username ||
     !oldPassword ||
     !newPassword
-  ) {
+  ){
 
     showLoginResult(
       "error",
@@ -1667,10 +1839,11 @@ async function changePassword(){
     );
 
     return;
+
   }
 
 
-  try {
+  try{
 
     const result =
       await postApi(
@@ -1688,7 +1861,7 @@ async function changePassword(){
 
     if (
       !result.success
-    ) {
+    ){
 
       showLoginResult(
         "error",
@@ -1699,6 +1872,7 @@ async function changePassword(){
       );
 
       return;
+
     }
 
 
@@ -1719,7 +1893,7 @@ async function changePassword(){
       text[currentLang].passwordChanged
     );
 
-  } catch(error){
+  }catch(error){
 
     showLoginResult(
       "error",
@@ -1753,6 +1927,7 @@ function logoutEmployee(){
     "none";
 
   showLoginView();
+
 }
 
 
@@ -1767,6 +1942,12 @@ function showLoginView(){
     "loginView"
   ).style.display =
     "block";
+
+  document.getElementById(
+    "loginBackButton"
+  ).style.display =
+    "inline-flex";
+
 }
 
 
@@ -1783,11 +1964,17 @@ function showEmployeeView(){
     "block";
 
   document.getElementById(
+    "loginBackButton"
+  ).style.display =
+    "none";
+
+  document.getElementById(
     "employeeName"
   ).innerText =
     currentEmployeeName;
 
   startInactivityWatcher();
+
 }
 
 
@@ -1799,7 +1986,7 @@ function startInactivityWatcher(){
 
   if (
     !inactivityWatcherStarted
-  ) {
+  ){
 
     [
       "click",
@@ -1822,9 +2009,11 @@ function startInactivityWatcher(){
 
     inactivityWatcherStarted =
       true;
+
   }
 
   resetInactivityTimer();
+
 }
 
 
@@ -1840,7 +2029,7 @@ function resetInactivityTimer(){
 
         if (
           currentSessionToken
-        ) {
+        ){
           logoutEmployee();
         }
 
@@ -1894,7 +2083,7 @@ function renderMedOptions(
 
   if (
     !matches.length
-  ) {
+  ){
 
     const empty =
       document.createElement(
@@ -1911,7 +2100,7 @@ function renderMedOptions(
       empty
     );
 
-  } else {
+  }else{
 
     matches
       .slice(
@@ -1949,6 +2138,7 @@ function renderMedOptions(
 
         }
       );
+
   }
 
 
@@ -1997,11 +2187,12 @@ async function submitMedication(){
 
   if (
     !currentSessionToken
-  ) {
+  ){
 
     handleSessionExpired();
 
     return;
+
   }
 
 
@@ -2018,7 +2209,7 @@ async function submitMedication(){
   if (
     !name ||
     !expiry
-  ) {
+  ){
 
     showResult(
       "error",
@@ -2026,6 +2217,7 @@ async function submitMedication(){
     );
 
     return;
+
   }
 
 
@@ -2033,7 +2225,7 @@ async function submitMedication(){
     !isEnglishMedicationName(
       name
     )
-  ) {
+  ){
 
     showResult(
       "error",
@@ -2041,10 +2233,11 @@ async function submitMedication(){
     );
 
     return;
+
   }
 
 
-  try {
+  try{
 
     const data =
       await postApi(
@@ -2060,17 +2253,18 @@ async function submitMedication(){
     if (
       !data ||
       !data.success
-    ) {
+    ){
 
       if (
         isSessionError(
           data
         )
-      ) {
+      ){
 
         handleSessionExpired();
 
         return;
+
       }
 
 
@@ -2083,6 +2277,7 @@ async function submitMedication(){
       );
 
       return;
+
     }
 
 
@@ -2113,7 +2308,7 @@ async function submitMedication(){
 
     if (
       older.length
-    ) {
+    ){
 
       pendingMedication = {
         name:name,
@@ -2126,9 +2321,10 @@ async function submitMedication(){
       );
 
       return;
+
     }
 
-  } catch(error){
+  }catch(error){
 
     showResult(
       "error",
@@ -2137,6 +2333,7 @@ async function submitMedication(){
     );
 
     return;
+
   }
 
 
@@ -2225,7 +2422,7 @@ async function confirmSave(){
 
   if (
     !pendingMedication
-  ) {
+  ){
     return;
   }
 
@@ -2260,7 +2457,7 @@ async function saveMedication(
   expiry
 ){
 
-  try {
+  try{
 
     const result =
       await postApi(
@@ -2284,17 +2481,18 @@ async function saveMedication(
 
     if (
       !result.success
-    ) {
+    ){
 
       if (
         isSessionError(
           result
         )
-      ) {
+      ){
 
         handleSessionExpired();
 
         return;
+
       }
 
 
@@ -2307,6 +2505,7 @@ async function saveMedication(
       );
 
       return;
+
     }
 
 
@@ -2333,7 +2532,7 @@ async function saveMedication(
       "medName"
     ).focus();
 
-  } catch(error){
+  }catch(error){
 
     showResult(
       "error",
@@ -2369,7 +2568,7 @@ async function postApi(
 
   if (
     includeSession
-  ) {
+  ){
 
     currentSessionToken =
       localStorage.getItem(
@@ -2380,7 +2579,7 @@ async function postApi(
 
     if (
       currentSessionToken
-    ) {
+    ){
 
       requestData.sessionToken =
         currentSessionToken;
@@ -2414,7 +2613,7 @@ async function postApi(
 
   if (
     !response.ok
-  ) {
+  ){
 
     throw new Error(
       "HTTP_" +
@@ -2439,7 +2638,7 @@ function diagnosticText(
 
   if (
     !result
-  ) {
+  ){
     return " [NO_RESPONSE]";
   }
 
@@ -2450,7 +2649,7 @@ function diagnosticText(
 
   if (
     result.code
-  ) {
+  ){
 
     parts.push(
       "CODE=" +
@@ -2462,7 +2661,7 @@ function diagnosticText(
 
   if (
     result.message
-  ) {
+  ){
 
     parts.push(
       "MESSAGE=" +
@@ -2474,7 +2673,7 @@ function diagnosticText(
 
   if (
     !parts.length
-  ) {
+  ){
 
     parts.push(
       "UNKNOWN_ERROR"
@@ -2500,7 +2699,7 @@ function isSessionError(
 
   if (
     !result
-  ) {
+  ){
     return false;
   }
 
@@ -2661,7 +2860,7 @@ document.addEventListener(
       !e.target.closest(
         ".combo-wrap"
       )
-    ) {
+    ){
 
       document.getElementById(
         "medNameOptions"

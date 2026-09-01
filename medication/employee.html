@@ -11,10 +11,45 @@ body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:16px;color
 .container{max-width:1100px;margin:auto;background:#fff;padding:22px;border-radius:14px;box-shadow:0 10px 25px rgba(0,0,0,.1)}
 .top-bar{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px;direction:rtl}
 .logo{width:120px;height:120px;object-fit:contain}
-.official-header{width:fit-content;max-width:100%;text-align:start;margin-inline-start:0;margin-inline-end:auto;transform:translateY(14px)}
-.official-header h2,.official-header h3{margin:2px 0;font-size:13px;line-height:1.4;color:#168fb3}
-[dir="rtl"] .official-header{padding-left:8px;border-left:4px solid #168fb3}
-[dir="ltr"] .official-header{padding-right:8px;border-right:4px solid #168fb3}
+
+.official-header{
+  width:fit-content;
+  max-width:100%;
+  text-align:start;
+  margin-inline-start:0;
+  margin-inline-end:auto;
+  transform:translateY(14px)
+}
+
+.official-header h2,
+.official-header h3{
+  margin:2px 0;
+  font-size:13px;
+  line-height:1.4;
+  color:#168fb3
+}
+
+/* العربي كما هو */
+[dir="rtl"] .official-header{
+  padding-left:8px;
+  border-left:4px solid #168fb3
+}
+
+/* الإنجليزي: نفس مكان الترويسة، فقط الخط والمحاذاة */
+[dir="ltr"] .official-header{
+  padding-left:6px;
+  padding-right:0;
+  border-left:4px solid #168fb3;
+  border-right:0;
+  text-align:left
+}
+
+[dir="ltr"] .official-header h2,
+[dir="ltr"] .official-header h3{
+  direction:ltr;
+  text-align:left
+}
+
 hr{border:none;border-top:1px solid #e5e7eb;margin:14px 0}
 .page-title{text-align:center;font-size:24px;font-weight:bold;margin:14px 0 10px;color:#168fb3}
 .meta-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;direction:ltr}
@@ -39,14 +74,12 @@ input,select{width:100%;height:36px;padding:7px 10px;margin-top:5px;margin-botto
 .toolbar > div{min-width:0}
 .pharmacy-tools{flex:0 0 auto}
 .pharmacy-tools select{width:auto;min-width:230px;height:38px;margin-bottom:0;font-size:14px}
-.employee-name{font-weight:bold;color:#168fb3;font-size:24px;line-height:1.2;white-space:nowrap}
-.employee-tools{flex:1 1 100%;display:grid;grid-template-columns:36px auto 36px;align-items:center;justify-content:center;gap:14px;text-align:center;min-height:42px;color:#168fb3;background:transparent;border:0;padding:0}
-.employee-line{display:flex;align-items:center;justify-content:center;gap:6px;min-height:38px;grid-column:2;grid-row:1}
-.logout-icon{width:34px;height:34px;padding:0;border:none;background:transparent;color:#168fb3;font-size:0;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border-radius:0;grid-column:1;grid-row:1}
+.employee-name{font-weight:bold;color:#168fb3;font-size:24px;line-height:1.2}
+.employee-tools{flex:1 1 100%;display:flex;align-items:center;justify-content:center;gap:12px;text-align:center;min-height:42px;color:#168fb3}
+.employee-line{display:flex;align-items:center;justify-content:center;gap:6px;min-height:38px}
+.logout-icon{width:34px;height:34px;padding:0;border:none;background:transparent;color:#168fb3;font-size:0;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;border-radius:0}
 .power-svg{width:30px;height:30px;display:block;fill:none;stroke:currentColor;stroke-width:2.35;stroke-linecap:round;stroke-linejoin:round}
 .logout-icon:hover{background:transparent;transform:scale(1.06)}
-.back-button{width:34px;height:34px;margin:0;padding:0;border:0;background:transparent;color:#168fb3;font-size:26px;line-height:1;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-family:Arial,sans-serif;border-radius:0;grid-column:3;grid-row:1}
-.back-button:hover{background:transparent;color:#0f7592;transform:translateX(-1px)}
 .table-wrap{overflow-x:auto;margin-top:16px}
 table{width:100%;border-collapse:collapse;min-width:980px}
 th,td{padding:8px;border:1px solid #e5e7eb;text-align:center;color:#111827;font-size:13px}
@@ -63,12 +96,14 @@ th{background:#168fb3;color:#fff}
 .receive-btn{background:transparent;color:#168fb3;border:none}
 .deliver-btn{background:transparent;color:#0f766e;border:none}
 .deliver-btn.delivered-complete{background:transparent;color:#9ca3af;border:none}
+
 #result{display:none;margin-top:14px;padding:12px;border-radius:8px;text-align:center}
 #result.error{display:block;background:#fef2f2;color:#991b1b}
 #result.success{display:block;background:#ecfdf5;color:#065f46}
 #loginResult{display:none;margin-top:12px;padding:10px;border-radius:8px;text-align:center}
 #loginResult.error{display:block;background:#fef2f2;color:#991b1b}
 #loginResult.success{display:block;background:#ecfdf5;color:#065f46}
+
 .toolbar{padding:12px}
 .table-wrap{max-width:1000px;margin:14px auto 0}
 table{min-width:820px}
@@ -97,11 +132,11 @@ body{padding:10px;background:#fff}
 .date-box,.language-btn{font-size:12px;padding:6px 9px}
 .toolbar{display:block}
 .pharmacy-tools select{width:100%;min-width:0}
-.employee-tools{margin-top:10px;display:grid;grid-template-columns:34px auto 34px;align-items:center;justify-content:center;text-align:center;gap:10px;min-height:40px}
+.employee-tools{margin-top:10px;align-items:center;justify-content:center;text-align:center;gap:10px;min-height:40px}
 .employee-line{justify-content:center;min-height:auto}
 .primary-btn,.secondary-btn{width:100%;margin-top:6px}
 .employee-name{font-size:22px}
-.logout-icon{width:32px;height:32px}.back-button{width:32px;height:32px;font-size:24px}
+.logout-icon{width:32px;height:32px}
 .power-svg{width:28px;height:28px}
 .login-card{max-width:280px;padding:12px}
 .login-card .primary-btn{width:auto}
@@ -118,7 +153,11 @@ th,td{padding:5px 4px;font-size:11px}
 
 <body>
 
-<div class="container"><div class="top-bar">
+<div class="container">
+  <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">‹</button>
+
+<div class="top-bar">
+
   <div class="official-header">
     <h2 id="officialLine1"></h2>
     <h3 id="officialLine2"></h3>
@@ -126,11 +165,13 @@ th,td{padding:5px 4px;font-size:11px}
   </div>
 
   <img class="logo" src="logo.png" alt="Logo">
+
 </div>
 
 <hr>
 
 <div class="meta-row">
+
   <div class="date-box" id="dateBox"></div>
 
   <button
@@ -139,6 +180,7 @@ th,td{padding:5px 4px;font-size:11px}
     id="languageToggle"
     onclick="toggleLanguage()">
   </button>
+
 </div>
 
 <div class="page-title" id="pageTitle"></div>
@@ -152,6 +194,7 @@ th,td{padding:5px 4px;font-size:11px}
   <input type="password" id="password" inputmode="numeric" autocomplete="current-password">
 
   <div class="login-actions">
+
     <button
       type="button"
       class="primary-btn"
@@ -165,6 +208,7 @@ th,td{padding:5px 4px;font-size:11px}
       id="togglePasswordBtn"
       onclick="togglePasswordPanel()">
     </button>
+
   </div>
 
   <div class="change-password-panel" id="changePasswordPanel">
@@ -196,12 +240,18 @@ th,td{padding:5px 4px;font-size:11px}
   <div class="toolbar">
 
     <div class="pharmacy-tools">
+
       <label id="pharmacyFilterLabel" for="pharmacyFilter"></label>
-      <select id="pharmacyFilter" onchange="loadBookings()"></select>
+
+      <select
+        id="pharmacyFilter"
+        onchange="loadBookings()">
+      </select>
+
     </div>
 
     <div class="employee-tools">
-      <button type="button" class="back-button" onclick="history.back()" title="رجوع" aria-label="رجوع">↩</button>
+
       <div class="employee-line">
         <span class="employee-name" id="employeeName"></span>
       </div>
@@ -212,6 +262,7 @@ th,td{padding:5px 4px;font-size:11px}
         id="logoutBtn"
         onclick="logoutEmployee()">
       </button>
+
     </div>
 
   </div>
@@ -287,21 +338,25 @@ const EMPLOYEE_INACTIVITY_LIMIT_MS =
   30 * 60 * 1000;
 
 const PHARMACIES = [
+
   {
     value:"",
     ar:"جميع الصيدليات",
     en:"All Pharmacies"
   },
+
   {
     value:"Outpatient Pharmacy",
     ar:"صيدلية العيادات الخارجية",
     en:"Outpatient Pharmacy"
   },
+
   {
     value:"Diabetes Center Pharmacy",
     ar:"صيدلية مركز السكر",
     en:"Diabetes Center Pharmacy"
   }
+
 ];
 
 const text = {
@@ -482,27 +537,35 @@ function setLanguage(lang) {
     "🌐 ع | E";
 
   renderDate();
+
   renderPharmacyFilter();
+
   renderBookings();
 }
 
 
 function toggleLanguage() {
+
   setLanguage(
     currentLang === "ar"
       ? "en"
       : "ar"
   );
+
 }
 
 
 function loginIcon() {
+
   return '<svg class="login-svg" viewBox="0 0 24 24"><path d="M10 17l5-5-5-5"></path><path d="M15 12H3"></path><path d="M15 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path></svg>';
+
 }
 
 
 function powerIcon() {
+
   return '<svg class="power-svg" viewBox="0 0 24 24"><path d="M12 3v9"></path><path d="M7.1 6.8a8 8 0 1 0 9.8 0"></path></svg>';
+
 }
 
 
@@ -543,6 +606,7 @@ function renderDate() {
 
   document.getElementById("dateBox").innerText =
     `${dayName} - ${date}`;
+
 }
 
 
@@ -587,6 +651,7 @@ function renderPharmacyFilter() {
   select.value =
     selected ||
     "";
+
 }
 
 
@@ -610,6 +675,7 @@ function saveSession() {
     SESSION_USERNAME_KEY,
     currentUsername
   );
+
 }
 
 
@@ -630,6 +696,7 @@ function clearStoredSession() {
   currentEmployee = "";
   currentUsername = "";
   currentSessionToken = "";
+
 }
 
 
@@ -659,9 +726,12 @@ async function postApi(
     if (
       currentSessionToken
     ) {
+
       requestData.sessionToken =
         currentSessionToken;
+
     }
+
   }
 
   const response =
@@ -683,13 +753,16 @@ async function postApi(
   if (
     !response.ok
   ) {
+
     throw new Error(
       "HTTP_" +
       response.status
     );
+
   }
 
   return await response.json();
+
 }
 
 
@@ -733,6 +806,7 @@ async function loginEmployee() {
       );
 
       return;
+
     }
 
     currentEmployee =
@@ -759,7 +833,9 @@ async function loginEmployee() {
       "error",
       text[currentLang].invalidLogin
     );
+
   }
+
 }
 
 
@@ -787,8 +863,11 @@ async function restoreSession() {
   if (
     !currentSessionToken
   ) {
+
     showLoginView();
+
     return;
+
   }
 
   try {
@@ -808,8 +887,11 @@ async function restoreSession() {
     ) {
 
       clearStoredSession();
+
       showLoginView();
+
       return;
+
     }
 
     currentUsername =
@@ -828,8 +910,11 @@ async function restoreSession() {
   } catch(error) {
 
     clearStoredSession();
+
     showLoginView();
+
   }
+
 }
 
 
@@ -850,6 +935,7 @@ function togglePasswordPanel() {
       : "block";
 
   clearLoginResult();
+
 }
 
 
@@ -878,6 +964,7 @@ async function changePassword() {
     );
 
     return;
+
   }
 
   try {
@@ -901,6 +988,7 @@ async function changePassword() {
       );
 
       return;
+
     }
 
     document.getElementById(
@@ -926,7 +1014,9 @@ async function changePassword() {
       "error",
       text[currentLang].passwordMismatch
     );
+
   }
+
 }
 
 
@@ -939,13 +1029,17 @@ async function logoutEmployee() {
   if (
     currentSessionToken
   ) {
+
     try {
+
       await postApi(
         "revokeSession",
         {},
         true
       );
+
     } catch(error) {}
+
   }
 
   clearStoredSession();
@@ -959,6 +1053,7 @@ async function logoutEmployee() {
   renderBookings();
 
   showLoginView();
+
 }
 
 
@@ -977,6 +1072,7 @@ function showLoginView() {
     "loginView"
   ).style.display =
     "block";
+
 }
 
 
@@ -1002,6 +1098,7 @@ function showEmployeeView() {
   startAutoRefresh();
 
   startEmployeeInactivityWatcher();
+
 }
 
 
@@ -1036,9 +1133,11 @@ function startEmployeeInactivityWatcher() {
 
     inactivityWatcherStarted =
       true;
+
   }
 
   resetEmployeeInactivityTimer();
+
 }
 
 
@@ -1047,6 +1146,7 @@ function stopEmployeeInactivityWatcher() {
   window.clearTimeout(
     employeeInactivityTimer
   );
+
 }
 
 
@@ -1065,12 +1165,15 @@ function resetEmployeeInactivityTimer() {
             SESSION_TOKEN_KEY
           )
         ) {
+
           logoutEmployee();
+
         }
 
       },
       EMPLOYEE_INACTIVITY_LIMIT_MS
     );
+
 }
 
 
@@ -1090,14 +1193,17 @@ function startAutoRefresh() {
           currentSessionToken &&
           pendingBookings.size === 0
         ) {
+
           loadBookings(
             true
           );
+
         }
 
       },
       10000
     );
+
 }
 
 
@@ -1113,7 +1219,9 @@ function stopAutoRefresh() {
 
     refreshTimer =
       null;
+
   }
+
 }
 
 
@@ -1136,6 +1244,7 @@ function showResult(
 
   result.innerText =
     message;
+
 }
 
 
@@ -1154,6 +1263,7 @@ function showLoginResult(
 
   result.innerText =
     message;
+
 }
 
 
@@ -1166,6 +1276,7 @@ function clearLoginResult() {
 
   result.className = "";
   result.innerText = "";
+
 }
 
 
@@ -1178,6 +1289,7 @@ function clearResult() {
 
   result.className = "";
   result.innerText = "";
+
 }
 
 
@@ -1201,6 +1313,7 @@ function isSessionError(
       data.code
     )
   );
+
 }
 
 
@@ -1220,6 +1333,7 @@ function handleSessionExpired() {
     "error",
     text[currentLang].sessionExpired
   );
+
 }
 
 
@@ -1234,13 +1348,17 @@ async function loadBookings(
   if (
     !currentSessionToken
   ) {
+
     return;
+
   }
 
   if (
     pendingBookings.size > 0
   ) {
+
     return;
+
   }
 
   if (!isSilent) {
@@ -1259,6 +1377,7 @@ async function loadBookings(
       "bookingsTable"
     ).style.display =
       "none";
+
   }
 
   const pharmacy =
@@ -1287,11 +1406,15 @@ async function loadBookings(
           data
         )
       ) {
+
         handleSessionExpired();
+
         return;
+
       }
 
       return;
+
     }
 
     bookings =
@@ -1303,12 +1426,16 @@ async function loadBookings(
   } catch(error) {
 
     if (!isSilent) {
+
       showResult(
         "error",
         text[currentLang].updateFailed
       );
+
     }
+
   }
+
 }
 
 
@@ -1347,6 +1474,7 @@ function renderBookings() {
       text[currentLang].noBookings;
 
     return;
+
   }
 
   empty.style.display =
@@ -1432,8 +1560,10 @@ function renderBookings() {
       body.appendChild(
         tr
       );
+
     }
   );
+
 }
 
 
@@ -1449,10 +1579,13 @@ function normalizeClientStatus(
     !status ||
     status === "Confirmed"
   ) {
+
     return "Booked";
+
   }
 
   return status;
+
 }
 
 
@@ -1465,6 +1598,7 @@ function statusBadge(
     "Booked";
 
   const labelMap = {
+
     Booked:
       text[currentLang].booked,
 
@@ -1473,9 +1607,11 @@ function statusBadge(
 
     Delivered:
       text[currentLang].delivered
+
   };
 
   const classMap = {
+
     Booked:
       "status-booked",
 
@@ -1484,6 +1620,7 @@ function statusBadge(
 
     Delivered:
       "status-delivered"
+
   };
 
   return (
@@ -1499,6 +1636,7 @@ function statusBadge(
     ) +
     "</span>"
   );
+
 }
 
 
@@ -1513,16 +1651,19 @@ function getPharmacyName(
   const pharmacy =
     PHARMACIES.find(
       function(item) {
+
         return (
           item.value ===
           value
         );
+
       }
     );
 
   return pharmacy
     ? pharmacy[currentLang]
     : value;
+
 }
 
 
@@ -1537,15 +1678,19 @@ function printLabel(
   const booking =
     bookings.find(
       function(item) {
+
         return (
           item.bookingId ===
           bookingId
         );
+
       }
     );
 
   if (!booking) {
+
     return;
+
   }
 
   document.getElementById(
@@ -1569,6 +1714,7 @@ function printLabel(
     );
 
   window.print();
+
 }
 
 
@@ -1586,21 +1732,27 @@ async function updateStatus(
       bookingId
     )
   ) {
+
     return;
+
   }
 
   const booking =
     bookings.find(
       function(item) {
+
         return (
           item.bookingId ===
           bookingId
         );
+
       }
     );
 
   if (!booking) {
+
     return;
+
   }
 
   clearResult();
@@ -1613,10 +1765,6 @@ async function updateStatus(
       ? "Received"
       : "Delivered";
 
-
-  /*
-  التغيير يظهر فوراً للموظف.
-  */
   booking.status =
     newStatus;
 
@@ -1625,7 +1773,6 @@ async function updateStatus(
   );
 
   renderBookings();
-
 
   try {
 
@@ -1648,16 +1795,11 @@ async function updateStatus(
         true
       );
 
-
     if (
       !data ||
       !data.success
     ) {
 
-      /*
-      إذا السيرفر رفض العملية،
-      نرجع للحالة السابقة.
-      */
       booking.status =
         oldStatus;
 
@@ -1667,16 +1809,17 @@ async function updateStatus(
 
       renderBookings();
 
-
       if (
         isSessionError(
           data
         )
       ) {
-        handleSessionExpired();
-        return;
-      }
 
+        handleSessionExpired();
+
+        return;
+
+      }
 
       showResult(
         "error",
@@ -1686,13 +1829,9 @@ async function updateStatus(
       );
 
       return;
+
     }
 
-
-    /*
-    تمت العملية بنجاح.
-    لا نعيد تحميل كل الحجوزات.
-    */
     pendingBookings.delete(
       bookingId
     );
@@ -1704,13 +1843,8 @@ async function updateStatus(
       text[currentLang].updated
     );
 
-
   } catch(error) {
 
-    /*
-    لو انقطع الاتصال أو حدث خطأ،
-    نرجع للحالة القديمة.
-    */
     booking.status =
       oldStatus;
 
@@ -1724,7 +1858,9 @@ async function updateStatus(
       "error",
       text[currentLang].updateFailed
     );
+
   }
+
 }
 
 
@@ -1749,7 +1885,9 @@ function formatUpdateError(
       : "";
 
   if (!reason) {
+
     return text[currentLang].updateFailed;
+
   }
 
   return (
@@ -1758,6 +1896,7 @@ function formatUpdateError(
     reason +
     ")"
   );
+
 }
 
 
@@ -1782,11 +1921,12 @@ function escapeHtml(
         "&":"&amp;",
         "<":"&lt;",
         ">":"&gt;",
-        "\"":"&quot;"
+        '"':"&quot;"
       }[ch];
 
     }
   );
+
 }
 
 
@@ -1816,6 +1956,7 @@ function escapeJs(
       /\n/g,
       "\\n"
     );
+
 }
 
 
@@ -1830,6 +1971,7 @@ async function init() {
   );
 
   await restoreSession();
+
 }
 
 
@@ -1842,6 +1984,3 @@ document.addEventListener(
 
 </body>
 </html>
-
-
-
