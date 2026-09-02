@@ -246,6 +246,10 @@ hr{
   display:none
 }
 
+#medicineSearchOptions{
+  display:none !important
+}
+
 .combo-option{
   padding:8px 10px;
   font-size:13px;
@@ -342,22 +346,37 @@ tr:last-child td{
   background:#fdeaea !important
 }
 
+.row-expired td{
+  color:#7f1d1d;
+  font-weight:600
+}
+
 .row-soon{
-  background:#fff6e0 !important
+  background:#fff2a8 !important
+}
+
+.row-soon td{
+  color:#8a5a00;
+  font-weight:600
+}
+
+tr:has(.date-ok) td{
+  color:#0b5f78;
+  font-weight:600
 }
 
 .date-expired{
-  color:#a12727;
+  color:#7f1d1d;
   font-weight:bold
 }
 
 .date-soon{
-  color:#eab308;
+  color:#8a5a00;
   font-weight:bold
 }
 
 .date-ok{
-  color:#0f7592;
+  color:#0b5f78;
   font-weight:bold
 }
 
@@ -487,6 +506,7 @@ html[dir="ltr"] .print-official{
 ========================================================= */
 
 .print-date{
+  display:none !important;
   text-align:center;
   color:#64748b;
   font-size:9.5px;
@@ -593,10 +613,51 @@ html[dir="ltr"] .print-official{
   print-color-adjust:exact
 }
 
-.print-table .row-soon{
-  background:#fff6e0 !important;
+.print-table .row-expired td{
+  color:#7f1d1d !important;
+  font-weight:600;
   -webkit-print-color-adjust:exact;
   print-color-adjust:exact
+}
+
+.print-table .row-soon{
+  background:#fff2a8 !important;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact
+}
+
+.print-table .row-soon td{
+  color:#8a5a00 !important;
+  font-weight:600;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact
+}
+
+.print-table tr:has(.date-ok) td{
+  color:#0b5f78 !important;
+  font-weight:600;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact
+}
+
+.print-table th:nth-child(3),
+.print-table td:nth-child(3){
+  display:none !important
+}
+
+.print-table th:nth-child(1),
+.print-table td:nth-child(1){
+  width:43%
+}
+
+.print-table th:nth-child(2),
+.print-table td:nth-child(2){
+  width:24%
+}
+
+.print-table th:nth-child(4),
+.print-table td:nth-child(4){
+  width:33%
 }
 
 /* =========================================================
