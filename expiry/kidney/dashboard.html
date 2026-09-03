@@ -220,7 +220,7 @@ hr{
   color:#111827;
   font-size:14px;
   font-family:inherit;
-  text-align:left;
+  text-align:center;
   direction:ltr;
   outline:none
 }
@@ -420,7 +420,8 @@ tr:has(.date-ok) td{
 ========================================================= */
 
 #printPages{
-  display:none
+  display:none;
+  counter-reset:printRow
 }
 
 .print-page{
@@ -568,7 +569,7 @@ html[dir="ltr"] .print-official{
 }
 
 .print-table tbody tr{
-  height:7.45mm
+  height:7.05mm
 }
 
 .print-table td{
@@ -647,17 +648,63 @@ html[dir="ltr"] .print-official{
 
 .print-table th:nth-child(1),
 .print-table td:nth-child(1){
-  width:43%
+  width:40%
 }
 
 .print-table th:nth-child(2),
 .print-table td:nth-child(2){
-  width:24%
+  width:22%
 }
 
 .print-table th:nth-child(4),
 .print-table td:nth-child(4){
-  width:33%
+  width:30%
+}
+
+
+.print-table thead tr::before{
+  content:"No.";
+  display:table-cell;
+  width:8%;
+  height:8mm;
+  background:#168fb3 !important;
+  color:#fff !important;
+  font-size:9.5px;
+  font-weight:700;
+  padding:3px 5px;
+  border-right:1px solid rgba(255,255,255,.45);
+  vertical-align:middle;
+  text-align:center;
+  -webkit-print-color-adjust:exact;
+  print-color-adjust:exact
+}
+
+.print-table tbody tr::before{
+  counter-increment:printRow;
+  content:counter(printRow);
+  display:table-cell;
+  width:8%;
+  color:#111827;
+  font-size:9px;
+  line-height:1.2;
+  font-weight:600;
+  padding:3px 5px;
+  border-top:1px solid #d8e0e5;
+  border-right:1px solid #d8e0e5;
+  vertical-align:middle;
+  text-align:center
+}
+
+.print-table tbody tr.row-expired::before{
+  color:#7f1d1d !important
+}
+
+.print-table tbody tr.row-soon::before{
+  color:#8a5a00 !important
+}
+
+.print-table tbody tr:has(.date-ok)::before{
+  color:#0b5f78 !important
 }
 
 /* =========================================================
@@ -789,7 +836,13 @@ html[dir="ltr"] .print-official{
   }
 
   .print-page{
-    box-shadow:none !important
+    box-shadow:none !important;
+    padding-bottom:7mm !important
+  }
+
+  .print-footer{
+    padding-top:2mm !important;
+    min-height:8mm !important
   }
 }
 </style>
