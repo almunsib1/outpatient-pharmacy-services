@@ -742,9 +742,17 @@ select{
         <button
           type="button"
           class="danger-btn"
+          id="replaceOldBtn"
+          onclick="replaceOldAndSave()">
+          حذف القديم وحفظ الجديد
+        </button>
+
+        <button
+          type="button"
+          class="secondary-btn"
           id="confirmSaveBtn"
           onclick="confirmSave()">
-          متابعة الحفظ رغم ذلك
+          الاحتفاظ بالتاريخين
         </button>
 
         <button
@@ -999,7 +1007,8 @@ const text = {
     saved:"تم تسجيل الدواء بنجاح.",
     saveFailed:"تعذر حفظ البيانات.",
     conflictTitle:"يوجد تسجيل سابق لنفس الدواء بتاريخ أقدم:",
-    confirmSave:"متابعة الحفظ رغم ذلك",
+    replaceOld:"حذف القديم وحفظ الجديد",
+    confirmSave:"الاحتفاظ بالتاريخين",
     cancel:"إلغاء",
     sessionExpired:"انتهت الجلسة. سجّل الدخول مرة أخرى.",
     checkFailed:"تعذر التحقق من التسجيلات السابقة."
@@ -1031,7 +1040,8 @@ const text = {
     saved:"Medication registered successfully.",
     saveFailed:"Could not save the data.",
     conflictTitle:"An earlier expiry date is already registered for this medication:",
-    confirmSave:"Save Anyway",
+    replaceOld:"Delete Old and Save New",
+    confirmSave:"Keep Both Dates",
     cancel:"Cancel",
     sessionExpired:"Session expired. Please sign in again.",
     checkFailed:"Could not verify previous medication records."
@@ -1118,6 +1128,9 @@ function setLanguage(lang){
 
   document.getElementById("submitBtn").innerText =
     text[lang].submit;
+
+  document.getElementById("replaceOldBtn").innerText =
+    text[lang].replaceOld;
 
   document.getElementById("confirmSaveBtn").innerText =
     text[lang].confirmSave;
@@ -2419,7 +2432,39 @@ async function confirmSave(){
 
   await saveMedication(
     name,
+    expiry,
+    false
+  );
+
+}
+
+
+async function replaceOldAndSave(){
+
+  if (
+    !pendingMedication
+  ){
+    return;
+  }
+
+
+  const {
+    name,
     expiry
+  } =
+    pendingMedication;
+
+
+  document.getElementById(
+    "conflictBox"
+  ).style.display =
+    "none";
+
+
+  await saveMedication(
+    name,
+    expiry,
+    true
   );
 
 }
@@ -2431,7 +2476,8 @@ async function confirmSave(){
 
 async function saveMedication(
   name,
-  expiry
+  expiry,
+  deleteOlderExisting
 ){
 
   try{
@@ -2445,6 +2491,9 @@ async function saveMedication(
 
           expiry:expiry,
           expiryDate:expiry,
+
+          deleteOlderExisting:
+            deleteOlderExisting === true,
 
           registeredByUsername:
             currentEmployeeUsername,
