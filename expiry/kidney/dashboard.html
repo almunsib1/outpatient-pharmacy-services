@@ -440,14 +440,15 @@ tr:has(.date-ok) td{
 
 .print-page{
   width:100%;
-  min-height:auto;
+  min-height:281mm;
+  height:281mm;
   margin:0 auto;
   padding:10mm 12mm;
   background:#fff;
   color:#111827;
   border:1.3px solid #cbdfe6;
   border-radius:3mm;
-  overflow:visible;
+  overflow:hidden;
   display:flex;
   flex-direction:column;
   page-break-after:always;
@@ -845,6 +846,8 @@ tr:has(.date-ok) td{
   .print-page{
     box-shadow:none !important;
     width:100% !important;
+    min-height:274mm !important;
+    height:274mm !important;
     margin:0 auto !important;
     padding:10mm 12mm !important
   }
