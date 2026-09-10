@@ -51,6 +51,11 @@ body{
   direction:rtl
 }
 
+html[dir="ltr"] .official-header{
+  text-align:left;
+  direction:ltr
+}
+
 .official-header h2,
 .official-header h3{
   margin:2px 0;
@@ -305,6 +310,15 @@ hr{
   transform:scale(1.08)
 }
 
+.remove-btn{
+  color:#a12727;
+  display:none
+}
+
+.remove-btn.visible{
+  display:inline-flex
+}
+
 /* =========================================================
    SCREEN TABLE
 ========================================================= */
@@ -426,12 +440,14 @@ tr:has(.date-ok) td{
 
 .print-page{
   width:100%;
-  height:279mm;
-  margin:0;
-  padding:7mm 8mm 4mm;
+  min-height:auto;
+  margin:0 auto;
+  padding:10mm 12mm;
   background:#fff;
   color:#111827;
-  overflow:hidden;
+  border:1.3px solid #cbdfe6;
+  border-radius:3mm;
+  overflow:visible;
   display:flex;
   flex-direction:column;
   page-break-after:always;
@@ -453,7 +469,7 @@ tr:has(.date-ok) td{
   justify-content:space-between;
   direction:ltr;
   gap:18px;
-  min-height:25mm;
+  min-height:23mm;
   margin:0 0 4mm
 }
 
@@ -465,19 +481,10 @@ tr:has(.date-ok) td{
 }
 
 .print-official{
-  border-left:3px solid #168fb3
-}
-
-html[dir="rtl"] .print-official{
   text-align:right;
   direction:rtl;
-  padding:2mm 0 2mm 10px
-}
-
-html[dir="ltr"] .print-official{
-  text-align:left;
-  direction:ltr;
-  padding:2mm 0 2mm 6px
+  padding:2mm 0 2mm 10px;
+  border-left:3px solid #168fb3
 }
 
 .print-official h2{
@@ -837,7 +844,9 @@ html[dir="ltr"] .print-official{
 
   .print-page{
     box-shadow:none !important;
-    padding-bottom:7mm !important
+    width:100% !important;
+    margin:0 auto !important;
+    padding:10mm 12mm !important
   }
 
   .print-footer{
@@ -998,6 +1007,16 @@ html[dir="ltr"] .print-official{
       title="Print"
       aria-label="Print">
       🖨️
+    </button>
+
+    <button
+      type="button"
+      class="action-btn remove-btn"
+      id="removeBtn"
+      onclick="removeSelectedMonth()"
+      title="Remove"
+      aria-label="Remove">
+      🗑️
     </button>
 
     <div class="combo-wrap">
@@ -1266,6 +1285,12 @@ const text = {
     colStatus:"الحالة",
     colEmployee:"اسم الموظف",
     printBtnText:"طباعة",
+    removeBtnText:"حذف",
+    removeAdminPinPrompt:"أدخل PIN الأدمن الرئيسي للبوابة:",
+    removeConfirm:"سيتم حذف أدوية الشهر المختار من القائمة. هل تريد المتابعة؟",
+    removeSuccess:"تم حذف السجلات بنجاح.",
+    removeFailed:"تعذر حذف السجلات.",
+    removeAdminRequired:"PIN الأدمن الرئيسي غير صحيح.",
     refreshBtnText:"تحديث",
     refreshNote:"يتحدث تلقائياً كل 10 ثواني",
     emptyNote:"لا توجد بيانات لعرضها حالياً.",
@@ -1291,6 +1316,12 @@ const text = {
     colStatus:"Status",
     colEmployee:"Employee Name",
     printBtnText:"Print",
+    removeBtnText:"Remove",
+    removeAdminPinPrompt:"Enter main portal admin PIN:",
+    removeConfirm:"Medications for the selected month will be removed from the list. Continue?",
+    removeSuccess:"Records removed successfully.",
+    removeFailed:"Could not remove records.",
+    removeAdminRequired:"Main admin PIN is incorrect.",
     refreshBtnText:"Refresh",
     refreshNote:"Auto-refreshes every 10 seconds",
     emptyNote:"No data to display yet.",
@@ -1372,6 +1403,14 @@ function setLanguage(lang){
     text[lang].printBtnText
   );
 
+  document.getElementById("removeBtn").title =
+    text[lang].removeBtnText;
+
+  document.getElementById("removeBtn").setAttribute(
+    "aria-label",
+    text[lang].removeBtnText
+  );
+
   document.getElementById("refreshBtn").title =
     text[lang].refreshBtnText;
 
@@ -1390,6 +1429,8 @@ function setLanguage(lang){
   renderRows(
     lastItems
   );
+
+  updateRemoveButton();
 
 }
 
@@ -1643,8 +1684,29 @@ function refreshReportView(){
 
   updateReportTitle();
 
+  updateRemoveButton();
+
   renderRows(
     lastItems
+  );
+
+}
+
+
+function updateRemoveButton(){
+
+  const removeBtn =
+    document.getElementById(
+      "removeBtn"
+    );
+
+  if (!removeBtn) {
+    return;
+  }
+
+  removeBtn.classList.toggle(
+    "visible",
+    getReportType() === "removal"
   );
 
 }
@@ -2376,19 +2438,19 @@ function createPrintPage(
 
       '<h2>' +
       escapeHtml(
-        text[currentLang].officialLine1
+        text.ar.officialLine1
       ) +
       '</h2>' +
 
       '<h3>' +
       escapeHtml(
-        text[currentLang].officialLine2
+        text.ar.officialLine2
       ) +
       '</h3>' +
 
       '<h3>' +
       escapeHtml(
-        text[currentLang].officialLine3
+        text.ar.officialLine3
       ) +
       '</h3>' +
 
@@ -2683,6 +2745,110 @@ function loadData(){
 
       }
     );
+
+}
+
+
+async function removeSelectedMonth(){
+
+  if (
+    getReportType() !== "removal"
+  ){
+    return;
+  }
+
+  const adminPin =
+    window.prompt(
+      text[currentLang].removeAdminPinPrompt
+    );
+
+  if (
+    adminPin === null
+  ){
+    return;
+  }
+
+  if (
+    !adminPin.trim()
+  ){
+    window.alert(
+      text[currentLang].removeAdminRequired
+    );
+
+    return;
+  }
+
+  if (
+    !window.confirm(
+      text[currentLang].removeConfirm
+    )
+  ){
+    return;
+  }
+
+  const removeBtn =
+    document.getElementById(
+      "removeBtn"
+    );
+
+  removeBtn.disabled =
+    true;
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":"text/plain"
+          },
+          body:JSON.stringify({
+            action:"removeExpiredMonth",
+            reportMonth:getReportMonth(),
+            month:getReportMonth(),
+            adminUsername:"Admin",
+            adminPin:adminPin.trim()
+          })
+        }
+      );
+
+    const result =
+      await response.json();
+
+    if (
+      !result ||
+      !result.success
+    ){
+      window.alert(
+        result &&
+        result.code === "NO_ADMIN_PERMISSION"
+          ? text[currentLang].removeAdminRequired
+          : text[currentLang].removeFailed
+      );
+
+      return;
+    }
+
+    window.alert(
+      text[currentLang].removeSuccess
+    );
+
+    loadData();
+
+  }catch(error){
+
+    window.alert(
+      text[currentLang].removeFailed
+    );
+
+  }finally{
+
+    removeBtn.disabled =
+      false;
+
+  }
 
 }
 
